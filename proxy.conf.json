@@ -1,0 +1,12 @@
+{
+    "/login": {
+      "target": "https://rad-slrad.koyeb.app/login",
+      "changeOrigin": true,
+      "pathRewrite": { "^/login": "" }
+    },
+    "/users": {
+      "target": "https://rad-slrad.koyeb.app/users",
+      "changeOrigin": true,
+      "pathRewrite": { "^/users": "" }
+    }
+  }
