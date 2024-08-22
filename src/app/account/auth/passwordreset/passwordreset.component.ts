@@ -58,5 +58,11 @@ export class PasswordresetComponent implements OnInit, AfterViewInit {
           this.error = error ? error : '';
         });
     }
+    else{
+      this.authenticationService.resetPassword(this.f.email.value)
+        .catch(error => {
+          this.error = error ? error : '';
+        });
+    }
   }
 }

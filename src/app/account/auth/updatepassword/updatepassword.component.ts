@@ -63,7 +63,7 @@ export class UpdatepasswordComponent {
     
 
     // Login Api
-    this.store.dispatch(login({ password: password }));
+    this.store.dispatch(updatePassword({ password: pwd }));
   }
 
   /**
