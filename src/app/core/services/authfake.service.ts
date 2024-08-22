@@ -35,6 +35,20 @@ export class AuthfakeauthenticationService {
                 return user;
             }));
     }
+    forgotPassword(email: string){
+        return this.http.post('/forgot-password',email) ;
+    }
+    updatePassword(password: string){
+        return this.http.post('/reset-password',password) .pipe(map(user => {
+            // login successful if there's a jwt token in the response
+            if (user) {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                this.currentUserSubject.next(user);
+            }
+            return user;
+        }));
+    }
     updateProfile(user: any){
         return this.http.post('/users',user) .pipe(map(user => {
             // login successful if there's a jwt token in the response

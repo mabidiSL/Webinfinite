@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthenticationService } from '../../../core/services/auth.service';
@@ -16,7 +16,7 @@ import { environment } from '../../../../environments/environment';
  */
 export class PasswordresetComponent implements OnInit, AfterViewInit {
 
-  resetForm: UntypedFormGroup;
+  resetForm: FormGroup;
   submitted: any = false;
   error: any = '';
   success: any = '';
