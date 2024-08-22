@@ -1,12 +1,17 @@
-{
+{  
+  
+ "/forgot-password": 
+  {
+  "target": "https://rad-slrad.koyeb.app/forgot-password",
+  "changeOrigin": true,
+  "pathRewrite": { "^/forgot-password": "" }
+  },
+
     "/login": {
       "target": "https://rad-slrad.koyeb.app/login",
       "changeOrigin": true,
       "pathRewrite": { "^/login": "" }
-    },
-    "/users": {
-      "target": "https://rad-slrad.koyeb.app/users",
-      "changeOrigin": true,
-      "pathRewrite": { "^/users": "" }
     }
+    
+   
   }

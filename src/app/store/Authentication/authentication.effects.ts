@@ -62,7 +62,7 @@ export class AuthenticationEffects {
       })
     )
   );
-  forgotPassword$ = createEffect(() =>
+  forgetPassword$ = createEffect(() =>
     this.actions$.pipe(
       ofType(forgetPassword),
       exhaustMap((action) => {
@@ -72,6 +72,10 @@ export class AuthenticationEffects {
           }),
           catchError((error: any) => {
             return of({ type: '[Auth] Forgot Password Failure', payload: error });
+          }),
+          tap(() => {
+            // Navigate to another route after successful response
+            this.router.navigate(['auth/login']); // or any other route you want
           }),
         );
       }),

@@ -36,7 +36,7 @@ export class AuthfakeauthenticationService {
             }));
     }
     forgotPassword(email: string){
-        return this.http.post('/forgot-password',email) ;
+        return this.http.post('/forgot-password',{email}) ;
     }
     updatePassword(password: string){
         return this.http.post('/reset-password',password) .pipe(map(user => {
