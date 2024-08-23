@@ -58,22 +58,7 @@ export class PasswordresetComponent implements OnInit, AfterViewInit {
     if (this.resetForm.invalid) {
       return;
     }
-<<<<<<< HEAD
-    if (environment.defaultauth === 'firebase') {
-      this.authenticationService.resetPassword(this.f.email.value)
-        .catch(error => {
-          this.error = error ? error : '';
-        });
-    }
-    else{
-      this.authenticationService.resetPassword(this.f.email.value)
-        .catch(error => {
-          this.error = error ? error : '';
-        });
-    }
-=======
     this.store.dispatch(forgetPassword({ email: this.f.email.value }));
->>>>>>> IN-21-Web-ForgetPassword
   }
     //this.authFakeService.forgotPassword(this.f.email.value);
        
