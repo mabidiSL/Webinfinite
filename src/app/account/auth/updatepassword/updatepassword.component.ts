@@ -5,16 +5,16 @@ import { AuthfakeauthenticationService } from '../../../core/services/authfake.s
 
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
-import { login } from 'src/app/store/Authentication/authentication.actions';
+import { updatePassword } from 'src/app/store/Authentication/authentication.actions';
 
 @Component({
   selector: 'app-updatepassword',
   templateUrl: './updatepassword.component.html',
-  styleUrl: './updatepassword.component.css'
+  styleUrl: './updatepassword.component.scss'
 })
 export class UpdatepasswordComponent {
 
-
+  public token: string;
   updatePassForm: UntypedFormGroup;
   submitted: any = false;
   error: any = '';
@@ -26,28 +26,34 @@ export class UpdatepasswordComponent {
 
   // tslint:disable-next-line: max-line-length
   constructor(private formBuilder: UntypedFormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService, private store: Store,
-    private authFackservice: AuthfakeauthenticationService) { }
+) { }
 
   ngOnInit() {
-    if (localStorage.getItem('currentUser')) {
-      this.router.navigate(['/']);
-    }
+   
+   this.token = this.route.snapshot.paramMap.get('id');
+   console.log(this.token);
+   
     // form validation
     this.updatePassForm = this.formBuilder.group({
       
-        password: ['New Password', [Validators.required]],
-        confirmPassword: [ [Validators.required]]
+        password: ['', [Validators.required]],
+        confirmPassword: ['', [Validators.required]]
 
     }, {validators: [this.passwordMatchValidator]});
   }
   passwordMatchValidator(formGroup: FormGroup) {
     const newPassword = formGroup.get('password').value;
     const confirmPassword = formGroup.get('confirmPassword').value;
-  
-    if (newPassword !== confirmPassword) {
-      return { passwordMismatch: true };
-    }
-  
+    
+    
+    if (confirmPassword && newPassword !== confirmPassword) {
+        console.log("password mismatch");
+        formGroup.get('confirmPassword').setErrors({ passwordMismatch: true });
+        return { passwordMismatch: true };
+      }
+    
+      formGroup.get('confirmPassword').setErrors(null);
+   
     return null;
   }
   // convenience getter for easy access to form fields
@@ -60,10 +66,10 @@ export class UpdatepasswordComponent {
     this.submitted = true;
 
     const pwd = this.f['password'].value; // Get the new password from the form
-    
 
-    // Login Api
-    this.store.dispatch(updatePassword({ password: pwd }));
+     // Update Password Api
+     this.store.dispatch(updatePassword({ password: pwd , token: this.token}));
+
   }
 
   /**

@@ -1,9 +1,12 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthenticationService } from '../../../core/services/auth.service';
 import { environment } from '../../../../environments/environment';
+import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
+import { Store } from '@ngrx/store';
+import { forgetPassword } from 'src/app/store/Authentication/authentication.actions';
 
 @Component({
   selector: 'app-passwordreset',
@@ -16,7 +19,7 @@ import { environment } from '../../../../environments/environment';
  */
 export class PasswordresetComponent implements OnInit, AfterViewInit {
 
-  resetForm: UntypedFormGroup;
+  resetForm: FormGroup;
   submitted: any = false;
   error: any = '';
   success: any = '';
@@ -26,7 +29,10 @@ export class PasswordresetComponent implements OnInit, AfterViewInit {
   year: number = new Date().getFullYear();
 
   // tslint:disable-next-line: max-line-length
-  constructor(private formBuilder: UntypedFormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService) { }
+  constructor(private formBuilder: UntypedFormBuilder, 
+    private route: ActivatedRoute, private router: Router, 
+    private authFakeService: AuthfakeauthenticationService,
+    private store: Store,) { }
 
   ngOnInit() {
 
@@ -52,6 +58,7 @@ export class PasswordresetComponent implements OnInit, AfterViewInit {
     if (this.resetForm.invalid) {
       return;
     }
+<<<<<<< HEAD
     if (environment.defaultauth === 'firebase') {
       this.authenticationService.resetPassword(this.f.email.value)
         .catch(error => {
@@ -64,5 +71,17 @@ export class PasswordresetComponent implements OnInit, AfterViewInit {
           this.error = error ? error : '';
         });
     }
+=======
+    this.store.dispatch(forgetPassword({ email: this.f.email.value }));
+>>>>>>> IN-21-Web-ForgetPassword
   }
-}
+    //this.authFakeService.forgotPassword(this.f.email.value);
+       
+    // if (environment.defaultauth === 'firebase') {
+    //   this.authenticationService.resetPassword(this.f.email.value)
+    //     .catch(error => {
+    //       this.error = error ? error : '';
+    //     });
+    // }
+  }
+

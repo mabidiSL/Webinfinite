@@ -38,6 +38,10 @@ const routes: Routes = [
     {
         path: 'update-password',
         component: UpdatepasswordComponent
+    },
+    {
+        path: 'update-password/:id',
+        component: UpdatepasswordComponent
     }
 ];
 

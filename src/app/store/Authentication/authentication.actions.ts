@@ -10,11 +10,16 @@ export const RegisterFailure = createAction('[Authentication] Register Failure',
 export const login = createAction('[Authentication] Login', props<{ email: string, password: string }>());
 export const loginSuccess = createAction('[Authentication] Login Success', props<{ user: any }>());
 export const loginFailure = createAction('[Authentication] Login Failure', props<{ error: any }>());
- 
-// update password
-export const updatePassword = createAction('[Authentication] UpdatePassword', props<{  password: string }>());
-export const updatePasswordSuccess = createAction('[Authentication] UpdatePassword Success', props<{ user: User }>());
-export const updatePasswordFailure = createAction('[Authentication] UpdatePassword Failure', props<{ error: string }>());
+
+// forgotPassword action
+export const forgetPassword = createAction('[Authentication] forgetPassword', props<{ email: string }>());
+export const forgetPasswordSuccess = createAction('[Authentication] forgetPassword Success', props<{ user: any }>());
+export const forgetPasswordFailure = createAction('[Authentication] forgetPassword Failure', props<{ error: any }>());
+
+// UpdatePassword action
+export const updatePassword = createAction('[Authentication] updatePassword', props<{ password: string , token: string}>());
+export const updatePasswordSuccess = createAction('[Authentication] updatePassword Success', props<{ message: any }>());
+export const updatePasswordFailure = createAction('[Authentication] updatePassword Failure', props<{ error: any }>());
 
 // logout action
 export const logout = createAction('[Authentication] Logout');

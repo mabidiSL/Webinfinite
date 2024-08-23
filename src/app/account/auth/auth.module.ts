@@ -17,7 +17,7 @@ import { PasswordresetComponent } from './passwordreset/passwordreset.component'
 import { UpdatepasswordComponent } from './updatepassword/updatepassword.component';
 
 @NgModule({
-  declarations: [LoginComponent, Login2Component, SignupComponent, PasswordresetComponent, Register2Component, Recoverpwd2Component, UpdatepasswordComponent,],
+  declarations: [LoginComponent, Login2Component, SignupComponent, PasswordresetComponent, Register2Component, Recoverpwd2Component, UpdatepasswordComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
