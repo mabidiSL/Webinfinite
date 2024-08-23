@@ -156,27 +156,27 @@
       "LIST": {
         "COUPON": "Coupons",
         "FLASHDEALS": "Flash Deals",
-        "DEALOFTHEDAY":"Deal Of the day"
+        "DEALOFTHEDAY":"Deal Of the Day"
       }
     },
     "GIFTS":{
       "TEXT": "Gifts"
     },
    "MARKETINGMANAGEMENT":{
-      "TEXT": "Marketing management"
+      "TEXT": "Marketing Management"
    },
    "MARKETINGCOMPAIGNS":{
-      "TEXT": "Marketing campaigns"
+      "TEXT": "Marketing Campaigns"
      
    }, 
    "MARKETINGOFFERS":{
     "TEXT": "Marketing Offers"
     }, 
     "SPECIALCOUPONS":{
-      "TEXT": "Special coupons"
+      "TEXT": "Special Coupons"
     },
     "SYSTEMLADMINISTRATION":{
-      "TEXT": "System administration"
+      "TEXT": "System Administration"
     },  
     "TAXSETTINGS":{
       "TEXT": "Tax Settings"
@@ -191,7 +191,7 @@
       "TEXT":"Countries"
     },
     "CITIES":{
-      "TEXT":"cities"
+      "TEXT":"Cities"
     },
     "BANKS":{
       "TEXT":"Banks"
@@ -216,7 +216,7 @@
 
     },
     "CUSTOMERINVOICES":{
-      "TEXT":"Customer invoices"
+      "TEXT":"Customer Invoices"
 
     },
     "PAYMENTS":{
@@ -232,7 +232,7 @@
 
     },
     "DELEGATESTATISTICS":{
-      "TEXT":"Delegate statistics"
+      "TEXT":"Delegate Statistics"
 
     },
     "COMPLAINTS":{
@@ -274,7 +274,7 @@
       "LIST": {
         "CUSTOMERSLIST": "Customer List",
         "ABANDONEDTASKS": "Abandoned Tasks",
-        "CUSTOMERSREVIEWS": "Customer reviews"
+        "CUSTOMERSREVIEWS": "Customer Reviews"
 
       }
     },

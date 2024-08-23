@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap, catchError, exhaustMap, tap, first } from 'rxjs/operators';
 import { from, of } from 'rxjs';
 import { AuthenticationService } from '../../core/services/auth.service';
-import { login, loginSuccess, loginFailure,forgetPassword, logout, logoutSuccess, Register, RegisterSuccess, RegisterFailure } from './authentication.actions';
+import { login, loginSuccess, loginFailure,forgetPassword, logout, logoutSuccess, Register, RegisterSuccess, RegisterFailure, updatePassword, updatePasswordFailure, updatePasswordSuccess } from './authentication.actions';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
@@ -80,31 +80,26 @@ export class AuthenticationEffects {
         );
       }),
     ));
-  /*updatePassword$ = createEffect(() =>
+  updatePassword$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updatePassword),
-      exhaustMap(({ password }) => {
-        if (environment.defaultauth === "httpClient") {
-          return this.AuthfakeService.updatePassword(password).pipe(
-            map((user) => {
-              if (user) {
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                localStorage.setItem('token', user.token);
-                this.router.navigate(['/']);
-              }
-              return loginSuccess({ user });
-            }),
-            catchError((error) => of(loginFailure({ error })), // Closing parenthesis added here
-            ));
-        } else if (environment.defaultauth === "firebase") {
-          return this.AuthenticationService.login(email, password).pipe(map((user) => {
-            return loginSuccess({ user });
-          }))
-        }
-      })
-    )
-  );
-*/
+      exhaustMap(({ password, token }) => {
+        return this.AuthfakeService.updatePassword(password, token).pipe(
+          map((response: any) => {
+            return { type: '[Auth] Update Password Success', payload: response };
+          }),
+          catchError((error: any) => {
+            return of({ type: '[Auth] Update Password Failure', payload: error });
+          }),
+          tap(() => {
+            // Navigate to another route after successful response
+            this.router.navigate(['auth/login']); // or any other route you want
+          }),
+        );
+      }),
+    ));
+     
+
 
   logout$ = createEffect(() =>
     this.actions$.pipe(

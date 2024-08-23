@@ -17,8 +17,8 @@ export const forgetPasswordSuccess = createAction('[Authentication] forgetPasswo
 export const forgetPasswordFailure = createAction('[Authentication] forgetPassword Failure', props<{ error: any }>());
 
 // UpdatePassword action
-export const updatePassword = createAction('[Authentication] updatePassword', props<{ password: string }>());
-export const updatePasswordSuccess = createAction('[Authentication] updatePassword Success', props<{ user: any }>());
+export const updatePassword = createAction('[Authentication] updatePassword', props<{ password: string , token: string}>());
+export const updatePasswordSuccess = createAction('[Authentication] updatePassword Success', props<{ message: any }>());
 export const updatePasswordFailure = createAction('[Authentication] updatePassword Failure', props<{ error: any }>());
 
 // logout action

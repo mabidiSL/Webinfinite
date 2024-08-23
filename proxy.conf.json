@@ -1,17 +1,8 @@
-{  
-  
- "/forgot-password": 
-  {
-  "target": "https://rad-slrad.koyeb.app/forgot-password",
-  "changeOrigin": true,
-  "pathRewrite": { "^/forgot-password": "" }
-  },
-
-    "/login": {
-      "target": "https://rad-slrad.koyeb.app/login",
-      "changeOrigin": true,
-      "pathRewrite": { "^/login": "" }
-    }
-    
-   
+{
+  "/api/*": {
+    "target": "https://rad-slrad.koyeb.app",
+    "changeOrigin": true,
+    "secure": false,
+    "pathRewrite": { "^/api": "" }
   }
+}
