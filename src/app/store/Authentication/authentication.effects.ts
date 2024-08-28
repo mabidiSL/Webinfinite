@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap, catchError, exhaustMap, tap, first } from 'rxjs/operators';
 import { from, of } from 'rxjs';
 import { AuthenticationService } from '../../core/services/auth.service';
-import { login, loginSuccess, loginFailure,forgetPassword, logout, logoutSuccess, Register, RegisterSuccess, RegisterFailure, updatePassword, updatePasswordFailure, updatePasswordSuccess } from './authentication.actions';
+import { login, loginSuccess, loginFailure,forgetPassword, logout, logoutSuccess, Register, RegisterSuccess, RegisterFailure, updatePassword, updatePasswordFailure, updatePasswordSuccess, updateProfile, updateProfilePassword } from './authentication.actions';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
@@ -98,8 +98,44 @@ export class AuthenticationEffects {
         );
       }),
     ));
+  updateProfile$ = createEffect(()=>
+    this.actions$.pipe(
+    ofType(updateProfile),
+    exhaustMap((user : any ) => {
+      return this.AuthfakeService.updateProfile(user).pipe(
+        map((response: any) => {
+          
+          return { type: '[Profile] Update Profile Success', payload: response };
+        }),
+        catchError((error: any) => {
+          return of({ type: '[Profile] Update Profile Failure', payload: error });
+        }),
+        tap(() => {
+          // Navigate to another route after successful response
+          this.router.navigate(['/dashboard']); // or any other route you want
+        }),
+      );
+    }),
+  ));
      
-
+  updateProfilePassword$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateProfilePassword),
+      exhaustMap(({ currentPassword, newPassword}) => {
+        return this.AuthfakeService.updateProfilePassword( currentPassword, newPassword).pipe(
+          map((response: any) => {
+            return { type: '[Auth] Update Profile Password Success', payload: response };
+          }),
+          catchError((error: any) => {
+            return of({ type: '[Auth] Update Profile Password Failure', payload: error });
+          }),
+          tap(() => {
+            // Navigate to another route after successful response
+            this.router.navigate(['/dashboard']); // or any other route you want
+          }),
+        );
+      }),
+    ));
 
   logout$ = createEffect(() =>
     this.actions$.pipe(

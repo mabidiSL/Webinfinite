@@ -17,6 +17,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { UsergridComponent } from './usergrid/usergrid.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { ProfileComponent } from './profile/profile.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   declarations: [UsergridComponent, UserlistComponent, ProfileComponent],
@@ -30,6 +31,8 @@ import { ProfileComponent } from './profile/profile.component';
     FormsModule, 
     ReactiveFormsModule ,
     TooltipModule.forRoot(),
+    TabsModule.forRoot(),
+
     PaginationModule.forRoot(),
     BsDropdownModule,
     ModalModule

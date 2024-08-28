@@ -39,20 +39,30 @@ export class AuthfakeauthenticationService {
     forgotPassword(email: string){
         return this.http.post('/api/forgot-password',{email}) ;
     }
-    updatePassword(password: string, token: string){
-         return this.http.post(`/api/reset-password/${token}`,{password})
+    updateProfilePassword(currentPassword: string, newPassword: string){
+        const id = this.currentUserSubject.value.userId;
+         return this.http.post(`/api/${id}/password`,{currentPassword,newPassword})
         .pipe(map(message => {
             console.log(message)
             return message;
         }));
     }
+    updatePassword(password: string, token: string){
+
+        return this.http.post(`/api/reset-password/${token}`,{password})
+       .pipe(map(message => {
+           console.log(message)
+           return message;
+       }));
+   }
     updateProfile(user: any){
-        return this.http.post('/users',user) .pipe(map(user => {
-            // login successful if there's a jwt token in the response
+        return this.http.put('/api/user',user) .pipe(map(user => {
+            // update Profile successful 
             if (user) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 this.currentUserSubject.next(user);
+                
             }
             return user;
         }));

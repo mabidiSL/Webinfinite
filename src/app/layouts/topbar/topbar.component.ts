@@ -8,10 +8,11 @@ import { CookieService } from 'ngx-cookie-service';
 import { LanguageService } from '../../core/services/language.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
-import { Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { changesLayout } from 'src/app/store/layouts/layout.actions';
 import { getLayoutMode } from 'src/app/store/layouts/layout.selector';
 import { RootReducerState } from 'src/app/store';
+import { User } from 'src/app/store/Authentication/auth.models';
 
 @Component({
   selector: 'app-topbar',
@@ -32,6 +33,9 @@ export class TopbarComponent implements OnInit {
   theme: any;
   layout: string;
   dataLayout$: Observable<string>;
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
+
   // Define layoutMode as a property
 
   constructor(@Inject(DOCUMENT) private document: any, private router: Router, private authService: AuthenticationService,
@@ -39,15 +43,18 @@ export class TopbarComponent implements OnInit {
     public languageService: LanguageService,
     public translate: TranslateService,
     public _cookiesService: CookieService, public store: Store<RootReducerState>) {
+      
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
 
   }
-
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+}
   listLang: any = [
     { text: 'English', flag: 'assets/images/flags/us.jpg', lang: 'en' },
-    { text: 'Spanish', flag: 'assets/images/flags/spain.jpg', lang: 'es' },
-    { text: 'German', flag: 'assets/images/flags/germany.jpg', lang: 'de' },
-    { text: 'Italian', flag: 'assets/images/flags/italy.jpg', lang: 'it' },
-    { text: 'Russian', flag: 'assets/images/flags/russia.jpg', lang: 'ru' },
+    { text: 'Arabic', flag: 'assets/images/flags/ar.jpg', lang: 'ar' },
+
   ];
 
   openMobileMenu: boolean;
