@@ -34,7 +34,11 @@
 ngx-dropzone {
   border: 2px dashed var(--bs-border-color) !important;
 }
-
+.rtl {
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: bidi-override;
+}
 
 
 

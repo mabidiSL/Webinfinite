@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 // import { TOPBAR } from "../layouts.model";
 import { EventService } from '../../core/services/event.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-horizontal',

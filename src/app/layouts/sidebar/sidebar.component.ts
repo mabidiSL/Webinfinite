@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { MENU } from './menu';
 import { MenuItem } from './menu.model';
-import { TranslateService } from '@ngx-translate/core';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -38,10 +38,25 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnInit() {
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.updateSidebarPosition(event.lang);
+    });
     this.initialize();
     this._scrollElement();
   }
-
+  updateSidebarPosition(lang: string) {
+    if (lang === 'ar') { // Arabic language
+      document.body.classList.add('rtl');
+      // Update the sidebar's position to the right side
+      document.getElementById('sidebar-menu').style.direction = 'rtl';
+      document.getElementById('sidebar-menu').style.float = 'right';
+    } else {
+      document.body.classList.remove('rtl');
+      // Reset the sidebar's position to the left side
+      document.getElementById('sidebar-menu').style.direction = 'ltr';
+      document.getElementById('sidebar-menu').style.float = 'left';
+    }
+  }
   ngAfterViewInit() {
     this.menu = new MetisMenu(this.sideMenu.nativeElement);
     this._activateMenuDropdown();

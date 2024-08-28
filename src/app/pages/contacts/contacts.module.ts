@@ -18,11 +18,13 @@ import { UsergridComponent } from './usergrid/usergrid.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [UsergridComponent, UserlistComponent, ProfileComponent],
   imports: [
     CommonModule,
+    TranslateModule,
     ContactsRoutingModule,
     WidgetModule,
     UIModule,

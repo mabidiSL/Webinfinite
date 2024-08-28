@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  constructor(private formBuilder: UntypedFormBuilder, private store: Store, public translate: TranslateService,) {
+  constructor(private formBuilder: UntypedFormBuilder, private store: Store, public translate: TranslateService) {
 
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();

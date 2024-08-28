@@ -44,6 +44,11 @@
     box-shadow: $box-shadow;
 }
 
+.vertical-menu.rtl-sidebar {
+    left: auto; /* update the left position to auto when rtl-sidebar class is applied */
+    right: 0; /* set the right position to 0 when rtl-sidebar class is applied */
+  }
+
 .main-content {
     margin-left: $sidebar-width;
     overflow: hidden;

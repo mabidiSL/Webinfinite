@@ -42,11 +42,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { ChatComponent } from './chat/chat.component';
 
 import { FilemanagerComponent } from './filemanager/filemanager.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageService } from '../core/services/language.service';
 
 @NgModule({
   declarations: [CalendarComponent, ChatComponent, FilemanagerComponent],
   imports: [
     CommonModule,
+    TranslateModule,
     FormsModule,
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
@@ -81,5 +84,7 @@ import { FilemanagerComponent } from './filemanager/filemanager.component';
     LightboxModule,
     PickerModule
   ],
+  providers: [LanguageService]
+
 })
 export class PagesModule { }
