@@ -13,6 +13,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // array in local storage for registered users
         // tslint:disable-next-line: max-line-length
+        console.log('I am in interceptor');
         const users: any[] = JSON.parse(localStorage.getItem('users')!) || [{ username: 'admin', email: 'admin@themesbrand.com', password: '123456' }];
 
         // wrap in delayed observable to simulate server api call
@@ -43,16 +44,16 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             }
 
             // get users
-            if (request.url.endsWith('/users') && request.method === 'GET') {
-                // tslint:disable-next-line: max-line-length
-                // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
-                // if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
-                return of(new HttpResponse({ status: 200, body: users }));
-                // } else {
-                // return 401 not authorised if token is null or invalid
-                // return throwError({ status: 401, error: { message: 'Unauthorised' } });
-                // }
-            }
+            // if (request.url.endsWith('/users') && request.method === 'GET') {
+            //     // tslint:disable-next-line: max-line-length
+            //     // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
+            //     // if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+            //     return of(new HttpResponse({ status: 200, body: users }));
+            //     // } else {
+            //     // return 401 not authorised if token is null or invalid
+            //     // return throwError({ status: 401, error: { message: 'Unauthorised' } });
+            //     // }
+            // }
 
             // get user by id
             if (request.url.match(/\/users\/\d+$/) && request.method === 'GET') {

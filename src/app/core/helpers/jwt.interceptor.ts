@@ -5,44 +5,51 @@ import {
     HttpEvent,
     HttpInterceptor,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
-import { AuthenticationService } from '../services/auth.service';
-import { AuthfakeauthenticationService } from '../services/authfake.service';
-import { environment } from '../../../environments/environment';
+import { Observable, switchMap } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectUserToken } from 'src/app/store/Authentication/authentication-selector';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
     constructor(
-        private authenticationService: AuthenticationService,
-        private authfackservice: AuthfakeauthenticationService
-    ) { }
+        private store: Store    ) { }
 
     intercept(
         request: HttpRequest<any>,
         next: HttpHandler
     ): Observable<HttpEvent<any>> {
-        if (environment.defaultauth === 'firebase') {
-            // add authorization header with jwt token if available
-            let currentUser = this.authenticationService.currentUser();
-            if (currentUser && currentUser.token) {
-                request = request.clone({
-                    setHeaders: {
-                        Authorization: `Bearer ${currentUser.token}`,
-                    },
-                });
-            }
-        } else {
-            // add authorization header with jwt token if available
-            const currentUser = this.authfackservice.currentUserValue;
-            if (currentUser && currentUser.token) {
-                request = request.clone({
-                    setHeaders: {
-                        'x-auth-token': `${currentUser.token}`,
-                    },
-                });
-            }
-        }
-        return next.handle(request);
+       
+        //     console.log('i am on jwt token');
+        //     // add authorization header with jwt token if available
+        //     const currentUser = this.authfackservice.currentUserValue;
+        //     //console.log(currentUser.token);
+        //     if (currentUser && currentUser.token) {
+        //         console.log(currentUser.token);
+        //         request = request.clone({
+        //             setHeaders: {
+        //                 'x-auth-token': `${currentUser.token}`,
+        //             },
+        //         });
+        //     }
+        //     else{
+        //         console.log('i am in the login first time');
+        //     }
+       
+        // return next.handle(request);
+        return this.store.select(selectUserToken).pipe(
+            switchMap(token => {
+                if (token) {
+                    console.log('Token retrieved from state:', token);
+                    request = request.clone({
+                        setHeaders: {
+                            'x-auth-token': token,
+                        },
+                    });
+                } else {
+                    console.log('No token available in state');
+                }
+                return next.handle(request);
+            })
+        );
     }
 }

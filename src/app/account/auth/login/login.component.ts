@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../core/services/auth.service';
-import { AuthfakeauthenticationService } from '../../../core/services/authfake.service';
 
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { login } from 'src/app/store/Authentication/authentication.actions';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   // tslint:disable-next-line: max-line-length
   constructor(private formBuilder: UntypedFormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService, private store: Store,
-    private authFackservice: AuthfakeauthenticationService) { }
+    ) { }
 
   ngOnInit() {
     if (localStorage.getItem('currentUser')) {
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       // email: ['admin@themesbrand.com', [Validators.required, Validators.email]],
       // password: ['123456', [Validators.required]],
         email: ['refka.fouzai@gmail.com', [Validators.required, Validators.email]],
-        password: ['SecurePassword123', [Validators.required]],
+        password: ['', [Validators.required]],
     });
   }
 
@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit {
 
     // Login Api
     this.store.dispatch(login({ email: email, password: password }));
+
   }
 
   /**

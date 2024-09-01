@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from './auth.models';
+import { _User, User } from './auth.models';
 
 // Register action
 export const Register = createAction('[Authentication] Register', props<{ email: string, username: string, password: string }>());
@@ -8,7 +8,7 @@ export const RegisterFailure = createAction('[Authentication] Register Failure',
 
 // login action
 export const login = createAction('[Authentication] Login', props<{ email: string, password: string }>());
-export const loginSuccess = createAction('[Authentication] Login Success', props<{ user: any }>());
+export const loginSuccess = createAction('[Authentication] Login Success', props<{ user: _User, token: string }>());
 export const loginFailure = createAction('[Authentication] Login Failure', props<{ error: any }>());
 
 // forgotPassword action
@@ -23,7 +23,7 @@ export const updatePasswordFailure = createAction('[Authentication] updatePasswo
 
 
 // Update Profile Password action
-export const updateProfilePassword = createAction('[Profile] updateProfilePassword', props<{ currentPassword: string , newPassword: string}>());
+export const updateProfilePassword = createAction('[Profile] updateProfilePassword', props<{ id: string,currentPassword: string , newPassword: string}>());
 export const updateProfilePasswordSuccess = createAction('[Profile] updateProfilePassword Success', props<{ message: any }>());
 export const updateProfilePasswordFailure = createAction('[Profile] updateProfilePassword Failure', props<{ error: any }>());
 
@@ -34,7 +34,7 @@ export const logout = createAction('[Authentication] Logout');
 export const logoutSuccess = createAction('[Auth] Logout Success');
  
 // Update Profile action
-export const updateProfile = createAction('[Profile] updateProfile', props<{ user: any }>());
+export const updateProfile = createAction('[Profile] updateProfile', props<{ user: _User }>());
 export const updateProfileSuccess = createAction('[Profile] updateProfile Success', props<{ user: any }>());
 export const updateProfileFailure = createAction('[Profile] updateProfile Failure', props<{ error: any }>());
 

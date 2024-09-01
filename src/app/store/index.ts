@@ -15,6 +15,8 @@ import { OrderdataState, OrdersReducer } from "./Crypto/crypto.reducer";
 import { LayoutState, layoutReducer } from "./layouts/layouts.reducer";
 import { CustomerReducer, CustomerState } from "./customer/customer.reducer";
 import { MailReducer, MailState } from "./Email/email.reducer";
+import { MerchantApprovalListReducer, MerchantApprovallistState } from "./merchants/merchantlist.reducer";
+import { MerchantListReducer, MerchantlistState } from "./merchantsList/merchantlist1.reducer";
 
 
 export interface RootReducerState {
@@ -33,7 +35,9 @@ export interface RootReducerState {
     Tasklist: tasklistState;
     Order: OrderdataState;
     Customer: CustomerState;
-    Maillist: MailState
+    Maillist: MailState;
+    MerchantApprovalList: MerchantApprovallistState;
+    MerchantList: MerchantlistState
 }
 
 export const rootReducer: ActionReducerMap<RootReducerState> = {
@@ -52,5 +56,7 @@ export const rootReducer: ActionReducerMap<RootReducerState> = {
     Tasklist: tasklistReducer,
     Order: OrdersReducer,
     Customer: CustomerReducer,
-    Maillist: MailReducer
+    Maillist: MailReducer,
+    MerchantApprovalList: MerchantApprovalListReducer,
+    MerchantList:MerchantListReducer
 }

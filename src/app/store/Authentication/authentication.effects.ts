@@ -3,14 +3,23 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap, catchError, exhaustMap, tap, first } from 'rxjs/operators';
 import { from, of } from 'rxjs';
 import { AuthenticationService } from '../../core/services/auth.service';
-import { login, loginSuccess, loginFailure,forgetPassword, logout, logoutSuccess, Register, RegisterSuccess, RegisterFailure, updatePassword, updatePasswordFailure, updatePasswordSuccess, updateProfile, updateProfilePassword } from './authentication.actions';
+import { login, loginSuccess, loginFailure,forgetPassword, logout, logoutSuccess, Register, RegisterSuccess, RegisterFailure, updatePassword, updatePasswordFailure, updatePasswordSuccess, updateProfile, updateProfilePassword, updateProfileSuccess, updateProfileFailure, updateProfilePasswordSuccess, updateProfilePasswordFailure } from './authentication.actions';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
 import { UserProfileService } from 'src/app/core/services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class AuthenticationEffects {
+  
+  constructor(
+    @Inject(Actions) private actions$: Actions,
+    private AuthenticationService: AuthenticationService,
+    private AuthfakeService: AuthfakeauthenticationService,
+    private userService: UserProfileService,
+    private router: Router,
+    public toastr:ToastrService) { }
 
   Register$ = createEffect(() =>
     this.actions$.pipe(
@@ -42,35 +51,42 @@ export class AuthenticationEffects {
     this.actions$.pipe(
       ofType(login),
       exhaustMap(({ email, password }) => {
-        if (environment.defaultauth === "httpClient") {
+       
           return this.AuthfakeService.login(email, password).pipe(
             map((user) => {
               if (user) {
-                localStorage.setItem('currentUser', JSON.stringify(user));
+                localStorage.setItem('currentUser', JSON.stringify(user.user));
                 localStorage.setItem('token', user.token);
                 this.router.navigate(['/']);
+                this.toastr.success('Login successfully!!!');
+               // console.log(localStorage.getItem('token'));
+                console.log('IN LOGIN EFFECTS');
+                console.log(user.token);
+                return loginSuccess({ user: user.user, token: user.token });
+
               }
-              return loginSuccess({ user });
+              return loginFailure({ error:'Login failed' });
             }),
-            catchError((error) => of(loginFailure({ error })), // Closing parenthesis added here
-            ));
-        } else if (environment.defaultauth === "firebase") {
-          return this.AuthenticationService.login(email, password).pipe(map((user) => {
-            return loginSuccess({ user });
-          }))
-        }
+            catchError((error) => {
+              this.toastr.error(`Login failed: ${error.message}`);
+              return of(loginFailure({ error }))})); // Closing parenthesis added here
+            
+        
       })
     )
   );
+  
   forgetPassword$ = createEffect(() =>
     this.actions$.pipe(
       ofType(forgetPassword),
       exhaustMap((action) => {
         return this.AuthfakeService.forgotPassword(action.email).pipe(
           map((response: any) => {
+            this.toastr.success('An Email was sent check your inbox');
             return { type: '[Auth] Forgot Password Success', payload: response };
           }),
           catchError((error: any) => {
+            this.toastr.error(`Forgot Password Failure: ${error.message}`);
             return of({ type: '[Auth] Forgot Password Failure', payload: error });
           }),
           tap(() => {
@@ -86,9 +102,11 @@ export class AuthenticationEffects {
       exhaustMap(({ password, token }) => {
         return this.AuthfakeService.updatePassword(password, token).pipe(
           map((response: any) => {
+            this.toastr.success('Password has been updated successfully!!!');
             return { type: '[Auth] Update Password Success', payload: response };
           }),
           catchError((error: any) => {
+            this.toastr.error(`Update Password Failure: ${error.message}`);
             return of({ type: '[Auth] Update Password Failure', payload: error });
           }),
           tap(() => {
@@ -104,16 +122,19 @@ export class AuthenticationEffects {
     exhaustMap((user : any ) => {
       return this.AuthfakeService.updateProfile(user).pipe(
         map((response: any) => {
-          
-          return { type: '[Profile] Update Profile Success', payload: response };
+          if (response) {
+            localStorage.setItem('currentUser', JSON.stringify(response));
+            this.toastr.success('The profile was updated successfully.');
+            this.router.navigate(['/dashboard']);
+            return updateProfileSuccess({user:response});
+          }
+         
         }),
         catchError((error: any) => {
-          return of({ type: '[Profile] Update Profile Failure', payload: error });
+          this.toastr.error(`Update Profile Failure: ${error.message}`);
+          return of(updateProfileFailure({ error }));
         }),
-        tap(() => {
-          // Navigate to another route after successful response
-          this.router.navigate(['/dashboard']); // or any other route you want
-        }),
+       
       );
     }),
   ));
@@ -121,18 +142,23 @@ export class AuthenticationEffects {
   updateProfilePassword$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updateProfilePassword),
-      exhaustMap(({ currentPassword, newPassword}) => {
-        return this.AuthfakeService.updateProfilePassword( currentPassword, newPassword).pipe(
+      exhaustMap(({ id,currentPassword, newPassword}) => {
+        return this.AuthfakeService.updateProfilePassword(id, currentPassword, newPassword).pipe(
           map((response: any) => {
-            return { type: '[Auth] Update Profile Password Success', payload: response };
+            if (response) {
+             
+              this.toastr.success('The password was updated successfully.');
+              this.router.navigate(['/dashboard']);
+              return updateProfilePasswordSuccess({message:response});
+            }
+            
           }),
           catchError((error: any) => {
-            return of({ type: '[Auth] Update Profile Password Failure', payload: error });
+            
+            this.toastr.error(`Update Password Failure: ${error.message}`);
+            return of(updateProfilePasswordFailure({error:error}));
           }),
-          tap(() => {
-            // Navigate to another route after successful response
-            this.router.navigate(['/dashboard']); // or any other route you want
-          }),
+         
         );
       }),
     ));
@@ -142,16 +168,14 @@ export class AuthenticationEffects {
       ofType(logout),
       tap(() => {
         // Perform any necessary cleanup or side effects before logging out
+        this.AuthfakeService.logout();
+        this.router.navigate(['/auth/login']);
+        this.toastr.success('You are logged out !!!');
       }),
       exhaustMap(() => of(logoutSuccess()))
     )
   );
 
-  constructor(
-    @Inject(Actions) private actions$: Actions,
-    private AuthenticationService: AuthenticationService,
-    private AuthfakeService: AuthfakeauthenticationService,
-    private userService: UserProfileService,
-    private router: Router) { }
+
 
 }

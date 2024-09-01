@@ -7,6 +7,7 @@ import { environment } from '../../../../environments/environment';
 import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
 import { Store } from '@ngrx/store';
 import { forgetPassword } from 'src/app/store/Authentication/authentication.actions';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-passwordreset',
@@ -32,7 +33,8 @@ export class PasswordresetComponent implements OnInit, AfterViewInit {
   constructor(private formBuilder: UntypedFormBuilder, 
     private route: ActivatedRoute, private router: Router, 
     private authFakeService: AuthfakeauthenticationService,
-    private store: Store,) { }
+    private store: Store,
+    public toastr:ToastrService) { }
 
   ngOnInit() {
 
@@ -59,6 +61,7 @@ export class PasswordresetComponent implements OnInit, AfterViewInit {
       return;
     }
     this.store.dispatch(forgetPassword({ email: this.f.email.value }));
+    
   }
     //this.authFakeService.forgotPassword(this.f.email.value);
        

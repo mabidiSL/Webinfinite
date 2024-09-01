@@ -52,13 +52,10 @@ import { OrdersEffects } from './store/Crypto/crypto.effects';
 import { CustomerEffects } from './store/customer/customer.effects';
 import { MailEffects } from './store/Email/email.effects';
 import { MerchantsModule } from './pages/merchants/merchants.module';
+import { MerchantslistEffects } from './store/merchants/merchantlist.effect';
+import { MerchantslistEffects1 } from './store/merchantsList/merchantlist1.effect';
 
-if (environment.defaultauth === 'firebase') {
-  initFirebaseBackend(environment.firebaseConfig);
-} else {
-  // tslint:disable-next-line: no-unused-expression
-  FakeBackendInterceptor;
-}
+
 
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -106,6 +103,8 @@ export function createTranslateLoader(http: HttpClient): any {
       ProjectEffects,
       usersEffects,
       userslistEffects,
+      MerchantslistEffects,
+      MerchantslistEffects1,
       JoblistEffects,
       CandidateEffects,
       InvoiceDataEffects,
@@ -120,7 +119,7 @@ export function createTranslateLoader(http: HttpClient): any {
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
+    //{ provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
   ],
 })
 export class AppModule { }

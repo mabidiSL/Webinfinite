@@ -6,8 +6,10 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 
 import { Store } from '@ngrx/store';
 import { adduserlist, deleteuserlist, fetchuserlistData, updateuserlist } from 'src/app/store/UserList/userlist.action';
-import { selectData } from 'src/app/store/UserList/userlist-selector';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { addMerchantlist, fetchMerchantlistData } from 'src/app/store/merchantsList/merchantlist1.action';
+import { selectData } from 'src/app/store/merchantsList/merchantlist1-selector';
+import { ToastrService } from 'ngx-toastr';
 
 /**
  * Merchants list component
@@ -25,7 +27,7 @@ export class MerchantListComponent implements OnInit {
   // bread crumb items
   breadCrumbItems: Array<{}>;
   term: any
-  contactsList: any
+  merchantList: any
   // Table data
   total: Observable<number>;
   createContactForm!: UntypedFormGroup;
@@ -39,28 +41,37 @@ export class MerchantListComponent implements OnInit {
   deleteId: any;
   returnedArray: any
 
-  constructor(private modalService: BsModalService, private formBuilder: UntypedFormBuilder, public store: Store) {
+  constructor(private modalService: BsModalService,public toastr:ToastrService,  private formBuilder: UntypedFormBuilder, public store: Store) {
   }
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Merchants' }, { label: 'Merchants List', active: true }];
+    //this.breadCrumbItems = [{ label: 'Merchants' }, { label: 'Merchants List', active: true }];
     setTimeout(() => {
-      this.store.dispatch(fetchuserlistData());
+      console.log('begin get merchant list');
+      this.store.dispatch(fetchMerchantlistData());
+      console.log('finish get merchant list');
       this.store.select(selectData).subscribe(data => {
-        this.contactsList = data
-        this.returnedArray = data
-        this.contactsList = this.returnedArray.slice(0, 10)
+        this.merchantList = data
+        console.log(this.merchantList);
+        this.returnedArray = data;
+        //this.merchantList = this.returnedArray.sort((a: any, b: any) => new Date(b.registrationDate).getTime() - new Date(a.registrationDate).getTime()).slice(0,10);
       })
       document.getElementById('elmLoader')?.classList.add('d-none')
     }, 1200);
 
     this.createContactForm = this.formBuilder.group({
       id: [''],
-      name: ['', [Validators.required]],
+      username: ['', [Validators.required]],
       email: ['', [Validators.required]],
-      position: ['', [Validators.required]],
-      tags: ['', [Validators.required]],
-      profile: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
+      companyRegister:['', [Validators.required]],
+      city:['', [Validators.required]],
+      country:['', [Validators.required]],
+      building:['', [Validators.required]],
+      user_type:['merchant'],
+      status:['active']
+      
     })
   }
 
@@ -82,16 +93,39 @@ export class MerchantListComponent implements OnInit {
 
   // Save User
   saveUser() {
-    if (this.createContactForm.valid) {
-      if (this.createContactForm.get('id')?.value) {
-        const updatedData = this.createContactForm.value;
-        this.store.dispatch(updateuserlist({ updatedData }));
-      } else {
-        this.createContactForm.controls['id'].setValue((this.contactsList.length + 1).toString());
-        const newData = this.createContactForm.value;
-        this.store.dispatch(adduserlist({ newData }));
-      }
-    }
+    // if (this.createContactForm.valid) {
+    //   console.log('enter valid form');
+    //   if (this.createContactForm.get('id')?.value) {
+    //     const updatedData = this.createContactForm.value;
+    //     this.store.dispatch(updateuserlist({ updatedData }));
+    //   } else {
+    //     console.log('Valid form and user Add');
+    //     //this.createContactForm.controls['id'].setValue((this.merchantList.length + 1).toString());
+    //     const newData = this.createContactForm.value;
+    //     console.log(newData);
+    //     this.store.dispatch(addMerchantlist({ newData }));
+    //     this.toastr.success('The new merchant has been added successfully.');
+        
+    //   }
+    //  }
+     console.log('Valid form and user Add');
+     //this.createContactForm.controls['id'].setValue((this.merchantList.length + 1).toString());
+     const newData = this.createContactForm.value;
+     console.log(newData);
+     this.store.dispatch(addMerchantlist({ newData }));
+     this.toastr.success('The new merchant has been added successfully.');
+
+    //  setTimeout(() => {
+    //   this.store.dispatch(fetchMerchantlistData());
+    //   this.store.select(selectData).subscribe(data => {
+    //     this.merchantList = data
+    //     console.log(this.merchantList);
+    //     this.returnedArray = data
+    //     this.merchantList = this.returnedArray.slice(0, 10)
+    //   })
+    //   document.getElementById('elmLoader')?.classList.add('d-none')
+    // }, 1200);
+
     this.newContactModal?.hide()
     document.querySelectorAll('#member-img').forEach((element: any) => {
       element.src = 'assets/images/users/user-dummy-img.jpg';
@@ -105,11 +139,11 @@ export class MerchantListComponent implements OnInit {
   // fiter job
   searchJob() {
     if (this.term) {
-      this.contactsList = this.returnedArray.filter((data: any) => {
+      this.merchantList = this.returnedArray.filter((data: any) => {
         return data.name.toLowerCase().includes(this.term.toLowerCase())
       })
     } else {
-      this.contactsList = this.returnedArray
+      this.merchantList = this.returnedArray
     }
   }
 
@@ -121,14 +155,16 @@ export class MerchantListComponent implements OnInit {
     modelTitle.innerHTML = 'Edit Profile';
     var updateBtn = document.getElementById('addContact-btn') as HTMLAreaElement;
     updateBtn.innerHTML = "Update";
-    this.createContactForm.patchValue(this.contactsList[id]);
+    this.createContactForm.patchValue(this.merchantList[id]);
   }
 
   // pagechanged
   pageChanged(event: PageChangedEvent): void {
     const startItem = (event.page - 1) * event.itemsPerPage;
     this.endItem = event.page * event.itemsPerPage;
-    this.contactsList = this.returnedArray.slice(startItem, this.endItem);
+    //this.merchantList = this.returnedArray.slice(startItem, this.endItem);
+    this.merchantList = this.returnedArray.sort((a: any, b: any) => new Date(b.registrationDate).getTime() - new Date(a.registrationDate).getTime()).slice(0,10);
+
   }
 
   // Delete User

@@ -32,7 +32,7 @@ export class DefaultComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    
     /**
      * horizontal-vertical layput set
      */

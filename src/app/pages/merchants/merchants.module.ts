@@ -17,12 +17,14 @@ import { UIModule } from '../../shared/ui/ui.module';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ApproveMerchantComponent } from './approve-merchant/approve-merchant.component';
 
 
 
 @NgModule({
   declarations: [
-    MerchantListComponent
+    MerchantListComponent,
+    ApproveMerchantComponent
   ],
   imports: [
     CommonModule, 

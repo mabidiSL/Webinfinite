@@ -88,7 +88,11 @@
                   <div class="col-sm-9">
                       <input type="password"   formControlName="confirmpwd"  class="form-control" id="confirmpwd" placeholder="Confirm Your New Password">
                       <div class="invalid-feedback">Please confirm your new password.</div>
-
+                      <ng-template #error>
+                        <div class="invalid-feedback" *ngIf="passwordMatchError">
+                            {{ 'confirm_password_does_not_matched' | translate }}
+                        </div>
+                    </ng-template>
                     </div>
                 </div>
                 <div class="row justify-content-end">

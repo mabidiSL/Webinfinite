@@ -281,6 +281,9 @@
     "MERCHANTSLIST": {
       "TEXT": "Merchant List"
     },
+    "MERCHANTSAPPROVAL": {
+      "TEXT": "Merchant Approval List"
+    },
     "COMMISSION": {
       "TEXT": "Commissions"
     },

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from 'src/app/store/Authentication/auth.models';
@@ -12,35 +12,26 @@ export class AuthfakeauthenticationService {
     
 
     constructor(private http: HttpClient) {
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+        
+        const storedUser = localStorage.getItem('currentUser');
+        const user = storedUser ? JSON.parse(storedUser) : null;
+        this.currentUserSubject = new BehaviorSubject<User>(user);
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
     public get currentUserValue(): User {
         return this.currentUserSubject.value;
     }
-    
     login(email: string, password: string) {
        
-        //return this.http.post<any>(`${environment.baseURL}/login`, { email, password }/*,{ headers: headers }*/)
-        return this.http.post<any>('/api/login', { email, password }/*,{ headers: headers }*/)
-
-        //return this.http.post<any>(`/users/authenticate`, { email, password })
-            .pipe(map(user => {
-                // login successful if there's a jwt token in the response
-                if (user && user.token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    this.currentUserSubject.next(user);
-                }
-                return user;
-            }));
+        return this.http.post<any>('/api/login', { email, password });
+      
     }
     forgotPassword(email: string){
         return this.http.post('/api/forgot-password',{email}) ;
     }
-    updateProfilePassword(currentPassword: string, newPassword: string){
-        const id = this.currentUserSubject.value.userId;
+    updateProfilePassword(id: string, currentPassword: string, newPassword: string){
+       // const id = this.currentUserSubject.value.userId;
          return this.http.post(`/api/${id}/password`,{currentPassword,newPassword})
         .pipe(map(message => {
             console.log(message)
@@ -56,20 +47,14 @@ export class AuthfakeauthenticationService {
        }));
    }
     updateProfile(user: any){
-        return this.http.put('/api/user',user) .pipe(map(user => {
-            // update Profile successful 
-            if (user) {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                this.currentUserSubject.next(user);
-                
-            }
-            return user;
-        }));
+        console.log(user);
+        return this.http.put('/api/user',user.user) ;
     }
+   
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
+        localStorage.removeItem('token');
         this.currentUserSubject.next(null);
     }
 }

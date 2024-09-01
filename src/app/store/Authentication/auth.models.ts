@@ -12,3 +12,29 @@ export class User {
   phone?: string;
   user?: any;
 }
+
+export class _User {
+ 
+_id?: string;
+username?: string;
+email?: string;
+password?: string;
+emailVerifiedAt?: string;
+logo?: string;
+image?: string;
+bankName?: string;
+referCount?: string;
+totalOrder?: number;
+url?: string;
+phone?: string;
+country?: string;
+user_type?: string;
+status?: string;
+city?: string;
+street?: string;
+building?: string;
+company_registration?: string;
+registrationDate?: string;
+updatedAt?: string;
+}
+

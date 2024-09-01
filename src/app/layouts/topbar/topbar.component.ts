@@ -7,12 +7,15 @@ import { environment } from '../../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { LanguageService } from '../../core/services/language.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { changesLayout } from 'src/app/store/layouts/layout.actions';
 import { getLayoutMode } from 'src/app/store/layouts/layout.selector';
 import { RootReducerState } from 'src/app/store';
-import { User } from 'src/app/store/Authentication/auth.models';
+import { _User, User } from 'src/app/store/Authentication/auth.models';
+import { ToastrService } from 'ngx-toastr';
+import { getUser } from 'src/app/store/Authentication/authentication-selector';
+import { logout } from 'src/app/store/Authentication/authentication.actions';
 
 @Component({
   selector: 'app-topbar',
@@ -33,8 +36,8 @@ export class TopbarComponent implements OnInit {
   theme: any;
   layout: string;
   dataLayout$: Observable<string>;
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  currentUser$: Observable<_User>;
+
 
   // Define layoutMode as a property
 
@@ -42,15 +45,15 @@ export class TopbarComponent implements OnInit {
     private authFackservice: AuthfakeauthenticationService,
     public languageService: LanguageService,
     public translate: TranslateService,
-    public _cookiesService: CookieService, public store: Store<RootReducerState>) {
+    public _cookiesService: CookieService, 
+    public store: Store<RootReducerState>,
+    public toastr:ToastrService) {
       
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-    this.currentUser = this.currentUserSubject.asObservable();
+     // using state management for the current user
+     this.currentUser$ = this.store.pipe(select(getUser));
 
-  }
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value;
-}
+    }
+
   listLang: any = [
     { text: 'English', flag: 'assets/images/flags/us.jpg', lang: 'en' },
     { text: 'Arabic', flag: 'assets/images/flags/ar.jpg', lang: 'ar' },
@@ -120,12 +123,10 @@ export class TopbarComponent implements OnInit {
    * Logout the user
    */
   logout() {
-    if (environment.defaultauth === 'firebase') {
-      this.authService.logout();
-    } else {
-      this.authFackservice.logout();
-    }
-    this.router.navigate(['/auth/login']);
+      this.store.dispatch(logout());
+      
+
+      
   }
 
   /**

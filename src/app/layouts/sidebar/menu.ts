@@ -81,6 +81,13 @@ export const MENU: MenuItem[] = [
         icon: 'bx bx-store',
         
     },
+    {
+        id: 51,
+        label: 'MENUITEMS.MERCHANTSAPPROVAL.TEXT',
+        link: '/merchants/approve',
+        icon: 'bx bx-store',
+        
+    },
     {  id: 14,
         label: 'MENUITEMS.COMMISSION.TEXT',
         icon: 'bx bx-dollar-circle',

@@ -6,6 +6,7 @@ import { AuthfakeauthenticationService } from '../../../core/services/authfake.s
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { updatePassword } from 'src/app/store/Authentication/authentication.actions';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-updatepassword',
@@ -25,7 +26,12 @@ export class UpdatepasswordComponent {
   year: number = new Date().getFullYear();
 
   // tslint:disable-next-line: max-line-length
-  constructor(private formBuilder: UntypedFormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService, private store: Store,
+  constructor(private formBuilder: UntypedFormBuilder, 
+    private route: ActivatedRoute,
+    private router: Router, 
+    private authenticationService: AuthenticationService,
+    private store: Store,
+    public toastr:ToastrService
 ) { }
 
   ngOnInit() {
@@ -69,6 +75,8 @@ export class UpdatepasswordComponent {
 
      // Update Password Api
      this.store.dispatch(updatePassword({ password: pwd , token: this.token}));
+    
+     
 
   }
 

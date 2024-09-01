@@ -8,6 +8,10 @@ export const getUser = createSelector(
     (state: AuthenticationState) => state.user
 );
 
+export const selectUserToken = createSelector(
+    getLayoutState,
+    (state: AuthenticationState) => state.token
+  );
 export const getisLoggedIn = createSelector(
     getLayoutState,
     (state: AuthenticationState) => state.isLoggedIn

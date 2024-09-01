@@ -3,13 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { revenueBarChart, statData } from './data';
 
 import { ChartType } from './profile.model';
-import { FormBuilder, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { FormGroup, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { select, Store } from '@ngrx/store';
 import { CustomValidators } from 'src/app/shared/validator/password-match';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from 'src/app/store/Authentication/auth.models';
+import { Observable } from 'rxjs';
+import { _User } from 'src/app/store/Authentication/auth.models';
 import { updateProfile, updateProfilePassword } from 'src/app/store/Authentication/authentication.actions';
 import { TranslateService } from '@ngx-translate/core';
+import { getUser } from 'src/app/store/Authentication/authentication-selector';
 
 @Component({
   selector: 'app-profile',
@@ -20,7 +21,7 @@ import { TranslateService } from '@ngx-translate/core';
 /**
  * Contacts-profile component
  */
-export class ProfileComponent implements OnInit {
+export class ProfileComponent  {
   // bread crumb items
   breadCrumbItems: Array<{}>;
   profileForm: UntypedFormGroup;
@@ -28,47 +29,61 @@ export class ProfileComponent implements OnInit {
   revenueBarChart: ChartType;
   statData:any;
   submitted: any = false;
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  currentUser$: Observable<_User>;
+  
 
-  constructor(private formBuilder: UntypedFormBuilder, private store: Store, public translate: TranslateService) {
+  constructor(
+    private formBuilder: UntypedFormBuilder,
+    private store: Store, 
+    public translate: TranslateService) {
 
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-    this.currentUser = this.currentUserSubject.asObservable();
+      
+    // using state management for the current user
+    this.currentUser$ = this.store.pipe(select(getUser));
 
+    // fill up the form for updating the profile
+    this.currentUser$.subscribe(user =>{
     this.profileForm = this.formBuilder.group({
-      id: [''],
+      _id: [user?._id],
       // name: [this.currentUserValue.user.name, [Validators.required]],
-      username: [this.currentUserValue.user.username, [Validators.required]],
-      email: [this.currentUserValue.user.email, [Validators.required, Validators.email]],
-      phone:  [this.currentUserValue.user.phone, [Validators.required]],
-      logo:[this.currentUserValue.user.logo]
-  });
+      username: [user?.username, [Validators.required]],
+      email: [user?.email, [Validators.required, Validators.email]],
+      phone:  [user?.phone, [Validators.required]],
+      logo:[user?.logo]
+    });
+    
+
   this.passwordForm = this.formBuilder.group({
+    _id: [user?._id],
     currentPassword: ['', [Validators.required]],      
     newPassword: ['', [Validators.required]],
     confirmpwd:['', [Validators.required]],
-  },{validator : CustomValidators.MatchValidator('newPassword', 'confirmpwd')});
+  },{validators: [this.passwordMatchValidator]});}); 
  
   }
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value;
-}
-  ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Contacts' }, { label: 'Profile', active: true }];
+  passwordMatchValidator(formGroup: FormGroup) {
+    const newPassword = formGroup.get('newPassword').value;
+    const confirmPassword = formGroup.get('confirmpwd').value;
+    
+    
+    if (confirmPassword && newPassword !== confirmPassword) {
+        console.log("password mismatch");
+        formGroup.get('confirmpwd').setErrors({ passwordMismatch: true });
+        return { passwordMismatch: true };
+      }
+    
+      formGroup.get('confirmpwd').setErrors(null);
    
-    // fetches the data
-    this._fetchData();
+    return null;
   }
+  
   onSubmit() {
     this.submitted = true;
-  
     if(this.profileForm.valid){
       console.log("Submitting update profile form");
       const updatedUser =  this.profileForm.value;
-      //this.currentUserValue.user = updatedUser;
-      //console.log(this.currentUserValue);
-      this.store.dispatch(updateProfile(updatedUser));
+      this.store.dispatch(updateProfile({ user: updatedUser }));
+
     }
    
 
@@ -91,14 +106,21 @@ export class ProfileComponent implements OnInit {
    * Submit the password
    */
   passwordFormSubmit() {
-    this.passwordForm.markAllAsTouched();
+    this.submitted = true;
+    console.log('form password submit');
+   // this.passwordForm.markAllAsTouched();
     if(this.passwordForm.valid) {
       console.log('Valid Submitting  Password Form ...');
       this.passwordForm.removeControl('confirmpwd');
+      const id = this.f['_id'].value;
       const currentPassword = this.f['currentPassword'].value;
       const newPassword = this.f['newPassword'].value;
 
-      this.store.dispatch(updateProfilePassword({currentPassword:currentPassword ,newPassword}))  
+      this.store.dispatch(updateProfilePassword({id: id, currentPassword:currentPassword ,newPassword}))  
+
+    }
+    else {
+      console.log('Form is invalid');
     }
   }
 }
