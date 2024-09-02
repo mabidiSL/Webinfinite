@@ -10,14 +10,14 @@
               <div class="col-sm-4">
                 <div class="search-box me-2 mb-2 d-inline-block">
                   <div class="position-relative">
-                    <input type="text" class="form-control" id="searchTableList" placeholder="Search..." [(ngModel)]="term" (ngModelChange)="searchJob()">
+                    <input type="text" class="form-control" id="searchTableList" placeholder="{{'Search'|translate}}..." [(ngModel)]="term" (ngModelChange)="searchJob()">
                     <i class="bx bx-search-alt search-icon"></i>
                   </div>
                 </div>
               </div>
               <div class="col-sm-8">
                 <div class="text-sm-end">
-                  <button type="button" data-bs-toggle="modal" (click)="newContactModal.show()" class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal mb-2"><i class="mdi mdi-plus me-1"></i> New Merchant</button>
+                  <button type="button" data-bs-toggle="modal" (click)="newContactModal.show()" class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal mb-2"><i class="mdi mdi-plus me-1"></i> {{'New Merchant'|translate}}</button>
                 </div>
               </div><!-- end col-->
             </div>
@@ -27,11 +27,11 @@
                 <thead class="table-light">
                   <tr>
                     <th scope="col" style="width: 40px;">#</th>
-                    <th scope="col">Merchant Name</th>
-                    <th scope="col">Contact Email</th>
-                    <th scope="col">Total Orders</th>
-                    <th scope="col">status</th>
-                    <th scope="col" style="width: 200px;">Actions</th>
+                    <th scope="col">{{'Merchant Name'| translate}}</th>
+                    <th scope="col">{{'Contact Email'| translate}}</th>
+                    <th scope="col">{{'Total Orders' | translate}}</th>
+                    <th scope="col">{{'Status'| translate}}</th>
+                    <th scope="col" style="width: 200px;">{{'Actions'| translate}}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -116,7 +116,7 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="newContactModalLabel">Add New Merchant</h5>
+          <h5 class="modal-title" id="newContactModalLabel">{{'Add New Merchant'| translate}}</h5>
           <button type="button" class="btn-close" (click)="newContactModal.hide()"></button>
         </div>
         <div class="modal-body">
@@ -203,43 +203,43 @@
                   </div>
               </form> -->
               <div class="mb-3">
-                <label for="email-input" class="form-label">Email</label>
-                <input type="email" id="email-input" class="form-control" placeholder="Enter email" formControlName="email" required />
-                <div class="invalid-feedback">Please enter email.</div>
+                <label for="email-input" class="form-label">{{'Email'|translate}}</label>
+                <input type="email" id="email-input" class="form-control" placeholder="{{'Enter the email'|translate}}" formControlName="email" required />
+                <div class="invalid-feedback">{{'Please enter the email'  | translate}}.</div>
               </div>
                 <div class="mb-3">
-                  <label for="username-input" class="form-label">UserName</label>
-                  <input type="text" id="username-input" class="form-control" placeholder="Enter name" formControlName="username" required />
-                  <div class="invalid-feedback">Please enter a username.</div>
+                  <label for="username-input" class="form-label">{{'UserName'| translate}}</label>
+                  <input type="text" id="username-input" class="form-control" placeholder="{{'Enter the name'| translate}}" formControlName="username" required />
+                  <div class="invalid-feedback">{{'Please enter the username'  | translate}}.</div>
                 </div>
                
                 <div class="mb-3">
-                  <label for="Password" class="form-label">Password</label>
-                  <input type="password" formControlName="password"  class="form-control" id="Password" placeholder="Enter the Password">
-                  <div class="invalid-feedback">Please enter the password.</div>
+                  <label for="Password" class="form-label">{{'Password'|translate}}</label>
+                  <input type="password" formControlName="password"  class="form-control" id="Password" placeholder="{{'Enter the Password'| translate}}">
+                  <div class="invalid-feedback">{{'Please enter the password'|translate}}.</div>
                 </div>
                 <div class="mb-3">
-                  <label for="phone" class="form-label">Phone</label>
-                  <input class="form-control" formControlName="phone" type="tel" value="1-(555)-555-5555" id="phone" placeholder="Enter the Merchant Phone">
-                  <div class="invalid-feedback">'Please enter the phone number.'</div>
+                  <label for="phone" class="form-label">{{'Phone'| translate}}</label>
+                  <input class="form-control" formControlName="phone" type="tel" value="1-(555)-555-5555" id="phone" placeholder="{{'Enter the Merchant Phone'|translate}}">
+                  <div class="invalid-feedback">{{'Please enter the phone number'|translate}}.</div>
                 </div>
                 <div class="mb-3">
-                  <label for="companyRegister" class="form-label">Company Registration</label>
-                  <input class="form-control" formControlName="companyRegister" type="text"  id="companyRegister" placeholder="Enter the Company Registration Code">
-                  <div class="invalid-feedback">'Please enter the company registration code.'</div>
+                  <label for="companyRegister" class="form-label">{{'Company Registration'| translate}}</label>
+                  <input class="form-control" formControlName="companyRegister" type="text"  id="companyRegister" placeholder="{{'Enter the Company Registration Code'| translate}}">
+                  <div class="invalid-feedback">{{'Please enter the company registration code'| translate}}.</div>
                 </div>
                 <div class="row">
                   <div class="col-lg-4">
                       <div class="mb-3">
-                          <label for="city">City</label>
-                          <input type="text" class="form-control" formControlName="city" id="city" placeholder="Enter Your Living City">
+                          <label for="city">{{'City'| translate}}</label>
+                          <input type="text" class="form-control" formControlName="city" id="city" placeholder="{{'Enter Your Living City'|translate}}">
                       </div>
                   </div>
                   <div class="col-lg-4">
                       <div class="mb-3">
-                          <label for="country">Country</label>
+                          <label for="country">{{'Country'| translate}}</label>
                           <select id="country" class="form-control" formControlName="country">
-                              <option selected>Choose...</option>
+                              <option selected>{{'Choose...'|translate}}</option>
                               <option>SAR</option>
                           </select>
                       </div>
@@ -247,8 +247,8 @@
 
                   <div class="col-lg-4">
                       <div class="mb-3">
-                          <label for="building">Building</label>
-                          <input type="text" class="form-control" formControlName="building" id="building" placeholder="Enter Building Name">
+                          <label for="building">{{'Building'| translate}}</label>
+                          <input type="text" class="form-control" formControlName="building" id="building" placeholder="{{'Enter Building Name'| translate}}">
                       </div>
                   </div>
               </div>
@@ -257,8 +257,8 @@
   
               <div class="col-lg-12">
                 <div class="text-end">
-                  <button type="button" class="btn btn-outline-secondary me-1" (click)="newContactModal.hide()">Cancel</button>
-                  <button type="submit" id="addContact-btn" class="btn btn-success">Add</button>
+                  <button type="button" class="btn btn-outline-secondary me-1" (click)="newContactModal.hide()">{{'Cancel'|translate}}</button>
+                  <button type="submit" id="addContact-btn" class="btn btn-success">{{'Add'| translate}}</button>
                 </div>
               </div>
             </div>
@@ -288,10 +288,10 @@
               <i class="mdi mdi-trash-can-outline"></i>
             </div>
           </div>
-          <p class="text-muted font-size-16 mb-4">Are you Sure You want to Remove this User ?</p>
+          <p class="text-muted font-size-16 mb-4">{{'Are you Sure You want to Remove this User ?'|translate}}</p>
   
           <div class="hstack gap-2 justify-content-center mb-0">
-            <button type="button" class="btn btn-danger me-1" id="remove-item" (click)="confirmDelete(deleteId)">Remove Now</button>
+            <button type="button" class="btn btn-danger me-1" id="remove-item" (click)="confirmDelete(deleteId)">{{'Remove Now'|translate}}</button>
             <button type="button" class="btn btn-secondary" (click)="removeItemModal.hide()">Close</button>
           </div>
         </div>

@@ -18,6 +18,7 @@ import { UIModule } from '../../shared/ui/ui.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ApproveMerchantComponent } from './approve-merchant/approve-merchant.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -34,7 +35,7 @@ import { ApproveMerchantComponent } from './approve-merchant/approve-merchant.co
     NgApexchartsModule,
     FormsModule, 
     ReactiveFormsModule ,
- 
+    TranslateModule,
     TooltipModule.forRoot(),
     PaginationModule.forRoot(),
     BsDropdownModule,

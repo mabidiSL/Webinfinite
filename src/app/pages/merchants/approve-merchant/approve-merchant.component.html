@@ -1,6 +1,6 @@
 <div class="container-fluid">
 
-    <app-page-title title="Merchant Approval List" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <app-page-title title="{{'Merchant Approval List'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
   
     <div class="row">
       <div class="col-lg-12">
@@ -10,7 +10,7 @@
               <div class="col-sm-4">
                 <div class="search-box me-2 mb-2 d-inline-block">
                   <div class="position-relative">
-                    <input type="text" class="form-control" id="searchTableList" placeholder="Search..." [(ngModel)]="term" (ngModelChange)="searchRequest()">
+                    <input type="text" class="form-control" id="searchTableList" placeholder="{{'Search'|translate}}..." [(ngModel)]="term" (ngModelChange)="searchRequest()">
                     <i class="bx bx-search-alt search-icon"></i>
                   </div>
                 </div>
@@ -29,10 +29,10 @@
                 <thead class="table-light">
                   <tr>
                     <th scope="col" style="width: 40px;">#</th>
-                    <th scope="col">Merchant Name</th>
-                    <th scope="col">Contact Email</th>
-                    <th scope="col">Date Registration</th>
-                    <th scope="col" style="width: 200px;">Action</th>
+                    <th scope="col">{{'Merchant Name'| translate}}</th>
+                    <th scope="col">{{'Contact Email'| translate}}</th>
+                    <th scope="col">{{'Date Registration'|translate}}</th>
+                    <th scope="col" style="width: 200px;">{{'Actions'| translate}}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -61,7 +61,7 @@
                                       (click)="approveItem(data)"
                                      
                                     >
-                                      Approve
+                                      {{'Approve'| translate}}
                                     </button>
                     
                 </td>
@@ -101,11 +101,11 @@
               <i class="mdi mdi-trash-can-outline"></i>
             </div>
           </div>
-          <p class="text-muted font-size-16 mb-4">Are you Sure You want to Remove this Merchant Request ? </p>
+          <p class="text-muted font-size-16 mb-4">{{'Are you Sure You want to Remove this Merchant Request ?'| translate}} </p>
   
           <div class="hstack gap-2 justify-content-center mb-0">
-            <button type="button" class="btn btn-danger me-1" id="remove-item" (click)="confirmDelete(deleteId)">Remove Now</button>
-            <button type="button" class="btn btn-secondary" (click)="removeItemModal.hide()">Close</button>
+            <button type="button" class="btn btn-danger me-1" id="remove-item" (click)="confirmDelete(deleteId)">{{'Remove Now'| translate}}</button>
+            <button type="button" class="btn btn-secondary" (click)="removeItemModal.hide()">{{'Close'| translate}}</button>
           </div>
         </div>
       </div>

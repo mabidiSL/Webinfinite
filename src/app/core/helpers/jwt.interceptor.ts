@@ -45,6 +45,7 @@ export class JwtInterceptor implements HttpInterceptor {
                             'x-auth-token': token,
                         },
                     });
+                    
                 } else {
                     console.log('No token available in state');
                 }

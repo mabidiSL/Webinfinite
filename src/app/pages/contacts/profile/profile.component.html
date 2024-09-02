@@ -10,7 +10,7 @@
             <tab>
               <ng-template tabHeading class="mb-2 h2">
                 <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                <span class="d-none d-sm-block">Basic Informations</span>
+                <span class="d-none d-sm-block">{{'Basic Informations'| translate}}</span>
               </ng-template>
               <div class="tab-page-content  mt-3">
                 <div class="col-lg-4">
@@ -27,23 +27,23 @@
                     <label for="username" class="col-sm-3 col-form-label">{{'UserName'| translate}}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control"formControlName="username" id="username" placeholder="Enter Your UserName">
-                        <div class="invalid-feedback">{{'Please enter your username.'  | translate}}</div>
+                        <div class="invalid-feedback">{{'Please enter your username'  | translate}}.</div>
                     </div>
                 </div>
                
                   <div class="row mb-4">
                       <label for="horizontal-email-input" class="col-sm-3 col-form-label">{{'Email'| translate}}</label>
                       <div class="col-sm-9">
-                          <input type="email" class="form-control" formControlName="email" id="horizontal-email-input" placeholder="Enter Your Email">
-                          <div class="invalid-feedback">{{'Please enter your email.'  | translate}}</div>
+                          <input type="email" class="form-control" formControlName="email" id="horizontal-email-input" placeholder="{{'Enter Your Email'| translate}}">
+                          <div class="invalid-feedback">{{'Please enter your email'  | translate}}.</div>
 
                         </div>
                   </div>
                   <div class="row mb-4">
                     <label for="phone" class="col-sm-3 col-form-label">{{'Phone'| translate}}</label>
                     <div class="col-sm-9">
-                        <input class="form-control" formControlName="phone" type="tel" value="1-(555)-555-5555" id="phone" placeholder="Enter Your Phone">
-                        <div class="invalid-feedback">{{'Please enter your  phone number.'  | translate}}</div>
+                        <input class="form-control" formControlName="phone" type="tel" value="1-(555)-555-5555" id="phone" placeholder="{{'Enter Your Phone'| translate}}">
+                        <div class="invalid-feedback">{{'Please enter your  phone number'  | translate}}.</div>
 
                       </div>
                   </div>
@@ -51,7 +51,7 @@
                   <div class="row justify-content-end">
                       <div class="col-sm-9">
                           <div>
-                              <button type="submit" class="btn btn-primary w-md">Submit</button>
+                              <button type="submit" class="btn btn-primary w-md">{{'Submit'|translate}}</button>
                           </div>
                       </div>
                   </div>
@@ -62,32 +62,32 @@
             <tab>
               <ng-template tabHeading class="mb-2 h2">
                 <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
-                <span class="d-none d-sm-block">Update Password</span>
+                <span class="d-none d-sm-block">{{'Update Password'| translate}}</span>
               </ng-template>
               <div class="tab-page-content  mt-3">
                 <div class="col-lg-8">
                 <form class="form-horizontal" [formGroup]="passwordForm" (ngSubmit)="passwordFormSubmit()">
                   <div class="row mb-4">
-                  <label for="currentPassword" class="col-sm-3 col-form-label">Current Password</label>
+                  <label for="currentPassword" class="col-sm-3 col-form-label">{{'Current Password'|translate}}</label>
                   <div class="col-sm-9">
-                      <input type="password" formControlName="currentPassword"  class="form-control" id="currentPassword" placeholder="Enter Your Current Password">
-                      <div class="invalid-feedback">Please enter your current password.</div>
+                      <input type="password" formControlName="currentPassword"  class="form-control" id="currentPassword" placeholder="{{'Enter Your Current Password'|translate}}">
+                      <div class="invalid-feedback">{{'Please enter your current password.'|translate}}</div>
 
                     </div>
                 </div>
                 <div class="row mb-4">
-                  <label for="newPassword" class="col-sm-3 col-form-label">New Password</label>
+                  <label for="newPassword" class="col-sm-3 col-form-label">{{'New Password'|translate}}</label>
                   <div class="col-sm-9">
-                      <input type="password" formControlName="newPassword" class="form-control" id="newPassword" placeholder="Enter Your New Password">
-                      <div class="invalid-feedback">Please enter your new password.</div>
+                      <input type="password" formControlName="newPassword" class="form-control" id="newPassword" placeholder="{{'Enter Your New Password'|translate}}">
+                      <div class="invalid-feedback">{{'Please enter your new password'|translate}}.</div>
 
                     </div>
                 </div>
                 <div class="row mb-4">
-                  <label for="confirmpwd" class="col-sm-3 col-form-label">Confirm Password</label>
+                  <label for="confirmpwd" class="col-sm-3 col-form-label">{{'Confirm Password'|translate}}</label>
                   <div class="col-sm-9">
-                      <input type="password"   formControlName="confirmpwd"  class="form-control" id="confirmpwd" placeholder="Confirm Your New Password">
-                      <div class="invalid-feedback">Please confirm your new password.</div>
+                      <input type="password"   formControlName="confirmpwd"  class="form-control" id="confirmpwd" placeholder="{{'Confirm Your New Password'|translate}}">
+                      <div class="invalid-feedback">{{'Please confirm your new password'|translate}}.</div>
                       <ng-template #error>
                         <div class="invalid-feedback" *ngIf="passwordMatchError">
                             {{ 'confirm_password_does_not_matched' | translate }}
@@ -98,7 +98,7 @@
                 <div class="row justify-content-end">
                   <div class="col-sm-9">
                       <div>
-                          <button type="submit" class="btn btn-primary w-md">Submit</button>
+                          <button type="submit" class="btn btn-primary w-md">{{'Submit'|translate}}</button>
                       </div>
                   </div>
               </div>

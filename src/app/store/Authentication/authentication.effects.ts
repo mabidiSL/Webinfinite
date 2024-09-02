@@ -57,7 +57,7 @@ export class AuthenticationEffects {
               if (user) {
                 localStorage.setItem('currentUser', JSON.stringify(user.user));
                 localStorage.setItem('token', user.token);
-                this.router.navigate(['/']);
+                this.router.navigate(['/dashboard']);
                 this.toastr.success('Login successfully!!!');
                // console.log(localStorage.getItem('token'));
                 console.log('IN LOGIN EFFECTS');
@@ -172,7 +172,7 @@ export class AuthenticationEffects {
         this.router.navigate(['/auth/login']);
         this.toastr.success('You are logged out !!!');
       }),
-      exhaustMap(() => of(logoutSuccess()))
+      exhaustMap(() => of(logoutSuccess({user: null, token: null})))
     )
   );
 

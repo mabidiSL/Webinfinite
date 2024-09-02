@@ -5,7 +5,6 @@ import { AuthenticationService } from '../../../core/services/auth.service';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { login } from 'src/app/store/Authentication/authentication.actions';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',

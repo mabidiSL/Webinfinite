@@ -15,6 +15,7 @@ import { Recoverpwd2Component } from './recoverpwd2/recoverpwd2.component';
 import { AuthRoutingModule } from './auth-routing';
 import { PasswordresetComponent } from './passwordreset/passwordreset.component';
 import { UpdatepasswordComponent } from './updatepassword/updatepassword.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [LoginComponent, Login2Component, SignupComponent, PasswordresetComponent, Register2Component, Recoverpwd2Component, UpdatepasswordComponent],
@@ -24,6 +25,7 @@ import { UpdatepasswordComponent } from './updatepassword/updatepassword.compone
     FormsModule,
     AlertModule.forRoot(),
     UIModule,
+    TranslateModule ,
     AuthRoutingModule,
     SlickCarouselModule
   ]

@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { Register, RegisterFailure, RegisterSuccess, login, loginFailure, loginSuccess, logout, updateProfile, updateProfileFailure, updateProfileSuccess } from './authentication.actions';
+import { Register, RegisterFailure, RegisterSuccess, login, loginFailure, loginSuccess, logout, logoutSuccess, updateProfile, updateProfileFailure, updateProfileSuccess } from './authentication.actions';
 import { _User } from './auth.models';
 
 export interface AuthenticationState {
@@ -25,7 +25,8 @@ export const authenticationReducer = createReducer(
     on(login, (state) => ({ ...state, error: null })),
     on(loginSuccess, (state, { user, token }) => ({ ...state, isLoggedIn: true, user,token, error: null, })),
     on(loginFailure, (state, { error }) => ({ ...state, error })),
-    on(logout, (state) => ({ ...state, user: null , token: null, error: null,})),
+    on(logout, (state) => ({ ...state, user: null, token: null, error: null })),
+    on(logoutSuccess, (state, { user, token }) => ({ ...state, user, token, isLoggedIn: false, error: null })),
     
     on(updateProfile, (state) => ({ ...state, error: null })),
     on(updateProfileSuccess, (state, { user }) => ({ ...state, user, error: null })),
