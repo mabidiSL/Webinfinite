@@ -266,6 +266,9 @@
     "MERCHANTSLIST": {
       "TEXT": "قائمة التجار"
     },
+    "MERCHANTSAPPROVAL": {
+      "TEXT": "قائمة الموافقات للتجار"
+    },
     "COMMISSION": {
       "TEXT": "العمولات"
     },
@@ -455,6 +458,58 @@
           }
         }
       }
-    }
+    },
+    "Email": "البريد الإلكتروني",
+    "UserName": "اسم المستخدم",
+    "Enter the email": "أدخل البريد الإلكتروني",
+    "Please enter the email": "يرجى إدخال البريد الإلكتروني",
+    "Enter Your UserName": "أدخل اسم المستخدم الخاص بك",
+    "Enter the username":"أدخل اسم المستخدم",
+    "Please enter the username": "يرجى إدخال اسم المستخدم",
+    "Please enter your username": "يرجى إدخال اسم المستخدم الخاص بك",
+    "Please enter your email": "يرجى إدخال بريدك الإلكتروني",
+    "Phone": "الهاتف",
+    "Enter the Phone": "أدخل الهاتف",
+    "Enter Your Phone:": "أدخل رقم هاتفك",
+    "Enter the Password": "أدخل كلمة المرور",
+    "Enter Your Current Password": "أدخل كلمة المرور الحالية الخاصة بك",
+    "Please enter your current password": "يرجى إدخال كلمة المرور الحالية",
+    "New Password": "كلمة المرور الجديدة",
+    "Enter Your New Password": "أدخل كلمة المرور الجديدة الخاصة بك",
+    "Please enter your new password": "يرجى إدخال كلمة المرور الجديدة",
+    "Please enter the password": "يرجى إدخال كلمة المرور",
+    "Confirm Password": "تأكيد كلمة المرور",
+    "Confirm Your New Password": "أكد كلمة المرور الجديدة الخاصة بك",
+    "Please confirm your new password": "يرجى تأكيد كلمة المرور الجديدة",
+    "confirm_password_does_not_matched": "كلمة المرور غير متطابقة",
+    "Please enter your phone number": "يرجى إدخال رقم هاتفك",
+    "Please enter the phone number": "يرجى إدخال رقم الهاتف",
+    "Please enter the company registration code": "يرجى إدخال رمز تسجيل الشركة",
+    "Current Password": "كلمة المرور الحالية",
+    "Submit": "إرسال",
+    "Update Password": "تحديث كلمة المرور",
+    "Enter Your Email": "أدخل بريدك الإلكتروني",
+    "Basic Informations": "المعلومات الأساسية",
+    "Password": "كلمة المرور",
+    "Merchant Approval List": "قائمة موافقات التجار",
+    "Merchant List": "قائمة التجار",
+    "Merchant Name": "اسم التاجر",
+    "Contact Email": "البريد الإلكتروني للتواصل",
+    "Date Registration": "تاريخ التسجيل",
+    "Actions": "الإجراءات",
+    "Approve": "موافقة",
+    "Are you Sure You want to Remove this Merchant Request?": "هل أنت متأكد من أنك تريد إزالة طلب التاجر هذا؟",
+    "Enter the Company Registration Code": "أدخل رمز تسجيل الشركة",
+    "Enter Your Living City": "أدخل مدينتك الحالية",
+    "Country": "البلد",
+    "City": "المدينة",
+    "Choose...": "اختر...",
+    "Remove Now": "إزالة الآن",
+    "Close": "إغلاق",
+    "New Merchant": "تاجر جديد",
+    "Total Orders": "إجمالي الطلبات",
+    "Status": "الحالة",
+    "Add new ": "إضافة جديد",
+    "Select Member Image":"حدد صورة العضو"
    
 }
