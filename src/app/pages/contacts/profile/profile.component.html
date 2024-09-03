@@ -89,7 +89,7 @@
                       <input type="password"   formControlName="confirmpwd"  class="form-control" id="confirmpwd" placeholder="{{'Confirm Your New Password'|translate}}">
                       <div class="invalid-feedback">{{'Please confirm your new password'|translate}}.</div>
                       <ng-template #error>
-                        <div class="invalid-feedback" *ngIf="passwordMatchError">
+                        <div class="invalid-feedback" *ngIf="passwordMismatch">
                             {{ 'confirm_password_does_not_matched' | translate }}
                         </div>
                     </ng-template>

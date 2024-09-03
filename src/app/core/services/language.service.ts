@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
+import { ThemeService } from './theme.service';
 
 @Injectable({ providedIn: 'root' })
 export class LanguageService {
@@ -22,6 +23,7 @@ export class LanguageService {
   public setLanguage(lang) {
     this.translate.use(lang);
     this.cookieService.set('lang', lang);
+   
   }
 
 }

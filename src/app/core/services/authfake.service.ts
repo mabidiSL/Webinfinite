@@ -32,7 +32,7 @@ export class AuthfakeauthenticationService {
     }
     updateProfilePassword(id: string, currentPassword: string, newPassword: string){
        // const id = this.currentUserSubject.value.userId;
-         return this.http.post(`/api/${id}/password`,{currentPassword,newPassword})
+         return this.http.put(`/api/${id}/password`,{currentPassword,newPassword})
         .pipe(map(message => {
             console.log(message)
             return message;

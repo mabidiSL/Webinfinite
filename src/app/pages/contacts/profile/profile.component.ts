@@ -62,8 +62,8 @@ export class ProfileComponent  {
  
   }
   passwordMatchValidator(formGroup: FormGroup) {
-    const newPassword = formGroup.get('newPassword').value;
-    const confirmPassword = formGroup.get('confirmpwd').value;
+    const newPassword = formGroup?.get('newPassword').value;
+    const confirmPassword = formGroup?.get('confirmpwd').value;
     
     
     if (confirmPassword && newPassword !== confirmPassword) {
@@ -111,12 +111,12 @@ export class ProfileComponent  {
    // this.passwordForm.markAllAsTouched();
     if(this.passwordForm.valid) {
       console.log('Valid Submitting  Password Form ...');
-      this.passwordForm.removeControl('confirmpwd');
+     // this.passwordForm.removeControl('confirmpwd');
       const id = this.f['_id'].value;
       const currentPassword = this.f['currentPassword'].value;
       const newPassword = this.f['newPassword'].value;
 
-      this.store.dispatch(updateProfilePassword({id: id, currentPassword:currentPassword ,newPassword}))  
+      this.store.dispatch(updateProfilePassword({id: id, currentPassword:currentPassword ,newPassword:newPassword}))  
 
     }
     else {

@@ -16,6 +16,7 @@ import { _User, User } from 'src/app/store/Authentication/auth.models';
 import { ToastrService } from 'ngx-toastr';
 import { getUser } from 'src/app/store/Authentication/authentication-selector';
 import { logout } from 'src/app/store/Authentication/authentication.actions';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 @Component({
   selector: 'app-topbar',
@@ -47,6 +48,7 @@ export class TopbarComponent implements OnInit {
     public translate: TranslateService,
     public _cookiesService: CookieService, 
     public store: Store<RootReducerState>,
+    
     public toastr:ToastrService) {
       
      // using state management for the current user
@@ -88,7 +90,8 @@ export class TopbarComponent implements OnInit {
     this.flagvalue = flag;
     this.cookieValue = lang;
     this.languageService.setLanguage(lang);
-    // Apply RTL class when Arabic language is selected
+    
+  //   // Apply RTL class when Arabic language is selected
   if (lang === 'ar') {
     document.body.classList.add('rtl');
   } else {
@@ -96,7 +99,7 @@ export class TopbarComponent implements OnInit {
   }
     
   }
-
+  
   /**
    * Toggles the right sidebar
    */
