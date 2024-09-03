@@ -35,6 +35,7 @@ export class ApproveMerchantComponent implements OnInit {
   contacts: any;
   files: File[] = [];
   endItem: any
+  isEmpty: boolean = false;
 
   @ViewChild('newContactModal', { static: false }) newContactModal?: ModalDirective;
   @ViewChild('removeItemModal', { static: false }) removeItemModal?: ModalDirective;
@@ -53,6 +54,7 @@ export class ApproveMerchantComponent implements OnInit {
         console.log(this.merchantApprovalList);
         this.returnedArray = data
         this.merchantApprovalList = this.returnedArray.slice(0, 10)
+        this.isEmpty = this.merchantApprovalList.length === 0;
       })
       document.getElementById('elmLoader')?.classList.add('d-none')
     }, 1200);

@@ -51,17 +51,17 @@ export class AuthenticationEffects {
     this.actions$.pipe(
       ofType(login),
       exhaustMap(({ email, password }) => {
-       
+        console.log('before zero looping');
+
           return this.AuthfakeService.login(email, password).pipe(
             map((user) => {
               if (user) {
+              
+                console.log(JSON.stringify(user.user));
                 localStorage.setItem('currentUser', JSON.stringify(user.user));
                 localStorage.setItem('token', user.token);
-                this.router.navigate(['/dashboard']);
                 this.toastr.success('Login successfully!!!');
-               // console.log(localStorage.getItem('token'));
-                console.log('IN LOGIN EFFECTS');
-                console.log(user.token);
+                this.router.navigate(['/dashboard']);
                 return loginSuccess({ user: user.user, token: user.token });
 
               }
@@ -75,7 +75,7 @@ export class AuthenticationEffects {
       })
     )
   );
-  
+ 
   forgetPassword$ = createEffect(() =>
     this.actions$.pipe(
       ofType(forgetPassword),

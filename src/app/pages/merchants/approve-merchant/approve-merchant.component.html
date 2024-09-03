@@ -35,8 +35,36 @@
                     <th scope="col" style="width: 200px;">{{'Actions'| translate}}</th>
                   </tr>
                 </thead>
-                <tbody>
-                  @for (data of merchantApprovalList; track $index) {
+                
+                <tbody >
+                  <tr *ngIf="merchantApprovalList && merchantApprovalList.length > 0">
+                    <ng-container *ngFor="let data of merchantApprovalList">
+                        <tr *ngIf="data.status == 'notApproved'">
+                            <td>
+                                <div class="form-check font-size-16">
+                                    <input class="form-check-input" type="checkbox" id="transactionCheck{{data.index}}" value="{{data._id}}" [(ngModel)]="data.state">
+                                    <label class="form-check-label" for="transactionCheck{{data.index}}"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{data.username}}</a></h5>
+                            </td>
+                            <td>{{data.email}}</td>
+                            <td>{{data.registrationDate | date: 'short'}}</td>
+                            <td>
+                                <button
+                                    type="button"
+                                    class="btn"
+                                    [ngClass]="{'btn-success': data.status === 'notApproved'}"
+                                    (click)="approveItem(data)">
+                                    {{'Approve' | translate}}
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tr>
+
+                  <!-- @for (data of merchantApprovalList; track $index) {
                   <tr *ngIf="data.status == 'notApproved'" >
                     <td>
                         <div class="form-check font-size-16">
@@ -66,9 +94,15 @@
                     
                 </td>
                     
-                  </tr>}
+                  </tr>} -->
+                  <tr *ngIf="merchantApprovalList && merchantApprovalList.length === 0">
+                    <td colspan="5" class="text-center">
+                        <p>{{'No items available' | translate}}</p>
+                    </td>
+                </tr>
                 </tbody>
               </table>
+              
             </div>
             <div class="row">
               <div class="col-lg-12">

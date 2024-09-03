@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
 
     // Login Api
     this.store.dispatch(login({ email: email, password: password }));
+    
 
   }
 
