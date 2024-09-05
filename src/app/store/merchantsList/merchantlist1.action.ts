@@ -44,11 +44,11 @@ export const updateMerchantlistFailure = createAction(
 // Delete Data
 export const deleteMerchantlist = createAction(
     '[Data] Delete Merchantlist',
-    props<{ id: string }>()
+    props<{ userId: string }>()
 );
 export const deleteMerchantlistSuccess = createAction(
     '[Data] Delete Merchantlist Success',
-    props<{ id: string }>()
+    props<{ userId: string }>()
 );
 export const deleteMerchantlistFailure = createAction(
     '[Data] Delete Merchantlist Failure',

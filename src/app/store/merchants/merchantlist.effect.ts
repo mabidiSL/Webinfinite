@@ -92,9 +92,9 @@ export class MerchantslistEffects {
     deleteData$ = createEffect(() =>
         this.actions$.pipe(
             ofType(deleteMerchantlist),
-            mergeMap(({ id }) =>
-                this.CrudService.deleteData('/app/Merchantlist').pipe(
-                    map(() => deleteMerchantlistSuccess({ id })),
+            mergeMap(({ userId }) =>
+                this.CrudService.disableData('/api/disable', userId).pipe(
+                    map(() => deleteMerchantlistSuccess({ userId })),
                     catchError((error) => of(deleteMerchantlistFailure({ error })))
                 )
             )

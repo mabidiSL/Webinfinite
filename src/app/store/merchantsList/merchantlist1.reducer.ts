@@ -1,6 +1,6 @@
 // src/app/merchantlist.reducer.ts
 import { createReducer, on } from '@ngrx/store';
-import {  fetchMerchantlistData, fetchMerchantlistFail, fetchMerchantlistSuccess, updateMerchantStatusSuccess } from './merchantlist1.action';
+import {  deleteMerchantlistFailure, deleteMerchantlistSuccess, fetchMerchantlistData, fetchMerchantlistFail, fetchMerchantlistSuccess, updateMerchantStatusSuccess } from './merchantlist1.action';
 
 export interface MerchantlistState {
   MerchantListdata: any[];
@@ -38,5 +38,21 @@ export const MerchantListReducer = createReducer(
         item._id === updatedData.userId ? { ...item, status: updatedData.status } : item
       )
     };
-  })
+  }),
+  // Handle the success of deleting a merchant
+  on(deleteMerchantlistSuccess, (state, { userId }) => {
+    console.log('Deleting merchant with ID:', userId);
+    console.log('MerchantListdata before deletion:', state.MerchantListdata);
+    const updatedMerchantList = state.MerchantListdata.filter(merchant => merchant._id !== userId);
+    console.log('MerchantListdata after deletion:', updatedMerchantList);
+    return { 
+    ...state,
+    MerchantListdata: updatedMerchantList};
+  }),
+  // Handle failure of deleting a merchant
+  on(deleteMerchantlistFailure, (state, { error }) => ({
+    ...state,
+    error,
+    loading: false
+  }))
 );

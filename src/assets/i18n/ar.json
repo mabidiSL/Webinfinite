@@ -510,6 +510,10 @@
     "Total Orders": "إجمالي الطلبات",
     "Status": "الحالة",
     "Add new ": "إضافة جديد",
-    "Select Member Image":"حدد صورة العضو"
-   
+    "Select Member Image":"حدد صورة العضو",
+    "Disable":"ايقاف",
+    "Edit": "تعديل",
+    "View": "استعراض",
+    "Disable Now":"ايقاف الآن",
+    "Add new user": "إضافة مستخدم جديد"
 }

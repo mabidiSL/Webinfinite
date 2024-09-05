@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
-import { Store } from '@ngrx/store';
-import { adduserlist, deleteuserlist, fetchuserlistData, updateuserlist } from 'src/app/store/UserList/userlist.action';
+import { select, Store } from '@ngrx/store';
+// import { adduserlist, deleteuserlist, fetchuserlistData, updateuserlist } from 'src/app/store/UserList/userlist.action';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { addMerchantlist, fetchMerchantlistData } from 'src/app/store/merchantsList/merchantlist1.action';
+import { addMerchantlist, deleteMerchantlist, fetchMerchantlistData } from 'src/app/store/merchantsList/merchantlist1.action';
 import { selectData } from 'src/app/store/merchantsList/merchantlist1-selector';
 import { ToastrService } from 'ngx-toastr';
 
@@ -27,7 +27,7 @@ export class MerchantListComponent implements OnInit {
   // bread crumb items
   breadCrumbItems: Array<{}>;
   term: any
-  merchantList: any
+  merchantList$: Observable<any[]>;
   // Table data
   total: Observable<number>;
   createContactForm!: UntypedFormGroup;
@@ -41,23 +41,29 @@ export class MerchantListComponent implements OnInit {
   deleteId: any;
   returnedArray: any
 
-  constructor(private modalService: BsModalService,public toastr:ToastrService,  private formBuilder: UntypedFormBuilder, public store: Store) {
+  constructor(
+    private modalService: BsModalService,
+    public toastr:ToastrService,
+    private formBuilder: UntypedFormBuilder, 
+    public store: Store) {
+      
+      this.merchantList$ = this.store.pipe(select(selectData)); // Observing the merchant list from store
+
   }
 
   ngOnInit() {
-    //this.breadCrumbItems = [{ label: 'Merchants' }, { label: 'Merchants List', active: true }];
-    setTimeout(() => {
+   
       console.log('begin get merchant list');
+
       this.store.dispatch(fetchMerchantlistData());
+
       console.log('finish get merchant list');
-      this.store.select(selectData).subscribe(data => {
-        this.merchantList = data
-        console.log(this.merchantList);
+
+      this.merchantList$.subscribe(data => {
         this.returnedArray = data;
-        //this.merchantList = this.returnedArray.sort((a: any, b: any) => new Date(b.registrationDate).getTime() - new Date(a.registrationDate).getTime()).slice(0,10);
-      })
+        //this.merchantList$ = this.returnedArray.sort((a: any, b: any) => new Date(b.registrationDate).getTime() - new Date(a.registrationDate).getTime()).slice(0,10);
+      });
       document.getElementById('elmLoader')?.classList.add('d-none')
-    }, 1200);
 
     this.createContactForm = this.formBuilder.group({
       id: [''],
@@ -139,11 +145,11 @@ export class MerchantListComponent implements OnInit {
   // fiter job
   searchJob() {
     if (this.term) {
-      this.merchantList = this.returnedArray.filter((data: any) => {
+      this.merchantList$ = this.returnedArray.filter((data: any) => {
         return data.name.toLowerCase().includes(this.term.toLowerCase())
       })
     } else {
-      this.merchantList = this.returnedArray
+      this.merchantList$ = this.returnedArray
     }
   }
 
@@ -155,26 +161,27 @@ export class MerchantListComponent implements OnInit {
     modelTitle.innerHTML = 'Edit Profile';
     var updateBtn = document.getElementById('addContact-btn') as HTMLAreaElement;
     updateBtn.innerHTML = "Update";
-    this.createContactForm.patchValue(this.merchantList[id]);
+    this.createContactForm.patchValue(this.merchantList$[id]);
   }
 
   // pagechanged
   pageChanged(event: PageChangedEvent): void {
     const startItem = (event.page - 1) * event.itemsPerPage;
     this.endItem = event.page * event.itemsPerPage;
-    //this.merchantList = this.returnedArray.slice(startItem, this.endItem);
-    this.merchantList = this.returnedArray.sort((a: any, b: any) => new Date(b.registrationDate).getTime() - new Date(a.registrationDate).getTime()).slice(0,10);
+    //this.merchantList$ = this.returnedArray.slice(startItem, this.endItem);
+    this.merchantList$ = this.returnedArray.sort((a: any, b: any) => new Date(b.registrationDate).getTime() - new Date(a.registrationDate).getTime()).slice(0,10);
 
   }
 
-  // Delete User
-  removeUser(id: any) {
-    this.deleteId = id
+  // Disable User
+  disableUser(id: any) {
+    this.deleteId = id;
+    console.log('the id of the user to be deleted'+this.deleteId);
     this.removeItemModal?.show();
   }
 
-  confirmDelete(id: any) {
-    this.store.dispatch(deleteuserlist({ id: this.deleteId }));
+  confirmDelete() {
+    this.store.dispatch(deleteMerchantlist({ userId: this.deleteId }));
     this.removeItemModal?.hide();
   }
 

@@ -1,6 +1,6 @@
 <div class="container-fluid">
 
-    <app-page-title title="{{'Merchant List'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <app-page-title title="{{'Users List'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
   
     <div class="row">
       <div class="col-lg-12">
@@ -17,7 +17,9 @@
               </div>
               <div class="col-sm-8">
                 <div class="text-sm-end">
-                  <button type="button" data-bs-toggle="modal" (click)="newContactModal.show()" class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal mb-2"><i class="mdi mdi-plus me-1"></i> {{'New Merchant'|translate}}</button>
+                  <!-- <button  type="button" data-bs-toggle="modal" (click)="newContactModal.show()" class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal mb-2"><i class="mdi mdi-plus me-1"></i> {{'New Merchant'|translate}}</button> -->
+                  <button [routerLink]="['/users/create']" type="button" data-bs-toggle="modal"  class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal mb-2"><i class="mdi mdi-plus me-1"></i> {{'New Merchant'|translate}}</button>
+
                 </div>
               </div><!-- end col-->
             </div>
@@ -35,7 +37,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @for (data of (merchantList$|async); track $index) {
+                  @for (data of merchantList; track $index) {
                   <tr *ngIf="data.status == 'active' ||data.status == 'inactive' ">
                     <td>
                         <div class="form-check font-size-16">
@@ -78,7 +80,7 @@
                             </li>
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Disable'| translate}}">
                               <!-- <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" (click)="delete($event)"><i class="mdi mdi-delete-outline"></i></a> -->
-                              <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" (click)="disableUser(data._id)"><i class="mdi mdi-delete-outline"></i></a>
+                              <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" (click)="disableUser(data.id)"><i class="mdi mdi-delete-outline"></i></a>
 
                             </li>
                           </ul>
@@ -291,7 +293,7 @@
           <p class="text-muted font-size-16 mb-4">{{'Are you Sure You want to disable this User ?'|translate}}</p>
   
           <div class="hstack gap-2 justify-content-center mb-0">
-            <button type="button" class="btn btn-danger me-1" id="remove-item" (click)="confirmDelete()">{{'Disable Now'|translate}}</button>
+            <button type="button" class="btn btn-danger me-1" id="remove-item" (click)="confirmDelete(deleteId)">{{'Disable Now'|translate}}</button>
             <button type="button" class="btn btn-secondary" (click)="removeItemModal.hide()">{{'Close'| translate}}</button>
           </div>
         </div>

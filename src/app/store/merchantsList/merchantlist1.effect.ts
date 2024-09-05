@@ -78,19 +78,25 @@ export class MerchantslistEffects1 {
     );
 
 
-    deleteData$ = createEffect(() =>
+   deleteData$ = createEffect(() =>
+    
         this.actions$.pipe(
             ofType(deleteMerchantlist),
-            mergeMap(({ id }) =>
-                this.CrudService.deleteData('/app/Merchantlist').pipe(
-                    map(() => deleteMerchantlistSuccess({ id })),
-                    catchError((error) => of(deleteMerchantlistFailure({ error })))
+            tap(action => console.log('Delete action received:', action)),
+            mergeMap(({ userId }) =>
+                    this.CrudService.disableData('/api/disable', userId).pipe(
+                        map((response: string) => {
+                            // If response contains a success message or status, you might want to check it here
+                            console.log('API response:', response);
+                            return deleteMerchantlistSuccess({ userId });
+                          }),
+                    catchError((error) => {return  of(deleteMerchantlistFailure({ error }))})
                 )
             )
         )
     );
-
-
+    
+    
     constructor(
         private actions$: Actions,
         private CrudService: CrudService
