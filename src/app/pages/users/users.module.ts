@@ -17,10 +17,11 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { UsersRoutingModule } from './users-routing.module';
+
+import { UsersComponent } from './users.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { FormUserComponent } from './form-user/form-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
-import { UsersComponent } from './users.component';
 
 
 @NgModule({
