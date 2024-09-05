@@ -1,13 +1,13 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
 // import { adduserlist, deleteuserlist, fetchuserlistData, updateuserlist } from 'src/app/store/UserList/userlist.action';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { addMerchantlist, deleteMerchantlist, fetchMerchantlistData } from 'src/app/store/merchantsList/merchantlist1.action';
+import { addMerchantlist, deleteMerchantlist, fetchMerchantlistData, updateMerchantlist } from 'src/app/store/merchantsList/merchantlist1.action';
 import { selectData } from 'src/app/store/merchantsList/merchantlist1-selector';
 import { ToastrService } from 'ngx-toastr';
 
@@ -52,7 +52,7 @@ export class MerchantListComponent implements OnInit {
   }
 
   ngOnInit() {
-   
+      
       console.log('begin get merchant list');
 
       this.store.dispatch(fetchMerchantlistData());
@@ -66,19 +66,20 @@ export class MerchantListComponent implements OnInit {
       document.getElementById('elmLoader')?.classList.add('d-none')
 
     this.createContactForm = this.formBuilder.group({
-      id: [''],
+      _id: [''],
       username: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       phone: ['', [Validators.required]],
-      companyRegister:['', [Validators.required]],
+      company_registration:['', [Validators.required]],
       city:['', [Validators.required]],
       country:['', [Validators.required]],
       building:['', [Validators.required]],
       user_type:['merchant'],
       status:['active']
       
-    })
+    });
+    this.resetModal();
   }
 
   // File Upload
@@ -99,38 +100,45 @@ export class MerchantListComponent implements OnInit {
 
   // Save User
   saveUser() {
-    // if (this.createContactForm.valid) {
-    //   console.log('enter valid form');
-    //   if (this.createContactForm.get('id')?.value) {
-    //     const updatedData = this.createContactForm.value;
-    //     this.store.dispatch(updateuserlist({ updatedData }));
-    //   } else {
-    //     console.log('Valid form and user Add');
-    //     //this.createContactForm.controls['id'].setValue((this.merchantList.length + 1).toString());
-    //     const newData = this.createContactForm.value;
-    //     console.log(newData);
-    //     this.store.dispatch(addMerchantlist({ newData }));
-    //     this.toastr.success('The new merchant has been added successfully.');
-        
-    //   }
-    //  }
-     console.log('Valid form and user Add');
-     //this.createContactForm.controls['id'].setValue((this.merchantList.length + 1).toString());
-     const newData = this.createContactForm.value;
-     console.log(newData);
-     this.store.dispatch(addMerchantlist({ newData }));
-     this.toastr.success('The new merchant has been added successfully.');
+   
+    if (this.createContactForm.get('_id')?.value){
+      console.log('removing password field');
+      
+      this.createContactForm.get('password')?.clearValidators();
+      this.createContactForm.get('password')?.updateValueAndValidity();
+    } 
+    else 
+    {
+        console.log('Adding new user, ensuring password is required');
+        // Ensure password is required when adding a new user
+        this.createContactForm.get('password')?.setValidators([Validators.required]);
+        this.createContactForm.get('password')?.updateValueAndValidity();
+    }
+    console.log(this.createContactForm.value);
+    console.log('Form status:', this.createContactForm.status);
+    console.log('Form errors:', this.createContactForm.errors);
+    
 
-    //  setTimeout(() => {
-    //   this.store.dispatch(fetchMerchantlistData());
-    //   this.store.select(selectData).subscribe(data => {
-    //     this.merchantList = data
-    //     console.log(this.merchantList);
-    //     this.returnedArray = data
-    //     this.merchantList = this.returnedArray.slice(0, 10)
-    //   })
-    //   document.getElementById('elmLoader')?.classList.add('d-none')
-    // }, 1200);
+    if (this.createContactForm.valid) {
+      
+      if (this.createContactForm.get('_id')?.value) {
+        const updatedData = this.createContactForm.value;
+        this.store.dispatch(updateMerchantlist({ updatedData }));
+      } 
+      else {
+        
+        this.createContactForm.patchValue({
+          user_type: 'merchant',
+          status: 'active',
+          });
+        const newData = this.createContactForm.value;
+        delete newData._id;
+        this.store.dispatch(addMerchantlist({ newData }));
+        
+        
+      }
+         }
+        
 
     this.newContactModal?.hide()
     document.querySelectorAll('#member-img').forEach((element: any) => {
@@ -139,9 +147,13 @@ export class MerchantListComponent implements OnInit {
 
     setTimeout(() => {
       this.createContactForm.reset();
+      this.resetPasswordValidation();
     }, 1000);
   }
-
+  resetPasswordValidation() {
+    this.createContactForm.get('password')?.setValidators([Validators.required]);
+    this.createContactForm.get('password')?.updateValueAndValidity();
+}
   // fiter job
   searchJob() {
     if (this.term) {
@@ -152,17 +164,59 @@ export class MerchantListComponent implements OnInit {
       this.merchantList$ = this.returnedArray
     }
   }
+  addUser() {
+    this.submitted = false;
+    this.createContactForm.reset(); // Reset form for new user
+    this.newContactModal?.show();
 
+    // Set modal title and button for adding
+    var modelTitle = document.querySelector('.modal-title') as HTMLAreaElement;
+    modelTitle.innerHTML = 'Add New Contact';
+
+    var updateBtn = document.getElementById('addContact-btn') as HTMLAreaElement;
+    updateBtn.innerHTML = "Add";
+
+    var passwordInput = document.getElementById('pwdField') as HTMLAreaElement;
+    passwordInput.hidden = false; // Show the password field for adding new user
+}
   // Edit User
   editUser(id: any) {
     this.submitted = false;
     this.newContactModal?.show()
+    
     var modelTitle = document.querySelector('.modal-title') as HTMLAreaElement;
     modelTitle.innerHTML = 'Edit Profile';
+    
     var updateBtn = document.getElementById('addContact-btn') as HTMLAreaElement;
     updateBtn.innerHTML = "Update";
-    this.createContactForm.patchValue(this.merchantList$[id]);
+
+    var passwordInput = document.getElementById('pwdField') as HTMLAreaElement;
+    passwordInput.hidden = true;
+    
+    this.merchantList$.pipe(take(1)).subscribe(merchantList => {
+    const user = merchantList.find(merchant => merchant._id === id);
+
+      if (user) {
+          console.log("The user to be updated", user);
+          this.createContactForm.patchValue(user);
+          this.createContactForm.patchValue({
+            _id: user._id
+          });
+
+      } else {
+          console.error('User not found');
+      }
+  });
   }
+  resetModal() {
+    this.createContactForm.reset();
+    var modelTitle = document.querySelector('.modal-title') as HTMLAreaElement;
+    modelTitle.innerHTML = '';
+    var updateBtn = document.getElementById('addContact-btn') as HTMLAreaElement;
+    updateBtn.innerHTML = '';
+    var passwordInput = document.getElementById('pwdField') as HTMLAreaElement;
+    passwordInput.hidden = false; // Show by default
+}
 
   // pagechanged
   pageChanged(event: PageChangedEvent): void {

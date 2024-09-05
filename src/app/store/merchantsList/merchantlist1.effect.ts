@@ -20,6 +20,7 @@ import {
     updateMerchantStatusSuccess,
     updateMerchantStatusFailure
 } from './merchantlist1.action';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class MerchantslistEffects1 {
@@ -44,9 +45,10 @@ export class MerchantslistEffects1 {
             ofType(addMerchantlist),
             mergeMap(({ newData }) =>
                 this.CrudService.addData('/api/admin/add-user', newData).pipe(
-                    map(() => {
+                    map((newData) => {
+                        this.toastr.success('The new merchant has been added successfully.');
                         // Dispatch the action to fetch the updated merchant list after adding a new merchant
-                        return fetchMerchantlistData();
+                        return addMerchantlistSuccess({newData});
                       }),
                     catchError((error) => of(addMerchantlistFailure({ error })))
                 )
@@ -58,7 +60,9 @@ export class MerchantslistEffects1 {
             ofType(updateMerchantStatus),
             mergeMap(({ userId, status }) =>
                 this.CrudService.addData('/api/update-status', { userId, status }).pipe(
-                    map((updatedData) => updateMerchantStatusSuccess({ updatedData })),
+                    map((updatedData) => {
+                        this.toastr.success('The merchant has been updated successfully.');
+                        return updateMerchantStatusSuccess({ updatedData })}),
                     catchError((error) => of(updateMerchantStatusFailure({ error })))
                 )
             )
@@ -69,7 +73,7 @@ export class MerchantslistEffects1 {
         this.actions$.pipe(
             ofType(updateMerchantlist),
             mergeMap(({ updatedData }) =>
-                this.CrudService.updateData('/app/Merchantlist', updatedData).pipe(
+                this.CrudService.updateData(`/api/user/${updatedData._id}`, updatedData).pipe(
                     map(() => updateMerchantlistSuccess({ updatedData })),
                     catchError((error) => of(updateMerchantlistFailure({ error })))
                 )
@@ -99,7 +103,8 @@ export class MerchantslistEffects1 {
     
     constructor(
         private actions$: Actions,
-        private CrudService: CrudService
+        private CrudService: CrudService,
+        public toastr:ToastrService
     ) { }
 
 }
