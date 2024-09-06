@@ -178,6 +178,7 @@ export class MerchantListComponent implements OnInit {
     } else if (filterType && this.originalArray) {
       console.log('i am in filter section');
       this.filteredArray = this.groupBy(this.originalArray, filterType.toLowerCase());
+      console.log(this.filteredArray);
     }
   }
 
@@ -185,6 +186,7 @@ export class MerchantListComponent implements OnInit {
 
 // Group data by the selected criterion
 groupBy(data: any[], criterion: string) {
+  console.log('i am in group by');
   const grouped = data.reduce((result, item) => {
     const key = item[criterion];
     if (key !== undefined) {
@@ -197,10 +199,9 @@ groupBy(data: any[], criterion: string) {
   }, {} as { [key: string]: any[] });
 
   // Convert grouped object into a flattened array with grouping info
-  return Object.keys(grouped).map(key => ({
-    group: key,
-    items: grouped[key]
-  }));
+  const flattened = Object.values(grouped).flat();
+
+  return flattened;
 
 }
 
