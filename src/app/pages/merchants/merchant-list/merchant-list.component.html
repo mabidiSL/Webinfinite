@@ -1,26 +1,58 @@
 <div class="container-fluid">
 
     <app-page-title title="{{'Merchant List'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
-  
+    
     <div class="row">
       <div class="col-lg-12">
         <div class="card">
           <div class="card-body">
             <div class="row mb-2">
-              <div class="col-sm-4">
-                <div class="search-box me-2 mb-2 d-inline-block">
+              <!-- Search Box -->
+              <div class="col-sm-2">
+                <div class="search-box me-2 mb-2">
                   <div class="position-relative">
                     <input type="text" class="form-control" id="searchTableList" placeholder="{{'HEADER.SEARCH'|translate}}" [(ngModel)]="term" (ngModelChange)="searchJob()">
                     <i class="bx bx-search-alt search-icon"></i>
                   </div>
                 </div>
               </div>
-              <div class="col-sm-8">
-                <div class="text-sm-end">
-                  <button type="button" data-bs-toggle="modal" (click)="addUser()" class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal mb-2"><i class="mdi mdi-plus me-1"></i> {{'New Merchant'|translate}}</button>
-                </div>
-              </div><!-- end col-->
+              
+              <!-- Filter Button -->
+              <div class="col-sm-2 position-relative">
+                <button class="btn btn-outline-secondary btn-rounded waves-effect waves-light"id="filter" tooltip="{{'Filter By'| translate}}" (click)="toggleDropdown()">
+                  <i class="bx bx-filter-alt"></i> 
+                </button>
+              
+              <div  class="dropdown-menu position-absolute" [class.show]="isDropdownOpen">
+                <a class="dropdown-item" href="javascript:void(0);" (click)="applyFilter('All')">All</a>
+                <a class="dropdown-item" href="javascript:void(0);" (click)="applyFilter('Name')">Name</a>
+                <a class="dropdown-item" href="javascript:void(0);" (click)="applyFilter('City')">City</a>
+                <a class="dropdown-item" href="javascript:void(0);" (click)="applyFilter('Status')">Status</a>
+                <a class="dropdown-item" href="javascript:void(0);" (click)="applyFilter('Phone')">Phone</a>
+              </div>
             </div>
+              <!-- Print Button -->
+              <div class="col-sm-2">
+                <button class="btn btn-outline-secondary btn-rounded waves-effect waves-light" tooltip="{{'Print'| translate}}" (click)="printData()">
+                  <i class="bx bx-printer"></i> 
+                </button>
+              </div>
+            
+              <!-- Download Button -->
+              <div class="col-sm-2">
+                <button class="btn btn-outline-secondary btn-rounded waves-effect waves-light" tooltip="{{'Download'| translate}}" (click)="downloadData()">
+                  <i class="bx bx-download"></i> 
+                </button>
+              </div>
+            
+              <!-- Add Merchant Button -->
+              <div class="col-sm-4 text-end">
+                <button type="button" data-bs-toggle="modal" (click)="addUser()" class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal">
+                  <i class="mdi mdi-plus me-1"></i> {{'New Merchant'|translate}}
+                </button>
+              </div>
+              
+          </div>
             <!-- end row -->
             <div class="table-responsive">
               <table class="table align-middle table-nowrap table-hover dt-responsive nowrap w-100" id="userList-table">
@@ -35,7 +67,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <ng-container  *ngFor="let data of (merchantList$|async); let i= index "> 
+                  <ng-container  *ngFor="let data of filteredArray; let i= index "> 
                   <tr *ngIf="data.status == 'active' ||data.status == 'inactive' ">
                     <td>
                         <div class="form-check font-size-16">
@@ -102,7 +134,7 @@
             <div class="row">
               <div class="col-lg-12">
                 <ul class="pagination pagination-rounded justify-content-center mt-4">
-                  <pagination class="pagination-wrap hstack gap-2" [totalItems]="returnedArray?.length" [itemsPerPage]="10" (pageChanged)="pageChanged($event)"></pagination>
+                  <pagination class="pagination-wrap hstack gap-2" [totalItems]="filteredArray?.length" [itemsPerPage]="10" (pageChanged)="pageChanged($event)"></pagination>
                 </ul>
               </div>
             </div>

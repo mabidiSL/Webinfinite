@@ -36,11 +36,14 @@ export class MerchantListComponent implements OnInit {
   files: File[] = [];
   endItem: any;
   viewType: string;
+  isDropdownOpen : boolean = false;
+  filteredArray: any[] = [];
+  originalArray: any[] = [];
 
   @ViewChild('newContactModal', { static: false }) newContactModal?: ModalDirective;
   @ViewChild('removeItemModal', { static: false }) removeItemModal?: ModalDirective;
   deleteId: any;
-  returnedArray: any
+  returnedArray: Observable<any[]>;
 
   constructor(
     private modalService: BsModalService,
@@ -61,8 +64,8 @@ export class MerchantListComponent implements OnInit {
       console.log('finish get merchant list');
 
       this.merchantList$.subscribe(data => {
-        this.returnedArray = data;
-        //this.merchantList$ = this.returnedArray.sort((a: any, b: any) => new Date(b.registrationDate).getTime() - new Date(a.registrationDate).getTime()).slice(0,10);
+        this.originalArray = data; // Store the full merchant list
+        this.filteredArray = [...this.originalArray];
       });
       document.getElementById('elmLoader')?.classList.add('d-none')
 
@@ -158,12 +161,54 @@ export class MerchantListComponent implements OnInit {
   // fiter job
   searchJob() {
     if (this.term) {
-      this.merchantList$ = this.returnedArray.filter((data: any) => {
-        return data.name.toLowerCase().includes(this.term.toLowerCase())
-      })
+      this.filteredArray = this.originalArray.filter((data: any) =>
+        data.username.toLowerCase().includes(this.term.toLowerCase())
+      );
     } else {
-      this.merchantList$ = this.returnedArray
+      this.filteredArray = [...this.originalArray]; // Reset the filter
     }
+  }
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+  applyFilter(filterType: string) {
+    this.isDropdownOpen = false;
+    if (filterType === 'All') {
+      this.filteredArray = [...this.originalArray]; // Show all items
+    } else if (filterType && this.originalArray) {
+      console.log('i am in filter section');
+      this.filteredArray = this.groupBy(this.originalArray, filterType.toLowerCase());
+    }
+  }
+
+ 
+
+// Group data by the selected criterion
+groupBy(data: any[], criterion: string) {
+  const grouped = data.reduce((result, item) => {
+    const key = item[criterion];
+    if (key !== undefined) {
+      if (!result[key]) {
+        result[key] = [];
+      }
+      result[key].push(item);
+    }
+    return result;
+  }, {} as { [key: string]: any[] });
+
+  // Convert grouped object into a flattened array with grouping info
+  return Object.keys(grouped).map(key => ({
+    group: key,
+    items: grouped[key]
+  }));
+
+}
+
+  printData(){
+
+  }
+  downloadData(){
+
   }
   addUser() {
     this.viewType = "add";
@@ -262,7 +307,7 @@ viewUser(id: any) {
     const startItem = (event.page - 1) * event.itemsPerPage;
     this.endItem = event.page * event.itemsPerPage;
     //this.merchantList$ = this.returnedArray.slice(startItem, this.endItem);
-    this.merchantList$ = this.returnedArray.sort((a: any, b: any) => new Date(b.registrationDate).getTime() - new Date(a.registrationDate).getTime()).slice(0,10);
+   // this.merchantList$ = this.returnedArray.sort((a: any, b: any) => new Date(b.registrationDate).getTime() - new Date(a.registrationDate).getTime()).slice(0,10);
 
   }
 
