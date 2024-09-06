@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap, catchError, exhaustMap, tap, first } from 'rxjs/operators';
-import { from, of } from 'rxjs';
+import { BehaviorSubject, from, Observable, of } from 'rxjs';
 import { AuthenticationService } from '../../core/services/auth.service';
 import { login, loginSuccess, loginFailure,forgetPassword, logout, logoutSuccess, Register, RegisterSuccess, RegisterFailure, updatePassword, updatePasswordFailure, updatePasswordSuccess, updateProfile, updateProfilePassword, updateProfileSuccess, updateProfileFailure, updateProfilePasswordSuccess, updateProfilePasswordFailure } from './authentication.actions';
 import { Router } from '@angular/router';
@@ -9,17 +9,29 @@ import { environment } from 'src/environments/environment';
 import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
 import { UserProfileService } from 'src/app/core/services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { _User, User } from './auth.models';
 
 @Injectable()
 export class AuthenticationEffects {
   
+  private currentUserSubject: BehaviorSubject<_User>;
+  public currentUser: Observable<_User>;
+
   constructor(
     @Inject(Actions) private actions$: Actions,
     private AuthenticationService: AuthenticationService,
     private AuthfakeService: AuthfakeauthenticationService,
     private userService: UserProfileService,
     private router: Router,
-    public toastr:ToastrService) { }
+    public toastr:ToastrService) {
+
+      this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+      this.currentUser = this.currentUserSubject.asObservable();
+     }
+          
+  public get currentUserValue(): User {
+      return this.currentUserSubject.value;
+  }
 
   Register$ = createEffect(() =>
     this.actions$.pipe(
@@ -60,8 +72,9 @@ export class AuthenticationEffects {
                 console.log(JSON.stringify(user.user));
                 localStorage.setItem('currentUser', JSON.stringify(user.user));
                 localStorage.setItem('token', user.token);
+                this.currentUserSubject.next(user);
                 this.toastr.success('Login successfully!!!');
-                this.router.navigate(['/dashboard']);
+                this.router.navigate(['/']);
                 return loginSuccess({ user: user.user, token: user.token });
 
               }
@@ -168,7 +181,10 @@ export class AuthenticationEffects {
       ofType(logout),
       tap(() => {
         // Perform any necessary cleanup or side effects before logging out
-        this.AuthfakeService.logout();
+       
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('token');
+        this.currentUserSubject.next(null);
         this.router.navigate(['/auth/login']);
         this.toastr.success('You are logged out !!!');
       }),

@@ -37,8 +37,8 @@ export class TopbarComponent implements OnInit {
   theme: any;
   layout: string;
   dataLayout$: Observable<string>;
-  currentUser$: Observable<_User>;
-
+  private currentUserSubject: BehaviorSubject<_User>;
+  public currentUser: Observable<_User>;
 
   // Define layoutMode as a property
 
@@ -51,10 +51,16 @@ export class TopbarComponent implements OnInit {
     
     public toastr:ToastrService) {
       
-     // using state management for the current user
-     this.currentUser$ = this.store.pipe(select(getUser));
 
-    }
+      this.currentUserSubject = new BehaviorSubject<_User>(JSON.parse(localStorage.getItem('currentUser')));
+      this.currentUser = this.currentUserSubject.asObservable();
+     }
+          
+  public get currentUserValue(): _User {
+      return this.currentUserSubject.value;
+  }
+
+    
 
   listLang: any = [
     { text: 'English', flag: 'assets/images/flags/us.jpg', lang: 'en' },

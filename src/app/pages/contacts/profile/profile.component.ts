@@ -6,7 +6,7 @@ import { ChartType } from './profile.model';
 import { FormGroup, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { CustomValidators } from 'src/app/shared/validator/password-match';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { _User } from 'src/app/store/Authentication/auth.models';
 import { updateProfile, updateProfilePassword } from 'src/app/store/Authentication/authentication.actions';
 import { TranslateService } from '@ngx-translate/core';
@@ -29,20 +29,21 @@ export class ProfileComponent  {
   revenueBarChart: ChartType;
   statData:any;
   submitted: any = false;
-  currentUser$: Observable<_User>;
-  
+  private currentUserSubject: BehaviorSubject<_User>;
+  public currentUser: Observable<_User>;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
     private store: Store, 
     public translate: TranslateService) {
-
       
-    // using state management for the current user
-    this.currentUser$ = this.store.pipe(select(getUser));
+      this.currentUserSubject = new BehaviorSubject<_User>(JSON.parse(localStorage.getItem('currentUser')));
+      this.currentUser = this.currentUserSubject.asObservable();
+      
+   
 
     // fill up the form for updating the profile
-    this.currentUser$.subscribe(user =>{
+    this.currentUser.subscribe(user =>{
     this.profileForm = this.formBuilder.group({
       _id: [user?._id],
       // name: [this.currentUserValue.user.name, [Validators.required]],
@@ -61,6 +62,9 @@ export class ProfileComponent  {
   },{validators: [this.passwordMatchValidator]});}); 
  
   }
+  public get currentUserValue(): _User {
+    return this.currentUserSubject.value;
+}
   passwordMatchValidator(formGroup: FormGroup) {
     const newPassword = formGroup?.get('newPassword').value;
     const confirmPassword = formGroup?.get('confirmpwd').value;
