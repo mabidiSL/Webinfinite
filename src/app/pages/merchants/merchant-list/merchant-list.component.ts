@@ -34,7 +34,8 @@ export class MerchantListComponent implements OnInit {
   submitted = false;
   contacts: any;
   files: File[] = [];
-  endItem: any
+  endItem: any;
+  viewType: string;
 
   @ViewChild('newContactModal', { static: false }) newContactModal?: ModalDirective;
   @ViewChild('removeItemModal', { static: false }) removeItemModal?: ModalDirective;
@@ -100,7 +101,7 @@ export class MerchantListComponent implements OnInit {
 
   // Save User
   saveUser() {
-   
+    if( this.viewType === "add"|| this.viewType === "edit"){
     if (this.createContactForm.get('_id')?.value){
       console.log('removing password field');
       
@@ -138,7 +139,7 @@ export class MerchantListComponent implements OnInit {
         
       }
          }
-        
+      } 
 
     this.newContactModal?.hide()
     document.querySelectorAll('#member-img').forEach((element: any) => {
@@ -165,9 +166,11 @@ export class MerchantListComponent implements OnInit {
     }
   }
   addUser() {
+    this.viewType = "add";
     this.submitted = false;
     this.createContactForm.reset(); // Reset form for new user
     this.newContactModal?.show();
+    this.createContactForm.enable();
 
     // Set modal title and button for adding
     var modelTitle = document.querySelector('.modal-title') as HTMLAreaElement;
@@ -179,11 +182,47 @@ export class MerchantListComponent implements OnInit {
     var passwordInput = document.getElementById('pwdField') as HTMLAreaElement;
     passwordInput.hidden = false; // Show the password field for adding new user
 }
+
+viewUser(id: any) {
+  this.viewType = "view";
+  this.submitted = false;
+  this.newContactModal?.show()
+  
+  var modelTitle = document.querySelector('.modal-title') as HTMLAreaElement;
+  modelTitle.innerHTML = 'View User';
+  
+  var okBtn = document.getElementById('addContact-btn') as HTMLAreaElement;
+  okBtn.innerHTML = "Ok";
+
+  var cancelBtn = document.getElementById('cancel-btn') as HTMLAreaElement;
+  cancelBtn.hidden = true;
+
+  var passwordInput = document.getElementById('pwdField') as HTMLAreaElement;
+  passwordInput.hidden = true;
+  
+  this.merchantList$.pipe(take(1)).subscribe(merchantList => {
+  const user = merchantList.find(merchant => merchant._id === id);
+
+    if (user) {
+        console.log("The user to be shown", user);
+        this.createContactForm.patchValue(user);
+        this.createContactForm.patchValue({
+          _id: user._id
+        });
+        this.createContactForm.disable();
+
+    } else {
+        console.error('User not found');
+    }
+});
+}
   // Edit User
   editUser(id: any) {
+    this.viewType = "edit";
     this.submitted = false;
     this.newContactModal?.show()
-    
+    this.createContactForm.enable();
+
     var modelTitle = document.querySelector('.modal-title') as HTMLAreaElement;
     modelTitle.innerHTML = 'Edit Profile';
     
