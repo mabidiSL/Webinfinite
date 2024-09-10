@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { forkJoin, mergeMap, Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { selectData } from 'src/app/store/merchantsList/merchantlist1-selector';
 
 @Component({
@@ -14,17 +15,25 @@ export class FormCouponComponent implements OnInit{
   @Input() type: string;
   merchantList$: Observable<any[]>;
   formCoupon: UntypedFormGroup;
+  private destroy$ = new Subject<void>();
 
 
 
-  constructor(private store: Store, private formBuilder: UntypedFormBuilder){
+  constructor(
+    private store: Store, 
+    private formBuilder: UntypedFormBuilder, 
+    private router: Router,
+    private route: ActivatedRoute){
+    // Get merchant list
     this.merchantList$ = this.store.pipe(select(selectData)); // Observing the merchant list from store
+    
+    // Get Countries, areas and cities
+    //this.countries =  this.store.pipe(select(selectData));
+    //this.cities =  this.store.pipe(select(selectData));
+    //this.areas =  this.store.pipe(select(selectData));
 
-   
-  }
-  
-  ngOnInit(){
-    console.log('i am in coupon management');
+    //Get ContractResponsable list
+    //this.contractRespon = this.store.pipe(select(selectData));
     this.formCoupon = this.formBuilder.group({
       id: [''],
       name: ['', Validators.required],
@@ -49,7 +58,7 @@ export class FormCouponComponent implements OnInit{
       contractRepName: ['', Validators.required],
       sectionOrderAppearnance: [''],
       categoryOrderAppearnce: [''],
-      centerLogo: [''],
+      merchantLogo: [''],
       couponLogo: ['',Validators.required],
       couponType: ['',Validators.required],// free,discountPercent,discountAmount,servicePrice checkboxes
       couponValueBeforeDiscount:['',Validators.required],
@@ -58,9 +67,42 @@ export class FormCouponComponent implements OnInit{
       status: [''],//pending,approved,active, expired, closed
 
     });
+
+   
   }
+  
+  ngOnInit(){
+    console.log('i am in coupon management');
+    
+    // this.route.params
+    //   .pipe(
+    //     switchMap(params => {
+    //         if(!params['id']) return of();
+    //         return this.store
+    //                   .dispatch(new EditCoupon(params['id']))
+    //                   .pipe(mergeMap(() => this.store.select(ProductState.selectedProduct)))
+    //       }
+    //     ),
+    //     takeUntil(this.destroy$)
+    //   )
+    //   .subscribe(coupon => {
+        
+    //     this.formCoupon.patchValue({});
+           
+    //       });
+          
+
+    }
+  
   onSubmit(){
 
   }
-
+  onCancel(){
+    this.formCoupon.reset();
+    this.router.navigateByUrl('/coupons');
+  }
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

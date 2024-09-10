@@ -6,177 +6,229 @@
                 <form [formGroup]="formCoupon" (ngSubmit)="onSubmit()" novalidate>
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="name">Name</label>
+                            <label for="name">{{'Name'|translate}}</label>
                             <input class="form-control" id="name" formControlName="name" type="text" />
                             <div *ngIf="formCoupon.get('name').invalid && formCoupon.get('name').touched" class="text-danger">
-                                Name is required
+                                {{'Name is required'|translate}}
                             </div>
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label for="transName">Trans Name</label>
+                            <label for="transName">{{'Translated Name'|translate}}</label>
                             <input class="form-control" id="transName" formControlName="transName" type="text" />
                             <div *ngIf="formCoupon.get('transName').invalid && formCoupon.get('transName').touched" class="text-danger">
-                                Trans Name is required
+                                {{'Translated name is required'|translate}}
                             </div>
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label for="termsAndConditions">Terms and Conditions</label>
-                            <textarea class="form-control" id="termsAndConditions" formControlName="termsAndConditions"></textarea>
+                            <label for="termsAndConditions">{{'Terms and Conditions'|translate}}</label>
+                            <textarea class="form-control" id="termsAndConditions" formControlName="termsAndConditions" rows="8"></textarea>
                             <div *ngIf="formCoupon.get('termsAndConditions').invalid && formCoupon.get('termsAndConditions').touched" class="text-danger">
-                                Terms and Conditions are required
+                                {{'Terms and Conditions are required'|translate}}
                             </div>
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label for="transTermsAndConditions">Translated Terms and Conditions</label>
-                            <textarea class="form-control" id="transTermsAndConditions" formControlName="transTermsAndConditions"></textarea>
+                            <label for="transTermsAndConditions">{{'Translated Terms and Conditions'|translate}}</label>
+                            <textarea class="form-control" id="transTermsAndConditions" formControlName="transTermsAndConditions" rows="8"></textarea>
                             <div *ngIf="formCoupon.get('transTermsAndConditions').invalid && formCoupon.get('transTermsAndConditions').touched" class="text-danger">
-                                Translated Terms and Conditions are required
+                                {{'Translated Terms and Conditions are required'|translate}}
                             </div>
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label for="codeCoupon">Coupon Code</label>
+                            <label for="codeCoupon">{{'Coupon Code'|translate}}</label>
                             <input class="form-control" id="codeCoupon" formControlName="codeCoupon" type="text" readonly />
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label for="urlStore">URL Store</label>
+                            <label for="urlStore">{{'URL Store'|translate}}</label>
                             <input class="form-control" id="urlStore" formControlName="urlStore" type="text" />
                             <div *ngIf="formCoupon.get('urlStore').invalid && formCoupon.get('urlStore').touched" class="text-danger">
-                                URL Store is required
+                                {{'URL Store is required'|translate}}
                             </div>
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label for="country">Country</label>
+                            <label for="country">{{'Country'|translate}}</label>
+                            <!-- <select class="form-control" id="country" formControlName="country">
+                                <option *ngFor="let country of countries" [value]="country.code">
+                                  {{ country.name }}
+                                </option>
+                              </select> -->
                             <input class="form-control" id="country" formControlName="country" type="text" />
                             <div *ngIf="formCoupon.get('country').invalid && formCoupon.get('country').touched" class="text-danger">
-                                Country is required
+                                {{'Country is required'|translate}}
                             </div>
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label for="area">Area</label>
+                            <label for="area">{{'Area'|translate}}</label>
+                            <!-- <select class="form-control" id="area" formControlName="area">
+                                <option *ngFor="let area of areas" [value]="area.id">
+                                  {{ area.name }}
+                                </option>
+                              </select> -->
                             <input class="form-control" id="area" formControlName="area" type="text" />
                             <div *ngIf="formCoupon.get('area').invalid && formCoupon.get('area').touched" class="text-danger">
-                                Area is required
+                                {{'Area is required'|translate}}
                             </div>
                         </div>
                                        
                   <div class="col-md-6 mb-3">
-                    <label for="city">City</label>
+                    <label for="city">{{'City'|translate}}</label>
+                    <!-- <select class="form-control" id="city" formControlName="city">
+                                <option *ngFor="let city of cities" [value]="city.id">
+                                  {{ city.name }}
+                                </option>
+                    </select> -->
                     <input class="form-control" id="city" formControlName="city" type="text" />
                     <div *ngIf="formCoupon.get('city').invalid && formCoupon.get('city').touched">
-                      City is required
+                      {{'City is required'|translate}}
                     </div>
                   </div>
                 
                   <div class="col-md-6 mb-3">
-                    <label for="quantity">Quantity</label>
+                    <label for="quantity">{{'Quantity'|translate}}</label>
                     <input class="form-control" id="quantity" formControlName="quantity" type="number" />
                     <div *ngIf="formCoupon.get('quantity').invalid && formCoupon.get('quantity').touched">
-                      Quantity is required
+                      {{'Quantity is required'|translate}}
                     </div>
                   </div>
                 
                   <div class="col-md-6 mb-3">
-                    <label for="merchantName">Merchant Name</label>
+                    <label for="merchantName">{{'Merchant Name'|translate}}</label>
                     <input class="form-control" id="merchantName" formControlName="merchantName" type="text" />
                     <div *ngIf="formCoupon.get('merchantName').invalid && formCoupon.get('merchantName').touched">
-                      Merchant Name is required
+                      {{'Merchant Name is required'|translate}}
                     </div>
                   </div>
                 
                   <div class="col-md-6 mb-3">
-                    <label for="storeName">Store Name</label>
+                    <label for="storeName">{{'Store Name'|translate}}</label>
+                    <!-- <option [value]="'all'">{{ 'All Stores' | translate }}</option> -->
+
+                    <!-- <select class="form-control" id="city" formControlName="storeName">
+                                <option *ngFor="let store of stores" [value]="storeName.id">
+                                  {{ store.name }}
+                                </option>
+                    </select> -->
                     <input class="form-control" id="storeName" formControlName="storeName" type="text" />
                     <div *ngIf="formCoupon.get('storeName').invalid && formCoupon.get('storeName').touched">
-                      Store Name is required
+                      {{'Store Name is required'|translate}}
                     </div>
                   </div>
                 
                   <div class="col-md-6 mb-3">
-                    <label for="managerName">Manager Name</label>
+                    <label for="managerName">{{'Manager Name'|translate}}</label>
                     <input class="form-control" id="managerName" formControlName="managerName" type="text" />
                     <div *ngIf="formCoupon.get('managerName').invalid && formCoupon.get('managerName').touched">
-                      Manager Name is required
+                      {{'Manager Name is required'|translate}}
                     </div>
                   </div>
                 
                   <div class="col-md-6 mb-3">
-                    <label for="managerPhone">Manager Phone</label>
+                    <label for="managerPhone">{{'Manager Phone'|translate}}</label>
                     <input class="form-control" id="managerPhone" formControlName="managerPhone" type="tel" />
                     <div *ngIf="formCoupon.get('managerPhone').invalid && formCoupon.get('managerPhone').touched">
-                      Manager Phone is required
+                      {{'Manager Phone is required'|translate}}
                     </div>
                   </div>
                 
                   <div class="col-md-6 mb-3">
-                    <label for="startDateCoupon">Start Date</label>
+                    <label for="startDateCoupon">{{'Start Date'|translate}}</label>
                     <input class="form-control" id="startDateCoupon" formControlName="startDateCoupon" type="date" />
                     <div *ngIf="formCoupon.get('startDateCoupon').invalid && formCoupon.get('startDateCoupon').touched">
-                      Start Date is required
+                      {{'Start Date is required'|translate}}
                     </div>
                   </div>
                 
                   <div class="col-md-6 mb-3">
-                    <label for="endDateCoupon">End Date</label>
+                    <label for="endDateCoupon">{{'End Date'|translate}}</label>
                     <input  class="form-control" id="endDateCoupon" formControlName="endDateCoupon" type="date" />
                     <div *ngIf="formCoupon.get('endDateCoupon').invalid && formCoupon.get('endDateCoupon').touched">
-                      End Date is required
+                      {{'End Date is required'|translate}}
                     </div>
                   </div>
                 
                   <div class="col-md-6 mb-3">
-                    <label for="couponLogo">Upload Coupon Logo</label>
+                    <label for="couponLogo">{{'Upload Coupon Logo'|translate}}</label>
                     <input class="form-control" id="couponLogo" formControlName="couponLogo" type="file" />
                     <div *ngIf="formCoupon.get('couponLogo').invalid && formCoupon.get('couponLogo').touched">
-                      Coupon Logo is required
+                      {{'Coupon Logo is required'|translate}}
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-6 mb-3">
+                    <label for="merchantLogo">{{'Upload Merchant Logo'|translate}}</label>
+                    <input class="form-control" id="merchantLogo" formControlName="merchantLogo" type="file" />
+                    <div *ngIf="formCoupon.get('merchantLogo').invalid && formCoupon.get('merchantLogo').touched">
+                      {{'Merchant Logo is required'|translate}}
+                    </div>
+                  </div>
+                  <div class="col-md-12 mb-3">
+                    <label for="couponType">{{'Coupon Type'|translate}}</label>
+                    <div>
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="radio" formControlName="couponType" value="free" />
+                          {{'Free'|translate}}
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="radio" formControlName="couponType" value="discountPercent" />
+                          {{'Discount Percent'|translate}}
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="radio" formControlName="couponType" value="discountAmount" />
+                          {{'Discount Amount'|translate}}
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="radio" formControlName="couponType" value="servicePrice" />
+                          {{'Service Price'|translate}}
+                        </label>
+                      </div>
+                    </div>
+                    <div *ngIf="formCoupon.get('couponType').invalid && formCoupon.get('couponType').touched" class="text-danger">
+                      {{'Coupon Type is required'|translate}}
                     </div>
                   </div>
                   
                 
                   <div class="col-md-6 mb-3">
-                    <label for="couponType">Coupon Type</label>
-                    <div>
-                      <label><input type="checkbox" formControlName="couponType" value="free" /> Free</label>
-                      <label><input type="checkbox" formControlName="couponType" value="discountPercent" /> Discount Percent</label>
-                      <label><input type="checkbox" formControlName="couponType" value="discountAmount" /> Discount Amount</label>
-                      <label><input type="checkbox" formControlName="couponType" value="servicePrice" /> Service Price</label>
-                    </div>
-                    <div *ngIf="formCoupon.get('couponType').invalid && formCoupon.get('couponType').touched">
-                      Coupon Type is required
-                    </div>
-                  </div>
-                
-                  <div class="col-md-6 mb-3">
-                    <label for="couponValueBeforeDiscount">Value Before Discount</label>
+                    <label for="couponValueBeforeDiscount">{{'Value Before Discount'|translate}}</label>
                     <input  class="form-control" id="couponValueBeforeDiscount" formControlName="couponValueBeforeDiscount" type="text" />
                     <div *ngIf="formCoupon.get('couponValueBeforeDiscount').invalid && formCoupon.get('couponValueBeforeDiscount').touched">
-                      Value Before Discount is required
+                      {{'Value Before Discount is required'|translate}}
                     </div>
                   </div>
                 
                   <div class="col-md-6 mb-3">
-                    <label for="couponValueAfterDiscount">Value After Discount</label>
+                    <label for="couponValueAfterDiscount">{{'Value After Discount'|translate}}</label>
                     <input class="form-control" id="couponValueAfterDiscount" formControlName="couponValueAfterDiscount" type="text" />
                     <div *ngIf="formCoupon.get('couponValueAfterDiscount').invalid && formCoupon.get('couponValueAfterDiscount').touched">
-                      Value After Discount is required
+                      {{'Value After Discount is required'|translate}}
                     </div>
                   </div>
                 
                   <div class="col-md-6 mb-3">
-                    <label for="PaymentDiscountRate">Payment Discount Rate</label>
+                    <label for="PaymentDiscountRate">{{'Payment Discount Rate'|translate}}</label>
                     <input class="form-control" id="PaymentDiscountRate" formControlName="PaymentDiscountRate" type="text" />
                     <div *ngIf="formCoupon.get('PaymentDiscountRate').invalid && formCoupon.get('PaymentDiscountRate').touched">
-                      Payment Discount Rate is required
+                      {{'Payment Discount Rate is required'|translate}}
                     </div>
                   </div>
                   <div class="col-12  mt-4">
-                  <button type="submit" class="btn btn-success" [disabled]="formCoupon.invalid">Submit</button>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" id="cancel-btn" class="btn btn-outline-secondary me-2" (click)="onCancel()">{{'Cancel'|translate}}</button>
+                        <button type="submit" class="btn btn-success" [disabled]="formCoupon.invalid">{{'Submit'| translate}}</button>
+                    </div>
                   </div>
                   </div>
                 </form>
