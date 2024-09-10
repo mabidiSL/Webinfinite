@@ -153,7 +153,7 @@ export const MENU: MenuItem[] = [
             {
                 id: 17,
                 label: 'MENUITEMS.COUPONMANAGEMENT.LIST.COUPON',
-                link: '/invoices/list',
+                link: '/coupons',
                 parentId: 16
             },
             {

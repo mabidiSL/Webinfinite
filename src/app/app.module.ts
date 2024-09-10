@@ -54,6 +54,7 @@ import { MailEffects } from './store/Email/email.effects';
 import { MerchantsModule } from './pages/merchants/merchants.module';
 import { MerchantslistEffects } from './store/merchants/merchantlist.effect';
 import { MerchantslistEffects1 } from './store/merchantsList/merchantlist1.effect';
+import { CouponsModule } from './pages/coupons/coupons.module';
 
 
 
@@ -81,6 +82,7 @@ export function createTranslateLoader(http: HttpClient): any {
     }),
     LayoutsModule,
     MerchantsModule,
+    CouponsModule,
     AppRoutingModule,
     ExtrapagesModule,
     AccordionModule.forRoot(),

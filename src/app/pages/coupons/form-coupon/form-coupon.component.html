@@ -1,0 +1,188 @@
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="formCoupon" (ngSubmit)="onSubmit()" novalidate>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name">Name</label>
+                            <input class="form-control" id="name" formControlName="name" type="text" />
+                            <div *ngIf="formCoupon.get('name').invalid && formCoupon.get('name').touched" class="text-danger">
+                                Name is required
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="transName">Trans Name</label>
+                            <input class="form-control" id="transName" formControlName="transName" type="text" />
+                            <div *ngIf="formCoupon.get('transName').invalid && formCoupon.get('transName').touched" class="text-danger">
+                                Trans Name is required
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="termsAndConditions">Terms and Conditions</label>
+                            <textarea class="form-control" id="termsAndConditions" formControlName="termsAndConditions"></textarea>
+                            <div *ngIf="formCoupon.get('termsAndConditions').invalid && formCoupon.get('termsAndConditions').touched" class="text-danger">
+                                Terms and Conditions are required
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="transTermsAndConditions">Translated Terms and Conditions</label>
+                            <textarea class="form-control" id="transTermsAndConditions" formControlName="transTermsAndConditions"></textarea>
+                            <div *ngIf="formCoupon.get('transTermsAndConditions').invalid && formCoupon.get('transTermsAndConditions').touched" class="text-danger">
+                                Translated Terms and Conditions are required
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="codeCoupon">Coupon Code</label>
+                            <input class="form-control" id="codeCoupon" formControlName="codeCoupon" type="text" readonly />
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="urlStore">URL Store</label>
+                            <input class="form-control" id="urlStore" formControlName="urlStore" type="text" />
+                            <div *ngIf="formCoupon.get('urlStore').invalid && formCoupon.get('urlStore').touched" class="text-danger">
+                                URL Store is required
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="country">Country</label>
+                            <input class="form-control" id="country" formControlName="country" type="text" />
+                            <div *ngIf="formCoupon.get('country').invalid && formCoupon.get('country').touched" class="text-danger">
+                                Country is required
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="area">Area</label>
+                            <input class="form-control" id="area" formControlName="area" type="text" />
+                            <div *ngIf="formCoupon.get('area').invalid && formCoupon.get('area').touched" class="text-danger">
+                                Area is required
+                            </div>
+                        </div>
+                                       
+                  <div class="col-md-6 mb-3">
+                    <label for="city">City</label>
+                    <input class="form-control" id="city" formControlName="city" type="text" />
+                    <div *ngIf="formCoupon.get('city').invalid && formCoupon.get('city').touched">
+                      City is required
+                    </div>
+                  </div>
+                
+                  <div class="col-md-6 mb-3">
+                    <label for="quantity">Quantity</label>
+                    <input class="form-control" id="quantity" formControlName="quantity" type="number" />
+                    <div *ngIf="formCoupon.get('quantity').invalid && formCoupon.get('quantity').touched">
+                      Quantity is required
+                    </div>
+                  </div>
+                
+                  <div class="col-md-6 mb-3">
+                    <label for="merchantName">Merchant Name</label>
+                    <input class="form-control" id="merchantName" formControlName="merchantName" type="text" />
+                    <div *ngIf="formCoupon.get('merchantName').invalid && formCoupon.get('merchantName').touched">
+                      Merchant Name is required
+                    </div>
+                  </div>
+                
+                  <div class="col-md-6 mb-3">
+                    <label for="storeName">Store Name</label>
+                    <input class="form-control" id="storeName" formControlName="storeName" type="text" />
+                    <div *ngIf="formCoupon.get('storeName').invalid && formCoupon.get('storeName').touched">
+                      Store Name is required
+                    </div>
+                  </div>
+                
+                  <div class="col-md-6 mb-3">
+                    <label for="managerName">Manager Name</label>
+                    <input class="form-control" id="managerName" formControlName="managerName" type="text" />
+                    <div *ngIf="formCoupon.get('managerName').invalid && formCoupon.get('managerName').touched">
+                      Manager Name is required
+                    </div>
+                  </div>
+                
+                  <div class="col-md-6 mb-3">
+                    <label for="managerPhone">Manager Phone</label>
+                    <input class="form-control" id="managerPhone" formControlName="managerPhone" type="tel" />
+                    <div *ngIf="formCoupon.get('managerPhone').invalid && formCoupon.get('managerPhone').touched">
+                      Manager Phone is required
+                    </div>
+                  </div>
+                
+                  <div class="col-md-6 mb-3">
+                    <label for="startDateCoupon">Start Date</label>
+                    <input class="form-control" id="startDateCoupon" formControlName="startDateCoupon" type="date" />
+                    <div *ngIf="formCoupon.get('startDateCoupon').invalid && formCoupon.get('startDateCoupon').touched">
+                      Start Date is required
+                    </div>
+                  </div>
+                
+                  <div class="col-md-6 mb-3">
+                    <label for="endDateCoupon">End Date</label>
+                    <input  class="form-control" id="endDateCoupon" formControlName="endDateCoupon" type="date" />
+                    <div *ngIf="formCoupon.get('endDateCoupon').invalid && formCoupon.get('endDateCoupon').touched">
+                      End Date is required
+                    </div>
+                  </div>
+                
+                  <div class="col-md-6 mb-3">
+                    <label for="couponLogo">Upload Coupon Logo</label>
+                    <input class="form-control" id="couponLogo" formControlName="couponLogo" type="file" />
+                    <div *ngIf="formCoupon.get('couponLogo').invalid && formCoupon.get('couponLogo').touched">
+                      Coupon Logo is required
+                    </div>
+                  </div>
+                  
+                
+                  <div class="col-md-6 mb-3">
+                    <label for="couponType">Coupon Type</label>
+                    <div>
+                      <label><input type="checkbox" formControlName="couponType" value="free" /> Free</label>
+                      <label><input type="checkbox" formControlName="couponType" value="discountPercent" /> Discount Percent</label>
+                      <label><input type="checkbox" formControlName="couponType" value="discountAmount" /> Discount Amount</label>
+                      <label><input type="checkbox" formControlName="couponType" value="servicePrice" /> Service Price</label>
+                    </div>
+                    <div *ngIf="formCoupon.get('couponType').invalid && formCoupon.get('couponType').touched">
+                      Coupon Type is required
+                    </div>
+                  </div>
+                
+                  <div class="col-md-6 mb-3">
+                    <label for="couponValueBeforeDiscount">Value Before Discount</label>
+                    <input  class="form-control" id="couponValueBeforeDiscount" formControlName="couponValueBeforeDiscount" type="text" />
+                    <div *ngIf="formCoupon.get('couponValueBeforeDiscount').invalid && formCoupon.get('couponValueBeforeDiscount').touched">
+                      Value Before Discount is required
+                    </div>
+                  </div>
+                
+                  <div class="col-md-6 mb-3">
+                    <label for="couponValueAfterDiscount">Value After Discount</label>
+                    <input class="form-control" id="couponValueAfterDiscount" formControlName="couponValueAfterDiscount" type="text" />
+                    <div *ngIf="formCoupon.get('couponValueAfterDiscount').invalid && formCoupon.get('couponValueAfterDiscount').touched">
+                      Value After Discount is required
+                    </div>
+                  </div>
+                
+                  <div class="col-md-6 mb-3">
+                    <label for="PaymentDiscountRate">Payment Discount Rate</label>
+                    <input class="form-control" id="PaymentDiscountRate" formControlName="PaymentDiscountRate" type="text" />
+                    <div *ngIf="formCoupon.get('PaymentDiscountRate').invalid && formCoupon.get('PaymentDiscountRate').touched">
+                      Payment Discount Rate is required
+                    </div>
+                  </div>
+                  <div class="col-12  mt-4">
+                  <button type="submit" class="btn btn-success" [disabled]="formCoupon.invalid">Submit</button>
+                  </div>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div>
+
+  
