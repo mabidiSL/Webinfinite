@@ -17,9 +17,25 @@ import { PasswordresetComponent } from './passwordreset/passwordreset.component'
 import { UpdatepasswordComponent } from './updatepassword/updatepassword.component';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { WidgetModule } from 'src/app/shared/widget/widget.module';
+import { AuthComponent } from './auth.component';
+
+
+
 @NgModule({
-  declarations: [LoginComponent, Login2Component, SignupComponent, PasswordresetComponent, Register2Component, Recoverpwd2Component, UpdatepasswordComponent],
+  declarations: [LoginComponent, Login2Component, SignupComponent, PasswordresetComponent, Register2Component, Recoverpwd2Component, UpdatepasswordComponent, AuthComponent],
   imports: [
+    WidgetModule,
+    MatInputModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatCardModule,
     CommonModule,
     ReactiveFormsModule,
     FormsModule,

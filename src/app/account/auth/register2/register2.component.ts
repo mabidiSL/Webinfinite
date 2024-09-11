@@ -30,9 +30,31 @@ export class Register2Component implements OnInit {
     document.body.classList.add("auth-body-bg");
 
     this.signupForm = this.formBuilder.group({
+      
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
+      confpassword: ['', Validators.required],
+      storeName:['',Validators.required],
+      storeLogo: [''],
+      phone:[''],
+      country:[''],
+      city:[''],
+      area:[''], 
+      serviceType: [''],
+      supervisorName: [''],
+      supervisorPhone: [''],
+      bankAccountNumber: [''],
+      registerCode:[''],
+      merchantPicture: [''],
+      website: [''],
+      whatsup:[''],
+      facebook: [''],
+      twitter: [''],
+      instagram: [''],
+      merchantSection:[''],
+      merchantCategory: ['']
+
     });
   }
 
@@ -59,5 +81,9 @@ export class Register2Component implements OnInit {
 
     //Dispatch Action
     this.store.dispatch(Register({ email: email, username: name, password: password }));
+  }
+  onCancel(){
+    this.signupForm.reset();
+    this.router.navigateByUrl('/auth/login');
   }
 }

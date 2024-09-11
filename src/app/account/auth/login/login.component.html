@@ -60,9 +60,10 @@
                     <span class="visually-hidden">Loading...</span>
                   </div>
                 </div>
-
-                <div class="mt-3 d-grid">
-                  <button class="btn btn-gold" type="submit">{{'Log In'| translate}}</button>
+                
+                <div class="mt-3 d-flex d-grid grid-cols-2 gap-2">
+                  <button class="btn btn-gold me-2" type="submit">{{'Log In'| translate}}</button>
+                  <button routerLink="/auth/signup-2" class="btn btn-brown ">{{'Register'| translate}}</button>
                 </div>
                 <!-- <div class="mt-4 text-center">
                   <h5 class="font-size-14 mb-3">Sign in with</h5>
@@ -94,7 +95,9 @@
           </div>
         </div>
          <div class="mt-5 text-center">
-          
+          <!-- <p>You are a merchant and don't have an account ? <a routerLink="/auth/signup-2" class="fw-medium text-primary"> Register
+            now
+          </a> </p> -->
           <p>© {{year}} Infinite. Developed with <i class="mdi mdi-heart text-danger"></i> by SmartLogiq</p>
         </div> 
 

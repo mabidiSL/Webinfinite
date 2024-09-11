@@ -5,13 +5,15 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { StatComponent } from './stat/stat.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { PhoneNumberComponent } from './phone-number/phone-number.component';
 
 @NgModule({
-  declarations: [StatComponent, TransactionComponent],
+  declarations: [StatComponent, TransactionComponent, PhoneNumberComponent],
   imports: [
+    
     CommonModule,
     ModalModule.forRoot()
   ],
-  exports: [StatComponent, TransactionComponent]
+  exports: [StatComponent, TransactionComponent,PhoneNumberComponent]
 })
 export class WidgetModule { }

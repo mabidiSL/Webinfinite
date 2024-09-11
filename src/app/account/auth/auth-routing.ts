@@ -9,8 +9,13 @@ import { PasswordresetComponent } from './passwordreset/passwordreset.component'
 import { Register2Component } from './register2/register2.component';
 import { Recoverpwd2Component } from './recoverpwd2/recoverpwd2.component';
 import { UpdatepasswordComponent } from './updatepassword/updatepassword.component';
+import { AuthComponent } from './auth.component';
 
 const routes: Routes = [
+    {
+        path: '',
+        component: AuthComponent
+    },
     {
         path: 'login',
         component: LoginComponent

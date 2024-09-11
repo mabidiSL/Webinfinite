@@ -58,6 +58,7 @@ import { CouponsModule } from './pages/coupons/coupons.module';
 
 
 
+
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
@@ -65,9 +66,10 @@ export function createTranslateLoader(http: HttpClient): any {
 @NgModule({
   declarations: [
     AppComponent,
-    CyptolandingComponent,
+    CyptolandingComponent
   ],
   imports: [
+    
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,

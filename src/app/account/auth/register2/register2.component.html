@@ -1,170 +1,219 @@
-<div class="container-fluid p-0">
-    <div class="row g-0">
-
-        <div class="col-xl-9">
-            <div class="auth-full-bg pt-lg-5 p-4">
-                <div class="w-100">
-                    <div class="bg-overlay"></div>
-                    <div class="d-flex h-100 flex-column">
-
-                        <div class="p-4 mt-auto">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-7">
-                                    <div class="text-center">
-
-                                        <h4 class="mb-3"><i class="bx bxs-quote-alt-left text-primary h1 align-middle me-3"></i><span class="text-primary">5k</span>+ Satisfied clients</h4>
-
-                                        <div dir="ltr">
-                                            <ngx-slick-carousel dir="ltr" class="owl-theme auth-review-carousel" [config]="slideConfig">
-                                                <div class="item" ngxSlickItem>
-                                                    <div class="py-3">
-                                                        <p class="font-size-16 mb-4">" Fantastic theme with a
-                                                            ton of
-                                                            options. If you just want the HTML to integrate with
-                                                            your project, then this is the package. You can find
-                                                            the
-                                                            files in the 'dist' folder...no need to install git
-                                                            and
-                                                            all the other stuff the documentation talks about. "
-                                                        </p>
-
-                                                        <div>
-                                                            <h4 class="font-size-16 text-primary">Abs1981</h4>
-                                                            <p class="font-size-14 mb-0">- Skote User</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="item" ngxSlickItem>
-                                                    <div class="py-3">
-                                                        <p class="font-size-16 mb-4">" If Every Vendor on Envato
-                                                            are
-                                                            as supportive as Themesbrand, Development with be a
-                                                            nice
-                                                            experience. You guys are Wonderful. Keep us the good
-                                                            work. "</p>
-
-                                                        <div>
-                                                            <h4 class="font-size-16 text-primary">nezerious</h4>
-                                                            <p class="font-size-14 mb-0">- Skote User</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </ngx-slick-carousel>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="account-pages my-5 pt-sm-5">
+<div class="container">
+    <div class="row justify-content-center">
+      <!-- <div class="col-md-8 col-lg-6 col-xl-5"> -->
+        <div class="card overflow-hidden">
+            <div class="row logo-row" >
+                     
+                <div class="col-12 my-5 text-center">
+                    <img src="assets/images/LogoInfinite/logo.svg" alt="" class="img-fluid">
+                  </div>
+            </div>
+            <div class="row m-5">
+                <div class="col-12 text-center">
+                  <p class=" custom-text bg-primary text-white py-2">Register as a Merchant</p>
                 </div>
             </div>
-        </div>
-        <!-- end col -->
-
-        <div class="col-xl-3">
-            <div class="auth-full-page-content p-md-5 p-4">
-                <div class="w-100">
-
-                    <div class="d-flex flex-column h-100">
-                        <div class="mb-4 mb-md-5">
-                            <a routerLink="/" class="d-block auth-logo">
-                                <img src="assets/images/logo-dark.png" alt="" height="18" class="auth-logo-dark">
-                                <img src="assets/images/logo-light.png" alt="" height="18" class="auth-logo-light">
-                            </a>
-                        </div>
-                        <div class="my-auto">
-                            <div>
-                                <h5 class="text-primary">Register account</h5>
-                                <p class="text-muted">Get your free Skote account now.</p>
-                            </div>
-                            <div class="mt-4">
-                                <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-                                    @if(successmsg){
-                                    <alert type="success" [dismissible]="false">Registeration
-                                        successfull.
-                                    </alert>}
-                                    @if(error){
-                                    <alert type="danger" [dismissible]="false">{{ error }}</alert>
-                                    }
-                                    <div class="mb-3">
-                                        <label for="username">Username</label>
-                                        <input type="text" formControlName="username" class="form-control" id="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" placeholder="Enter username">
-                                        @if(submitted && f.username.errors){
-                                        <div class="invalid-feedback">
-                                            @if(f.username.errors.required){
-                                            <div>Userame is required</div>}
-                                        </div>}
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="useremail">Email</label>
-                                        <input type="email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" class="form-control" id="useremail" placeholder="Enter email">
-                                        @if(submitted && f.email.errors){
-                                        <div class="invalid-feedback">
-                                            @if(f.email.errors.required){
-                                            <div>Email is required</div>}
-                                            @if(f.email.errors.required){
-                                            <div>Email must be a valid email address</div>}
-                                        </div>}
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="userpassword">Password</label>
-                                        <input type="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" class="form-control" id="userpassword" placeholder="Enter password">
-                                        @if(submitted && f.password.errors){
-                                        <div class="invalid-feedback">
-                                            @if(f.password.errors.required){
-                                            <div>Password is required</div>}
-                                        </div>}
-                                    </div>
-
-                                    <div>
-                                        <p class="mb-0">By registering you agree to the Skote <a href="javascript: void(0);" class="text-primary">Terms of Use</a>
-                                        </p>
-                                    </div>
-
-                                    <div class="mt-4 d-grid">
-                                        <button class="btn btn-primary btn-block" type="submit">Register</button>
-                                    </div>
-
-                                    <div class="mt-4 text-center">
-                                        <h5 class="font-size-14 mb-3">Sign up using</h5>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <a href="javascript::void()" class="social-list-item bg-primary text-white border-primary">
-                                                    <i class="mdi mdi-facebook"></i>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="javascript::void()" class="social-list-item bg-info text-white border-info">
-                                                    <i class="mdi mdi-twitter"></i>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="javascript::void()" class="social-list-item bg-danger text-white border-danger">
-                                                    <i class="mdi mdi-google"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </form>
-
-                                <div class="mt-5 text-center">
-                                    <p>Already have an account ? <a routerLink="/auth/login-2" class="fw-medium text-primary"> Login</a> </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-4 mt-md-5 text-center">
-                            <p class="mb-0">© {{year}} Skote. Crafted with <i class="mdi mdi-heart text-danger"></i>
-                                by Themesbrand</p>
+               
+            <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="m-4">
+                <div class="row ">
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group ">
+                        <!-- <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Username <span class="text-danger">*</span></mat-label>
+                            <input matInput formControlName="username" required>
+                            <mat-error *ngIf="signupForm.get('username').hasError('required')">
+                              Username is required.
+                            </mat-error>
+                        </mat-form-field> -->
+                        <label for="username" >Username <span class="text-danger">*</span></label>
+                        <input type="text" id="username" class="form-control" formControlName="username" required>
+                        <div *ngIf="signupForm.get('username').touched && signupForm.get('username').invalid" class="invalid-feedback d-block">
+                            <span *ngIf="signupForm.get('username').errors?.['required']">Username is required.</span>
+                          </div>
+                      </div> 
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group ">
+                      <label for="email">Email <span class="text-danger">*</span></label>
+                      <input type="email" id="email" class="form-control" formControlName="email" required>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group ">
+                        <label for="password" >Password <span class="text-danger">*</span></label>
+                        <input type="password" id="password" class="form-control" formControlName="password" required>
                         </div>
                     </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group ">
+                        <label for="confpassword" >Confirm password <span class="text-danger">*</span></label>
+                        <input type="password" id="confpassword" class="form-control" formControlName="confpassword" required>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group ">
+                        <label for="storeName" >Store Name <span class="text-danger">*</span></label>
+                        <input type="text" id="storeName" class="form-control" formControlName="storeName" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                       <app-phone-number></app-phone-number>
+                    </div>
+                 </div>
+             
+              
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group ">
+                      <label for="storeLogo" >Store Logo</label>
+                      <input type="file" id="storeLogo" class="form-control" formControlName="storeLogo">
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label for="merchantPicture">Merchant Picture</label>
+                      <input type="file" id="merchantPicture" class="form-control" formControlName="merchantPicture">
+                    </div>
+                  </div>
                 </div>
-            </div>
+              
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label for="country" >Country</label>
+                      <input type="text" id="country" class="form-control" formControlName="country">
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group ">
+                      <label for="city" >City</label>
+                      <input type="text" id="city" class="form-control" formControlName="city">
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label for="area">Area</label>
+                      <input type="text" id="area" class="form-control" formControlName="area">
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label for="serviceType">Service Type</label>
+                      <input type="text" id="serviceType" class="form-control" formControlName="serviceType">
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label for="supervisorName">Supervisor Name</label>
+                      <input type="text" id="supervisorName" class="form-control" formControlName="supervisorName">
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label for="supervisorPhone">Supervisor Phone</label>
+                      <input type="text" id="supervisorPhone" class="form-control" formControlName="supervisorPhone">
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label for="bankAccountNumber">Bank Account Number</label>
+                      <input type="text" id="bankAccountNumber" class="form-control" formControlName="bankAccountNumber">
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label for="registerCode">Register Code</label>
+                      <input type="text" id="registerCode" class="form-control" formControlName="registerCode">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <div class="form-group">
+                        <label for="merchantSection">Merchant Section</label>
+                        <input type="text" id="merchantSection" class="form-control" formControlName="merchantSection">
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <div class="form-group">
+                        <label for="merchantCategory">Merchant Category</label>
+                        <input type="text" id="merchantCategory" class="form-control" formControlName="merchantCategory">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    
+                    <div class="col-md-6 mb-3">
+                      <div class="form-group">
+                        <label for="website">Merchant Website</label>
+                        <input type="text" id="website" class="form-control" formControlName="website">
+                      </div>
+                    </div>
+                 
+              
+                
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label for="whatsup">WhatsApp</label>
+                      <input type="text" id="whatsup" class="form-control" formControlName="whatsup">
+                    </div>
+                  </div>
+                  </div>
+                  <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label for="facebook">Facebook</label>
+                      <input type="text" id="facebook" class="form-control" formControlName="facebook">
+                    </div>
+                  </div>
+                
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label for="twitter">Twitter</label>
+                      <input type="text" id="twitter" class="form-control" formControlName="twitter">
+                    </div>
+                  </div>
+                  </div>
+                  <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label for="instagram">Instagram</label>
+                      <input type="text" id="instagram" class="form-control" formControlName="instagram">
+                    </div>
+                  </div>
+                </div>
+              
+               
+                <div class="col-12  mt-4">
+                <div class="d-flex justify-content-end ">
+                <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">{{ 'Cancel' | translate }}</button>
+                  <button type="submit" class="btn btn-primary">{{'Register'| translate}}</button>
+                </div>
+                </div>
+              </form>
+              
         </div>
-        <!-- end col -->
-    </div>
-    <!-- end row -->
+         <div class="mt-5 text-center">
+          
+          <p>© {{year}} Infinite. Developed with <i class="mdi mdi-heart text-danger"></i> by SmartLogiq</p>
+        </div> 
+
+      </div>
+    <!-- </div> -->
+  </div>
 </div>
-<!-- end container-fluid -->
