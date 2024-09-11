@@ -12,10 +12,24 @@ body {
     border-radius: 8px; /* Optional: round the corners of the container */
     margin-top: 5rem; /* Space from the top of the viewport */
   }
-  .btn:hover {
-    background-color: #d4af37; /* change the background color to #d4af37 on hover */
-    border-color: #d4af37; /* change the border color to #d4af37 on hover */
-    color: #FFFFFF; /* keep the text color as white on hover */
+  .custom-button {
+    background-color: transparent;
+    padding: 15px 30px;
+    font-size: 24px;
+    border: 2px solid #d4af37;
+    color: #FFFFFF;
+  }
+  
+  .custom-button:hover {
+    background-color: #d4af37;
+    border-color: #d4af37;
+    color: #FFFFFF;
+  }
+  
+  .logo-image {
+    max-width: 100%;
+    margin-top: 5px;
+    height: auto;
   }
   .row {
     margin: 0 auto; /* add horizontal margin and center the row */

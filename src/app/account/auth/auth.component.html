@@ -1,14 +1,13 @@
 
-<div  
-     [ngStyle]="{'background-image': 'url(\'assets/images/home2.jpg\')', 
+<div     [ngStyle]="{'background-image': 'url(\'assets/images/home2.jpg\')', 
                  'background-size': 'cover', 
                  'background-position': 'center center', 
                  'background-repeat': 'no-repeat', 
                  'min-height': '100vh'}">
 <div class = "row">
-    <div style="display: flex; justify-content: center;  padding: 20px;">
-        <img src="assets/images/logo.png" alt="Society Logo" style="max-width: 100%; height: auto;">
-    </div>
+    <<div style="display: flex; justify-content: center;  padding: 20px;">
+        <img src="assets/images/logo.png" alt="Society Logo" class="logo-image">
+      </div>
    
 
     <p style=" font-size: 2rem; padding-top: 3rem; color: #d4af37; text-align: center; margin-top: 3rem;">
@@ -16,8 +15,8 @@
     </p>
     
     <div class="d-flex justify-content-center mt-5">
-        <button class="btn btn-lg mx-3" style="background-color: transparent; padding: 15px 30px; font-size: 24px; border: 2px solid #FFFFFF;color: #FFFFFF;" (click)="navigateTo('operator')">Operator</button>
-        <button class="btn btn-lg mx-3" style="background-color: transparent; padding: 15px 30px; font-size: 24px; border: 2px solid #FFFFFF;color: #FFFFFF;" (click)="navigateTo('merchant')">Merchant</button>
+        <button class="btn btn-lg mx-3 custom-button" (click)="navigateTo('operator')">Operator</button>
+        <button class="btn btn-lg mx-3 custom-button" (click)="navigateTo('merchant')">Merchant</button>
       </div>
 </div>
 </div>
