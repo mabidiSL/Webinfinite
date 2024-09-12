@@ -14,8 +14,13 @@ import { Verification2Component } from './verification2/verification2.component'
 import { SteptwoverificationComponent } from './steptwoverification/steptwoverification.component';
 import { Steptwoverification2Component } from './steptwoverification2/steptwoverification2.component';
 import { ComingsoonComponent } from './comingsoon/comingsoon.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
+    {
+        path: 'home',
+        component: HomeComponent
+    },
     {
         path: 'maintenance',
         component: MaintenanceComponent

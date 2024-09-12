@@ -5,9 +5,10 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { ChatComponent } from './chat/chat.component';
 import { DefaultComponent } from './dashboards/default/default.component';
 import { FilemanagerComponent } from './filemanager/filemanager.component';
+import { CouponsComponent } from './coupons/coupons.component';
 
 const routes: Routes = [
-  // { path: '', redirectTo: 'dashboard' },
+   //{ path: '', redirectTo: 'dashboard' },
   {
     path: "",
     component: DefaultComponent
@@ -25,7 +26,7 @@ const routes: Routes = [
   { path: 'tasks', loadChildren: () => import('./tasks/tasks.module').then(m => m.TasksModule) },
   { path: 'contacts', loadChildren: () => import('./contacts/contacts.module').then(m => m.ContactsModule) },
   { path: 'merchants', loadChildren: () => import('./merchants/merchants.module').then(m => m.MerchantsModule) },
-  { path: 'coupons', loadChildren: () => import('./coupons/coupons.module').then(m => m.CouponsModule) },
+  { path: 'coupons', component: CouponsComponent, loadChildren: () => import('./coupons/coupons.module').then(m => m.CouponsModule) },
   { path: 'employees', loadChildren: () => import('./employees/employees.module').then(m => m.EmployeesModule) },
   { path: 'blog', loadChildren: () => import('./blog/blog.module').then(m => m.BlogModule) },
   { path: 'pages', loadChildren: () => import('./utility/utility.module').then(m => m.UtilityModule) },

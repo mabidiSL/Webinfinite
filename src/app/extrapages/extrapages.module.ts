@@ -19,10 +19,11 @@ import { Steptwoverification2Component } from './steptwoverification2/steptwover
 import { ComingsoonComponent } from './comingsoon/comingsoon.component';
 // Swiper Slider
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   // tslint:disable-next-line: max-line-length
-  declarations: [MaintenanceComponent, Page404Component, Page500Component, LockscreenComponent, Lockscreen2Component, ConfirmmailComponent, Confirmmail2Component, VerificationComponent, Verification2Component, SteptwoverificationComponent, Steptwoverification2Component, ComingsoonComponent],
+  declarations: [MaintenanceComponent, Page404Component, Page500Component, LockscreenComponent, Lockscreen2Component, ConfirmmailComponent, Confirmmail2Component, VerificationComponent, Verification2Component, SteptwoverificationComponent, Steptwoverification2Component, ComingsoonComponent, HomeComponent],
   imports: [
     CommonModule,
     ExtrapagesRoutingModule,

@@ -31,16 +31,20 @@ export class LoginComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    
     if (localStorage.getItem('currentUser')) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/private']);
     }
+    else
+    {
     // form validation
-    this.loginForm = this.formBuilder.group({
-      // email: ['admin@themesbrand.com', [Validators.required, Validators.email]],
-      // password: ['123456', [Validators.required]],
-        email: ['refka.fouzai@gmail.com', [Validators.required, Validators.email]],
-        password: ['', [Validators.required]],
-    });
+      this.loginForm = this.formBuilder.group({
+        // email: ['admin@themesbrand.com', [Validators.required, Validators.email]],
+        // password: ['123456', [Validators.required]],
+          email: ['refka.fouzai@gmail.com', [Validators.required, Validators.email]],
+          password: ['', [Validators.required]],
+      });
+  }
   }
 
   // convenience getter for easy access to form fields

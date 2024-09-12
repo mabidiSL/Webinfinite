@@ -23,12 +23,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { WidgetModule } from 'src/app/shared/widget/widget.module';
-import { AuthComponent } from './auth.component';
 
 
 
 @NgModule({
-  declarations: [LoginComponent, Login2Component, SignupComponent, PasswordresetComponent, Register2Component, Recoverpwd2Component, UpdatepasswordComponent, AuthComponent],
+  declarations: [LoginComponent, Login2Component, SignupComponent, PasswordresetComponent, Register2Component, Recoverpwd2Component, UpdatepasswordComponent],
   imports: [
     WidgetModule,
     MatInputModule,

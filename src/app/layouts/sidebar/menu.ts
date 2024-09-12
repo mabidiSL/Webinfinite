@@ -77,14 +77,14 @@ export const MENU: MenuItem[] = [
     {
         id: 13,
         label: 'MENUITEMS.MERCHANTSLIST.TEXT',
-        link: '/merchants/list',
+        link: '/private/merchants/list',
         icon: 'bx bx-store',
         
     },
     {
         id: 51,
         label: 'MENUITEMS.MERCHANTSAPPROVAL.TEXT',
-        link: '/merchants/approve',
+        link: '/private/merchants/approve',
         icon: 'bx bx-store',
         
     },
@@ -153,7 +153,7 @@ export const MENU: MenuItem[] = [
             {
                 id: 17,
                 label: 'MENUITEMS.COUPONMANAGEMENT.LIST.COUPON',
-                link: '/coupons',
+                link: '/private/coupons',
                 parentId: 16
             },
             {

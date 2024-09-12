@@ -6,15 +6,15 @@ import { EditCouponComponent } from './edit-coupon/edit-coupon.component';
 
 const routes: Routes = [
   
-{
-  path: "",
-  component: CouponsComponent,
-  //canActivate: [ClaimGuard],
-  // data: {
-  //  // permission: 'user.index',
-  //  // claim: { claimType:Modules.Users, claimValue:[Permission.ViewAll]}
-  // }
-},
+// {
+//   path: "",
+//   component: CouponsComponent,
+//   //canActivate: [ClaimGuard],
+//   // data: {
+//   //  // permission: 'user.index',
+//   //  // claim: { claimType:Modules.Users, claimValue:[Permission.ViewAll]}
+//   // }
+// },
 {
   path: "create",
   component: CreateCouponComponent,

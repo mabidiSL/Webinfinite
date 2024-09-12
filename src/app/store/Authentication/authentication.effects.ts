@@ -74,7 +74,7 @@ export class AuthenticationEffects {
                 localStorage.setItem('token', user.token);
                 this.currentUserSubject.next(user);
                 this.toastr.success('Login successfully!!!');
-                this.router.navigate(['/']);
+                this.router.navigate(['/private']);
                 return loginSuccess({ user: user.user, token: user.token });
 
               }
