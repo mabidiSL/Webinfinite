@@ -48,11 +48,11 @@ export class CouponsComponent  implements OnInit {
 
   ngOnInit() {
       
-      console.log('begin get merchant list');
+      console.log('begin get coupon list');
 
       this.store.dispatch(fetchMerchantlistData());
 
-      console.log('finish get merchant list');
+      console.log('finish get coupon list');
 
       this.merchantList$.subscribe(data => {
         this.originalArray = data; // Store the full merchant list
@@ -129,15 +129,15 @@ groupBy(data: any[], criterion: string) {
 
   }
 
-  // Disable User
-  disableUser(id: any) {
+  // Disable Coupon
+  disableCoupon(id: any) {
     this.deleteId = id;
-    console.log('the id of the user to be deleted'+this.deleteId);
+    console.log('the id of the Coupon to be deleted'+this.deleteId);
     this.removeItemModal?.show();
   }
 
   confirmDelete() {
-    this.store.dispatch(deleteMerchantlist({ userId: this.deleteId }));
+    //this.store.dispatch(deleteMerchantlist({ couponId: this.deleteId }));
     this.removeItemModal?.hide();
   }
 

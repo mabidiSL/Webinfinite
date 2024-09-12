@@ -81,8 +81,12 @@ export enum Permission {
   Update = 5,
   Delete = 6,
   Hide = 7, 
-  activate = 8,
-  disactivate = 9
+  Activate = 8,
+  Deactivate = 9,
+  Approve = 10,
+  Print = 11,
+  Download = 12,
+  Filter = 13
 }
 
 

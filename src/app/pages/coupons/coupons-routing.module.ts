@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { CouponsComponent } from './coupons.component';
 import { CreateCouponComponent } from './create-coupon/create-coupon.component';
 import { EditCouponComponent } from './edit-coupon/edit-coupon.component';
+import { RoleGuard } from 'src/app/core/guards/role.guard';
+import { Modules, Permission } from 'src/app/store/Role/role.models';
 
 const routes: Routes = [
   
@@ -18,12 +20,12 @@ const routes: Routes = [
 {
   path: "create",
   component: CreateCouponComponent,
-  // canActivate: [ClaimGuard],
-  // data: {
-  //   //permission: ['user.index', 'user.create'],
-  //   claim: { claimType:Modules.Users, claimValue:[Permission.ViewAll,Permission.Create]}
+   canActivate: [RoleGuard],
+  data: {
+    //permission: ['user.index', 'user.create'],
+    claim: { claimType:Modules.Coupons, claimValue:[Permission.ViewAll,Permission.Create]}
 
-  // }
+  }
 },
 {
   path: "edit/:id",

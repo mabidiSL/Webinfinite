@@ -19,7 +19,7 @@
               
               <!-- Filter Button -->
               <div class="col-sm-2 position-relative">
-                <button class="btn btn-outline-secondary btn-rounded "id="filter" tooltip="{{'Filter By'| translate}}" (click)="toggleDropdown()">
+                <button *hasClaim="{claimType: Modules.Coupons, claimValue: [Permission.Filter]}" class="btn btn-outline-secondary btn-rounded "id="filter" tooltip="{{'Filter By'| translate}}" (click)="toggleDropdown()">
                   <i class="bx bx-filter-alt"></i> 
                 </button>
               
@@ -33,21 +33,21 @@
             </div>
               <!-- Print Button -->
               <div class="col-sm-2">
-                <button class="btn btn-outline-secondary btn-rounded " tooltip="{{'Print'| translate}}" (click)="printData()">
+                <button *hasClaim="{claimType: Modules.Coupons, claimValue: [Permission.Print]}" class="btn btn-outline-secondary btn-rounded " tooltip="{{'Print'| translate}}" (click)="printData()">
                   <i class="bx bx-printer"></i> 
                 </button>
               </div>
             
               <!-- Download Button -->
               <div class="col-sm-2">
-                <button class="btn btn-outline-secondary btn-rounded waves-effect waves-light" tooltip="{{'Download'| translate}}" (click)="downloadData()">
+                <button  *hasClaim="{claimType: Modules.Coupons, claimValue: [Permission.Download]}" class="btn btn-outline-secondary btn-rounded waves-effect waves-light" tooltip="{{'Download'| translate}}" (click)="downloadData()">
                   <i class="bx bx-download"></i> 
                 </button>
               </div>
             
               <!-- Add Merchant Button -->
               <div class="col-sm-4 text-end">
-                <button [routerLink]="['/coupons/create']" type="button" data-bs-toggle="modal" (click)="addCoupon()" class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal">
+                <button *hasClaim="{claimType: Modules.Coupons, claimValue: [Permission.Create]}" [routerLink]="['/coupons/create']" type="button" data-bs-toggle="modal"  (click)="addCoupon()" class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal">
                   <i class="mdi mdi-plus me-1"></i> {{'Add Coupon'|translate}}
                 </button>
               </div>
@@ -102,16 +102,16 @@
                         <td>
                           <ul class="list-unstyled hstack gap-1 mb-0">
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'View'|translate}}">
-                              <a href="javascript:void(0);" class="btn btn-sm btn-soft-primary" (click)="viewUser(data._id)"><i class="mdi mdi-eye-outline"></i></a>
+                              <a href="javascript:void(0);" class="btn btn-sm btn-soft-primary" *hasClaim="{claimType: Modules.Coupons, claimValue: [Permission.View]}" (click)="viewCoupon(data._id)"><i class="mdi mdi-eye-outline"></i></a>
                             </li>
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Edit'|translate}}">
                               <!-- <a href="javascript:void(0);" class="btn btn-sm btn-soft-info" (click)="editDataGet(data.id,content)"><i class="mdi mdi-pencil-outline"></i></a> -->
-                              <a href="javascript:void(0);" class="btn btn-sm btn-soft-info" (click)="editUser(data._id)"><i class="mdi mdi-pencil-outline"></i></a>
+                              <a href="javascript:void(0);" class="btn btn-sm btn-soft-info" *hasClaim="{claimType: Modules.Coupons, claimValue: [Permission.Edit]}" (click)="editCoupon(data._id)"><i class="mdi mdi-pencil-outline"></i></a>
 
                             </li>
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Disable'| translate}}">
                               <!-- <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" (click)="delete($event)"><i class="mdi mdi-delete-outline"></i></a> -->
-                              <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" (click)="disableUser(data._id)"><i class="mdi mdi-delete-outline"></i></a>
+                              <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" *hasClaim="{claimType: Modules.Coupons, claimValue: [Permission.Disable]}" (click)="disableCoupon(data._id)"><i class="mdi mdi-delete-outline"></i></a>
 
                             </li>
                           </ul>
