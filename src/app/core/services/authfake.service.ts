@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { User } from 'src/app/store/Authentication/auth.models';
+import { _User, User } from 'src/app/store/Authentication/auth.models';
 //import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -18,8 +18,8 @@ export class AuthfakeauthenticationService {
         this.currentUserSubject = new BehaviorSubject<User>(user);
         this.currentUser = this.currentUserSubject.asObservable();
     }
-
-    public get currentUserValue(): User {
+   
+    public get currentUserValue(): _User {
         return this.currentUserSubject.value;
     }
     login(email: string, password: string) {

@@ -19,6 +19,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ApproveMerchantComponent } from './approve-merchant/approve-merchant.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -40,7 +41,8 @@ import { TranslateModule } from '@ngx-translate/core';
     PaginationModule.forRoot(),
     BsDropdownModule,
     ModalModule,
-    MerchantsRoutingModule
+    MerchantsRoutingModule,
+    SharedModule
   ]
 })
 export class MerchantsModule { }

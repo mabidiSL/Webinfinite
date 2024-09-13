@@ -10,7 +10,7 @@ export const MENU: MenuItem[] = [
         id: 2,
         label: 'MENUITEMS.DASHBOARD.TEXT',
         icon: 'bx-home-circle',
-        link:'/dashboard'
+        link:'/private/dashboard'
         
     },
     {

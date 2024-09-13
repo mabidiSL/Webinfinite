@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { selectData } from 'src/app/store/merchantsList/merchantlist1-selector';
-import { deleteMerchantlist, fetchMerchantlistData } from 'src/app/store/merchantsList/merchantlist1.action';
+import { selectData } from 'src/app/store/coupon/coupon-selector';
+import { Modules, Permission } from 'src/app/store/Role/role.models';
 
 @Component({
   selector: 'app-coupons',
@@ -20,7 +20,7 @@ export class CouponsComponent  implements OnInit {
   // bread crumb items
   breadCrumbItems: Array<{}>;
   term: any
-  merchantList$: Observable<any[]>;
+  couponList$: Observable<any[]>;
   // Table data
   total: Observable<number>;
   createContactForm!: UntypedFormGroup;
@@ -37,12 +37,16 @@ export class CouponsComponent  implements OnInit {
   @ViewChild('removeItemModal', { static: false }) removeItemModal?: ModalDirective;
   deleteId: any;
   returnedArray: Observable<any[]>;
+  
+  public Modules = Modules;
+  public Permission = Permission;
+
 
   constructor(
     public toastr:ToastrService,
     public store: Store) {
       
-      this.merchantList$ = this.store.pipe(select(selectData)); // Observing the merchant list from store
+      this.couponList$ = this.store.pipe(select(selectData)); // Observing the coupon list from store
 
   }
 
@@ -50,12 +54,12 @@ export class CouponsComponent  implements OnInit {
       
       console.log('begin get coupon list');
 
-      this.store.dispatch(fetchMerchantlistData());
+      this.store.dispatch(fetchcouponlistData());
 
       console.log('finish get coupon list');
 
-      this.merchantList$.subscribe(data => {
-        this.originalArray = data; // Store the full merchant list
+      this.couponList$.subscribe(data => {
+        this.originalArray = data; // Store the full coupon list
         this.filteredArray = [...this.originalArray];
       });
       document.getElementById('elmLoader')?.classList.add('d-none')
@@ -124,8 +128,8 @@ groupBy(data: any[], criterion: string) {
   pageChanged(event: PageChangedEvent): void {
     const startItem = (event.page - 1) * event.itemsPerPage;
     this.endItem = event.page * event.itemsPerPage;
-    //this.merchantList$ = this.returnedArray.slice(startItem, this.endItem);
-   // this.merchantList$ = this.returnedArray.sort((a: any, b: any) => new Date(b.registrationDate).getTime() - new Date(a.registrationDate).getTime()).slice(0,10);
+    //this.couponList$ = this.returnedArray.slice(startItem, this.endItem);
+   // this.couponList$ = this.returnedArray.sort((a: any, b: any) => new Date(b.registrationDate).getTime() - new Date(a.registrationDate).getTime()).slice(0,10);
 
   }
 
@@ -137,8 +141,12 @@ groupBy(data: any[], criterion: string) {
   }
 
   confirmDelete() {
-    //this.store.dispatch(deleteMerchantlist({ couponId: this.deleteId }));
+    //this.store.dispatch(deletecouponlist({ couponId: this.deleteId }));
     this.removeItemModal?.hide();
   }
 
 }
+function fetchcouponlistData(): any {
+  throw new Error('Function not implemented.');
+}
+

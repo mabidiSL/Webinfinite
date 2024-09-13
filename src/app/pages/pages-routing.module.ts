@@ -7,6 +7,7 @@ import { DefaultComponent } from './dashboards/default/default.component';
 import { FilemanagerComponent } from './filemanager/filemanager.component';
 import { CouponsComponent } from './coupons/coupons.component';
 import { RoleGuard } from '../core/guards/role.guard';
+import { Modules, Permission } from '../store/Role/role.models';
 
 const routes: Routes = [
    //{ path: '', redirectTo: 'dashboard' },
@@ -27,7 +28,10 @@ const routes: Routes = [
   { path: 'tasks', loadChildren: () => import('./tasks/tasks.module').then(m => m.TasksModule) },
   { path: 'contacts', loadChildren: () => import('./contacts/contacts.module').then(m => m.ContactsModule) },
   { path: 'merchants', loadChildren: () => import('./merchants/merchants.module').then(m => m.MerchantsModule) },
-  { path: 'coupons', component: CouponsComponent, loadChildren: () => import('./coupons/coupons.module').then(m => m.CouponsModule), canActivate: [RoleGuard] },
+  { path: 'coupons', component: CouponsComponent, loadChildren: () => import('./coupons/coupons.module').then(m => m.CouponsModule), canActivate: [RoleGuard] ,data: {
+    claim: [{claimType: Modules.All, claimValue: [Permission.All]},{ claimType:Modules.Coupons, claimValue:[Permission.ViewAll]}]
+  
+     }},
   { path: 'employees', loadChildren: () => import('./employees/employees.module').then(m => m.EmployeesModule) },
   { path: 'blog', loadChildren: () => import('./blog/blog.module').then(m => m.BlogModule) },
   { path: 'pages', loadChildren: () => import('./utility/utility.module').then(m => m.UtilityModule) },

@@ -1,7 +1,5 @@
 import { Directive, Input, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { getUser } from 'src/app/store/Authentication/authentication-selector';
+import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
 import { Claim } from 'src/app/store/Role/role.models';
 
 
@@ -11,32 +9,27 @@ import { Claim } from 'src/app/store/Role/role.models';
 })
 export class HasClaimDirective {
 
-  @Input('hasClaim') claim: Claim; // Ensure claim is of type Claim
+  @Input('hasClaim') claim: Claim[]; // Ensure claim is of type Claim
 
-  claims$: any[];
+  //claims$: any[];
 
-  public permissions: Claim[] = [];
+  public permissions: any[] = [];
 
   private isViewCreated = false;
 
-  constructor(private store : Store, private templateRef: TemplateRef<string>,
+  constructor( private authFackservice: AuthfakeauthenticationService, private templateRef: TemplateRef<string>,
     private viewContainerRef: ViewContainerRef) {
-     // this.claims$ = this.store.select(getUser)
+      console.log('HasClaimDirective constructor called');
+      console.log('claim input:', this.claim);
     }
-
-  ngOnInit() {
-    this.store.select(getUser).subscribe(user => 
-      {
-      this.permissions = user.role.claims;
-      });
-    
-    
-      // this.claims$.subscribe(claims => {
-    //   this.permissions = claims;
-    //   this.checkPermissions();
-    // });
-  }
-
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('i ama on ngonchange BABAY');
+      if (changes['claim'] && !changes['claim'].firstChange) {
+        console.log('i am on changes for permissions checks');
+        this.checkPermissions();
+      }
+    }
+  
   private checkPermissions() {
     if (this.hasPermission(this.claim)) {
       if (!this.isViewCreated) {
@@ -51,16 +44,26 @@ export class HasClaimDirective {
     }
   }
 
-  private hasPermission(claim: Claim): boolean {
+  private hasPermission(claim: Claim[]): boolean {
+    console.log(claim);
+    console.log(this.permissions);
+    console.log('/////////////////');
     if (claim && this.permissions) {
-      const matchingClaim = this.permissions.find(c => c.claimType === claim.claimType);
-      return matchingClaim && claim.claimValue.every(action => matchingClaim.claimValue.includes(action));
+      return this.claim.some(requiredClaim => {
+        return this.permissions.some(claim => {
+          return claim.type === requiredClaim.claimType && claim.value.every(value => requiredClaim.claimValue.includes(value));
+        });
+      });
     }
     return false;
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['claim'] && !changes['claim'].firstChange) {
+ 
+  ngOnInit() {
+    console.log('claim input:', this.claim);
+    const currentUser = this.authFackservice.currentUserValue;
+    if (currentUser) {
+      this.permissions = currentUser.role.claims;
       this.checkPermissions();
     }
   }

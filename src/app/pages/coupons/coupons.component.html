@@ -18,8 +18,8 @@
               </div>
               
               <!-- Filter Button -->
-              <div class="col-sm-2 position-relative">
-                <button *hasClaim="{claimType: Modules.Coupons, claimValue: [Permission.Filter]}" class="btn btn-outline-secondary btn-rounded "id="filter" tooltip="{{'Filter By'| translate}}" (click)="toggleDropdown()">
+              <div class="col-auto">
+                <button *hasClaim="{claimType: Modules.Coupons, claimValue: [Permission.Filter]}" class="btn btn-gold btn-rounded "id="filter" tooltip="{{'Filter By'| translate}}" (click)="toggleDropdown()">
                   <i class="bx bx-filter-alt"></i> 
                 </button>
               
@@ -32,15 +32,15 @@
               </div>
             </div>
               <!-- Print Button -->
-              <div class="col-sm-2">
-                <button *hasClaim="{claimType: Modules.Coupons, claimValue: [Permission.Print]}" class="btn btn-outline-secondary btn-rounded " tooltip="{{'Print'| translate}}" (click)="printData()">
+              <div class="col-auto">
+                <button *hasClaim="{claimType: Modules.Coupons, claimValue: [Permission.Print]}" class="btn btn-gold btn-rounded " tooltip="{{'Print'| translate}}" (click)="printData()">
                   <i class="bx bx-printer"></i> 
                 </button>
               </div>
             
               <!-- Download Button -->
-              <div class="col-sm-2">
-                <button  *hasClaim="{claimType: Modules.Coupons, claimValue: [Permission.Download]}" class="btn btn-outline-secondary btn-rounded waves-effect waves-light" tooltip="{{'Download'| translate}}" (click)="downloadData()">
+              <div class="col-auto">
+                <button  *hasClaim="{claimType: Modules.Coupons, claimValue: [Permission.Download]}" class="btn btn-gold btn-rounded waves-effect waves-light" tooltip="{{'Download'| translate}}" (click)="downloadData()">
                   <i class="bx bx-download"></i> 
                 </button>
               </div>
@@ -59,7 +59,7 @@
                 <thead class="table-light">
                   <tr>
                     <th scope="col" style="width: 40px;">#</th>
-                    <th scope="col">{{'Merchant Name'| translate}}</th>
+                    <th scope="col">{{'Coupon Name'| translate}}</th>
                     <th scope="col">{{'Contact Email'| translate}}</th>
                     <th scope="col">{{'City'| translate}}</th>
                     <th scope="col">{{'Total Orders' | translate}}</th>

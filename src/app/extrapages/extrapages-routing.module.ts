@@ -15,6 +15,7 @@ import { SteptwoverificationComponent } from './steptwoverification/steptwoverif
 import { Steptwoverification2Component } from './steptwoverification2/steptwoverification2.component';
 import { ComingsoonComponent } from './comingsoon/comingsoon.component';
 import { HomeComponent } from './home/home.component';
+import { Page403Component } from './page403/page403.component';
 
 const routes: Routes = [
     {
@@ -28,6 +29,10 @@ const routes: Routes = [
     {
         path: 'coming-soon',
         component: ComingsoonComponent
+    },
+    {
+        path: '403',
+        component: Page403Component
     },
     {
         path: '404',

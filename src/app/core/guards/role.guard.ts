@@ -1,40 +1,55 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
-// Auth Services
-import { AuthenticationService } from '../services/auth.service';
+
+import { Store } from '@ngrx/store';
+import { getUser } from 'src/app/store/Authentication/authentication-selector';
 import { AuthfakeauthenticationService } from '../services/authfake.service';
-import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class RoleGuard implements CanActivate {
+    claims: any[] = [];
+   
     constructor(
         private router: Router,
-        private authenticationService: AuthenticationService,
         private authFackservice: AuthfakeauthenticationService
     ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+ 
+        console.log('in claim guard');
+        const currentUser = this.authFackservice.currentUserValue;
+        if (currentUser) {
+          this.claims = currentUser.role.claims;
+          const requiredClaim = route.data?.['claim'];
+          console.log('***********************');
+          console.log(this.claims);
+          console.log(requiredClaim);
+          console.log('***********************');
+          if (!requiredClaim) {
+            return true; // no permission required, allow access
+          }
+       
+          const hasRequiredClaims = requiredClaim.some(requiredClaim => {
+            return this.claims.some(claim => {
+              return claim.type === requiredClaim.claimType && claim.value.every(value => requiredClaim.claimValue.includes(value));
+            });
+          });
+          if (hasRequiredClaims) {
+            return true; // user has all required permissions, allow access
+          }
+          else
+          {
+            this.router.navigate(['/pages/403']);
+            return false; // user doesn't have required permissions, deny access
+          }
 
-        if (environment.defaultauth === 'firebase') {
-            const currentUser = this.authenticationService.currentUser();
-            if (currentUser) {
-                // logged in so return true
-                return true;
-            }
-        } else {
-            const currentUser = this.authFackservice.currentUserValue;
-            if (currentUser) {
-                // logged in so return true
-                return true;
-            }
-            // check if user data is in storage is logged in via API.
-            if (localStorage.getItem('currentUser')) {
-                return true;
-            }
+        
+        
         }
-        // not logged in so redirect to login page with the return url
-        this.router.navigate(['/auth/login'], { queryParams: { returnUrl: state.url } });
-        return false;
+    
+    
+        
+    
     }
 }

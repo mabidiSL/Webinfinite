@@ -68,7 +68,8 @@ export  enum Modules
         MerchantReports = 39,
         categories = 40,
         classes = 41,
-        CustomerLoyalty = 42
+        CustomerLoyalty = 42,
+       
 
 
 }
@@ -86,7 +87,8 @@ export enum Permission {
   Approve = 10,
   Print = 11,
   Download = 12,
-  Filter = 13
+  Filter = 13,
+  Edit = 14
 }
 
 

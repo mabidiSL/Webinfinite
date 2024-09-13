@@ -18,7 +18,8 @@
               </div>
               
               <!-- Filter Button -->
-              <div class="col-sm-2 position-relative">
+              <!-- <div class="col-sm-2 position-relative"> -->
+                <div class="col-auto">
                 <button class="btn btn-outline-secondary btn-rounded "id="filter" tooltip="{{'Filter By'| translate}}" (click)="toggleDropdown()">
                   <i class="bx bx-filter-alt"></i> 
                 </button>
@@ -32,24 +33,26 @@
               </div>
             </div>
               <!-- Print Button -->
-              <div class="col-sm-2">
+              <div class="col-auto">
                 <button class="btn btn-outline-secondary btn-rounded " tooltip="{{'Print'| translate}}" (click)="printData()">
                   <i class="bx bx-printer"></i> 
                 </button>
               </div>
             
               <!-- Download Button -->
-              <div class="col-sm-2">
+              <div class="col-auto">
                 <button class="btn btn-outline-secondary btn-rounded waves-effect waves-light" tooltip="{{'Download'| translate}}" (click)="downloadData()">
                   <i class="bx bx-download"></i> 
                 </button>
               </div>
             
               <!-- Add Merchant Button -->
-              <div class="col-sm-4 text-end">
-                <button type="button" *hasClaim="{claimType: Modules.Merchants, claimValue: [Permission.Create]}" data-bs-toggle="modal" (click)="addUser()" class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal">
+              <div class="col-sm-auto text-end">
+                <div *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Create]}]" data-bs-toggle="modal" (click)="addUser()">
+                <button type="button"  class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal">
                   <i class="mdi mdi-plus me-1"></i> {{'New Merchant'|translate}}
                 </button>
+              </div>
               </div>
               
           </div>
@@ -102,16 +105,16 @@
                         <td>
                           <ul class="list-unstyled hstack gap-1 mb-0">
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'View'|translate}}">
-                              <a href="javascript:void(0);" class="btn btn-sm btn-soft-primary" *hasClaim="{claimType: Modules.Merchants, claimValue: [Permission.View]}" (click)="viewUser(data._id)"><i class="mdi mdi-eye-outline"></i></a>
+                              <a href="javascript:void(0);" class="btn btn-sm btn-soft-primary" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.View]}]" (click)="viewUser(data._id)"><i class="mdi mdi-eye-outline"></i></a>
                             </li>
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Edit'|translate}}">
                               <!-- <a href="javascript:void(0);" class="btn btn-sm btn-soft-info" (click)="editDataGet(data.id,content)"><i class="mdi mdi-pencil-outline"></i></a> -->
-                              <a href="javascript:void(0);" class="btn btn-sm btn-soft-info" *hasClaim="{claimType: Modules.Merchants, claimValue: [Permission.Edit]}" (click)="editUser(data._id)"><i class="mdi mdi-pencil-outline"></i></a>
+                              <a href="javascript:void(0);" class="btn btn-sm btn-soft-info" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Edit]}]" (click)="editUser(data._id)"><i class="mdi mdi-pencil-outline"></i></a>
 
                             </li>
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Disable'| translate}}">
                               <!-- <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" (click)="delete($event)"><i class="mdi mdi-delete-outline"></i></a> -->
-                              <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" *hasClaim="{claimType: Modules.Merchants, claimValue: [Permission.Deactivate]}" (click)="disableUser(data._id)"><i class="mdi mdi-delete-outline"></i></a>
+                              <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Deactivate]}]" (click)="disableUser(data._id)"><i class="mdi mdi-delete-outline"></i></a>
 
                             </li>
                           </ul>

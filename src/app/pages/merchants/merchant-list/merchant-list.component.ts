@@ -10,6 +10,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { addMerchantlist, deleteMerchantlist, fetchMerchantlistData, updateMerchantlist } from 'src/app/store/merchantsList/merchantlist1.action';
 import { selectData } from 'src/app/store/merchantsList/merchantlist1-selector';
 import { ToastrService } from 'ngx-toastr';
+import { Modules, Permission } from 'src/app/store/Role/role.models';
 
 /**
  * Merchants list component
@@ -44,6 +45,10 @@ export class MerchantListComponent implements OnInit {
   @ViewChild('removeItemModal', { static: false }) removeItemModal?: ModalDirective;
   deleteId: any;
   returnedArray: Observable<any[]>;
+  
+  public Modules = Modules;
+  public Permission = Permission;
+
 
   constructor(
     private modalService: BsModalService,

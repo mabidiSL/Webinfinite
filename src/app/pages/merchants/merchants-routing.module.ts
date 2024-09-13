@@ -2,15 +2,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MerchantListComponent } from './merchant-list/merchant-list.component';
 import { ApproveMerchantComponent } from './approve-merchant/approve-merchant.component';
-import { RoleGuard } from 'src/app/core/guards/role.guard';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
+import { RoleGuard } from 'src/app/core/guards/role.guard';
 
 const routes: Routes = [
   {
     path: 'list',
     canActivate: [RoleGuard],
     data: {
-      claim: { claimType: Modules.Merchants, claimValue:[Permission.ViewAll]}
+      //claim: { claimType: [Modules.All,Modules.Merchants], claimValue: [Permission.All,Permission.ViewAll]}
+      claim : [{claimType: Modules.All, claimValue: [Permission.All]}, {claimType: Modules.Merchants, claimValue: [Permission.ViewAll]}]
 
     },
     component: MerchantListComponent
@@ -19,7 +20,7 @@ const routes: Routes = [
     path: 'approve',
     canActivate: [RoleGuard],
     data: {
-      claim: { claimType: Modules.Merchants, claimValue:[Permission.Approve]}
+      claim: [{claimType: Modules.All, claimValue: [Permission.All]},{ claimType: Modules.Merchants, claimValue:[Permission.Approve]}]
 
     },
     component: ApproveMerchantComponent
