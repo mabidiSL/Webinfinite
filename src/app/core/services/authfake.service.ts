@@ -8,14 +8,14 @@ import { _User, User } from 'src/app/store/Authentication/auth.models';
 @Injectable({ providedIn: 'root' })
 export class AuthfakeauthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
-    public currentUser: Observable<User>;
+    public currentUser: Observable<_User>;
     
 
     constructor(private http: HttpClient) {
         
         const storedUser = localStorage.getItem('currentUser');
         const user = storedUser ? JSON.parse(storedUser) : null;
-        this.currentUserSubject = new BehaviorSubject<User>(user);
+        this.currentUserSubject = new BehaviorSubject<_User>(user);
         this.currentUser = this.currentUserSubject.asObservable();
     }
    

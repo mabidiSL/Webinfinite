@@ -32,7 +32,7 @@ export  enum Modules
         Permissions = 3,
         Customers = 4,
         Merchants = 5,
-        Commissions = 6,
+        CustomerCommissions = 6,
         Department = 7,
         MerchantWallet = 8,
         CustomerWallet = 9,
@@ -47,7 +47,7 @@ export  enum Modules
         SpecialCoupons = 18,
         Banks = 19,
         Tax = 20,
-        Invoices = 21,
+        MerchantInvoices = 21,
         AppSettings = 22,
         Role = 23,
         Filter = 24,
@@ -57,7 +57,7 @@ export  enum Modules
         Payment = 28, 
         Contracts = 29,
         complaints = 30,
-        Settings = 31,
+        DelegateStatistics = 31,
         CustomerAbondonedTasks = 32,
         CustomerReviews = 33,
         Stores = 34,
@@ -69,6 +69,13 @@ export  enum Modules
         categories = 40,
         classes = 41,
         CustomerLoyalty = 42,
+        MerchantCommissions = 43,
+        Offers = 44,
+        Product = 45,
+        SystemAdministration = 46,
+        NotifManagement = 47,
+        FINANCIALMANAGEMENT = 48,
+       
        
 
 
@@ -88,7 +95,6 @@ export enum Permission {
   Print = 11,
   Download = 12,
   Filter = 13,
-  Edit = 14
 }
 
 

@@ -13,6 +13,7 @@ import { selectData, selectDataState } from 'src/app/store/merchants/merchantlis
 import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { Modules, Permission } from 'src/app/store/Role/role.models';
 
 @Component({
   selector: 'app-approve-merchant',
@@ -23,7 +24,8 @@ import { ToastrService } from 'ngx-toastr';
 export class ApproveMerchantComponent implements OnInit {
 
 
-
+  public Modules = Modules;
+  public Permission = Permission;
   // bread crumb items
   breadCrumbItems: Array<{}>;
   term: any

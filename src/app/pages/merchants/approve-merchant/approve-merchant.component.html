@@ -52,7 +52,7 @@
                             <td>{{data.email}}</td>
                             <td>{{data.registrationDate | date: 'short'}}</td>
                             <td>
-                                <button
+                                <button *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]}]"
                                     type="button"
                                     class="btn"
                                     [ngClass]="{'btn-success': data.status === 'notApproved'}"

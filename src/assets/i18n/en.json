@@ -219,6 +219,11 @@
       "TEXT":"Customer Invoices"
 
     },
+    "MERCHANTINVOICES":{
+      "TEXT":"Merchant Invoices"
+
+    },
+    
     "PAYMENTS":{
       "TEXT":"Payments"
 
@@ -285,7 +290,12 @@
       "TEXT": "Merchant Approval List"
     },
     "COMMISSION": {
-      "TEXT": "Commissions"
+      "TEXT": "Commissions",
+      "LIST": {
+        "CUSTOMERSCOMMISSION": "Customers Commissions",
+        "MERCHANTSCOMMISSION": "Merchants Commissions"
+
+      }
     },
     
     "OFFERS": {

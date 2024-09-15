@@ -1,3 +1,5 @@
+import { Role } from "../Role/role.models";
+
 export class User {
   userId?: string;
   username?: string;
@@ -10,7 +12,7 @@ export class User {
   logo?: string;
   status?: string;
   phone?: string;
-  user?: any;
+  user?: _User;
 }
 
 export class _User {
@@ -36,6 +38,6 @@ building?: string;
 company_registration?: string;
 registrationDate?: string;
 updatedAt?: string;
-role?: any;// the type will be Role
+role?: Role;// the type will be Role
 }
 

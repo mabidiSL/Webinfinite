@@ -150,4 +150,11 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   hasItems(item: MenuItem) {
     return item.subItems !== undefined ? item.subItems.length > 0 : false;
   }
+
+  /**
+   * Returs the id of the tracked item
+   */
+  trackByFn(item: any): any {
+    return item.id;
+  }
 }
