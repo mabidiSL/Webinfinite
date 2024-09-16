@@ -39,7 +39,7 @@ export  enum Modules
         Subscriptions = 10,
         CompanySubscriptions = 11,
         Coupons = 12,
-        Cards = 13,
+        GiftCards = 13,
         PrePrintedMembership = 14,
         Gifts = 15,
         MarketingCompaigns = 16,

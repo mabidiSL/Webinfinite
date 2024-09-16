@@ -6,7 +6,7 @@ export const MENU: MenuItem[] = [
         id: 1,
         label: 'MENUITEMS.MENU.TEXT',
         isTitle: true,
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]}]
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Dashboard, claimValue: [Permission.ViewAll]}]
 
     },
     {
@@ -14,7 +14,7 @@ export const MENU: MenuItem[] = [
         label: 'MENUITEMS.DASHBOARD.TEXT',
         icon: 'bx-home-circle',
         link:'/private/dashboard',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]}]
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Dashboard, claimValue: [Permission.ViewAll]}]
         
     },
     {
@@ -105,26 +105,33 @@ export const MENU: MenuItem[] = [
         
     },
     {  id: 14,
-        label: 'MENUITEMS.COMMISSION.TEXT',
-        icon: 'bx bx-dollar-circle',
-        subItems: [
-            {
-                id: 52,
-                label: 'MENUITEMS.COMMISSION.LIST.CUSTOMERSCOMMISSION',
-                link: '/contacts/grid',
-                claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.CustomerCommissions, claimValue: [Permission.ViewAll]}],
-                parentId: 14
-            },
-            {
-                id: 53,
-                label: 'MENUITEMS.COMMISSION.LIST.MERCHANTSCOMMISSION',
-                claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.MerchantCommissions, claimValue: [Permission.ViewAll]}],
-                link: '/contacts/grid',
-                parentId: 14
-            }]
+            label: 'MENUITEMS.MERCHANTSCOMMISSION.TEXT',
+            icon: 'bx bx-dollar-circle',
+            link: '/contacts/grid',
+            claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.MerchantCommissions, claimValue: [Permission.ViewAll]}],
+          
+     },
+    // {  id: 14,
+    //     label: 'MENUITEMS.COMMISSION.TEXT',
+    //     icon: 'bx bx-dollar-circle',
+    //     subItems: [
+    //         {
+    //             id: 52,
+    //             label: 'MENUITEMS.COMMISSION.LIST.CUSTOMERSCOMMISSION',
+    //             link: '/contacts/grid',
+    //             claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.CustomerCommissions, claimValue: [Permission.ViewAll]}],
+    //             parentId: 14
+    //         },
+    //         {
+    //             id: 53,
+    //             label: 'MENUITEMS.COMMISSION.LIST.MERCHANTSCOMMISSION',
+    //             claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.MerchantCommissions, claimValue: [Permission.ViewAll]}],
+    //             link: '/contacts/grid',
+    //             parentId: 14
+    //         }]
         
         
-    },
+    // },
     {  id: 15,
         label: 'MENUITEMS.OFFERS.TEXT',
         icon:  'bx bxs-offer',
@@ -149,7 +156,7 @@ export const MENU: MenuItem[] = [
     {
         id: 18,
         label: 'MENUITEMS.WALLETMANAGEMENT.TEXT',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.CustomerWallet, claimValue: [Permission.ViewAll]},{claimType: Modules.MerchantWallet, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]}],
 
         isTitle: true
     }, 
@@ -170,7 +177,7 @@ export const MENU: MenuItem[] = [
     {
         id: 25,
         label: 'MENUITEMS.PRODUCTMANAGEMENT.TEXT',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Product, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]}],
         isTitle: true
     },
     {
@@ -188,30 +195,12 @@ export const MENU: MenuItem[] = [
         link: '/contacts/list'
     },
     {
-        id: 16,
+        id: 55,
         label: 'MENUITEMS.COUPONMANAGEMENT.TEXT',
         icon: 'bx bxs-coupon',
-        subItems: [
-            {
-                id: 17,
-                label: 'MENUITEMS.COUPONMANAGEMENT.LIST.COUPON',
-                link: '/private/coupons',
-                claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.ViewAll]}],
-                parentId: 16
-            },
-            // {
-            //     id: 18,
-            //     label: 'MENUITEMS.COUPONMANAGEMENT.LIST.FLASHDEALS',
-            //     link: '/invoices/detail',
-            //     parentId: 16
-            // },
-            // {
-            //     id: 19,
-            //     label: 'MENUITEMS.COUPONMANAGEMENT.LIST.DEALOFTHEDAY',
-            //     link: '/invoices/detail',
-            //     parentId: 16
-            // }
-        ]
+        link: '/private/coupons',
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.ViewAll]}],
+       
     },
     {
         id: 28,
@@ -231,7 +220,7 @@ export const MENU: MenuItem[] = [
         id: 30,
         label: 'MENUITEMS.MARKETINGMANAGEMENT.TEXT',
         icon: 'bx-receipt',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.MarketingCompaigns, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]}],
         isTitle: true
     },
     {
@@ -328,7 +317,7 @@ export const MENU: MenuItem[] = [
     {
         id: 44,
         label: 'MENUITEMS.FINANCIALMANAGEMENT.TEXT',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.FINANCIALMANAGEMENT, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]}],
         isTitle: true
                 
     },
@@ -367,8 +356,16 @@ export const MENU: MenuItem[] = [
     {
         id: 43,
         label: 'MENUITEMS.CONTRACTSANDFOLLOWUPS.TEXT',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Contracts, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]}],
         isTitle: true
+                
+    },
+    {
+        id: 46,
+        label: 'MENUITEMS.CONTRACTS.TEXT',
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Contracts, claimValue: [Permission.ViewAll]}],
+        icon: 'bx bxs-briefcase-alt-2',
+        link: '/blog/list'
                 
     },
     {

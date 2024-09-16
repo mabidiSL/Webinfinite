@@ -152,12 +152,8 @@
       }
     },
     "COUPONMANAGEMENT": {
-      "TEXT": "Coupons",
-      "LIST": {
-        "COUPON": "Coupons",
-        "FLASHDEALS": "Flash Deals",
-        "DEALOFTHEDAY":"Deal Of the Day"
-      }
+      "TEXT": "Coupons"
+     
     },
     "GIFTS":{
       "TEXT": "Gifts"
@@ -232,6 +228,9 @@
       "TEXT":"Contracts and Follow-Ups"
 
     },
+    "CONTRACTS":{
+      "TEXT": "Contracts"
+    },
     "MISSIONS":{
       "TEXT":"Missions"
 
@@ -289,13 +288,14 @@
     "MERCHANTSAPPROVAL": {
       "TEXT": "Merchant Approval List"
     },
-    "COMMISSION": {
-      "TEXT": "Commissions",
-      "LIST": {
-        "CUSTOMERSCOMMISSION": "Customers Commissions",
-        "MERCHANTSCOMMISSION": "Merchants Commissions"
-
-      }
+    
+    "CUSTOMERSCOMMISSION": {
+      "TEXT": "Customers Commissions"
+      
+    },
+    "MERCHANTSCOMMISSION": {
+      "TEXT": "Merchant Commissions"
+      
     },
     
     "OFFERS": {

@@ -8,7 +8,7 @@
     <ul class="metismenu list-unstyled" id="side-menu" #sideMenu>
       <!-- {{menuItems}} -->
       @for (item of menuItems; track $index) {
-      <ng-container *hasClaim="item.claims">
+      <ng-container >
         @if(item.isTitle){
         <li class="menu-title" *hasClaim="item.claims">{{ item.label | translate }}</li>
         }@else if(!item.isTitle && !item.isLayout){
@@ -39,14 +39,15 @@
           @if(hasItems(item)){
           <ul class="sub-menu" aria-expanded="false">
             @for (subitem of item.subItems; track $index) {
-            <li>
+            <ng-container *hasClaim="subitem.claims">
+              <li >
               @if(hasItems(subitem)){
               <a class="side-nav-link-a-ref has-arrow" href="javascript:void(0);" [attr.data-parent]="subitem.parentId">
                 {{ subitem.label | translate}}
               </a>
               <ul class="sub-menu mm-collapse" aria-expanded="false">
                 @for (subSubitem of subitem.subItems; track $index) {
-                <li>
+                <li *hasClaim="subSubitem.claims">
                   <a [attr.data-parent]="subSubitem.parentId" routerLink="{{subSubitem.link}}" routerLinkActive="active" class="side-nav-link-ref">
                     {{ subSubitem.label | translate }}
                   </a>
@@ -63,6 +64,7 @@
               </a>
               }
             </li>
+            </ng-container>
             }
           </ul>
           }

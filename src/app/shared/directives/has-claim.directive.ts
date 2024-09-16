@@ -17,7 +17,6 @@ export class HasClaimDirective {
   private currentUserSubject: BehaviorSubject<_User>;
   public currentUser: Observable<_User>;
   public permissions: any[] = [];
-  private subscription: Subscription;
   private isViewCreated = false;
 
   constructor( private authFackservice: AuthfakeauthenticationService, private templateRef: TemplateRef<string>,
@@ -50,13 +49,13 @@ export class HasClaimDirective {
   }
 
   private hasPermission(claim: Claim[]): boolean {
-    console.log(claim);
-    console.log(this.permissions);
+    console.log(claim);// the claim of the html item
+    console.log(this.permissions); // the permissions of the user
     console.log('/////////////////');
     if (claim && this.permissions) {
       return this.claim.some(requiredClaim => {
-        return this.permissions.some(claim => {
-          return claim.type === requiredClaim.claimType && claim.value.every(value => requiredClaim.claimValue.includes(value));
+        return this.permissions.some(permission => {
+          return permission.type === requiredClaim.claimType && requiredClaim.claimValue.every(value => permission.value.includes(value));
         });
       });
     }

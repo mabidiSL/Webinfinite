@@ -5,7 +5,7 @@ export interface MenuItem {
     label?: string;
     icon?: string;
     link?: string;
-    subItems?: any;
+    subItems?: MenuItem[];
     isTitle?: boolean;
     badge?: any;
     parentId?: number;

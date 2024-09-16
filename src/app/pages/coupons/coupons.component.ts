@@ -54,7 +54,7 @@ export class CouponsComponent  implements OnInit {
       
       console.log('begin get coupon list');
 
-      this.store.dispatch(fetchcouponlistData());
+     // this.store.dispatch(fetchcouponlistData());
 
       console.log('finish get coupon list');
 
