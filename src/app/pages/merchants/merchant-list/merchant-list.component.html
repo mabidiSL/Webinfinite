@@ -20,7 +20,7 @@
               <!-- Filter Button -->
               <!-- <div class="col-sm-2 position-relative"> -->
                 <div class="col-auto">
-                <button class="btn btn-outline-secondary btn-rounded "id="filter" tooltip="{{'Filter By'| translate}}" (click)="toggleDropdown()">
+                <button class="btn btn-gold btn-rounded" id="filter" tooltip="{{'Filter By'| translate}}" (click)="toggleDropdown()">
                   <i class="bx bx-filter-alt"></i> 
                 </button>
               
@@ -34,20 +34,20 @@
             </div>
               <!-- Print Button -->
               <div class="col-auto">
-                <button class="btn btn-outline-secondary btn-rounded " tooltip="{{'Print'| translate}}" (click)="printData()">
+                <button class="btn btn-gold btn-rounded " tooltip="{{'Print'| translate}}" (click)="printData()">
                   <i class="bx bx-printer"></i> 
                 </button>
               </div>
             
               <!-- Download Button -->
               <div class="col-auto">
-                <button class="btn btn-outline-secondary btn-rounded waves-effect waves-light" tooltip="{{'Download'| translate}}" (click)="downloadData()">
+                <button class="btn btn-gold btn-rounded waves-effect waves-light" tooltip="{{'Download'| translate}}" (click)="downloadData()">
                   <i class="bx bx-download"></i> 
                 </button>
               </div>
             
               <!-- Add Merchant Button -->
-              <div class="col-sm-auto text-end">
+              <div class="col-sm-4 text-end">
                 <div *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Create]}]" data-bs-toggle="modal" (click)="addUser()">
                 <button type="button"  class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal">
                   <i class="mdi mdi-plus me-1"></i> {{'New Merchant'|translate}}
