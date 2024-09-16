@@ -19,6 +19,7 @@ import { CreateCouponComponent } from './create-coupon/create-coupon.component';
 import { FormCouponComponent } from './form-coupon/form-coupon.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PaginationModule.forRoot(),
     BsDropdownModule,
     ModalModule,
-    CouponsRoutingModule
+    CouponsRoutingModule,
+    SharedModule
   ]
 })
 export class CouponsModule { }
