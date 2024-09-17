@@ -36,23 +36,16 @@ export class AuthenticationEffects {
   Register$ = createEffect(() =>
     this.actions$.pipe(
       ofType(Register),
-      exhaustMap(({ email, username, password }) => {
-        if (environment.defaultauth === 'fakebackend') {
-          return this.userService.register({ email, username, password }).pipe(
+      exhaustMap(({ newData }) => {
+        
+          return this.AuthfakeService.register({newData }).pipe(
             map((user) => {
               this.router.navigate(['/auth/login']);
               return RegisterSuccess({ user })
             }),
             catchError((error) => of(RegisterFailure({ error })))
           );
-        } else {
-          return this.AuthenticationService.register({ email, username, password }).pipe(
-            map((user) => {
-              this.router.navigate(['/auth/login']);
-              return RegisterSuccess({ user })
-            })
-          )
-        }
+       
       })
     )
   );

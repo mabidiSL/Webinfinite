@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import intlTelInput from 'intl-tel-input';
 
 @Component({
@@ -6,17 +6,21 @@ import intlTelInput from 'intl-tel-input';
   templateUrl: './phone-number.component.html',
   styleUrl: './phone-number.component.css'
 })
-export class PhoneNumberComponent implements OnInit {
-  @ViewChild('phoneInput', { static: true }) phoneInput!: ElementRef;
-
-  ngOnInit() {
-
-    const input = this.phoneInput.nativeElement;
-    
+export class PhoneNumberComponent {
+  @Output() phoneNumberChanged = new EventEmitter<string>();
+  ngAfterViewInit() {
+ //const input = this.phoneInput.nativeElement;
+    const input = document.querySelector('#phoneInput') as HTMLInputElement;
     intlTelInput(input, {
-      initialCountry: 'us', // you can change the initial country
+      initialCountry: 'sa', // you can change the initial country
       //preferredCountries: ['us', 'gb', 'fr'] as any, // add preferred countries
       utilsScript: 'node_modules/intl-tel-input/build/js/utils.js' // for validation and formatting
     });
+    input.addEventListener('input', () => {
+      const phoneNumber = input.value;
+      this.phoneNumberChanged.emit(phoneNumber);
+    });
+    
   }
+  
 }

@@ -22,6 +22,10 @@ export class AuthfakeauthenticationService {
     public get currentUserValue(): _User {
         return this.currentUserSubject.value;
     }
+    register ( data: any){
+        return this.http.post<any>('/api/register', { data });
+
+    }
     login(email: string, password: string) {
        
         return this.http.post<any>('/api/login', { email, password });

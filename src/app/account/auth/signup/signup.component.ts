@@ -52,6 +52,6 @@ export class SignupComponent implements OnInit {
     const password = this.f['password'].value;
 
     //Dispatch Action
-    this.store.dispatch(Register({ email: email, username: name, password: password }));
+   // this.store.dispatch(Register({ email: email, username: name, password: password }));
   }
 }

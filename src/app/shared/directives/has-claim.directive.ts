@@ -21,13 +21,12 @@ export class HasClaimDirective {
 
   constructor( private authFackservice: AuthfakeauthenticationService, private templateRef: TemplateRef<string>,
     private viewContainerRef: ViewContainerRef) {
-      console.log('HasClaimDirective constructor called');
-      console.log('claim input:', this.claim);
+      
       this.currentUserSubject = new BehaviorSubject<_User>(JSON.parse(localStorage.getItem('currentUser')));
       this.currentUser = this.currentUserSubject.asObservable();
     }
   ngOnChanges(changes: SimpleChanges) {
-    console.log('i ama on ngonchange BABAY');
+   
       if (changes['claim'] && !changes['claim'].firstChange) {
         console.log('i am on changes for permissions checks');
         this.checkPermissions();
@@ -49,9 +48,7 @@ export class HasClaimDirective {
   }
 
   private hasPermission(claim: Claim[]): boolean {
-    console.log(claim);// the claim of the html item
-    console.log(this.permissions); // the permissions of the user
-    console.log('/////////////////');
+   
     if (claim && this.permissions) {
       return this.claim.some(requiredClaim => {
         return this.permissions.some(permission => {
@@ -64,7 +61,7 @@ export class HasClaimDirective {
 
  
   ngOnInit() {
-    console.log('claim input:', this.claim);
+    
     this.currentUser.subscribe(user => {
       if (user) {
    
