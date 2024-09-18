@@ -23,7 +23,6 @@ import { ExtrapagesModule } from './extrapages/extrapages.module';
 import { LayoutsModule } from './layouts/layouts.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { initFirebaseBackend } from './authUtils';
 import { CyptolandingComponent } from './cyptolanding/cyptolanding.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -32,7 +31,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { ErrorInterceptor } from './core/helpers/error.interceptor';
 import { JwtInterceptor } from './core/helpers/jwt.interceptor';
-import { FakeBackendInterceptor } from './core/helpers/fake-backend';
 import { FilemanagerEffects } from './store/filemanager/filemanager.effects';
 import { rootReducer } from './store';
 import { OrderEffects } from './store/orders/order.effects';
@@ -55,6 +53,7 @@ import { MerchantsModule } from './pages/merchants/merchants.module';
 import { MerchantslistEffects } from './store/merchants/merchantlist.effect';
 import { MerchantslistEffects1 } from './store/merchantsList/merchantlist1.effect';
 import { CouponsModule } from './pages/coupons/coupons.module';
+import { CouponslistEffects1 } from './store/coupon/coupon.effect';
 
 
 
@@ -108,6 +107,7 @@ export function createTranslateLoader(http: HttpClient): any {
       usersEffects,
       userslistEffects,
       MerchantslistEffects,
+      CouponslistEffects1,
       MerchantslistEffects1,
       JoblistEffects,
       CandidateEffects,

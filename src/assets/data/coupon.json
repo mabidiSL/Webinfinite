@@ -29,7 +29,7 @@
         "couponValueBeforeDiscount":120,
         "PaymentDiscountRate": 10,
         "couponValueAfterDiscount":108,
-        "status": 0
+        "status": "pending"
         
 
     },
@@ -63,7 +63,7 @@
         "couponValueBeforeDiscount":120,
         "PaymentDiscountRate": 20,
         "couponValueAfterDiscount":96,
-        "status": 0
+        "status": "pending"
         
 
     }

@@ -17,6 +17,7 @@ import { CustomerReducer, CustomerState } from "./customer/customer.reducer";
 import { MailReducer, MailState } from "./Email/email.reducer";
 import { MerchantApprovalListReducer, MerchantApprovallistState } from "./merchants/merchantlist.reducer";
 import { MerchantListReducer, MerchantlistState } from "./merchantsList/merchantlist1.reducer";
+import { CouponListReducer, CouponlistState } from "./coupon/coupon.reducer";
 
 
 export interface RootReducerState {
@@ -37,7 +38,8 @@ export interface RootReducerState {
     Customer: CustomerState;
     Maillist: MailState;
     MerchantApprovalList: MerchantApprovallistState;
-    MerchantList: MerchantlistState
+    MerchantList: MerchantlistState;
+    CouponList: CouponlistState;
 }
 
 export const rootReducer: ActionReducerMap<RootReducerState> = {
@@ -58,5 +60,7 @@ export const rootReducer: ActionReducerMap<RootReducerState> = {
     Customer: CustomerReducer,
     Maillist: MailReducer,
     MerchantApprovalList: MerchantApprovalListReducer,
-    MerchantList:MerchantListReducer
+    MerchantList:MerchantListReducer,
+    CouponList: CouponListReducer
+
 }

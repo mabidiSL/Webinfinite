@@ -6,6 +6,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { selectData } from 'src/app/store/coupon/coupon-selector';
+import { fetchCouponlistData } from 'src/app/store/coupon/coupon.action';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
 
 @Component({
@@ -46,24 +47,31 @@ export class CouponsComponent  implements OnInit {
     public toastr:ToastrService,
     public store: Store) {
       
-      this.couponList$ = this.store.pipe(select(selectData)); // Observing the coupon list from store
+     // this.couponList$ = this.store.pipe(select(selectData)); // Observing the coupon list from store
 
   }
 
   ngOnInit() {
-      
-      console.log('begin get coupon list');
 
-     // this.store.dispatch(fetchcouponlistData());
-
-      console.log('finish get coupon list');
-
-      this.couponList$.subscribe(data => {
+    setTimeout(() => {
+      this.store.dispatch(fetchCouponlistData());
+      this.store.select(selectData).subscribe(data => {
         this.originalArray = data; // Store the full coupon list
+        console.log(this.originalArray);
         this.filteredArray = [...this.originalArray];
-      });
+      })
       document.getElementById('elmLoader')?.classList.add('d-none')
+    }, 1200);
+      
+       console.log('finish get coupon list');
+       console.log(this.filteredArray);
 
+      // this.couponList$.subscribe(data => {
+      //   this.originalArray = data; // Store the full coupon list
+      //   this.filteredArray = [...this.originalArray];
+      // });
+      // document.getElementById('elmLoader')?.classList.add('d-none')
+     
   }
   addCoupon(){
 
@@ -145,8 +153,5 @@ groupBy(data: any[], criterion: string) {
     this.removeItemModal?.hide();
   }
 
-}
-function fetchcouponlistData(): any {
-  throw new Error('Function not implemented.');
 }
 

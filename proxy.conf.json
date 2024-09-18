@@ -1,8 +1,11 @@
-{
+{ 
+  
+
   "/api/*": {
     "target": "https://rad-slrad.koyeb.app",
     "changeOrigin": true,
     "secure": false,
     "pathRewrite": { "^/api": "" }
   }
+ 
 }
