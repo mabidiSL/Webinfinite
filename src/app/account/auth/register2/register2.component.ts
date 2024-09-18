@@ -22,8 +22,8 @@ export class Register2Component implements OnInit {
   successmsg: any = false;
   fieldTextType!: boolean;
   imageURL: string | undefined;
-  merchantPictureBase64: string = '';
-  storeLogoBase64: string = '';
+  merchantPictureBase64: string = null;
+  storeLogoBase64: string = null;
 
   categories: string[] = ['discount','coupon', 'card'];
   sections: string[] = ['Restaurant', 'Fashion and style','Daily services', 'Entertainment', 'Tourism and travel','Cafes and sweets', 'Health and beauty', 'Gifts and occasions', 'Online stores', 'Electronics'];
@@ -133,7 +133,12 @@ export class Register2Component implements OnInit {
         status: 'notApproved',
         });
       const newData = this.signupForm.value;
-      
+      if(this.storeLogoBase64){
+        newData.storeLogo = this.storeLogoBase64;
+      }
+      if(this.merchantPictureBase64){
+        newData.merchantPicture = this.merchantPictureBase64;
+      }
       delete newData.confpassword;
   
       console.log(newData);

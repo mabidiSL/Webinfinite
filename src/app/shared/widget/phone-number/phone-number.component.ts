@@ -7,9 +7,12 @@ import intlTelInput from 'intl-tel-input';
   styleUrl: './phone-number.component.css'
 })
 export class PhoneNumberComponent {
+  
   @Output() phoneNumberChanged = new EventEmitter<string>();
   ngAfterViewInit() {
  //const input = this.phoneInput.nativeElement;
+ setTimeout(() => {
+
     const input = document.querySelector('#phoneInput') as HTMLInputElement;
     intlTelInput(input, {
       initialCountry: 'sa', // you can change the initial country
@@ -20,7 +23,8 @@ export class PhoneNumberComponent {
       const phoneNumber = input.value;
       this.phoneNumberChanged.emit(phoneNumber);
     });
-    
+  }, 100);
+
   }
   
 }

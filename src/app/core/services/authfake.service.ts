@@ -23,7 +23,7 @@ export class AuthfakeauthenticationService {
         return this.currentUserSubject.value;
     }
     register ( data: any){
-        return this.http.post<any>('/api/register', { data });
+        return this.http.post<any>('/api/register', data );
 
     }
     login(email: string, password: string) {
