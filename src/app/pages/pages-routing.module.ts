@@ -28,10 +28,7 @@ const routes: Routes = [
   { path: 'tasks', loadChildren: () => import('./tasks/tasks.module').then(m => m.TasksModule) },
   { path: 'contacts', loadChildren: () => import('./contacts/contacts.module').then(m => m.ContactsModule) },
   { path: 'merchants', loadChildren: () => import('./merchants/merchants.module').then(m => m.MerchantsModule) },
-  { path: 'coupons', component: CouponsComponent, loadChildren: () => import('./coupons/coupons.module').then(m => m.CouponsModule), canActivate: [RoleGuard] ,data: {
-    claim: [{claimType: Modules.All, claimValue: [Permission.All]},{ claimType:Modules.Coupons, claimValue:[Permission.ViewAll]}]
-  
-     }},
+  { path: 'coupons',loadChildren: () => import('./coupons/coupons.module').then(m => m.CouponsModule), canActivate: [RoleGuard] },
   { path: 'employees', loadChildren: () => import('./employees/employees.module').then(m => m.EmployeesModule) },
   { path: 'blog', loadChildren: () => import('./blog/blog.module').then(m => m.BlogModule) },
   { path: 'pages', loadChildren: () => import('./utility/utility.module').then(m => m.UtilityModule) },

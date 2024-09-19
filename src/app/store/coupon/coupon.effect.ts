@@ -23,7 +23,7 @@ import {
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
-export class CouponslistEffects1 {
+export class CouponslistEffects {
     path : string = '/assets/data/coupon.json';
 
     fetchData$ = createEffect(() =>

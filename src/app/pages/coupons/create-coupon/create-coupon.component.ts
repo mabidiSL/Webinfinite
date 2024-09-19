@@ -11,6 +11,7 @@ export class CreateCouponComponent implements OnInit {
   breadCrumbItems: Array<{}>;
 
   ngOnInit() {
+    console.log('i am in create coupons');
     this.breadCrumbItems = [{ label: 'Coupons' }, { label: 'Add Coupon', active: true }];
   }
 }

@@ -53,7 +53,8 @@ import { MerchantsModule } from './pages/merchants/merchants.module';
 import { MerchantslistEffects } from './store/merchants/merchantlist.effect';
 import { MerchantslistEffects1 } from './store/merchantsList/merchantlist1.effect';
 import { CouponsModule } from './pages/coupons/coupons.module';
-import { CouponslistEffects1 } from './store/coupon/coupon.effect';
+import { CouponslistEffects } from './store/coupon/coupon.effect';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 
@@ -107,7 +108,7 @@ export function createTranslateLoader(http: HttpClient): any {
       usersEffects,
       userslistEffects,
       MerchantslistEffects,
-      CouponslistEffects1,
+      CouponslistEffects,
       MerchantslistEffects1,
       JoblistEffects,
       CandidateEffects,
@@ -123,6 +124,7 @@ export function createTranslateLoader(http: HttpClient): any {
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    provideAnimationsAsync('noop'),
     //{ provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
   ],
 })

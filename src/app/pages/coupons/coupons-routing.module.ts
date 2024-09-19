@@ -8,19 +8,18 @@ import { RoleGuard } from 'src/app/core/guards/role.guard';
 
 const routes: Routes = [
   
-// {
-//   path: "",
-//   component: CouponsComponent,
-//   //canActivate: [ClaimGuard],
-//   // data: {
-//   //  // permission: 'user.index',
-//   //  // claim: { claimType:Modules.Users, claimValue:[Permission.ViewAll]}
-//   // }
-// },
+{
+  path: "",
+  component: CouponsComponent,
+  canActivate: [RoleGuard],
+  data: {
+    claim: [{claimType: Modules.All, claimValue: [Permission.All]},{ claimType:Modules.Coupons, claimValue:[Permission.ViewAll]}]
+}
+},
 {
   path: "create",
   component: CreateCouponComponent,
-   canActivate: [RoleGuard],
+  canActivate: [RoleGuard],
   data: {
     claim: [{claimType: Modules.All, claimValue: [Permission.All]},{ claimType:Modules.Coupons, claimValue:[Permission.ViewAll,Permission.Create]}]
 

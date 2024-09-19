@@ -99,7 +99,7 @@ export class FormCouponComponent implements OnInit{
   }
   onCancel(){
     this.formCoupon.reset();
-    this.router.navigateByUrl('/coupons');
+    this.router.navigateByUrl('/private/coupons');
   }
   ngOnDestroy() {
     this.destroy$.next();
