@@ -21,6 +21,7 @@ import {
     updateCouponStatusFailure
 } from './coupon.action';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class CouponslistEffects {
@@ -46,9 +47,10 @@ export class CouponslistEffects {
         this.actions$.pipe(
             ofType(addCouponlist),
             mergeMap(({ newData }) =>
-                this.CrudService.addData('/api/admin/add-coupon', newData).pipe(
+                this.CrudService.addData(this.path, newData).pipe(
                     map((newData) => {
                         this.toastr.success('The new Coupon has been added successfully.');
+                        this.router.navigateByUrl('/private/coupons');
                         // Dispatch the action to fetch the updated Coupon list after adding a new Coupon
                         return addCouponlistSuccess({newData});
                       }),
@@ -103,9 +105,11 @@ export class CouponslistEffects {
     );
     
     
+    
     constructor(
         private actions$: Actions,
         private CrudService: CrudService,
+        private router: Router,
         public toastr:ToastrService
     ) { }
 

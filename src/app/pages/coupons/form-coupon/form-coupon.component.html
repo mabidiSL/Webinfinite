@@ -37,7 +37,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6 mb-3">
+                        <div *ngIf="type == 'edit'" class="col-md-6 mb-3">
                             <label for="codeCoupon">{{'Coupon Code'|translate}}</label>
                             <input class="form-control" id="codeCoupon" formControlName="codeCoupon" type="text" readonly />
                         </div>
@@ -107,14 +107,13 @@
                 
                   <div class="col-md-6 mb-3">
                     <label for="storeName">{{'Store Name'|translate}}</label>
-                    <!-- <option [value]="'all'">{{ 'All Stores' | translate }}</option> -->
-
-                    <!-- <select class="form-control" id="city" formControlName="storeName">
-                                <option *ngFor="let store of stores" [value]="storeName.id">
-                                  {{ store.name }}
-                                </option>
-                    </select> -->
-                    <input class="form-control" id="storeName" formControlName="storeName" type="text" />
+                     <select class="form-control" id="city" formControlName="storeName">
+                      <option [value]="'all'">{{ 'All Stores' | translate }}</option>
+                         <option *ngFor="let store of stores" [value]="store">
+                           {{ store }}
+                         </option>
+                    </select>
+                    <!-- <input class="form-control" id="storeName" formControlName="storeName" type="text" /> -->
                     <div *ngIf="formCoupon.get('storeName').invalid && formCoupon.get('storeName').touched">
                       {{'Store Name is required'|translate}}
                     </div>
@@ -154,19 +153,19 @@
                 
                   <div class="col-md-6 mb-3">
                     <label for="couponLogo">{{'Upload Coupon Logo'|translate}}</label>
-                    <input class="form-control" id="couponLogo" formControlName="couponLogo" type="file" />
+                    <input class="form-control" id="couponLogo" formControlName="couponLogo" type="file" accept="image/png, image/gif, image/jpeg" (change)="uploadCouponLogo($event)"/>
                     <div *ngIf="formCoupon.get('couponLogo').invalid && formCoupon.get('couponLogo').touched">
                       {{'Coupon Logo is required'|translate}}
                     </div>
                   </div>
                   
-                  <div class="col-md-6 mb-3">
+                  <!-- <div class="col-md-6 mb-3">
                     <label for="merchantLogo">{{'Upload Merchant Logo'|translate}}</label>
-                    <input class="form-control" id="merchantLogo" formControlName="merchantLogo" type="file" />
+                    <input class="form-control" id="merchantLogo" formControlName="merchantLogo" type="file" accept="image/png, image/gif, image/jpeg" (change)="uploadCouponLogo($event)"/>
                     <div *ngIf="formCoupon.get('merchantLogo').invalid && formCoupon.get('merchantLogo').touched">
                       {{'Merchant Logo is required'|translate}}
                     </div>
-                  </div>
+                  </div> -->
                   <div class="col-md-12 mb-3">
                     <label for="couponType">{{'Coupon Type'|translate}}</label>
                     <div>

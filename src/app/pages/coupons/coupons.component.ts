@@ -33,6 +33,7 @@ export class CouponsComponent  implements OnInit {
   isDropdownOpen : boolean = false;
   filteredArray: any[] = [];
   originalArray: any[] = [];
+  
 
   @ViewChild('newContactModal', { static: false }) newContactModal?: ModalDirective;
   @ViewChild('removeItemModal', { static: false }) removeItemModal?: ModalDirective;
