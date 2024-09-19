@@ -30,7 +30,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 // Auth
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { ErrorInterceptor } from './core/helpers/error.interceptor';
-import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 import { FilemanagerEffects } from './store/filemanager/filemanager.effects';
 import { rootReducer } from './store';
 import { OrderEffects } from './store/orders/order.effects';
@@ -55,6 +54,7 @@ import { MerchantslistEffects1 } from './store/merchantsList/merchantlist1.effec
 import { CouponsModule } from './pages/coupons/coupons.module';
 import { CouponslistEffects } from './store/coupon/coupon.effect';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { AuthInterceptor } from './core/helpers/auth.interceptor';
 
 
 
@@ -122,7 +122,7 @@ export function createTranslateLoader(http: HttpClient): any {
   ],
   bootstrap: [AppComponent],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     provideAnimationsAsync('noop'),
     //{ provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },

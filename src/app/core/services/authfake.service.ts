@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { _User, User } from 'src/app/store/Authentication/auth.models';
+import { environment } from 'src/environments/environment';
 //import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -26,9 +27,9 @@ export class AuthfakeauthenticationService {
         return this.http.post<any>('/api/register', data );
 
     }
-    login(email: string, password: string) {
+    login(username: string, password: string) {
        
-        return this.http.post<any>('/api/login', { email, password });
+        return this.http.post<any>(`${environment.baseURL}/auth/login`, { username, password });
       
     }
     forgotPassword(email: string){
