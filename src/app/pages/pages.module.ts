@@ -45,9 +45,10 @@ import { FilemanagerComponent } from './filemanager/filemanager.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../core/services/language.service';
 import { UsersModule } from './users/users.module';
+import { CouponApprovalComponent } from './coupon-approval/coupon-approval.component';
 
 @NgModule({
-  declarations: [CalendarComponent, ChatComponent, FilemanagerComponent],
+  declarations: [CalendarComponent, ChatComponent, FilemanagerComponent, CouponApprovalComponent],
   imports: [
     CommonModule,
     TranslateModule,

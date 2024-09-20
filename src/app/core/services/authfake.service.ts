@@ -24,20 +24,20 @@ export class AuthfakeauthenticationService {
         return this.currentUserSubject.value;
     }
     register ( data: any){
-        return this.http.post<any>('/api/register', data );
+        return this.http.post<any>(`${environment.baseURL}/register`, data );
 
     }
-    login(username: string, password: string) {
+    login(loginKey: string, password: string) {
        
-        return this.http.post<any>(`${environment.baseURL}/auth/login`, { username, password });
+        return this.http.post<any>(`${environment.baseURL}/auth/login`, { loginKey, password });
       
     }
     forgotPassword(email: string){
-        return this.http.post('/api/forgot-password',{email}) ;
+        return this.http.post('/forgot-password',{email}) ;
     }
     updateProfilePassword(id: string, currentPassword: string, newPassword: string){
        // const id = this.currentUserSubject.value.userId;
-         return this.http.put(`/api/${id}/password`,{currentPassword,newPassword})
+         return this.http.put(`/${id}/password`,{currentPassword,newPassword})
         .pipe(map(message => {
             console.log(message)
             return message;
@@ -45,7 +45,7 @@ export class AuthfakeauthenticationService {
     }
     updatePassword(password: string, token: string){
 
-        return this.http.post(`/api/reset-password/${token}`,{password})
+        return this.http.post(`/reset-password/${token}`,{password})
        .pipe(map(message => {
            console.log(message)
            return message;
@@ -53,7 +53,7 @@ export class AuthfakeauthenticationService {
    }
     updateProfile(user: any){
         console.log(user);
-        return this.http.put('/api/user',user.user) ;
+        return this.http.put('/user',user.user) ;
     }
    
     logout() {

@@ -38,7 +38,7 @@ export class AuthenticationEffects {
       ofType(Register),
       exhaustMap(({ newData }) => {
         
-          return this.AuthfakeService.register({newData }).pipe(
+          return this.AuthfakeService.register(newData ).pipe(
             map((user) => {
               this.router.navigate(['/auth/login']);
               return RegisterSuccess({ user })
