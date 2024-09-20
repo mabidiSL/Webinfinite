@@ -20,7 +20,7 @@ export class HomeComponent {
       this.router.navigate(['/auth/login']);
       }
     } else if (role === 'merchant') {
-     // this.router.navigate(['/auth/login']);
+      this.router.navigate(['/auth/login']);
     }
   }
 }

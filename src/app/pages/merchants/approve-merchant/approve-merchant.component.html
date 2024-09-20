@@ -52,49 +52,24 @@
                             <td>{{data.email}}</td>
                             <td>{{data.registrationDate | date: 'short'}}</td>
                             <td>
-                                <button *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]}]"
-                                    type="button"
-                                    class="btn"
-                                    [ngClass]="{'btn-success': data.status === 'notApproved'}"
-                                    (click)="approveItem(data)">
-                                    {{'Approve' | translate}}
-                                </button>
+                              <button *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Approve]}]"
+                              type="button"
+                              class="btn btn-success me-2"
+                              (click)="UpdateItem(data, 'approve')">
+                              {{'Approve' | translate}}
+                          </button>
+                          <button *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Decline]}]"
+                              type="button"
+                              class="btn btn-danger"
+                              (click)="UpdateItem(data, 'decline')">
+                              {{'Decline' | translate}}
+                          </button>
                             </td>
                         </tr>
                     </ng-container>
                 </tr>
 
-                  <!-- @for (data of merchantApprovalList; track $index) {
-                  <tr *ngIf="data.status == 'notApproved'" >
-                    <td>
-                        <div class="form-check font-size-16">
-                          <input class="form-check-input" type="checkbox" id="transactionCheck{{data.index}}" value="{{data._id}}" [(ngModel)]="data.state">
-                          <label class="form-check-label" for="transactionCheck{{data.index}}"></label>
-                        </div>
-                      </td>
-                    <td>
-                      <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{data.username}}</a>
-                      </h5>
-                      
-                    </td>
-                  
-                    <td>{{data.email}}</td>
-                    <td>{{data.registrationDate|  date:'short'}}</td>
-                   
-                    <td>
-                                     <button
-                                      type="button"
-                                      class="btn"
-                                      [ngClass]="{'btn-success': data.status === 'notApproved'}"
-                                      (click)="approveItem(data)"
-                                     
-                                    >
-                                      {{'Approve'| translate}}
-                                    </button>
-                    
-                </td>
-                    
-                  </tr>} -->
+                 
                   <tr *ngIf="merchantApprovalList && merchantApprovalList.length === 0">
                     <td colspan="5" class="text-center">
                         <p>{{'No items available' | translate}}</p>
@@ -124,25 +99,4 @@
     </div>
   </div>
   
-  <!-- removeItemModal -->
-  <div bsModal #removeItemModal="bs-modal" class="modal fade" id="removeItemModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
-      <div class="modal-content">
-        <div class="modal-body px-4 py-5 text-center">
-          <button type="button" class="btn-close position-absolute end-0 top-0 m-3" (click)="removeItemModal.hide()"></button>
-          <div class="avatar-sm mb-4 mx-auto">
-            <div class="avatar-title bg-primary text-primary bg-opacity-10 font-size-20 rounded-3">
-              <i class="mdi mdi-trash-can-outline"></i>
-            </div>
-          </div>
-          <p class="text-muted font-size-16 mb-4">{{'Are you Sure You want to Remove this Merchant Request ?'| translate}} </p>
-  
-          <div class="hstack gap-2 justify-content-center mb-0">
-            <button type="button" class="btn btn-danger me-1" id="remove-item" (click)="confirmDelete(deleteId)">{{'Remove Now'| translate}}</button>
-            <button type="button" class="btn btn-secondary" (click)="removeItemModal.hide()">{{'Close'| translate}}</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- end removeItemModal -->
+ 

@@ -26,6 +26,9 @@ export const updateCouponStatusFailure = createAction(
 export const addCouponlist = createAction('[Data] Add Couponlist',  props<{ newData: CouponListModel }>());
 export const addCouponlistSuccess = createAction('[Data] Add Couponlist Success', props<{ newData: any }>());
 export const addCouponlistFailure = createAction('[Data] Add Couponlist Failure', props<{ error: string }>());
+//get coupon by ID
+export const getCouponById = createAction('[Data] get Coupon', props<{ couponId: string }>());
+export const getCouponByIdSuccess = createAction('[Data] get Coupon success', props<{ coupon: any }>());
 
 // Update Data
 export const updateCouponlist = createAction(

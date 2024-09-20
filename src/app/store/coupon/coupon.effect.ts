@@ -73,17 +73,19 @@ export class CouponslistEffects {
 
     updateData$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(updateCouponlist),
-            mergeMap(({ updatedData }) =>
-                this.CrudService.updateData(`/api/coupon/${updatedData.id}`, updatedData).pipe(
-                    map(() => {
-                        this.toastr.success('The Coupon has been updated successfully.');
-                        updateCouponlistSuccess({ updatedData })}),
-                    catchError((error) => of(updateCouponlistFailure({ error })))
-                )
+          ofType(updateCouponlist),
+          mergeMap(({ updatedData }) =>
+            this.CrudService.updateData(`/api/coupon/${updatedData.id}`, updatedData).pipe(
+              map(() => {
+                this.toastr.success('The Coupon has been updated successfully.');
+                return updateCouponlistSuccess({ updatedData }); // Make sure to return the action
+              }),
+              catchError((error) => of(updateCouponlistFailure({ error }))) // Catch errors and return the failure action
             )
+          )
         )
-    );
+      );
+      
 
 
    deleteData$ = createEffect(() =>

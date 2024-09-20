@@ -85,6 +85,7 @@ export function createTranslateLoader(http: HttpClient): any {
     LayoutsModule,
     MerchantsModule,
     CouponsModule,
+    TranslateModule,
     AppRoutingModule,
     ExtrapagesModule,
     AccordionModule.forRoot(),

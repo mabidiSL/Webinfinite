@@ -1,15 +1,18 @@
 // src/app/Couponlist.reducer.ts
 import { createReducer, on } from '@ngrx/store';
-import {  addCouponlistSuccess, deleteCouponlistFailure, deleteCouponlistSuccess, fetchCouponlistData, fetchCouponlistFail, fetchCouponlistSuccess, updateCouponlistSuccess, updateCouponStatusSuccess } from './coupon.action';
+import {  addCouponlistSuccess, deleteCouponlistFailure, deleteCouponlistSuccess, fetchCouponlistData, fetchCouponlistFail, fetchCouponlistSuccess, getCouponByIdSuccess, updateCouponlistSuccess, updateCouponStatusSuccess } from './coupon.action';
+import { CouponListModel } from './coupon.model';
 
 export interface CouponlistState {
   CouponListdata: any[];
+  selectedCoupon: any;
   loading: boolean;
   error: any;
 }
 
 export const initialState: CouponlistState = {
   CouponListdata: [],
+  selectedCoupon: null,
   loading: false,
   error: null,
 };
@@ -38,7 +41,13 @@ export const CouponListReducer = createReducer(
     CouponListdata: [...state.CouponListdata, newData],
     loading: false
   })),
-  
+  // Handle success of getting coupon by ID and store the coupon object in the state
+   on(getCouponByIdSuccess, (state, { coupon }) => ({
+    ...state,
+    selectedCoupon: coupon
+  })),
+
+
   // Handle updating Coupon list
   on(updateCouponStatusSuccess, (state, { updatedData }) => {
     return {

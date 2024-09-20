@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrl: './edit-coupon.component.scss'
 })
 export class EditCouponComponent {
+// bread crumb items
+breadCrumbItems: Array<{}>;
 
+ngOnInit() {
+  console.log('i am in edit coupon');
+  this.breadCrumbItems = [{ label: 'Coupons' }, { label: 'Edit Coupon', active: true }];
+}
 }

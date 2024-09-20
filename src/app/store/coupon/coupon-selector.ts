@@ -12,6 +12,10 @@ export const selectApprovalData = createSelector(
   selectDataState,
   (state: CouponlistState) => state?.CouponListdata.filter(coupon => coupon.status === 'pending') || []
 );
+export const selectCouponById = (couponId: string) =>createSelector(
+  selectDataState,
+  (state: CouponlistState) =>  state?.CouponListdata.find(coupon => coupon.id === couponId)
+  );
 
 export const selectDataLoading = createSelector(
   selectDataState,

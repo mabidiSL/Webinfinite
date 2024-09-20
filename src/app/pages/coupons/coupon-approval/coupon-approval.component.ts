@@ -18,11 +18,11 @@ import { updateCouponlist, updateCouponStatus } from 'src/app/store/coupon/coupo
 
 
 @Component({
-  selector: 'app-coupons-approval',
-  templateUrl: './coupons-approval.component.html',
-  styleUrl: './coupons-approval.component.css'
+  selector: 'app-coupon-approval',
+  templateUrl: './coupon-approval.component.html',
+  styleUrl: './coupon-approval.component.css'
 })
-export class CouponsApprovalComponent implements OnInit {
+export class CouponApprovalComponent implements OnInit {
 
 
   public Modules = Modules;
@@ -91,9 +91,9 @@ export class CouponsApprovalComponent implements OnInit {
       
     }).then(result => {
       if (result.isConfirmed) {
-        // Dispatch the action to update merchant status
+        // Dispatch the action to update coupon status
         const updatedData = {id: item.id, status: action == 'approve' ?  'active':  'refused'}
-        this.store.dispatch(updateCouponlist(updatedData as any));
+        this.store.dispatch(updateCouponlist({updatedData: updatedData}));
         
         // // Show success message
         // Swal.fire('Approved!', 'The merchant has been approved.', 'success').then(() => {

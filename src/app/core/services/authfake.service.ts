@@ -24,7 +24,7 @@ export class AuthfakeauthenticationService {
         return this.currentUserSubject.value;
     }
     register ( data: any){
-        return this.http.post<any>(`${environment.baseURL}/register`, data );
+        return this.http.post<any>(`${environment.baseURL}/auth/register-merchant`, data );
 
     }
     login(loginKey: string, password: string) {

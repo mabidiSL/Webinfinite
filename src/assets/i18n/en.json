@@ -486,5 +486,16 @@
       }
     }
   },
-  "Coupon_Approval_List": "Coupon Approval List"
+  "Coupon_Approval_List": "Coupon Approval List",
+  "Merchant_Name": "Merchant Name",
+  "Start_Date": "Start Date",
+  "End_Date": "End Date",
+  "Request_Date": "Request Date",
+  "Decline": "Decline",
+  "No_items_available": "No items available",
+  "Loading...": "Loading...",
+  "Approve":"Approve",
+  "Title":"Title",
+  "Status": "Status",
+  "Edit_coupon": "Edit_coupon"
 }

@@ -493,7 +493,7 @@
     "Password": "كلمة المرور",
     "Merchant Approval List": "قائمة موافقات التجار",
     "Merchant List": "قائمة التجار",
-    "Merchant Name": "اسم التاجر",
+    "Merchant_Name": "اسم التاجر",
     "Contact Email": "البريد الإلكتروني للتواصل",
     "Date Registration": "تاريخ التسجيل",
     "Actions": "الإجراءات",
@@ -539,7 +539,7 @@
     "Manager Name is required": "اسم المسؤول مطلوب",
     "Manager Phone": "هاتف المسؤول",
     "Manager Phone is required": "هاتف المسؤول مطلوب",
-    "Start Date": "تاريخ بداية القسيمة",
+    "Start_Date": "تاريخ بداية القسيمة",
     "Start Date is required": "تاريخ بداية القسيمة مطلوب",
     "End Date":"تاريخ نهاية القسيمة",
     "End Date is required": "تاريخ نهاية القسيمة مطلوب",
@@ -562,6 +562,14 @@
     "Cancel":"الغاء",
     "Name": "الإسم",
     "Add Coupon": "اضافة قسيمة",
-    "Coupon_Approval_List": "قائمة الموافقة على القسائم"
-    
+    "Coupon_Approval_List": "قائمة الموافقة على القسائم",
+    "Request_Date": "تاريخ الطلب",
+    "Decline": "رفض",
+    "No_items_available": "لا توجد عناصر متاحة",
+    "Title":"العنوان",
+    "Loading...":"...تحميل",
+    "Edit_coupon": "تعديل القسيمة"
+   
+ 
+
 }

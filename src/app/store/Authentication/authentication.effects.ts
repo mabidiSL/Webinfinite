@@ -59,16 +59,20 @@ export class AuthenticationEffects {
         console.log('before zero looping');
 
           return this.AuthfakeService.login(email, password).pipe(
-            map((user) => {
-              if (user) {
+            map((response) => {
+              if (response) {
               
-                console.log(JSON.stringify(user.user));
-                localStorage.setItem('currentUser', JSON.stringify(user.user));
-                localStorage.setItem('token', user.token);
-                this.currentUserSubject.next(user);
-                this.toastr.success('Login successfully!!!');
-                this.router.navigate(['/private']);
-                return loginSuccess({ user: user.user, token: user.token });
+                // console.log(JSON.stringify(user));
+                // localStorage.setItem('currentUser', JSON.stringify(user));
+                // localStorage.setItem('token', response.accessToken);
+                // this.currentUserSubject.next(user);
+                // this.toastr.success('Login successfully!!!');
+                // this.router.navigate(['/private']);
+                // return loginSuccess({ user: user.user, token: user.token });
+                console.log(JSON.stringify(response.accessToken));
+                localStorage.setItem('token', response.accessToken);
+                //
+                return loginSuccess({ user: response.user, token: response.accessToken });
 
               }
               return loginFailure({ error:'Login failed' });

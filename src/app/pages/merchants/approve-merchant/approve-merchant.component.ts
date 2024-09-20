@@ -80,7 +80,8 @@ export class ApproveMerchantComponent implements OnInit {
     this.endItem = event.page * event.itemsPerPage;
     this.merchantApprovalList = this.returnedArray.slice(startItem, this.endItem);
   }
-  confirm(item: any) {
+
+  UpdateItem(item: any, action: any) {
     Swal.fire({
       title: 'Are you sure?',
       text: 'You won\'t be able to revert this!',
@@ -88,33 +89,17 @@ export class ApproveMerchantComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#34c38f',
       cancelButtonColor: '#f46a6a',
-      confirmButtonText: 'Yes, Approve it!'
+      confirmButtonText: action == 'approve' ?  'Yes, Approve it!':  'Yes, Decline it!'
+      
     }).then(result => {
       if (result.isConfirmed) {
         // Dispatch the action to update merchant status
-        this.store.dispatch(updateMerchantStatus({ userId: item._id, status: 'active' }));
-        item.status = 'active';
-        this.toastr.success('The merchant has been approved.');
-        // // Show success message
-        // Swal.fire('Approved!', 'The merchant has been approved.', 'success').then(() => {
-        //   // You can also update the item status in the list if needed
-          
-        // });
+        const updatedData = {id: item.id, status: action == 'approve' ?  'active':  'refused'}
+        this.store.dispatch(updateMerchantStatus(updatedData as any));
+        
+        
       }
     });
-  }
-  approveItem(item: any) {
-   this.confirm(item);
-  }
-  // Delete User
-  removeUser(id: any) {
-    this.deleteId = id
-    this.removeItemModal?.show();
-  }
-
-  confirmDelete(id: any) {
-    this.store.dispatch(deleteuserlist({ id: this.deleteId }));
-    this.removeItemModal?.hide();
   }
 
 }
