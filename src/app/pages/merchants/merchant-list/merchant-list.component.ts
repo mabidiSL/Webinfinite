@@ -62,7 +62,8 @@ export class MerchantListComponent implements OnInit {
 
   ngOnInit() {
       
-      console.log('begin get merchant list');
+    setTimeout(() => {  
+    console.log('begin get merchant list');
 
       this.store.dispatch(fetchMerchantlistData());
 
@@ -73,7 +74,7 @@ export class MerchantListComponent implements OnInit {
         this.filteredArray = [...this.originalArray];
       });
       document.getElementById('elmLoader')?.classList.add('d-none')
-
+    }, 1200);
     this.createContactForm = this.formBuilder.group({
       _id: [''],
       username: ['', [Validators.required]],

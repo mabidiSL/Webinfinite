@@ -66,7 +66,7 @@ export class FormCouponComponent implements OnInit{
       couponValueBeforeDiscount:[''],
       couponValueAfterDiscount:[''],
       PaymentDiscountRate: [''],
-      status: ['pending'],//pending,approved,active, expired, closed
+      status: ['active'],//pending,approved,active, expired, closed
 
     });
 

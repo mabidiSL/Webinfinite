@@ -60,7 +60,9 @@ export class Register2Component implements OnInit {
       twitter: [''],
       instagram: [''],
       merchantSection:[''],
-      merchantCategory: ['']
+      merchantCategory: [''],
+      status:['notApproved'],
+      user_type: ['merchant']
 
     }/*, {validators: [this.passwordMatchValidator]}*/);
   }
@@ -128,10 +130,10 @@ export class Register2Component implements OnInit {
       console.log('Form status:', this.signupForm.status);
       console.log('Form errors:', this.signupForm.errors);
       
-      this.signupForm.patchValue({
-        user_type: 'merchant',
-        status: 'notApproved',
-        });
+      // this.signupForm.patchValue({
+      //   user_type: 'merchant',
+      //   status: 'notApproved',
+      //   });
       const newData = this.signupForm.value;
       if(this.storeLogoBase64){
         newData.storeLogo = this.storeLogoBase64;
@@ -143,7 +145,7 @@ export class Register2Component implements OnInit {
   
       console.log(newData);
       //Dispatch Action
-      this.store.dispatch(Register({ newData }));
+      this.store.dispatch(Register( {data: newData}));
     } else {
       // Form is invalid, display error messages
       console.log('Form is invalid');

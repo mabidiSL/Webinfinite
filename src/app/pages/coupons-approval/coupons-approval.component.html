@@ -37,7 +37,7 @@
                 </thead>
                 
                 <tbody >
-                  <!-- <tr *ngIf="merchantApprovalList && merchantApprovalList.length > 0">
+                  <tr *ngIf="merchantApprovalList && merchantApprovalList.length > 0">
                     <ng-container *ngFor="let data of merchantApprovalList">
                         <tr *ngIf="data.status == 'notApproved'">
                             <td>
@@ -62,9 +62,9 @@
                             </td>
                         </tr>
                     </ng-container>
-                </tr> -->
+                </tr>
 
-                  @for (data of merchantApprovalList; track $index) {
+                  <!-- @for (data of merchantApprovalList; track $index) {
                   <tr *ngIf="data.status == 'notApproved'" >
                     <td>
                         <div class="form-check font-size-16">
@@ -94,12 +94,12 @@
                     
                 </td>
                     
-                  </tr>} 
-                   <tr *ngIf="merchantApprovalList && merchantApprovalList.length === 0">
+                  </tr>} -->
+                  <tr *ngIf="merchantApprovalList && merchantApprovalList.length === 0">
                     <td colspan="5" class="text-center">
                         <p>{{'No items available' | translate}}</p>
                     </td>
-                </tr> 
+                </tr>
                 </tbody>
               </table>
               

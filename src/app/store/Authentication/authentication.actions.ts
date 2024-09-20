@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { _User, User } from './auth.models';
 
 // Register action
-export const Register = createAction('[Authentication] Register', props<{ newData : any }>());
+export const Register = createAction('[Authentication] Register', props<{ data : any }>());
 export const RegisterSuccess = createAction('[Authentication] Register Success', props<{ user: any }>());
 export const RegisterFailure = createAction('[Authentication] Register Failure', props<{ error: string }>());
 

@@ -36,9 +36,9 @@ export class AuthenticationEffects {
   Register$ = createEffect(() =>
     this.actions$.pipe(
       ofType(Register),
-      exhaustMap(({ newData }) => {
+      exhaustMap(({ data }) => {
         
-          return this.AuthfakeService.register({newData }).pipe(
+          return this.AuthfakeService.register(data ).pipe(
             map((user) => {
               this.router.navigate(['/auth/login']);
               return RegisterSuccess({ user })
@@ -65,6 +65,7 @@ export class AuthenticationEffects {
                 console.log(JSON.stringify(user.user));
                 localStorage.setItem('currentUser', JSON.stringify(user.user));
                 localStorage.setItem('token', user.token);
+                console.log(user.token);
                 this.currentUserSubject.next(user);
                 this.toastr.success('Login successfully!!!');
                 this.router.navigate(['/private']);

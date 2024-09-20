@@ -32,9 +32,9 @@ export class CouponslistEffects {
             ofType(fetchCouponlistData),
             tap(() => console.log('Request to fetch Coupon list has been launched')), // Add console log here
             mergeMap(() =>
-                this.CrudService.fetchData(this.path).pipe(
-                    tap((data : any) => console.log('Fetched data:', data.couponData)), 
-                    map((data) => fetchCouponlistSuccess({ CouponListdata : data.couponData })),
+                this.CrudService.fetchData('/api/coupons').pipe(
+                    tap((data : any) => console.log('Fetched data:', data)), 
+                    map((data) => fetchCouponlistSuccess({ CouponListdata : data })),
                     catchError((error) =>
                         of(fetchCouponlistFail({ error }))
                     )
@@ -47,7 +47,7 @@ export class CouponslistEffects {
         this.actions$.pipe(
             ofType(addCouponlist),
             mergeMap(({ newData }) =>
-                this.CrudService.addData(this.path, newData).pipe(
+                this.CrudService.addData('api/coupon', newData).pipe(
                     map((newData) => {
                         this.toastr.success('The new Coupon has been added successfully.');
                         this.router.navigateByUrl('/private/coupons');
