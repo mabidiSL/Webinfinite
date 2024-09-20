@@ -33,7 +33,17 @@ const routes: Routes = [
   claim: [{claimType: Modules.All, claimValue: [Permission.All]},{ claimType:Modules.Coupons, claimValue:[Permission.ViewAll,Permission.Update]}]
 
    }
-}];
+},
+{
+  path: "approve",
+  component: CreateCouponComponent,
+  canActivate: [RoleGuard],
+  data: {
+    claim: [{claimType: Modules.All, claimValue: [Permission.All]},{ claimType:Modules.Coupons, claimValue:[Permission.ViewAll,Permission.Approve,Permission.Decline]}]
+
+  }
+},
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

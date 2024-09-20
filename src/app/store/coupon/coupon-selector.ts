@@ -8,6 +8,10 @@ export const selectData = createSelector(
   selectDataState,
   (state: CouponlistState) => state?.CouponListdata || []
 );
+export const selectApprovalData = createSelector(
+  selectDataState,
+  (state: CouponlistState) => state?.CouponListdata.filter(coupon => coupon.status === 'pending') || []
+);
 
 export const selectDataLoading = createSelector(
   selectDataState,

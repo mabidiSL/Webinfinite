@@ -561,6 +561,7 @@
     "Payment Discount Rate is required": "معدل خصم الدفع مطلوب ",
     "Cancel":"الغاء",
     "Name": "الإسم",
-    "Add Coupon": "اضافة قسيمة"
+    "Add Coupon": "اضافة قسيمة",
+    "Coupon_Approval_List": "قائمة الموافقة على القسائم"
     
 }

@@ -24,6 +24,7 @@ export const CouponListReducer = createReducer(
   on(fetchCouponlistSuccess, (state, { CouponListdata }) => ({
     ...state,
     CouponListdata: CouponListdata,
+    
     loading: false
   })),
   on(fetchCouponlistFail, (state, { error }) => ({

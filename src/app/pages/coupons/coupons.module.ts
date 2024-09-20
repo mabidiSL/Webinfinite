@@ -20,6 +20,7 @@ import { FormCouponComponent } from './form-coupon/form-coupon.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CouponsApprovalComponent } from './coupon-approval/coupon-approval.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CouponsComponent,
     EditCouponComponent,
     CreateCouponComponent,
-    FormCouponComponent
+    FormCouponComponent,
+    CouponsApprovalComponent
   ],
   imports: [
     CommonModule,

@@ -95,6 +95,7 @@ export enum Permission {
   Print = 11,
   Download = 12,
   Filter = 13,
+  Decline = 14
 }
 
 

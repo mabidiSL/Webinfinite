@@ -1,0 +1,99 @@
+<div class="container-fluid">
+
+    <app-page-title title="{{'Coupon_Approval_List'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row mb-2">
+              <div class="col-sm-4">
+                <div class="search-box me-2 mb-2 d-inline-block">
+                  <div class="position-relative">
+                    <input type="text" class="form-control" id="searchTableList" placeholder="{{'Search'|translate}}..." [(ngModel)]="term" (ngModelChange)="searchRequest()">
+                    <i class="bx bx-search-alt search-icon"></i>
+                  </div>
+                </div>
+              </div>
+            
+            </div>
+            <!-- end row -->
+            <div class="table-responsive">
+              <table class="table align-middle table-nowrap table-hover dt-responsive nowrap w-100" id="userList-table">
+                <thead class="table-light">
+                  <tr>
+                    <th scope="col" style="width: 40px;">#</th>
+                    <th scope="col">{{'Title'| translate}}</th>
+                    <th scope="col">{{'Merchant Name' | translate}}</th>
+                    <th scope="col">{{'Start Date'| translate}}</th>
+                    <th scope="col">{{'End Date'| translate}}</th>
+                    <th scope="col">{{'Request Date '|translate}}</th>
+                    <th scope="col" style="width: 200px;">{{'Actions'| translate}}</th>
+                  </tr>
+                </thead>
+                
+                <tbody >
+                  <tr *ngIf="returnedArray && returnedArray.length > 0">
+                    <ng-container *ngFor="let data of returnedArray">
+                        <tr >
+                            <td>
+                                <div class="form-check font-size-16">
+                                    <input class="form-check-input" type="checkbox" id="transactionCheck{{data.index}}" value="{{data._id}}" [(ngModel)]="data.state">
+                                    <label class="form-check-label" for="transactionCheck{{data.index}}"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{data.name}}</a></h5>
+                            </td>
+                            <td>{{data.merchantName}}</td>
+                            <td>{{data.startDateCoupon}}</td>
+                            <td>{{data.endDateCoupon}}</td>
+                            <td>{{data.createdAt | date: 'short'}}</td>
+                            <td>
+                                <button *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Approve]}]"
+                                    type="button"
+                                    class="btn btn-success me-2"
+                                    (click)="UpdateItem(data, 'approve')">
+                                    {{'Approve' | translate}}
+                                </button>
+                                <button *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Decline]}]"
+                                    type="button"
+                                    class="btn btn-danger"
+                                    (click)="UpdateItem(data, 'decline')">
+                                    {{'Decline' | translate}}
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tr>
+               
+                  <tr *ngIf="returnedArray && returnedArray.length === 0">
+                    <td colspan="5" class="text-center">
+                        <p>{{'No items available' | translate}}</p>
+                    </td>
+                </tr>
+                </tbody>
+              </table>
+              
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <ul class="pagination pagination-rounded justify-content-center mt-4">
+                  <pagination class="pagination-wrap hstack gap-2" [totalItems]="returnedArray?.length" [itemsPerPage]="10" (pageChanged)="pageChanged($event)"></pagination>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+ 
+  <div id="elmLoader" class="text-center">
+    <div class="spinner-border text-primary avatar-sm" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  
+ 
