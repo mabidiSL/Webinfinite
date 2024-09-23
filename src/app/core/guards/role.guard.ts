@@ -36,7 +36,7 @@ export class RoleGuard implements CanActivate {
             
          const hasRequiredClaims = requiredClaim.some(requiredClaim => {
              return this.claims.some(claim => {
-             return claim.type === requiredClaim.claimType && requiredClaim.claimValue.every(value => claim.value.includes(value));
+             return claim.claimType === requiredClaim.claimType && requiredClaim.claimValue.every(value => claim.permissions.includes(value));
           });
            });
          if (hasRequiredClaims) {

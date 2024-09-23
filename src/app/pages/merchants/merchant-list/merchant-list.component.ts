@@ -77,6 +77,7 @@ export class MerchantListComponent implements OnInit {
     this.createContactForm = this.formBuilder.group({
       _id: [''],
       username: ['', [Validators.required]],
+      merchantName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       phone: ['', [Validators.required]],

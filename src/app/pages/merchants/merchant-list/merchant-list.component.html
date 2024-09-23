@@ -197,6 +197,11 @@
                   <div class="invalid-feedback">{{'Please enter the password'|translate}}.</div>
                 </div>
                 <div class="mb-3">
+                  <label for="merchant-input" class="form-label">{{'Merchant Name'| translate}}</label>
+                  <input type="text" id="merchant-input" class="form-control" placeholder="{{'Enter the Merchant Name'| translate}}" formControlName="merchantName" required />
+                  <div class="invalid-feedback">{{'Please enter merchant name'  | translate}}.</div>
+                </div>
+                <div class="mb-3">
                   <label for="phone" class="form-label">{{'Phone'| translate}}</label>
                   <input class="form-control" formControlName="phone" type="tel" value="1-(555)-555-5555" id="phone" placeholder="{{'Enter the Phone'|translate}}">
                   <div class="invalid-feedback">{{'Please enter the phone number'|translate}}.</div>

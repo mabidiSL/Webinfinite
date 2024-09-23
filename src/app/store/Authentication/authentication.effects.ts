@@ -62,17 +62,14 @@ export class AuthenticationEffects {
             map((response) => {
               if (response) {
               
-                // console.log(JSON.stringify(user));
-                // localStorage.setItem('currentUser', JSON.stringify(user));
-                // localStorage.setItem('token', response.accessToken);
-                // this.currentUserSubject.next(user);
-                // this.toastr.success('Login successfully!!!');
-                // this.router.navigate(['/private']);
-                // return loginSuccess({ user: user.user, token: user.token });
-                console.log(JSON.stringify(response.accessToken));
-                localStorage.setItem('token', response.accessToken);
-                //
-                return loginSuccess({ user: response.user, token: response.accessToken });
+           
+                console.log(JSON.stringify(response.result.accessToken));
+                localStorage.setItem('token', response.result.accessToken);
+                localStorage.setItem('currentUser', JSON.stringify(response.result.user));
+                this.currentUserSubject.next(response.result.user);
+                this.router.navigate(['/private']);
+                this.toastr.success('Login successfully!!!');
+                return loginSuccess({ user: response.result.user, token: response.result.accessToken });
 
               }
               return loginFailure({ error:'Login failed' });

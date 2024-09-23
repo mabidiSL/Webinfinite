@@ -26,19 +26,19 @@ import {
 
 @Injectable()
 export class MerchantslistEffects {
-    fetchData$ = createEffect(() =>
-        this.actions$.pipe(
-            ofType(fetchMerchantlistData),
-            mergeMap(() =>
-                this.CrudService.fetchData('/api/users').pipe(
-                    map((MerchantListdata) => fetchMerchantlistSuccess({ MerchantListdata })),
-                    catchError((error) =>
-                        of(fetchMerchantlistFail({ error }))
-                    )
-                )
-            ),
-        ),
-    );
+    // fetchData$ = createEffect(() =>
+    //     this.actions$.pipe(
+    //         ofType(fetchMerchantlistData),
+    //         mergeMap(() =>
+    //             this.CrudService.fetchData('/merchants').pipe(
+    //                 map((MerchantListdata) => fetchMerchantlistSuccess({ MerchantListdata })),
+    //                 catchError((error) =>
+    //                     of(fetchMerchantlistFail({ error }))
+    //                 )
+    //             )
+    //         ),
+    //     ),
+    // );
     fetchApprovalData$ = createEffect(() =>
         this.actions$.pipe(
             ofType(fetchMerchantApprovallistData),

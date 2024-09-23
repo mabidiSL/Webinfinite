@@ -24,16 +24,16 @@ import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class CouponslistEffects {
-    path : string = '/assets/data/coupon.json';
+   // path : string = '/assets/data/coupon.json';
 
     fetchData$ = createEffect(() =>
         this.actions$.pipe(
             ofType(fetchCouponlistData),
             tap(() => console.log('Request to fetch Coupon list has been launched')), // Add console log here
             mergeMap(() =>
-                this.CrudService.fetchData(this.path).pipe(
-                    tap((data : any) => console.log('Fetched data:', data.couponData)), 
-                    map((data) => fetchCouponlistSuccess({ CouponListdata : data.couponData })),
+                this.CrudService.fetchData('/coupons').pipe(
+                    tap((response : any) => console.log('Fetched data:', response.result.data)), 
+                    map((response) => fetchCouponlistSuccess({ CouponListdata : response.result.data })),
                     catchError((error) =>
                         of(fetchCouponlistFail({ error }))
                     )
@@ -46,7 +46,7 @@ export class CouponslistEffects {
         this.actions$.pipe(
             ofType(addCouponlist),
             mergeMap(({ newData }) =>
-                this.CrudService.addData('/api/admin/add-coupon', newData).pipe(
+                this.CrudService.addData('/coupons', newData).pipe(
                     map((newData) => {
                         this.toastr.success('The new Coupon has been added successfully.');
                         // Dispatch the action to fetch the updated Coupon list after adding a new Coupon

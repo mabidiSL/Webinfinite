@@ -23,7 +23,7 @@
 
                       <div class="col-md-6 mb-3">
                           <label for="termsAndConditions">{{'Terms and Conditions'|translate}}</label>
-                          <textarea class="form-control" id="termsAndConditions" formControlName="termsAndConditions" rows="8"></textarea>
+                          <textarea class="form-control" id="termsAndConditions" formControlName="termsAndConditions" rows="5"></textarea>
                           <div *ngIf="formCoupon.get('termsAndConditions').invalid && formCoupon.get('termsAndConditions').touched" class="text-danger">
                               {{'Terms and Conditions are required'|translate}}
                           </div>
@@ -31,12 +31,25 @@
 
                       <div class="col-md-6 mb-3">
                           <label for="transTermsAndConditions">{{'Translated Terms and Conditions'|translate}}</label>
-                          <textarea class="form-control" id="transTermsAndConditions" formControlName="transTermsAndConditions" rows="8"></textarea>
+                          <textarea class="form-control" id="transTermsAndConditions" formControlName="transTermsAndConditions" rows="5"></textarea>
                           <div *ngIf="formCoupon.get('transTermsAndConditions').invalid && formCoupon.get('transTermsAndConditions').touched" class="text-danger">
                               {{'Translated Terms and Conditions are required'|translate}}
                           </div>
                       </div>
-
+                      <div class="col-md-6 mb-3">
+                        <label for="description">{{'Description'|translate}}</label>
+                        <textarea class="form-control" id="description" formControlName="description" rows="5"></textarea>
+                        <div *ngIf="formCoupon.get('description').invalid && formCoupon.get('description').touched" class="text-danger">
+                            {{'Description is required'|translate}}
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="description">{{'Translated Description'|translate}}</label>
+                      <textarea class="form-control" id="description" formControlName="description" rows="5"></textarea>
+                      <div *ngIf="formCoupon.get('description').invalid && formCoupon.get('description').touched" class="text-danger">
+                          {{'Description is required'|translate}}
+                      </div>
+                  </div>
                       <div *ngIf="type == 'edit'" class="col-md-6 mb-3">
                           <label for="codeCoupon">{{'Coupon Code'|translate}}</label>
                           <input class="form-control" id="codeCoupon" formControlName="codeCoupon" type="text" readonly />
@@ -96,7 +109,13 @@
                     {{'Quantity is required'|translate}}
                   </div>
                 </div>
-              
+                <div class="col-md-6 mb-3">
+                  <label for="nbr_of_use">{{'Number Of Use for Customer'|translate}}</label>
+                  <input class="form-control" id="nbr_of_use" formControlName="nbr_of_use" type="number" />
+                  <div *ngIf="formCoupon.get('nbr_of_use').invalid && formCoupon.get('nbr_of_use').touched">
+                    {{'Number of use is required'|translate}}
+                  </div>
+                </div>
                 <div class="col-md-6 mb-3">
                   <label for="merchantName">{{'Merchant Name'|translate}}</label>
                   <input class="form-control" id="merchantName" formControlName="merchantName" type="text" />
@@ -171,7 +190,7 @@
                   <div>
                     <div class="form-check form-check-inline">
                       <label class="form-check-label">
-                        <input class="form-check-input" type="radio" formControlName="couponType" value="free" />
+                        <input class="form-check-input" type="radio" formControlName="couponType" value="free" checked/>
                         {{'Free'|translate}}
                       </label>
                     </div>

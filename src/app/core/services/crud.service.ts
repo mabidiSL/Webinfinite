@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, of, tap } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({ providedIn: 'root' })
@@ -15,11 +16,12 @@ export class CrudService {
      */
    
     fetchData(url: any): Observable<any[]> {
-        return this.http.get<any[]>(url);
+
+        return this.http.get<any[]>(`${environment.baseURL}${url}?page=1&limit=10`);
     }
     
     addData(url: any, newData: any): Observable<any[]> {
-        return this.http.post<any[]>(url, newData);
+        return this.http.post<any[]>(`${environment.baseURL}${url}`, newData);
     }
 
     updateData(url: any, updatedData: any): Observable<any[]> {

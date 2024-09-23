@@ -29,9 +29,9 @@ export class MerchantslistEffects1 {
             ofType(fetchMerchantlistData),
             tap(() => console.log('Request to fetch merchant list has been launched')), // Add console log here
             mergeMap(() =>
-                this.CrudService.fetchData('/api/users/with-user-type').pipe(
-                    tap(data => console.log('Fetched data:', data)), 
-                    map((MerchantListdata) => fetchMerchantlistSuccess({ MerchantListdata })),
+                this.CrudService.fetchData('/merchants').pipe(
+                    tap((response : any) => console.log('Fetched data:', response.result.data)), 
+                    map((response) => fetchMerchantlistSuccess({ MerchantListdata: response.result.data })),
                     catchError((error) =>
                         of(fetchMerchantlistFail({ error }))
                     )
@@ -44,7 +44,7 @@ export class MerchantslistEffects1 {
         this.actions$.pipe(
             ofType(addMerchantlist),
             mergeMap(({ newData }) =>
-                this.CrudService.addData('/api/admin/add-user', newData).pipe(
+                this.CrudService.addData('/merchants', newData).pipe(
                     map((newData) => {
                         this.toastr.success('The new merchant has been added successfully.');
                         // Dispatch the action to fetch the updated merchant list after adding a new merchant

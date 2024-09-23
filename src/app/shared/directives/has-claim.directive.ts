@@ -52,7 +52,7 @@ export class HasClaimDirective {
     if (claim && this.permissions) {
       return this.claim.some(requiredClaim => {
         return this.permissions.some(permission => {
-          return permission.type === requiredClaim.claimType && requiredClaim.claimValue.every(value => permission.value.includes(value));
+          return permission.claimType === requiredClaim.claimType && requiredClaim.claimValue.every(value => permission.permissions.includes(value));
         });
       });
     }
@@ -64,7 +64,7 @@ export class HasClaimDirective {
     
     this.currentUser.subscribe(user => {
       if (user) {
-   
+        console.log('i am in has claims dircetive');
       this.permissions = user.role.claims;
       this.checkPermissions();
     }});

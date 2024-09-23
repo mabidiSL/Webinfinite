@@ -12,23 +12,38 @@ const TOKEN_HEADER_KEY = 'x-auth-token';   // for Node.js Express back-end
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private token: TokenStorageService) { }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let authReq = req;
-    const token = this.token.getToken();
-    if (token != null) {
-      // for Spring Boot back-end
-      console.log("I am in Bearer Token from AuthInterceptor");
-      console.log(token);
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const token = localStorage.getItem('token');  // Adjust the key as needed
 
-       authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
+      if (token) {
+          // Clone the request and add the token to the headers
+          const cloned  = request.clone({
+            setHeaders: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+          return next.handle(cloned);
+      } else {
+          // No token, continue with the original request
+          return next.handle(request);
+      }
+    // let authReq = req;
+    // const token = this.token.getToken();
+    
+    // if (token != null) {
+    //   // for Spring Boot back-end
+    //   console.log("I am in Bearer Token from AuthInterceptor");
+    //   console.log(token);
 
-      // for Node.js Express back-end
-      //console.log("I am in the AuthInterceptor");
-      //console.log(token);
+    //    authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
 
-      authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, token) });
-    }
-    return next.handle(authReq);
+    //   // for Node.js Express back-end
+    //   //console.log("I am in the AuthInterceptor");
+    //   //console.log(token);
+
+    //   authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, token) });
+    // }
+    // return next.handle(authReq);
   }
 }
 

@@ -43,21 +43,24 @@ export class FormCouponComponent implements OnInit{
       transName: [''],
       termsAndConditions: [''],
       transTermsAndConditions: [''],
+      description: [''],
+      transDescription: [''],
       codeCoupon: ['COUP123'],
       urlStore: [''],
       country: [''],
       area: [''],
       city: [''],
       quantity: [''],
-      merchantId: [''],
+      nbr_of_use:[''],
+      //merchantId: [''],
       merchantName: ['', Validators.required],
-      storeId: [''],
+      //storeId: [''],
       storeName: ['', Validators.required],
       managerName: [''],
       managerPhone: [''],
       startDateCoupon: [''],
       endDateCoupon: [''],
-      contractRepNameId:[''],
+      //contractRepNameId:[''],
       contractRepName: [''],
       sectionOrderAppearnance: [''],
       categoryOrderAppearnce: [''],
@@ -123,6 +126,7 @@ export class FormCouponComponent implements OnInit{
        
       console.log(newData);
       delete newData.codeCoupon;
+      delete newData.id;
       //Dispatch Action
       this.store.dispatch(addCouponlist({ newData }));
       
