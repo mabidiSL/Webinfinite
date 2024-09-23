@@ -61,11 +61,14 @@ export class AuthenticationEffects {
           return this.AuthfakeService.login(email, password).pipe(
             map((response) => {
               if (response) {
-              
+                const currentTime = new Date().getTime();
            
                 console.log(JSON.stringify(response.result.accessToken));
                 localStorage.setItem('token', response.result.accessToken);
+                localStorage.setItem('refreshToken', response.result.refreshToken);
                 localStorage.setItem('currentUser', JSON.stringify(response.result.user));
+                localStorage.setItem('timeLifeToken',currentTime.toString());
+
                 this.currentUserSubject.next(response.result.user);
                 this.router.navigate(['/private']);
                 this.toastr.success('Login successfully!!!');
