@@ -104,9 +104,9 @@
                         </li> -->
                         <td>
                           <ul class="list-unstyled hstack gap-1 mb-0">
-                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'View'|translate}}">
+                            <!-- <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'View'|translate}}">
                               <a href="javascript:void(0);" class="btn btn-sm btn-soft-primary" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.View]}]" (click)="viewCoupon(data._id)"><i class="mdi mdi-eye-outline"></i></a>
-                            </li>
+                            </li> -->
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Edit'|translate}}">
                               <!-- <a href="javascript:void(0);" class="btn btn-sm btn-soft-info" (click)="editDataGet(data.id,content)"><i class="mdi mdi-pencil-outline"></i></a> -->
                               <a [routerLink]="['/private/coupons/edit/', data.id]" class="btn btn-sm btn-soft-info" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Edit]}]" ><i class="mdi mdi-pencil-outline"></i></a>

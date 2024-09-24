@@ -1,36 +1,77 @@
-import { HTTP_INTERCEPTORS, HttpEvent } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpErrorResponse, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 
 import { TokenStorageService } from '../../core/services/token-storage.service';
-import { Observable } from 'rxjs';
+import { catchError, Observable, switchMap, throwError } from 'rxjs';
+import { Router } from '@angular/router';
+import { AuthfakeauthenticationService } from '../services/authfake.service';
 
 // const TOKEN_HEADER_KEY = 'Authorization';       // for Spring Boot back-end
 const TOKEN_HEADER_KEY = 'x-auth-token';   // for Node.js Express back-end
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private token: TokenStorageService) { }
+  constructor(private router: Router, private authService: AuthfakeauthenticationService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('token');  // Adjust the key as needed
 
       if (token) {
-          // Clone the request and add the token to the headers
-          const cloned  = request.clone({
-            setHeaders: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-          return next.handle(cloned);
-      } else {
-          // No token, continue with the original request
+            const clonedRequest = this.addTokenHeader(request, token);
+            return next.handle(clonedRequest).pipe(
+                catchError((error: HttpErrorResponse) => {
+                // If the error is a 401 (Unauthorized), attempt to refresh the token
+                console.log('Error caught by interceptor:', error); // Log full error
+                if (error.status === 401) {
+                    console.log('catch 401');
+                    return this.handle401Error(request, next);
+                }
+                return throwError(() => error);;
+                })
+            );
+         }
           return next.handle(request);
       }
+
+  private addTokenHeader(request: HttpRequest<any>, token: string) {
+        return request.clone({
+          setHeaders: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }
     
+  private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
+        const refreshToken = localStorage.getItem('refreshToken');;  // Retrieve the refresh token
+        console.log('i am in refresh token handler');
+        if (refreshToken) {
+          // Call refresh token API
+          return this.authService.refreshToken(refreshToken).pipe(
+            switchMap((newToken: any) => {
+              // Store the new token
+              localStorage.setItem('token',newToken.accessToken);
+              
+              // Retry the original request with the new token
+              const clonedRequest = this.addTokenHeader(request, newToken.accessToken);
+              return next.handle(clonedRequest);
+            }),
+            catchError((error) => {
+              // Handle refresh token failure (e.g., logout the user)
+              this.authService.logout();
+              location.reload();
+              return throwError(() => error);;
+            })
+          );
+        }
+    
+        // If no refresh token, logout the user
+        this.authService.logout();
+        location.reload();
+        return throwError(() => 'Refresh token not available.');
+      }
   }
-  
-}
+ 
 
 export const authInterceptorProviders = [
   { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

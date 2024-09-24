@@ -5,15 +5,14 @@ import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal'
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
-import { adduserlist, deleteuserlist, fetchuserlistData, updateuserlist } from 'src/app/store/UserList/userlist.action';
 
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { fetchMerchantApprovallistData, updateMerchantStatus } from 'src/app/store/merchants/merchantlist.action';
-import { selectData, selectDataState } from 'src/app/store/merchants/merchantlist-selector';
 import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
+import { fetchMerchantlistData, updateMerchantlist } from 'src/app/store/merchantsList/merchantlist1.action';
+import { selectData } from 'src/app/store/merchantsList/merchantlist1-selector';
 
 @Component({
   selector: 'app-approve-merchant',
@@ -50,7 +49,7 @@ export class ApproveMerchantComponent implements OnInit {
   ngOnInit() {
     //this.breadCrumbItems = [{ label: 'Merchants' }, { label: 'Merchants Approval List', active: true }];
     setTimeout(() => {
-      this.store.dispatch(fetchMerchantApprovallistData());
+      this.store.dispatch(fetchMerchantlistData());
       this.store.select(selectData).subscribe(data => {
         this.merchantApprovalList = data
         console.log(this.merchantApprovalList);
@@ -66,7 +65,7 @@ export class ApproveMerchantComponent implements OnInit {
   searchRequest() {
     if (this.term) {
       this.merchantApprovalList = this.returnedArray.filter((data: any) => {
-        return data.username.toLowerCase().includes(this.term.toLowerCase())
+        return data.user.username.toLowerCase().includes(this.term.toLowerCase())
       })
     } else {
       this.merchantApprovalList = this.returnedArray
@@ -94,8 +93,9 @@ export class ApproveMerchantComponent implements OnInit {
     }).then(result => {
       if (result.isConfirmed) {
         // Dispatch the action to update merchant status
-        const updatedData = {id: item.id, status: action == 'approve' ?  'active':  'refused'}
-        this.store.dispatch(updateMerchantStatus(updatedData as any));
+        item.user.status = action == 'approve' ?  'active':  'disabled';
+        console.log(item);
+        this.store.dispatch(updateMerchantlist({updatedData: item}));
         
         
       }

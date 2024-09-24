@@ -15,9 +15,9 @@ export class CrudService {
      * Get 
      */
    
-    fetchData(url: any): Observable<any[]> {
+    fetchData(url: any, payload?: Params ): Observable<any[]> {
 
-        return this.http.get<any[]>(`${environment.baseURL}${url}?limit=10&page=1`);
+        return this.http.get<any[]>(`${environment.baseURL}${url}`, {params: payload});
     }
     
     addData(url: any, newData: any): Observable<any[]> {
@@ -31,7 +31,7 @@ export class CrudService {
     deleteData(url: any): Observable<string> {
         return this.http.delete<string>(`${environment.baseURL}${url}`);
     }
-    
+
     disableData(url: string, userId: string): Observable<string> {
         return this.http.post<string>(url, { userId },{ responseType: 'text' as 'json' })
         .pipe(
@@ -43,4 +43,8 @@ export class CrudService {
         );
     }
       
+}
+
+export interface Params {
+    [key: string]: any;
 }
