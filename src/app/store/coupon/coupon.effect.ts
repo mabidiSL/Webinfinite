@@ -124,7 +124,7 @@ export class CouponslistEffects {
             ofType(deleteCouponlist),
             tap(action => console.log('Delete action received:', action)),
             mergeMap(({ couponId }) =>
-                    this.CrudService.disableData('/api/disable', couponId).pipe(
+                    this.CrudService.deleteData(`/coupons/${couponId}`).pipe(
                         map((response: string) => {
                             // If response contains a success message or status, you might want to check it here
                             console.log('API response:', response);

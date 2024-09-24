@@ -112,7 +112,7 @@
                             </li>
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Disable'| translate}}">
                               <!-- <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" (click)="delete($event)"><i class="mdi mdi-delete-outline"></i></a> -->
-                              <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Disable]}]" (click)="disableCoupon(data._id)"><i class="mdi mdi-delete-outline"></i></a>
+                              <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Disable]}]" (click)="disableCoupon(data.id)"><i class="mdi mdi-delete-outline"></i></a>
 
                             </li>
                           </ul>
@@ -168,7 +168,7 @@
           <p class="text-muted font-size-16 mb-4">{{'Are you Sure You want to disable this User ?'|translate}}</p>
   
           <div class="hstack gap-2 justify-content-center mb-0">
-            <button type="button" class="btn btn-danger me-1" id="remove-item" (click)="confirmDelete()">{{'Disable Now'|translate}}</button>
+            <button type="button" class="btn btn-danger me-1" id="remove-item" (click)="confirmDelete()">{{'Delete_Now'|translate}}</button>
             <button type="button" class="btn btn-secondary" (click)="removeItemModal.hide()">{{'Close'| translate}}</button>
           </div>
         </div>

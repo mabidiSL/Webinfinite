@@ -28,9 +28,10 @@ export class CrudService {
         return this.http.patch<any[]>(`${environment.baseURL}${url}`, updatedData);
     }
 
-    deleteData(url: any): Observable<void> {
-        return this.http.delete<void>(url);
+    deleteData(url: any): Observable<string> {
+        return this.http.delete<string>(`${environment.baseURL}${url}`);
     }
+    
     disableData(url: string, userId: string): Observable<string> {
         return this.http.post<string>(url, { userId },{ responseType: 'text' as 'json' })
         .pipe(

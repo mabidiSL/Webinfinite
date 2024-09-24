@@ -6,7 +6,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { selectData } from 'src/app/store/coupon/coupon-selector';
-import { fetchCouponlistData } from 'src/app/store/coupon/coupon.action';
+import { deleteCouponlist, fetchCouponlistData } from 'src/app/store/coupon/coupon.action';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
 
 @Component({
@@ -73,10 +73,7 @@ export class CouponsComponent  implements OnInit {
       // document.getElementById('elmLoader')?.classList.add('d-none')
      
   }
-  addCoupon(){
-
-  }
-
+ 
   // fiter job
   searchJob() {
     if (this.term) {
@@ -149,7 +146,7 @@ groupBy(data: any[], criterion: string) {
   }
 
   confirmDelete() {
-    //this.store.dispatch(deletecouponlist({ couponId: this.deleteId }));
+    this.store.dispatch(deleteCouponlist({ couponId: this.deleteId }));
     this.removeItemModal?.hide();
   }
 
