@@ -497,5 +497,7 @@
   "Approve":"Approve",
   "Title":"Title",
   "Status": "Status",
-  "Edit_coupon": "Edit_coupon"
+  "Edit_coupon": "Edit_coupon",
+  "update_coupon": "Update coupon",
+  "Add coupon": "Add coupon"
 }
