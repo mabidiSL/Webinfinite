@@ -17,7 +17,7 @@ export class CrudService {
    
     fetchData(url: any): Observable<any[]> {
 
-        return this.http.get<any[]>(`${environment.baseURL}${url}?page=1&limit=10`);
+        return this.http.get<any[]>(`${environment.baseURL}${url}?limit=10&page=1`);
     }
     
     addData(url: any, newData: any): Observable<any[]> {
@@ -25,7 +25,7 @@ export class CrudService {
     }
 
     updateData(url: any, updatedData: any): Observable<any[]> {
-        return this.http.put<any[]>(url, updatedData);
+        return this.http.patch<any[]>(`${environment.baseURL}${url}`, updatedData);
     }
 
     deleteData(url: any): Observable<void> {

@@ -170,13 +170,17 @@
                   </div>
                 </div>
               
-                <div class="col-md-6 mb-3">
+                <!-- <div class="col-md-6 mb-3">
                   <label for="couponLogo">{{'Upload Coupon Logo'|translate}}</label>
                   <input class="form-control" id="couponLogo" formControlName="couponLogo" type="file" accept="image/png, image/gif, image/jpeg" (change)="uploadCouponLogo($event)"/>
                   <div *ngIf="formCoupon.get('couponLogo').invalid && formCoupon.get('couponLogo').touched">
                     {{'Coupon Logo is required'|translate}}
                   </div>
-                </div>
+                  <div *ngIf="isEditing && formCoupon.get('couponLogo').value">
+                    Current Logo: {{ getFileNameFromUrl(formCoupon.get('couponLogo').value) }}
+                  </div>
+                
+                </div> -->
                 
                 <!-- <div class="col-md-6 mb-3">
                   <label for="merchantLogo">{{'Upload Merchant Logo'|translate}}</label>
@@ -236,16 +240,17 @@
                 </div>
               
                 <div class="col-md-6 mb-3">
-                  <label for="PaymentDiscountRate">{{'Payment Discount Rate'|translate}}</label>
-                  <input class="form-control" id="PaymentDiscountRate" formControlName="PaymentDiscountRate" type="text" />
-                  <div *ngIf="formCoupon.get('PaymentDiscountRate').invalid && formCoupon.get('PaymentDiscountRate').touched">
+                  <label for="paymentDiscountRate">{{'Payment Discount Rate'|translate}}</label>
+                  <input class="form-control" id="paymentDiscountRate" formControlName="paymentDiscountRate" type="text" />
+                  <div *ngIf="formCoupon.get('paymentDiscountRate').invalid && formCoupon.get('paymentDiscountRate').touched">
                     {{'Payment Discount Rate is required'|translate}}
                   </div>
                 </div>
                 <div class="col-12  mt-4">
                   <div class="d-flex justify-content-end">
                       <button type="button" id="cancel-btn" class="btn btn-outline-secondary me-2" (click)="onCancel()">{{'Cancel'|translate}}</button>
-                      <button type="submit" class="btn btn-success" [disabled]="formCoupon.invalid">{{'Submit'| translate}}</button>
+                      <button type="submit" class="btn btn-success" [disabled]="formCoupon.invalid"> {{ (type == 'create' ? 'add_coupon' : 'update_coupon') | translate }}
+                      </button>
                   </div>
                 </div>
                 </div>

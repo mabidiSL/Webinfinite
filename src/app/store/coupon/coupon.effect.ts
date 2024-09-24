@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, mergeMap, map, tap } from 'rxjs/operators';
+import { catchError, mergeMap, map, tap, switchMap } from 'rxjs/operators';
 
 import { of } from 'rxjs';
 import { CrudService } from 'src/app/core/services/crud.service';
@@ -18,9 +18,14 @@ import {
     deleteCouponlist,
     updateCouponStatus,
     updateCouponStatusSuccess,
-    updateCouponStatusFailure
+    updateCouponStatusFailure,
+    getCouponById,
+    getCouponByIdSuccess
 } from './coupon.action';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { selectCouponById } from './coupon-selector';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class CouponslistEffects {
@@ -41,13 +46,15 @@ export class CouponslistEffects {
             ),
         ),
     );
-  
+    
     addData$ = createEffect(() =>
         this.actions$.pipe(
             ofType(addCouponlist),
             mergeMap(({ newData }) =>
                 this.CrudService.addData('/coupons', newData).pipe(
                     map((newData) => {
+                        
+                        this.router.navigate(['/private/coupons']);
                         this.toastr.success('The new Coupon has been added successfully.');
                         // Dispatch the action to fetch the updated Coupon list after adding a new Coupon
                         return addCouponlistSuccess({newData});
@@ -75,8 +82,9 @@ export class CouponslistEffects {
         this.actions$.pipe(
           ofType(updateCouponlist),
           mergeMap(({ updatedData }) =>
-            this.CrudService.updateData(`/api/coupon/${updatedData.id}`, updatedData).pipe(
+            this.CrudService.updateData(`/coupons/${updatedData.id}`, updatedData).pipe(
               map(() => {
+                this.router.navigate(['/private/coupons']);
                 this.toastr.success('The Coupon has been updated successfully.');
                 return updateCouponlistSuccess({ updatedData }); // Make sure to return the action
               }),
@@ -87,7 +95,29 @@ export class CouponslistEffects {
       );
       
 
-
+   getCouponById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getCouponById),
+      tap(action => console.log('get coupon action received:', action)),
+      mergeMap(({ couponId }) => {
+        // Use the selector to get the coupon from the store
+        return this.store.select(selectCouponById(couponId)).pipe(
+          map(coupon => {
+            if (coupon) {
+              console.log('COUPON',coupon);
+              // Dispatch success action with the coupon data
+              return getCouponByIdSuccess({ coupon });
+            } else {
+              console.log('COUPON NULL');
+              // Handle the case where the coupon is not found, if needed
+              // For example, you might want to dispatch a failure action or return an empty coupon
+              return getCouponByIdSuccess({ coupon: null }); // or handle it differently
+            }
+          })
+        );
+      })
+    )
+  );
    deleteData$ = createEffect(() =>
     
         this.actions$.pipe(
@@ -110,6 +140,8 @@ export class CouponslistEffects {
     constructor(
         private actions$: Actions,
         private CrudService: CrudService,
+        private router: Router,
+        private store: Store,
         public toastr:ToastrService
     ) { }
 
