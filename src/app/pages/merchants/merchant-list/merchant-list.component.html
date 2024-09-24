@@ -71,6 +71,7 @@
                   </tr>
                 </thead>
                 <tbody>
+                <ng-container *ngIf="filteredArray && filteredArray.length > 0; else noItems">
                   <ng-container  *ngFor="let data of filteredArray; let i= index "> 
                   <tr *ngIf="data.user.status == 'active' ||data.user.status == 'inactive' ">
                     <td>
@@ -80,7 +81,7 @@
                         </div>
                       </td>
                     <td>
-                      <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{data.user.username}}</a>
+                      <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{data.merchantName}}</a>
                       </h5>
                       
                     </td>
@@ -105,16 +106,16 @@
                         <td>
                           <ul class="list-unstyled hstack gap-1 mb-0">
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'View'|translate}}">
-                              <a href="javascript:void(0);" class="btn btn-sm btn-soft-primary" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.View]}]" (click)="viewUser(data._id)"><i class="mdi mdi-eye-outline"></i></a>
+                              <a href="javascript:void(0);" class="btn btn-sm btn-soft-primary" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.View]}]" (click)="viewUser(data.id)"><i class="mdi mdi-eye-outline"></i></a>
                             </li>
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Edit'|translate}}">
                               <!-- <a href="javascript:void(0);" class="btn btn-sm btn-soft-info" (click)="editDataGet(data.id,content)"><i class="mdi mdi-pencil-outline"></i></a> -->
-                              <a href="javascript:void(0);" class="btn btn-sm btn-soft-info" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Update]}]" (click)="editUser(data._id)"><i class="mdi mdi-pencil-outline"></i></a>
+                              <a href="javascript:void(0);" class="btn btn-sm btn-soft-info" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Update]}]" (click)="editUser(data.id)"><i class="mdi mdi-pencil-outline"></i></a>
 
                             </li>
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Disable'| translate}}">
                               <!-- <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" (click)="delete($event)"><i class="mdi mdi-delete-outline"></i></a> -->
-                              <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Deactivate]}]" (click)="disableUser(data._id)"><i class="mdi mdi-delete-outline"></i></a>
+                              <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Deactivate]}]" (click)="disableUser(data.id)"><i class="mdi mdi-delete-outline"></i></a>
 
                             </li>
                           </ul>
@@ -132,6 +133,16 @@
                     </td>
                   </tr>
                   </ng-container>
+                 </ng-container>
+                    <!-- Template for No Items Available -->
+                    <ng-template #noItems>
+                      <tr>
+                        <td colspan="5" class="text-center">
+                          <p>{{'No items available' | translate}}</p>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  
                 </tbody>
               </table>
             </div>
