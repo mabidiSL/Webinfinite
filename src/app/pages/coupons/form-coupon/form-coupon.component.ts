@@ -52,7 +52,7 @@ export class FormCouponComponent implements OnInit{
       city: [''],
       quantity: [''],
       nbr_of_use:[''],
-      //merchantId: [''],
+      merchantId: [''],
       merchantName: ['', Validators.required],
       //storeId: [''],
       storeName: ['', Validators.required],
@@ -66,7 +66,7 @@ export class FormCouponComponent implements OnInit{
       categoryOrderAppearnce: [''],
       //merchantLogo: [''],
       couponLogo: [''],
-      couponType: [''],// free,discountPercent,discountAmount,servicePrice checkboxes
+      couponType: ['free'],// free,discountPercent,discountAmount,servicePrice checkboxes
       couponValueBeforeDiscount:[''],
       couponValueAfterDiscount:[''],
       PaymentDiscountRate: [''],
@@ -125,7 +125,7 @@ export class FormCouponComponent implements OnInit{
       
        
       console.log(newData);
-      delete newData.codeCoupon;
+     // delete newData.codeCoupon;
       delete newData.id;
       //Dispatch Action
       this.store.dispatch(addCouponlist({ newData }));

@@ -55,11 +55,16 @@ export class AuthfakeauthenticationService {
         console.log(user);
         return this.http.put('/user',user.user) ;
     }
-   
+
+    refreshToken(refreshToken: string): Observable<any> {
+        return this.http.post('auth/refresh', { refreshToken });
+    }
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
         localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('timeLifeToken');
         this.currentUserSubject.next(null);
     }
 }

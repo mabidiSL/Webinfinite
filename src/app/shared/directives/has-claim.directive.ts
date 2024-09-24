@@ -28,7 +28,6 @@ export class HasClaimDirective {
   ngOnChanges(changes: SimpleChanges) {
    
       if (changes['claim'] && !changes['claim'].firstChange) {
-        console.log('i am on changes for permissions checks');
         this.checkPermissions();
       }
     }
@@ -64,7 +63,6 @@ export class HasClaimDirective {
     
     this.currentUser.subscribe(user => {
       if (user) {
-        console.log('i am in has claims dircetive');
       this.permissions = user.role.claims;
       this.checkPermissions();
     }});
