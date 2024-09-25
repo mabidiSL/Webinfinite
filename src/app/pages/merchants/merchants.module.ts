@@ -20,6 +20,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ApproveMerchantComponent } from './approve-merchant/approve-merchant.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 
 
@@ -31,6 +32,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule, 
     WidgetModule,
+    UiSwitchModule,
     UIModule,
     NgSelectModule,
     NgApexchartsModule,

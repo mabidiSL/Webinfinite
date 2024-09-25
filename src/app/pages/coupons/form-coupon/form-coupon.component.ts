@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { forkJoin, mergeMap, Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { selectCouponById } from 'src/app/store/coupon/coupon-selector';
-import { addCouponlist, getCouponById, getCouponByIdSuccess } from 'src/app/store/coupon/coupon.action';
+import { addCouponlist, getCouponById, getCouponByIdSuccess, updateCouponlist } from 'src/app/store/coupon/coupon.action';
 import { selectData } from 'src/app/store/merchantsList/merchantlist1-selector';
 
 @Component({
@@ -20,6 +20,7 @@ export class FormCouponComponent implements OnInit{
   private destroy$ = new Subject<void>();
   couponLogoBase64: string = null;
   stores : string[] = ['Store Riadh', 'Store Al Madina'];
+  isEditing = false;
 
 
   constructor(
@@ -69,7 +70,7 @@ export class FormCouponComponent implements OnInit{
       couponType: ['free'],// free,discountPercent,discountAmount,servicePrice checkboxes
       couponValueBeforeDiscount:[''],
       couponValueAfterDiscount:[''],
-      PaymentDiscountRate: [''],
+      paymentDiscountRate: [''],
       status: ['active'],//pending,approved,active, expired, closed
 
     });
@@ -78,33 +79,43 @@ export class FormCouponComponent implements OnInit{
   }
   
   ngOnInit() {
-    console.log('I am in coupon management');
+    
+    const couponId = this.route.snapshot.params['id'];
+    console.log('Coupon ID from snapshot:', couponId);
+    if (couponId) {
+      // Dispatch action to retrieve the coupon by ID
+      this.store.dispatch(getCouponById({ couponId }));
+      
+      // Subscribe to the selected coupon from the store
+      this.store
+        .pipe(select(selectCouponById(couponId)), takeUntil(this.destroy$))
+        .subscribe(coupon => {
+          if (coupon) {
+            console.log('Retrieved coupon:', coupon);
+            // Patch the form with coupon data
+            coupon.startDateCoupon = this.formatDate(coupon.startDateCoupon);
+            coupon.endDateCoupon = this.formatDate(coupon.endDateCoupon);
+            this.formCoupon.patchValue(coupon);
+          
+            this.isEditing = true;
+
+          }
+        });
+    }
   
-    this.route.params
-      .pipe(
-        switchMap(params => {
-          const couponId = params['id'];
-          if (!couponId) return of(null);  // Return null if there is no ID
-  
-          // Dispatch the action to retrieve the coupon by ID
-          this.store.dispatch(getCouponById({ couponId }));
-  
-          // Return the observable that selects the coupon from the store
-          return this.store.pipe(select(selectCouponById(couponId)));
-        }),
-        takeUntil(this.destroy$)
-      )
-      .subscribe(coupon => {
-        if (coupon) {
-          // Dispatch action to store the selected coupon in the reducer
-          this.store.dispatch(getCouponByIdSuccess({ coupon }));
-  
-          // Patch the form with coupon data
-          this.formCoupon.patchValue(coupon);
-        }
-      });
-  }
-  
+}
+private formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toISOString().split('T')[0]; // Converts to YYYY-MM-DD format
+}
+
+getFileNameFromUrl(url: string): string {
+  if (!url) return '';
+  const parts = url.split('/');
+  return parts[parts.length - 1]; // Returns the last part, which is the filename
+}
+
+
   onSubmit(){
 
     console.log('Submitting form...');
@@ -125,10 +136,17 @@ export class FormCouponComponent implements OnInit{
       
        
       console.log(newData);
-     // delete newData.codeCoupon;
-      delete newData.id;
-      //Dispatch Action
-      this.store.dispatch(addCouponlist({ newData }));
+      if(!this.isEditing)
+      {
+        // delete newData.codeCoupon;
+          delete newData.id;
+          //Dispatch Action
+          this.store.dispatch(addCouponlist({ newData }));
+      }
+      else{
+        this.store.dispatch(updateCouponlist({ updatedData: newData }));
+
+      }
       
    
     }

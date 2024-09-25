@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { ModalDirective } from 'ngx-bootstrap/modal';
@@ -6,7 +6,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { selectData } from 'src/app/store/coupon/coupon-selector';
-import { fetchCouponlistData } from 'src/app/store/coupon/coupon.action';
+import { deleteCouponlist, fetchCouponlistData, updateCouponlist } from 'src/app/store/coupon/coupon.action';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
 
 @Component({
@@ -38,7 +38,7 @@ export class CouponsComponent  implements OnInit {
   @ViewChild('removeItemModal', { static: false }) removeItemModal?: ModalDirective;
   deleteId: any;
   returnedArray: Observable<any[]>;
-  
+  @Output() changeEvent = new EventEmitter<boolean>(); 
   public Modules = Modules;
   public Permission = Permission;
 
@@ -73,10 +73,7 @@ export class CouponsComponent  implements OnInit {
       // document.getElementById('elmLoader')?.classList.add('d-none')
      
   }
-  addCoupon(){
-
-  }
-
+ 
   // fiter job
   searchJob() {
     if (this.term) {
@@ -149,9 +146,20 @@ groupBy(data: any[], criterion: string) {
   }
 
   confirmDelete() {
-    //this.store.dispatch(deletecouponlist({ couponId: this.deleteId }));
+    this.store.dispatch(deleteCouponlist({ couponId: this.deleteId }));
     this.removeItemModal?.hide();
   }
+
+  onChangeEvent(data: any, event: any) {
+    const newStatus = event.checked ? 'active' : 'expired'; 
+    console.log('Coupon ID:', data.id, 'New Status:', newStatus);
+    data.status = newStatus;
+    this.store.dispatch(updateCouponlist({ updatedData: data }));
+
+   // this.data.status = event; // Update your data model based on the switch state
+    // Perform any additional logic needed when the switch is toggled
+  }
+
 
 }
 

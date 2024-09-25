@@ -29,7 +29,7 @@ export class MerchantslistEffects1 {
             ofType(fetchMerchantlistData),
             tap(() => console.log('Request to fetch merchant list has been launched')), // Add console log here
             mergeMap(() =>
-                this.CrudService.fetchData('/merchants').pipe(
+                this.CrudService.fetchData('/merchants',{ limit: '10', page: '1'}).pipe(
                     tap((response : any) => console.log('Fetched data:', response.result.data)), 
                     map((response) => fetchMerchantlistSuccess({ MerchantListdata: response.result.data })),
                     catchError((error) =>
@@ -69,15 +69,17 @@ export class MerchantslistEffects1 {
         )
     );
 
-    updateData$ = createEffect(() =>
+    updateData$ = createEffect(() => 
         this.actions$.pipe(
             ofType(updateMerchantlist),
-            mergeMap(({ updatedData }) =>
-                this.CrudService.updateData(`/api/user/${updatedData._id}`, updatedData).pipe(
+            mergeMap(({ updatedData }) => {
+                console.log('Updated Data:', updatedData);
+
+                return this.CrudService.updateData(`/merchants/${updatedData.id}`, updatedData).pipe(
                     map(() => updateMerchantlistSuccess({ updatedData })),
                     catchError((error) => of(updateMerchantlistFailure({ error })))
-                )
-            )
+                );
+            })
         )
     );
 
@@ -88,7 +90,7 @@ export class MerchantslistEffects1 {
             ofType(deleteMerchantlist),
             tap(action => console.log('Delete action received:', action)),
             mergeMap(({ userId }) =>
-                    this.CrudService.disableData('/api/disable', userId).pipe(
+                    this.CrudService.deleteData(`/merchants/${userId}`).pipe(
                         map((response: string) => {
                             // If response contains a success message or status, you might want to check it here
                             console.log('API response:', response);

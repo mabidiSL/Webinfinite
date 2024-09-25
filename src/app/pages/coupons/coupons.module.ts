@@ -21,6 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CouponApprovalComponent } from './coupon-approval/coupon-approval.component';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { CouponApprovalComponent } from './coupon-approval/coupon-approval.compo
   ],
   imports: [
     CommonModule,
+    UiSwitchModule,
     WidgetModule,
     UIModule,
     NgSelectModule,

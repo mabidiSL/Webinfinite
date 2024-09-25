@@ -89,9 +89,11 @@
                       {{data.endDateCoupon | date: 'short'}} 
                     </td>
                     <td>
-                        <span class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-warning':data.status === 'pending', 'badge-soft-success': data.status === 'active',
-                                     'badge-soft-danger':data.status === 'closed' }">{{data.status}}</span>
-                      </td>
+                      <ui-switch  color="##343a40"  [checked]="data.status == 'active'"  uncheckedLabel="expired" checkedLabel="active" size="small" class="me-1" (changeEvent)="onChangeEvent(data,$event)" ></ui-switch>
+
+                        <!-- <span class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-warning':data.status === 'pending', 'badge-soft-success': data.status === 'active',
+                                     'badge-soft-danger':data.status === 'closed' }">{{data.status}}</span>-->
+                      </td> 
                     <td>
                       <ul class="list-inline font-size-20 contact-links mb-0">
                         <!-- <li class="list-inline-item px-2">
@@ -102,17 +104,17 @@
                         </li> -->
                         <td>
                           <ul class="list-unstyled hstack gap-1 mb-0">
-                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'View'|translate}}">
+                            <!-- <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'View'|translate}}">
                               <a href="javascript:void(0);" class="btn btn-sm btn-soft-primary" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.View]}]" (click)="viewCoupon(data._id)"><i class="mdi mdi-eye-outline"></i></a>
-                            </li>
+                            </li> -->
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Edit'|translate}}">
                               <!-- <a href="javascript:void(0);" class="btn btn-sm btn-soft-info" (click)="editDataGet(data.id,content)"><i class="mdi mdi-pencil-outline"></i></a> -->
-                              <a href="javascript:void(0);" class="btn btn-sm btn-soft-info" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Edit]}]" (click)="editCoupon(data._id)"><i class="mdi mdi-pencil-outline"></i></a>
+                              <a [routerLink]="['/private/coupons/edit/', data.id]" class="btn btn-sm btn-soft-info" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Edit]}]" ><i class="mdi mdi-pencil-outline"></i></a>
 
                             </li>
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Disable'| translate}}">
                               <!-- <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" (click)="delete($event)"><i class="mdi mdi-delete-outline"></i></a> -->
-                              <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Disable]}]" (click)="disableCoupon(data._id)"><i class="mdi mdi-delete-outline"></i></a>
+                              <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Disable]}]" (click)="disableCoupon(data.id)"><i class="mdi mdi-delete-outline"></i></a>
 
                             </li>
                           </ul>
@@ -168,7 +170,7 @@
           <p class="text-muted font-size-16 mb-4">{{'Are you Sure You want to disable this User ?'|translate}}</p>
   
           <div class="hstack gap-2 justify-content-center mb-0">
-            <button type="button" class="btn btn-danger me-1" id="remove-item" (click)="confirmDelete()">{{'Disable Now'|translate}}</button>
+            <button type="button" class="btn btn-danger me-1" id="remove-item" (click)="confirmDelete()">{{'Delete_Now'|translate}}</button>
             <button type="button" class="btn btn-secondary" (click)="removeItemModal.hide()">{{'Close'| translate}}</button>
           </div>
         </div>

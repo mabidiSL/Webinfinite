@@ -514,7 +514,7 @@
     "Disable":"ايقاف",
     "Edit": "تعديل",
     "View": "استعراض",
-    "Disable Now":"ايقاف الآن",
+    "Delete_Now":"ايقاف الآن",
     "Add new user": "إضافة مستخدم جديد",
     "Add new coupon": "إضافة قسيمة",
     "Translated Name":"الاسم المترجم",
@@ -568,7 +568,8 @@
     "No_items_available": "لا توجد عناصر متاحة",
     "Title":"العنوان",
     "Loading...":"...تحميل",
-    "Edit_coupon": "تعديل القسيمة"
+    "update_coupon": "تعديل القسيمة"
+    
    
  
 

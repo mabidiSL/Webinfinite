@@ -37,44 +37,49 @@
                 </thead>
                 
                 <tbody >
-                  <tr *ngIf="merchantApprovalList && merchantApprovalList.length > 0">
-                    <ng-container *ngFor="let data of merchantApprovalList">
-                        <tr *ngIf="data.status == 'notApproved'">
-                            <td>
-                                <div class="form-check font-size-16">
-                                    <input class="form-check-input" type="checkbox" id="transactionCheck{{data.index}}" value="{{data._id}}" [(ngModel)]="data.state">
-                                    <label class="form-check-label" for="transactionCheck{{data.index}}"></label>
-                                </div>
-                            </td>
-                            <td>
-                                <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{data.username}}</a></h5>
-                            </td>
-                            <td>{{data.email}}</td>
-                            <td>{{data.registrationDate | date: 'short'}}</td>
-                            <td>
-                              <button *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Approve]}]"
-                              type="button"
-                              class="btn btn-success me-2"
-                              (click)="UpdateItem(data, 'approve')">
+                  <tbody>
+                    <ng-container *ngIf="merchantApprovalList && merchantApprovalList.length > 0; else noItems">
+                      <ng-container *ngFor="let data of merchantApprovalList">
+                        <tr *ngIf="data.user.status == 'notApproved'">
+                          <td>
+                            <div class="form-check font-size-16">
+                              <input class="form-check-input" type="checkbox" id="transactionCheck{{data.index}}" value="{{data._id}}" [(ngModel)]="data.state">
+                              <label class="form-check-label" for="transactionCheck{{data.index}}"></label>
+                            </div>
+                          </td>
+                          <td>
+                            <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{data.merchantName}}</a></h5>
+                          </td>
+                          <td>{{data.user.email}}</td>
+                          <td>{{data.user.registrationDate | date: 'short'}}</td>
+                          <td>
+                            <button *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Approve]}]"
+                                    type="button"
+                                    class="btn btn-success me-2"
+                                    (click)="UpdateItem(data, 'approve')">
                               {{'Approve' | translate}}
-                          </button>
-                          <button *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Decline]}]"
-                              type="button"
-                              class="btn btn-danger"
-                              (click)="UpdateItem(data, 'decline')">
+                            </button>
+                            <button *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Decline]}]"
+                                    type="button"
+                                    class="btn btn-danger"
+                                    (click)="UpdateItem(data, 'decline')">
                               {{'Decline' | translate}}
-                          </button>
-                            </td>
+                            </button>
+                          </td>
                         </tr>
+                      </ng-container>
                     </ng-container>
-                </tr>
-
-                 
-                  <tr *ngIf="merchantApprovalList && merchantApprovalList.length === 0">
-                    <td colspan="5" class="text-center">
-                        <p>{{'No items available' | translate}}</p>
-                    </td>
-                </tr>
+                    
+                    <!-- Template for No Items Available -->
+                    <ng-template #noItems>
+                      <tr>
+                        <td colspan="5" class="text-center">
+                          <p>{{'No items available' | translate}}</p>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  
+                  
                 </tbody>
               </table>
               

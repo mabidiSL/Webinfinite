@@ -62,17 +62,18 @@ export class MerchantListComponent implements OnInit {
 
   ngOnInit() {
       
-      console.log('begin get merchant list');
-
-      this.store.dispatch(fetchMerchantlistData());
-
-      console.log('finish get merchant list');
-
-      this.merchantList$.subscribe(data => {
+      
+        this.store.dispatch(fetchMerchantlistData());
+        this.merchantList$.subscribe(data => {
         this.originalArray = data; // Store the full merchant list
         this.filteredArray = [...this.originalArray];
-      });
-      document.getElementById('elmLoader')?.classList.add('d-none')
+        
+        document.getElementById('elmLoader')?.classList.add('d-none');
+        console.log('Finish get merchant list');
+        console.log(this.filteredArray);
+    
+        });
+     
 
     this.createContactForm = this.formBuilder.group({
       _id: [''],
@@ -329,5 +330,14 @@ viewUser(id: any) {
     this.store.dispatch(deleteMerchantlist({ userId: this.deleteId }));
     this.removeItemModal?.hide();
   }
+  onChangeEvent(data: any, event: any) {
+    const newStatus = event.checked ? 'active' : 'inactive'; 
+    console.log('Coupon ID:', data.id, 'New Status:', newStatus);
+    data.status = newStatus;
+    this.store.dispatch(updateMerchantlist({ updatedData: data }));
+
+   
+  }
+
 
 }

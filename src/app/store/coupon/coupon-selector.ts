@@ -14,7 +14,7 @@ export const selectApprovalData = createSelector(
 );
 export const selectCouponById = (couponId: string) =>createSelector(
   selectDataState,
-  (state: CouponlistState) =>  state?.CouponListdata.find(coupon => coupon.id === couponId)
+  (state: CouponlistState) =>  state?.CouponListdata.find(coupon => coupon.id === +couponId)
   );
 
 export const selectDataLoading = createSelector(

@@ -49,7 +49,6 @@ import { OrdersEffects } from './store/Crypto/crypto.effects';
 import { CustomerEffects } from './store/customer/customer.effects';
 import { MailEffects } from './store/Email/email.effects';
 import { MerchantsModule } from './pages/merchants/merchants.module';
-import { MerchantslistEffects } from './store/merchants/merchantlist.effect';
 import { MerchantslistEffects1 } from './store/merchantsList/merchantlist1.effect';
 import { CouponsModule } from './pages/coupons/coupons.module';
 import { CouponslistEffects } from './store/coupon/coupon.effect';
@@ -108,7 +107,7 @@ export function createTranslateLoader(http: HttpClient): any {
       ProjectEffects,
       usersEffects,
       userslistEffects,
-      MerchantslistEffects,
+      
       CouponslistEffects,
       MerchantslistEffects1,
       JoblistEffects,
@@ -124,7 +123,7 @@ export function createTranslateLoader(http: HttpClient): any {
   bootstrap: [AppComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+   // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     provideAnimationsAsync('noop'),
     //{ provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
   ],
