@@ -54,6 +54,8 @@ import { CouponsModule } from './pages/coupons/coupons.module';
 import { CouponslistEffects } from './store/coupon/coupon.effect';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AuthInterceptor } from './core/helpers/auth.interceptor';
+import { EmployeesModule } from './pages/employees/employees.module';
+import { EmployeeslistEffects } from './store/employee/employee.effect';
 
 
 
@@ -84,6 +86,7 @@ export function createTranslateLoader(http: HttpClient): any {
     LayoutsModule,
     MerchantsModule,
     CouponsModule,
+    EmployeesModule,
     TranslateModule,
     AppRoutingModule,
     ExtrapagesModule,
@@ -107,7 +110,7 @@ export function createTranslateLoader(http: HttpClient): any {
       ProjectEffects,
       usersEffects,
       userslistEffects,
-      
+      EmployeeslistEffects,
       CouponslistEffects,
       MerchantslistEffects1,
       JoblistEffects,

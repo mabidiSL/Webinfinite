@@ -500,5 +500,15 @@
   "Edit_coupon": "Edit_coupon",
   "update_coupon": "Update coupon",
   "Add coupon": "Add coupon",
-  "Disable_Now": "Disable Now"
+  "Disable_Now": "Disable Now",
+  "Employee_Basic_Informations": "Employee Basic Informations",
+  "Employee_Permissions": "Employee Permissions",
+  "Edit_employee": "Edit Employee",
+  "Add_employee": "Add Employee",
+  "Bank_Account_is_required": "Bank Account is required",
+  "Bank_Name":"Bank Name",
+  "Bank_Name_is_required": "Bank Name is required",
+  "Bank_Account_Number": "Bank Account Number",
+  "Role_is_required": "Role is required"
+
 }

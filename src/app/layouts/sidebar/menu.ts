@@ -32,23 +32,25 @@ export const MENU: MenuItem[] = [
         id: 5,
         label: 'MENUITEMS.EMPLOYEES.TEXT',
         icon: 'bxs-user-pin',
+        link: '/private/employees',
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.ViewAll]}]
        // icon: 'bxs-user-detail',
-        subItems: [
-            {
-                id: 6,
-                label: 'MENUITEMS.EMPLOYEES.LIST.EMPLOYEESLIST',
-                link: '/employees/list',
-                parentId: 5
-            },
+        // subItems: [
+        //     {
+        //         id: 6,
+        //         label: 'MENUITEMS.EMPLOYEES.LIST.EMPLOYEESLIST',
+        //         link: '/private/employees/list',
+        //         parentId: 5
+        //     },
            
-            {
-                id: 7,
-                label: 'MENUITEMS.EMPLOYEES.LIST.ROLESETUP',
-                link: '/employees/list',
-                parentId: 5
-            }
-                ],
-                claims: [{claimType: Modules.All, claimValue: [Permission.All]}]
+        //     {
+        //         id: 7,
+        //         label: 'MENUITEMS.EMPLOYEES.LIST.ROLESETUP',
+        //         link: '/employees/list',
+        //         parentId: 5
+        //     }
+        //         ],
+        //         claims: [{claimType: Modules.All, claimValue: [Permission.All]}]
 
     },
     {

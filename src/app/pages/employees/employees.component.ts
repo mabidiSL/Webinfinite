@@ -6,7 +6,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { selectData } from 'src/app/store/employee/employee-selector';
-import { fetchEmployeelistData } from 'src/app/store/employee/employee.action';
+import { deleteEmployeelist, fetchEmployeelistData, updateEmployeelist } from 'src/app/store/employee/employee.action';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
 
 @Component({
@@ -49,29 +49,22 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit() {
 
-    setTimeout(() => {
-      this.store.dispatch(fetchEmployeelistData());
+
+      //this.store.dispatch(fetchEmployeelistData());
       this.store.select(selectData).subscribe(data => {
         this.originalArray = data; // Store the full employees list
         console.log(this.originalArray);
         this.filteredArray = [...this.originalArray];
-      })
-      document.getElementById('elmLoader')?.classList.add('d-none')
-    }, 1200);
-      
+        document.getElementById('elmLoader')?.classList.add('d-none');
        console.log('finish get employee list');
        console.log(this.filteredArray);
+      });
+      
 
-      // this.employeeList$.subscribe(data => {
-      //   this.originalArray = data; // Store the full employee list
-      //   this.filteredArray = [...this.originalArray];
-      // });
-      // document.getElementById('elmLoader')?.classList.add('d-none')
+      
      
   }
-  addEmployee(){
-
-  }
+  
 
   // fiter job
   searchJob() {
@@ -136,6 +129,14 @@ groupBy(data: any[], criterion: string) {
    // this.employeeList$ = this.returnedArray.sort((a: any, b: any) => new Date(b.registrationDate).getTime() - new Date(a.registrationDate).getTime()).slice(0,10);
 
   }
+  onChangeEvent(data: any, event: any) {
+    const newStatus = event.checked ? 'active' : 'inactive'; 
+    console.log('Employee ID:', data.id, 'New Status:', newStatus);
+    data.status = newStatus;
+    this.store.dispatch(updateEmployeelist({ updatedData: data }));
+
+   
+  }
 
   // Disable employee
   disableEmployee(id: any) {
@@ -145,7 +146,7 @@ groupBy(data: any[], criterion: string) {
   }
 
   confirmDelete() {
-    //this.store.dispatch(deleteemployeelist({ employeeId: this.deleteId }));
+    this.store.dispatch(deleteEmployeelist({ employeeId: this.deleteId }));
     this.removeItemModal?.hide();
   }
 

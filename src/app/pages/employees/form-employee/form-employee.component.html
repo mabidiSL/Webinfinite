@@ -1,1 +1,156 @@
-<p>form-employee works!</p>
+<accordion [closeOthers]="true" class="accordion" [isAnimated]="true">
+    <accordion-group [isOpen]="isFirstOpen" heading="{{'Employee_Basic_Informations' | translate}}" class="accordion-item" #group>
+      <span accordion-heading class="float-end fs-5">
+        <i class="mdi" [ngClass]="!group?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'"></i>
+      </span>
+      <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <form (ngSubmit)="onSubmit()" [formGroup]="employeeForm"  class="m-4">
+                        <div class="row">
+                          <div class="col-md-6 mb-3">
+                            <div class="form-group ">
+                               <label for="username" >{{'Username' | translate}} <span class="text-danger">*</span></label>
+                                <input type="text" id="username" class="form-control" formControlName="username" required>
+                                <div *ngIf="employeeForm.get('username').touched && employeeForm.get('username').invalid" class="invalid-feedback d-block">
+                                    <span *ngIf="employeeForm.get('username').errors?.['required']">{{'Username is required'| translate}}.</span>
+                                  </div>
+                              </div> 
+                          </div>
+                          <div class="col-md-6 mb-3">
+                            <div class="form-group ">
+                              <label for="email">{{'Email'| translate}} <span class="text-danger">*</span></label>
+                              <input type="email" id="email" class="form-control" formControlName="email" required>
+                              <div *ngIf="employeeForm.get('email').touched && employeeForm.get('email').invalid" class="invalid-feedback d-block">
+                                <span *ngIf="employeeForm.get('email').errors?.['required']">{{'Email is required'| translate}}.</span>
+                              </div>
+                            </div>
+                          </div>
+                     
+                          <div class="col-md-6 mb-3">
+                            <div class="form-group ">
+                                <label for="password" >{{'Password'| translate}} <span class="text-danger">*</span></label>
+                                <input type="password" id="password" class="form-control" formControlName="password" required>
+                                <!-- <button class="btn btn-light " type="button" id="password-addon2">
+                                  <i class="mdi mdi-eye-outline" [ngClass]="{'mdi-eye-off-outline': !fieldTextType, 'mdi-eye-outline': fieldTextType}" (click)="toggleFieldTextType()"></i>
+                                </button> -->
+                                <div *ngIf="employeeForm.get('password').touched && employeeForm.get('password').invalid" class="invalid-feedback d-block">
+                                  <span *ngIf="employeeForm.get('password').errors?.['required']">{{'Password is required'| translate}}.</span>
+                                </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-6 mb-3">
+                                <div class="form-group ">
+                                <label for="confpassword" >Confirm password <span class="text-danger">*</span></label>
+                                <input type="password" id="confpassword" class="form-control" formControlName="confpassword" required>
+                                 <button class="btn btn-light" type="button" id="password-addon2">
+                                  <i class="mdi mdi-eye-outline" [ngClass]="{'mdi-eye-off-outline': !fieldTextType, 'mdi-eye-outline': fieldTextType}" (click)="toggleFieldTextType()"></i>
+                                </button> -->
+                                <!-- <div *ngIf="employeeForm.get('confpassword').touched && employeeForm.get('confpassword').invalid" class="invalid-feedback d-block">
+                                  <span *ngIf="employeeForm.get('confpassword').errors?.['required']" else error>{{'Confirm password is required'| translate}}.
+                                    </span>
+                                    <ng-template #error>
+                                      <div class="invalid-feedback" *ngIf="passwordMatchError">
+                                          {{ 'confirm_password_does_not_matched' | translate }}
+                                      </div>
+                                  </ng-template>
+                                  
+                                </div>
+                              </div>
+                            </div> 
+                          </div>-->
+                         
+                            <div class="col-md-6 mb-3">
+                              <div class="form-group">
+                                <label for="phone" >{{'Phone Number'| translate}} <span class="text-danger">*</span></label><br>
+                               <app-phone-number (phoneNumberChanged)="onPhoneNumberChanged($event)" ></app-phone-number>
+                               <div *ngIf="employeeForm.get('phone').touched && employeeForm.get('phone').invalid" class="invalid-feedback d-block">
+                                <span *ngIf="employeeForm.get('phone').errors?.['required']">{{'Phone Number is required'| translate}}.</span>
+                              </div>   
+                              </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                  <label for="country" >{{'Country'| translate}}</label>
+                                  <input type="text" id="country" class="form-control" formControlName="country">
+                                </div>
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <div class="form-group ">
+                                  <label for="city" >{{'City'| translate}}</label>
+                                  <input type="text" id="city" class="form-control" formControlName="city">
+                                </div>
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                  <label for="area">{{'Area'| translate}}</label>
+                                  <input type="text" id="area" class="form-control" formControlName="area">
+                                </div>
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                  <label for="bankAccountNumber">{{'Bank_Account_Number' | translate}}<span class="text-danger">*</span></label>
+                                  <input type="text" id="bankAccountNumber" class="form-control" formControlName="bankAccountNumber">
+                                  <div *ngIf="employeeForm.get('bankAccountNumber').touched && employeeForm.get('bankAccountNumber').invalid" class="invalid-feedback d-block">
+                                    <span *ngIf="employeeForm.get('bankAccountNumber').errors?.['required']">{{'Bank_Account_is_required'| translate}}.</span>
+                                  </div> 
+                                </div>
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                  <label for="bankName">{{'Bank_Name' | translate}}<span class="text-danger">*</span></label>
+                                  <select class="form-control" id="bankName" formControlName="bankName">
+                                    <option *ngFor="let bank of banks" [value]="bank.id">
+                                      {{ bank.name }}
+                                    </option>
+                               </select>        
+                                  <div *ngIf="employeeForm.get('bankName').touched && employeeForm.get('bankName').invalid" class="invalid-feedback d-block">
+                                    <span *ngIf="employeeForm.get('bankName').errors?.['required']">{{'Bank_Name_is_required'| translate}}.</span>
+                                  </div> 
+                                </div>
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <div class="form-group ">
+                                  <label for="role" >{{'Role'| translate}}<span class="text-danger">*</span></label>
+                                  <select class="form-control" id="role" formControlName="role">
+                                       <option *ngFor="let role of roles" [value]="role.id">
+                                         {{ role.name }}
+                                       </option>
+                                  </select>                                  
+                                  <div *ngIf="employeeForm.get('role').touched && employeeForm.get('role').invalid" class="invalid-feedback d-block">
+                                    <span *ngIf="employeeForm.get('role').errors?.['required']">{{'Role_is_required'| translate}}.</span>
+                                  </div> 
+                                </div>
+                              </div>
+                       
+                              
+                      
+                       </div>
+                        <div class="col-12  mt-4">
+                        <div class="d-flex justify-content-end ">
+                        <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">{{'Cancel' | translate}}</button>
+                        <button type="submit" class="btn btn-primary" >{{'Register'| translate}}</button>
+                        </div>
+                        </div>
+                      </form>
+                </div>
+            </div>
+        </div> <!-- end col -->
+      </div>
+    </accordion-group>
+    <accordion-group heading="{{'Employee_Permissions' | translate}}" class="accordion-item" #md>
+      <span accordion-heading class="float-end fs-5">
+        <i class="mdi" [ngClass]="!md?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'"></i>
+      </span>
+      <div class="text-muted">
+        <strong class="text-body-emphasis">This is the second item's accordion body.</strong> It is hidden by
+        default, until the collapse plugin adds the appropriate classes that we use to style each element.
+        These classes control the overall appearance, as well as the showing and hiding via CSS
+        transitions. You can modify any of this with custom CSS or overriding our default variables. It's
+        also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though
+        the transition does limit overflow.
+      </div>
+    </accordion-group>
+    
+  </accordion>

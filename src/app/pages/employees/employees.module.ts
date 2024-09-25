@@ -7,17 +7,18 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { WidgetModule } from '../../shared/widget/widget.module';
 import { UIModule } from '../../shared/ui/ui.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 import { EmployeesRoutingModule } from './employees-routing.module';
 import { EmployeesComponent } from './employees.component';
 import { CreateEmployeeComponent } from './create-employee/create-employee.component';
 import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
 import { FormEmployeeComponent } from './form-employee/form-employee.component';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 
 @NgModule({
@@ -41,7 +42,9 @@ import { FormEmployeeComponent } from './form-employee/form-employee.component';
     PaginationModule.forRoot(),
     BsDropdownModule,
     ModalModule,
-    SharedModule
+    SharedModule,
+    AccordionModule
+    
   ]
 })
 export class EmployeesModule { }

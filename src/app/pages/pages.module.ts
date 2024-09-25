@@ -45,10 +45,10 @@ import { FilemanagerComponent } from './filemanager/filemanager.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../core/services/language.service';
 import { UsersModule } from './users/users.module';
-import { CreateEmployeeComponent } from './emplyees/create-employee/create-employee.component';
+import { EmployeesModule } from './employees/employees.module';
 
 @NgModule({
-  declarations: [CalendarComponent, ChatComponent, FilemanagerComponent, CreateEmployeeComponent],
+  declarations: [CalendarComponent, ChatComponent, FilemanagerComponent],
   imports: [
     CommonModule,
     TranslateModule,
