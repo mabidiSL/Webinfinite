@@ -90,7 +90,7 @@ export class MerchantslistEffects1 {
             ofType(deleteMerchantlist),
             tap(action => console.log('Delete action received:', action)),
             mergeMap(({ userId }) =>
-                    this.CrudService.disableData('/api/disable', userId).pipe(
+                    this.CrudService.deleteData(`/merchants/${userId}`).pipe(
                         map((response: string) => {
                             // If response contains a success message or status, you might want to check it here
                             console.log('API response:', response);

@@ -330,5 +330,14 @@ viewUser(id: any) {
     this.store.dispatch(deleteMerchantlist({ userId: this.deleteId }));
     this.removeItemModal?.hide();
   }
+  onChangeEvent(data: any, event: any) {
+    const newStatus = event.checked ? 'active' : 'inactive'; 
+    console.log('Coupon ID:', data.id, 'New Status:', newStatus);
+    data.status = newStatus;
+    this.store.dispatch(updateMerchantlist({ updatedData: data }));
+
+   
+  }
+
 
 }

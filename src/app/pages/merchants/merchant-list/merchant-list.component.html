@@ -92,8 +92,10 @@
                       {{data.user.totalOrder}}
                     </td>
                     <td>
-                        <span class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-success': data.user.status === 'active',
-                                      'badge-soft-danger':data.user.status === 'inactive' }">{{data.user.status}}</span>
+                      <ui-switch  color="##343a40"  [checked]="data.user.status == 'active'"  uncheckedLabel="inactive" checkedLabel="active" size="small" class="me-1" (changeEvent)="onChangeEvent(data,$event)" ></ui-switch>
+
+                        <!-- <span class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-success': data.user.status === 'active',
+                                      'badge-soft-danger':data.user.status === 'inactive' }">{{data.user.status}}</span> -->
                       </td>
                     <td>
                       <ul class="list-inline font-size-20 contact-links mb-0">
