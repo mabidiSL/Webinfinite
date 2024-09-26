@@ -572,12 +572,14 @@
     "Employee_Basic_Informations": "المعلومات الأساسية للموظف",
     "Employee_Permissions": "صلاحيات الموظف",
     "Edit_employee": "تعديل الموظف",
+    "Update_employee": "تعديل الموظف",
     "Add_employee": "اضافة موظف",
     "Bank_Name_is_required":"اسم البنك مطلوب",
     "Bank_Account_is_required": "مطلوب حساب البنك",
     "Bank_Name":"اسم البنك",
     "Bank_Account_Number": "رقم الحساب البنكي",
     "Role_is_required": "الوظيفة مطلوبة"
+    
 
 
     

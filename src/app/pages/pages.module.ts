@@ -45,7 +45,6 @@ import { FilemanagerComponent } from './filemanager/filemanager.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../core/services/language.service';
 import { UsersModule } from './users/users.module';
-import { EmployeesModule } from './employees/employees.module';
 
 @NgModule({
   declarations: [CalendarComponent, ChatComponent, FilemanagerComponent],

@@ -14,7 +14,7 @@ export const selectApprovalData = createSelector(
 );
 export const selectEmployeeById = (EmployeeId: string) =>createSelector(
   selectDataState,
-  (state: EmployeelistState) =>  state?.EmployeeListdata.find(Employee => Employee.id === EmployeeId)
+  (state: EmployeelistState) =>  state?.EmployeeListdata.find(Employee => Employee.id === +EmployeeId)
   );
 
 export const selectDataLoading = createSelector(

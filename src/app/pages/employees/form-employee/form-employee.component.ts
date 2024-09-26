@@ -5,6 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
 import { selectEmployeeById } from 'src/app/store/employee/employee-selector';
 import { addEmployeelist, getEmployeeById, updateEmployeelist } from 'src/app/store/employee/employee.action';
+import { Modules, Permission } from 'src/app/store/Role/role.models';
 
 @Component({
   selector: 'app-form-employee',
@@ -24,6 +25,71 @@ export class FormEmployeeComponent implements OnInit{
   isFirstOpen:boolean = true;
   banks : any[] = [{id: '1', name:'BIAT'},{id: '2', name:'BT'}];
   roles: any[] = [{id:'1', name: 'ADMIN'}, {id:'2', name: 'MERCHANT'}, {id:'3', name: 'EMPLOYEE'}]
+  public Permission: Permission;
+  public Module: Modules;
+
+  // Extract the keys from Modules and Permissions enums
+moduleKeys = Object.keys(Modules).filter(key => isNaN(Number(key))); // Get the module names
+permissionKeys = Object.keys(Permission).filter(key => isNaN(Number(key))); // Get the permission names
+
+// The employee's role and its claims that will be displayed
+role = {
+  claims: [
+   
+    {
+      claimType: Modules.Employees,
+      claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete],
+    }
+    ,
+    {
+      claimType: Modules.Merchants,
+      claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete],
+    },
+    {
+      claimType: Modules.Customers,
+      claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete],
+    }
+    ,
+    {
+      claimType: Modules.Coupons,
+      claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
+    }
+    ,
+    {
+      claimType: Modules.GiftCards,
+      claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
+    }
+    ,
+    {
+      claimType: Modules.Contracts,
+      claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
+    }
+    ,
+    
+    {
+      claimType: Modules.CustomerWallet,
+      claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
+    }
+    ,
+    {
+      claimType: Modules.CustomerInvoice,
+      claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
+    }
+    ,
+    {
+      claimType: Modules.CustomerReviews,
+      claimValue: [Permission.ViewAll],
+    },
+    {
+      claimType: Modules.SystemAdministration,
+      claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete],
+    },
+
+    // Add more claims for other modules
+  ],
+};
+
+
   constructor(
     private formBuilder: UntypedFormBuilder,
     private route: ActivatedRoute,
@@ -88,9 +154,12 @@ export class FormEmployeeComponent implements OnInit{
       if(!this.isEditing)
         {
             delete newData.id;
+            
+            delete newData.role;
             this.store.dispatch(addEmployeelist({ newData }));
         }
         else{
+          delete newData.password;
           this.store.dispatch(updateEmployeelist({ updatedData: newData }));
   
         }
@@ -105,6 +174,44 @@ export class FormEmployeeComponent implements OnInit{
   onPhoneNumberChanged(phoneNumber: string) {
     this.employeeForm.get('phone').setValue(phoneNumber);
   }
+
+
+
+
+hasPermission(module: string, permission: string): boolean {
+  const moduleEnum = Modules[module as keyof typeof Modules];
+  const permissionEnum = Permission[permission as keyof typeof Permission];
+
+  const claim = this.role.claims.find((claim) => claim.claimType === moduleEnum);
+  return claim ? claim.claimValue.includes(permissionEnum) : false;
+}
+
+togglePermission(module: string, permission: string, event: any): void {
+  const moduleEnum = this.Module[module as keyof typeof Modules];
+  const permissionEnum = this.Permission[permission as keyof typeof Permission];
+
+  const claim = this.role.claims.find((claim) => claim.claimType === moduleEnum);
+  if (claim) {
+    if (event.target.checked) {
+      // Add the permission
+      claim.claimValue.push(permissionEnum);
+    } else {
+      // Remove the permission
+      claim.claimValue = claim.claimValue.filter((perm) => perm !== permissionEnum);
+    }
+  } else {
+    // If there's no claim for this module, create one and add the permission
+    this.role.claims.push({
+      claimType: moduleEnum,
+      claimValue: [permissionEnum],
+    });
+  }
+}
+
+
+
+
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();

@@ -28,7 +28,7 @@
                             </div>
                           </div>
                      
-                          <div class="col-md-6 mb-3">
+                          <div *ngIf="type == 'create'" class="col-md-6 mb-3">
                             <div class="form-group ">
                                 <label for="password" >{{'Password'| translate}} <span class="text-danger">*</span></label>
                                 <input type="password" id="password" class="form-control" formControlName="password" required>
@@ -64,10 +64,10 @@
                             <div class="col-md-6 mb-3">
                               <div class="form-group">
                                 <label for="phone" >{{'Phone Number'| translate}} <span class="text-danger">*</span></label><br>
-                               <app-phone-number (phoneNumberChanged)="onPhoneNumberChanged($event)" ></app-phone-number>
-                               <div *ngIf="employeeForm.get('phone').touched && employeeForm.get('phone').invalid" class="invalid-feedback d-block">
+                               <app-phone-number    (phoneNumberChanged)="onPhoneNumberChanged($event)" ></app-phone-number>
+                               <!-- <div *ngIf="employeeForm.get('phone').touched && employeeForm.get('phone').invalid" class="invalid-feedback d-block">
                                 <span *ngIf="employeeForm.get('phone').errors?.['required']">{{'Phone Number is required'| translate}}.</span>
-                              </div>   
+                              </div>    -->
                               </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -130,7 +130,7 @@
                         <div class="col-12  mt-4">
                         <div class="d-flex justify-content-end ">
                         <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">{{'Cancel' | translate}}</button>
-                        <button type="submit" class="btn btn-primary" >{{'Register'| translate}}</button>
+                        <button type="submit" class="btn btn-primary" >{{ (type == 'create' ? 'Add_employee' : 'Update_employee') | translate }}</button>
                         </div>
                         </div>
                       </form>
@@ -139,17 +139,36 @@
         </div> <!-- end col -->
       </div>
     </accordion-group>
-    <accordion-group heading="{{'Employee_Permissions' | translate}}" class="accordion-item" #md>
+    <accordion-group heading="{{'View_Employee_Permissions' | translate}}" class="accordion-item" #md>
       <span accordion-heading class="float-end fs-5">
         <i class="mdi" [ngClass]="!md?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'"></i>
       </span>
-      <div class="text-muted">
-        <strong class="text-body-emphasis">This is the second item's accordion body.</strong> It is hidden by
-        default, until the collapse plugin adds the appropriate classes that we use to style each element.
-        These classes control the overall appearance, as well as the showing and hiding via CSS
-        transitions. You can modify any of this with custom CSS or overriding our default variables. It's
-        also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though
-        the transition does limit overflow.
+      
+      <div class="table-responsive">
+        <table class="table align-middle table-nowrap table-hover dt-responsive nowrap w-100" id="userList-table">
+          <thead class="table-light">
+          <tr>
+            <th>{{'Permissions'| translate}}</th>
+            <!-- Loop over the Permission keys for the table header -->
+            <th *ngFor="let permission of permissionKeys">{{ permission }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Loop over the Modules for the rows -->
+          <tr *ngFor="let module of moduleKeys">
+            <td>{{ module }}</td>
+            <!-- Loop over the Permission keys for each module to create a checkbox -->
+            <td *ngFor="let permission of permissionKeys">
+              <input
+                type="checkbox"
+                [checked]="hasPermission(module, permission)"
+                (change)="togglePermission(module, permission, $event)"
+                disabled
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
       </div>
     </accordion-group>
     

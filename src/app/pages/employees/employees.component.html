@@ -48,7 +48,7 @@
               <!-- Add Merchant Button -->
               <div class="col-sm-4 text-end" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Employees, claimValue: [Permission.Create]}]">
                 <button  [routerLink]="['/private/employees/create']" type="button" data-bs-toggle="modal"   class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal">
-                  <i class="mdi mdi-plus me-1"></i> {{'Add_Employee'|translate}}
+                  <i class="mdi mdi-plus me-1"></i> {{'Add_employee'|translate}}
                 </button>
               </div>
               
@@ -78,18 +78,18 @@
                         </div>
                       </td>
                     <td>
-                      <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{data.name}}</a>
+                      <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{data.username}}</a>
                       </h5>
                       
                     </td>
                    
-                    <td>{{data.merchantName}}</td>
-                    <td>{{data.startDateCoupon | date: 'short'}} </td>
+                    <td>{{data.email}}</td>
+                    <td>{{data.city }} </td>
                     <td>
-                      {{data.endDateCoupon | date: 'short'}} 
+                      {{data.role.name }} 
                     </td>
                     <td>
-                      <ui-switch  color="##343a40"  [checked]="data.status == 'active'"  uncheckedLabel="expired" checkedLabel="active" size="small" class="me-1" (changeEvent)="onChangeEvent(data,$event)" ></ui-switch>
+                      <ui-switch  color="##343a40"  [checked]="data.status == 'active'"  uncheckedLabel="inactive" checkedLabel="active" size="small" class="me-1" (changeEvent)="onChangeEvent(data,$event)" ></ui-switch>
                       </td>
                     <td>
                       <ul class="list-inline font-size-20 contact-links mb-0">
@@ -101,17 +101,17 @@
                         </li> -->
                         <td>
                           <ul class="list-unstyled hstack gap-1 mb-0">
-                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'View'|translate}}">
-                              <a href="javascript:void(0);" class="btn btn-sm btn-soft-primary" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.View]}]" (click)="viewCoupon(data._id)"><i class="mdi mdi-eye-outline"></i></a>
-                            </li>
+                            <!-- <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'View'|translate}}">
+                              <a href="javascript:void(0);" class="btn btn-sm btn-soft-primary" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.View]}]" (click)="viewCoupon(data.id)"><i class="mdi mdi-eye-outline"></i></a>
+                            </li> -->
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Edit'|translate}}">
                               <!-- <a href="javascript:void(0);" class="btn btn-sm btn-soft-info" (click)="editDataGet(data.id,content)"><i class="mdi mdi-pencil-outline"></i></a> -->
-                              <a href="javascript:void(0);" class="btn btn-sm btn-soft-info" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Edit]}]" (click)="editCoupon(data._id)"><i class="mdi mdi-pencil-outline"></i></a>
+                              <a [routerLink]="['/private/employees/edit/', data.id]" class="btn btn-sm btn-soft-info" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Edit]}]" ><i class="mdi mdi-pencil-outline"></i></a>
 
                             </li>
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Disable'| translate}}">
                               <!-- <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" (click)="delete($event)"><i class="mdi mdi-delete-outline"></i></a> -->
-                              <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Disable]}]" (click)="disableCoupon(data._id)"><i class="mdi mdi-delete-outline"></i></a>
+                              <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Delete]}]" (click)="disableEmployee(data.id)"><i class="mdi mdi-delete-outline"></i></a>
 
                             </li>
                           </ul>

@@ -12,6 +12,8 @@ import { UIModule } from '../../shared/ui/ui.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { UiSwitchModule } from 'ngx-ui-switch';
+
 
 import { EmployeesRoutingModule } from './employees-routing.module';
 import { EmployeesComponent } from './employees.component';
@@ -43,7 +45,8 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
     BsDropdownModule,
     ModalModule,
     SharedModule,
-    AccordionModule
+    AccordionModule,
+    UiSwitchModule
     
   ]
 })

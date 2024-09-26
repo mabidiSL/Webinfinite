@@ -50,7 +50,7 @@ export class EmployeesComponent implements OnInit {
   ngOnInit() {
 
 
-      //this.store.dispatch(fetchEmployeelistData());
+      this.store.dispatch(fetchEmployeelistData());
       this.store.select(selectData).subscribe(data => {
         this.originalArray = data; // Store the full employees list
         console.log(this.originalArray);
