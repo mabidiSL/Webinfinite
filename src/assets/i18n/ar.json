@@ -578,7 +578,9 @@
     "Bank_Account_is_required": "مطلوب حساب البنك",
     "Bank_Name":"اسم البنك",
     "Bank_Account_Number": "رقم الحساب البنكي",
-    "Role_is_required": "الوظيفة مطلوبة"
+    "Role_is_required": "الوظيفة مطلوبة",
+    "Add_merchant": "إضافة تاجر",
+    "Update_merchant": "تعديل تاجر"
     
 
 

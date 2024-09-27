@@ -21,13 +21,19 @@ import { ApproveMerchantComponent } from './approve-merchant/approve-merchant.co
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UiSwitchModule } from 'ngx-ui-switch';
+import { CreateMerchantComponent } from './create-merchant/create-merchant.component';
+import { EditMerchantComponent } from './edit-merchant/edit-merchant.component';
+import { FormMerchantComponent } from './form-merchant/form-merchant.component';
 
 
 
 @NgModule({
   declarations: [
     MerchantListComponent,
-    ApproveMerchantComponent
+    ApproveMerchantComponent,
+    CreateMerchantComponent,
+    EditMerchantComponent,
+    FormMerchantComponent
   ],
   imports: [
     CommonModule, 

@@ -320,7 +320,7 @@ viewUser(id: any) {
   }
 
   // Disable User
-  disableUser(id: any) {
+  disableMerchant(id: any) {
     this.deleteId = id;
     console.log('the id of the user to be deleted'+this.deleteId);
     this.removeItemModal?.show();
@@ -332,7 +332,7 @@ viewUser(id: any) {
   }
   onChangeEvent(data: any, event: any) {
     const newStatus = event.checked ? 'active' : 'inactive'; 
-    console.log('Coupon ID:', data.id, 'New Status:', newStatus);
+    console.log('Merchant ID:', data.id, 'New Status:', newStatus);
     data.status = newStatus;
     this.store.dispatch(updateMerchantlist({ updatedData: data }));
 

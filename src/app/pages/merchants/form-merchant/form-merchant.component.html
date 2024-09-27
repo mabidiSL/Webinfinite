@@ -1,0 +1,240 @@
+<div class="row">
+    <div class="col-19">
+        <div class="card">
+            <div class="card-body ">
+              <form (ngSubmit)="onSubmit()" [formGroup]="merchantForm"  class="m-4">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group ">
+                           <label for="merchantName" >{{'Merchant Name' | translate}} <span class="text-danger">*</span></label>
+                            <input type="text" id="merchantName" class="form-control" formControlName="merchantName" placeholder="Write the MerchantName" >
+                            <!-- <div *ngIf="merchantForm.get('username').touched && merchantForm.get('username').invalid" class="invalid-feedback d-block">
+                                <span *ngIf="merchantForm.get('username').errors?.['required']">{{'Name is required'| translate}}.</span>
+                              </div> -->
+                          </div> 
+                      </div>
+                  <div class="col-md-3 mb-3">
+                    <div class="form-group ">
+                       <label for="username" >{{'Username' | translate}} <span class="text-danger">*</span></label>
+                        <input type="text" id="username" class="form-control" formControlName="username" placeholder="Write the username" >
+                        <!-- <div *ngIf="merchantForm.get('username').touched && merchantForm.get('username').invalid" class="invalid-feedback d-block">
+                            <span *ngIf="merchantForm.get('username').errors?.['required']">{{'Name is required'| translate}}.</span>
+                          </div> -->
+                      </div> 
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <div class="form-group ">
+                      <label for="email">{{'Email' | translate}} <span class="text-danger">*</span></label>
+                      <input type="email" id="email" class="form-control" formControlName="email"placeholder="Write you Email" >
+                      <!-- <div *ngIf="merchantForm.get('email').touched && merchantForm.get('email').invalid" class="invalid-feedback d-block">
+                        <span *ngIf="merchantForm.get('email').errors?.['required']">{{'Email is required'| translate}}.</span>
+                      </div> -->
+                    </div>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <div class="form-group">
+                      <label for="phone" >{{'Phone Number' | translate}} <span class="text-danger">*</span></label><br>
+                     <app-phone-number (phoneNumberChanged)="onPhoneNumberChanged($event)" ></app-phone-number>
+                     <!-- <div *ngIf="merchantForm.get('phone').touched && merchantForm.get('phone').invalid" class="invalid-feedback d-block">
+                      <span *ngIf="merchantForm.get('phone').errors?.['required']">{{'Phone Number is required'| translate}}.</span>
+                    </div>    -->
+                    </div>
+                  </div>
+            
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group ">
+                        <label for="password" >{{'Password'| translate}} <span class="text-danger">*</span></label>
+                        <input type="password" id="password" class="form-control" formControlName="password" placeholder="Write the password" >
+                        <!-- <button class="btn btn-light " type="button" id="password-addon2">
+                          <i class="mdi mdi-eye-outline" [ngClass]="{'mdi-eye-off-outline': !fieldTextType, 'mdi-eye-outline': fieldTextType}" (click)="toggleFieldTextType()"></i>
+                        </button> -->
+                        <!-- <div *ngIf="merchantForm.get('password').touched && merchantForm.get('password').invalid" class="invalid-feedback d-block">
+                          <span *ngIf="merchantForm.get('password').errors?.['required']">{{'Password is required'| translate}}.</span>
+                        </div> -->
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group ">
+                        <label for="confpassword" >{{'Confirm password'| translate}} <span class="text-danger">*</span></label>
+                        <input type="password" id="confpassword" class="form-control" formControlName="confpassword" placeholder="Confirm the password" >
+                        <!-- <button class="btn btn-light" type="button" id="password-addon2">
+                          <i class="mdi mdi-eye-outline" [ngClass]="{'mdi-eye-off-outline': !fieldTextType, 'mdi-eye-outline': fieldTextType}" (click)="toggleFieldTextType()"></i>
+                        </button> -->
+                        <!-- <div *ngIf="merchantForm.get('confpassword').touched && merchantForm.get('confpassword').invalid" class="invalid-feedback d-block">
+                          <span *ngIf="merchantForm.get('confpassword').errors?.['required']" else error>{{'Confirm password is required'| translate}}.
+                            </span>
+                            <ng-template #error>
+                              <div class="invalid-feedback" *ngIf="passwordMatchError">
+                                  {{ 'confirm_password_does_not_matched' | translate }}
+                              </div>
+                          </ng-template>
+                          
+                        </div> -->
+                      </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group">
+                          <label for="cin" >{{'ID_Number' | translate}}</label>
+                          <input type="text" id="cin" class="form-control" formControlName="cin" placeholder="Write the ID Number">
+                        </div>
+                      </div>
+                    <div class="col-md-3 mb-3">
+                      <div class="form-group">
+                        <label for="country" >{{'Country' | translate}}</label>
+                        <input type="text" id="country" class="form-control" formControlName="country" placeholder="Select the country">
+                      </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <div class="form-group">
+                        <label for="area">{{'Area'| translate}}</label>
+                        <input type="text" id="area" class="form-control" formControlName="area" placeholder="Select the area">
+                      </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <div class="form-group ">
+                        <label for="city" >{{'City' | translate}}</label>
+                        <input type="text" id="city" class="form-control" formControlName="city" placeholder="Select the city">
+                      </div>
+                    </div>
+              
+                  <div class="col-md-3 mb-3">
+                    <div class="form-group">
+                      <label for="supervisorName">{{'Supervisor_Name'| translate}}</label>
+                      <input type="text" id="supervisorName" class="form-control" formControlName="supervisorName" placeholder="write the name of the Supervisor">
+                    </div>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <div class="form-group">
+                      <label for="supervisorPhone">{{'Supervisor_Phone'| translate}}</label>
+                      <input type="text" id="supervisorPhone" class="form-control" formControlName="supervisorPhone" placeholder="write the phone number of the Supervisor">
+                    </div>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <div class="form-group">
+                      <label for="representative">{{'Representative_Name' | translate}}</label>
+                      <input type="text" id="representative" class="form-control" formControlName="representative" placeholder="Write the Name of the Representative">
+                    </div>
+                  </div>
+            
+                <div class="col-md-3 mb-3">
+                    <label for="startDateContract">{{'Start_Date_Contract'|translate}}</label>
+                    <input class="form-control" id="startDateCoupon" formControlName="startDateContract" type="date" placeholder="Select the start date of the contract" />
+                    <!-- <div *ngIf="merchantForm.get('startDateContract').invalid && merchantForm.get('startDateContract').touched">
+                      {{'Start Date Contract is required'|translate}}
+                    </div> -->
+                  </div>
+                
+                  <div class="col-md-3 mb-3">
+                    <label for="endDateContract">{{'End_Date_Contract'|translate}}</label>
+                    <input  class="form-control" id="endDateContract" formControlName="endDateContract" type="date" placeholder="Select the end date of the contract"/>
+                    <!-- <div *ngIf="merchantForm.get('endDateContract').invalid && merchantForm.get('endDateContract').touched">
+                      {{'End Date Contract is required'|translate}}
+                    </div> -->
+                  </div>
+                
+                  <div class="col-md-3 mb-3">
+                    <div class="form-group">
+                      <label for="serviceType">{{'Service_Type' | translate}}</label>
+                      <input type="text" id="serviceType" class="form-control" formControlName="serviceType">
+                    </div>
+                  </div>
+                
+                 <div class="col-md-3 mb-3">
+                      <div class="form-group">
+                        <label for="merchantSection">{{'Merchant_Section'| translate}}</label>
+                        <select id="merchantSection" class="form-control" formControlName="merchantSection">
+                          <option value="">{{'Select a section of the merchant' | translate}}</option>
+                          <option *ngFor="let section of sections" [value]="section">{{ section }}</option>
+                        </select>
+                      </div>
+                    </div>
+                <div class="col-md-3 mb-3">
+                      <div class="form-group">
+                        <label for="merchantCategory">{{'Merchant_Category' | translate}}</label>
+                        <select id="merchantCategory" class="form-control" formControlName="merchantCategory" >
+                          <option value="">{{'Select a category' | translate}}</option>
+                          <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group ">
+                          <label for="merchantLogo" >{{'Merchant Logo' | translate}}</label>
+                          <input type="file" id="merchantLogo" class="form-control" formControlName="merchantLogo" accept="image/png, image/gif, image/jpeg" (change)="uploadStoreLogo($event)">
+                        </div>
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <div class="form-group">
+                          <label for="merchantPicture">{{'Merchant Picture' | translate}}</label>
+                          <input type="file" id="merchantPicture" class="form-control" formControlName="merchantPicture" accept="image/png, image/gif, image/jpeg" (change)="uploadMerchantPicture($event)">
+                        </div>
+                      </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group">
+                          <label for="bankAccountNumber">{{'Bank_Account_Number'}}</label>
+                          <input type="text" id="bankAccountNumber" class="form-control" formControlName="bankAccountNumber" placeholder="Write the Bank Account Number">
+                        </div>
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <div class="form-group">
+                          <label for="registerCode">{{'Registration_Code'| translate}}</label>
+                          <input type="text" id="registerCode" class="form-control" formControlName="registerCode" placeholder="Write the number of Registration Code">
+                        </div>
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <div class="form-group">
+                          <label for="mapLocation">{{'Map_Location'| translate}}</label>
+                          <input type="text" id="mapLocation" class="form-control" formControlName="mapLocation" placeholder="Pick Up Merchant's Location">
+                        </div>
+                      </div>
+                      <div class="row">
+
+                      </div>
+                    <div class="col-md-3 mb-3">
+                      <div class="form-group">
+                        <label for="website">{{'Merchant_Website' | translate}}</label>
+                        <input type="text" id="website" class="form-control" formControlName="website" placeholder="Link for Merchant Website">
+                      </div>
+                    </div>
+                  <div class="col-md-3 mb-3">
+                    <div class="form-group">
+                      <label for="whatsup">{{'WhatsApp' | translate}}</label>
+                      <input type="text" id="whatsup" class="form-control" formControlName="whatsup" placeholder="Link for whatsup">
+                    </div>
+                  </div>
+                 
+                  <div class="col-md-3 mb-3">
+                    <div class="form-group">
+                      <label for="facebook">{{'Facebook'| translate}}</label>
+                      <input type="text" id="facebook" class="form-control" formControlName="facebook" placeholder="Link for Facebook">
+                    </div>
+                  </div>
+                
+                  <div class="col-md-3 mb-3">
+                    <div class="form-group">
+                      <label for="twitter">{{'Twitter' | translate}}</label>
+                      <input type="text" id="twitter" class="form-control" formControlName="twitter">
+                    </div>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <div class="form-group">
+                      <label for="instagram">{{'Instagram'| translate}}</label>
+                      <input type="text" id="instagram" class="form-control" formControlName="instagram" placeholder="Link for Instagram">
+                    </div>
+                  </div>
+             
+              
+              </div>
+                <div class="col-12  mt-4">
+                    <div class="d-flex justify-content-end">
+                        <button type="button" id="cancel-btn" class="btn btn-outline-secondary me-2" (click)="onCancel()">{{'Cancel'|translate}}</button>
+                        <button type="submit" class="btn btn-success" [disabled]="merchantForm.invalid"> {{ (type == 'create' ? 'Add_merchant' : 'update_merchant') | translate }}
+                        </button>
+                    </div>
+                </div>
+              </form>
+            </div>
+        </div>
+    </div> <!-- end col -->
+  </div>
+  

@@ -21,6 +21,7 @@ import {
     updateMerchantStatusFailure
 } from './merchantlist1.action';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class MerchantslistEffects1 {
@@ -47,6 +48,7 @@ export class MerchantslistEffects1 {
                 this.CrudService.addData('/merchants', newData).pipe(
                     map((newData) => {
                         this.toastr.success('The new merchant has been added successfully.');
+                        this.router.navigate(['/private/merchants/list']);
                         // Dispatch the action to fetch the updated merchant list after adding a new merchant
                         return addMerchantlistSuccess({newData});
                       }),
@@ -74,7 +76,8 @@ export class MerchantslistEffects1 {
             ofType(updateMerchantlist),
             mergeMap(({ updatedData }) => {
                 console.log('Updated Data:', updatedData);
-
+                this.toastr.success('The merchant has been updated successfully.');
+                this.router.navigate(['/private/merchants/list']);
                 return this.CrudService.updateData(`/merchants/${updatedData.id}`, updatedData).pipe(
                     map(() => updateMerchantlistSuccess({ updatedData })),
                     catchError((error) => of(updateMerchantlistFailure({ error })))
@@ -106,7 +109,8 @@ export class MerchantslistEffects1 {
     constructor(
         private actions$: Actions,
         private CrudService: CrudService,
-        public toastr:ToastrService
+        public toastr:ToastrService,
+        private router: Router
     ) { }
 
 }

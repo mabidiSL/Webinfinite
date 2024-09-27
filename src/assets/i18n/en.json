@@ -510,6 +510,9 @@
   "Bank_Name":"Bank Name",
   "Bank_Name_is_required": "Bank Name is required",
   "Bank_Account_Number": "Bank Account Number",
-  "Role_is_required": "Role is required"
+  "Role_is_required": "Role is required",
+  "Add_merchant": "Add Merchant",
+  "Update_merchant": "Update Merchant"
+
 
 }
