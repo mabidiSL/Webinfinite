@@ -122,15 +122,7 @@
                             </li>
                           </ul>
                         </td>
-                        <!-- <li class="list-inline-item">
-                          <div dropdown class="dropdown">
-                            <a dropdownToggle href="javascript: void(0);" class="dropdown-toggle card-drop px-2 show" aria-expanded="true"> <i class="mdi mdi-dots-horizontal font-size-18"></i> </a>
-                            <ul *dropdownMenu class="dropdown-menu dropdown-menu-end show" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 31.25px);" placement="bottom-end">
-                              <li><a href="javascript:void(0);" (click)="editUser($index)" class="dropdown-item edit-list" data-edit-id="8"><i class="mdi mdi-pencil font-size-16 text-success me-1"></i> Edit</a></li>
-                              <li><a href="javascript:void(0);" (click)="removeUser(data.id)" class="dropdown-item remove-list" data-remove-id="8"><i class="mdi mdi-trash-can font-size-16 text-danger me-1"></i> Delete</a></li>
-                            </ul>
-                          </div>
-                        </li> -->
+                        
                       </ul>
                     </td>
                   </tr>
@@ -160,113 +152,8 @@
       </div>
     </div>
   </div>
-  
-  <!-- Modal -->
-  <div bsModal #newContactModal="bs-modal" class="modal fade" id="newContactModal" tabindex="-1" aria-labelledby="newContactModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="newContactModalLabel">{{'Add New Merchant'| translate}}</h5>
-          <button type="button" class="btn-close" (click)="newContactModal.hide()"></button>
-        </div>
-        <div class="modal-body">
-          <form (ngSubmit)="saveUser()" [formGroup]="createContactForm" autocomplete="off" class="needs-validation createContact-form" id="createContact-form">
-            <div class="row">
-              <div class="col-lg-12">
-                <input type="hidden" class="form-control" id="userid-input">
-                <div class="text-center mb-4">
-                  <div class="position-relative d-inline-block">
-                    <div class="position-absolute bottom-0 end-0">
-                      <label for="member-image-input" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="{{'Select Member Image'| translate}}">
-                        <div class="avatar-xs">
-                          <div class="avatar-title bg-light border rounded-circle text-muted cursor-pointer">
-                            <i class="bx bxs-image-alt"></i>
-                          </div>
-                        </div>
-                      </label>
-                      <input class="form-control d-none" value="" id="member-image-input" type="file" accept="image/png, image/gif, image/jpeg" (change)="fileChange($event)">
-                    </div>
-                    <div class="avatar-lg">
-                      <div class="avatar-title bg-light rounded-circle">
-                        <img src="assets/images/users/user-dummy-img.jpg" id="member-img" class="avatar-md rounded-circle h-auto" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              <div class="mb-3">
-                <label for="email-input" class="form-label">{{'Email'|translate}}</label>
-                <input type="email" id="email-input" class="form-control" placeholder="{{'Enter the email'|translate}}" formControlName="email" required />
-                <div class="invalid-feedback">{{'Please enter the email'  | translate}}.</div>
-              </div>
-                <div class="mb-3">
-                  <label for="username-input" class="form-label">{{'UserName'| translate}}</label>
-                  <input type="text" id="username-input" class="form-control" placeholder="{{'Enter the username'| translate}}" formControlName="username" required />
-                  <div class="invalid-feedback">{{'Please enter the username'  | translate}}.</div>
-                </div>
-               
-                <div class="mb-3" id="pwdField">
-                  <label for="Password" class="form-label">{{'Password'|translate}}</label>
-                  <input type="password" formControlName="password"  class="form-control" id="Password" placeholder="{{'Enter the Password'| translate}}">
-                  <div class="invalid-feedback">{{'Please enter the password'|translate}}.</div>
-                </div>
-                <div class="mb-3">
-                  <label for="merchant-input" class="form-label">{{'Merchant Name'| translate}}</label>
-                  <input type="text" id="merchant-input" class="form-control" placeholder="{{'Enter the Merchant Name'| translate}}" formControlName="merchantName" required />
-                  <div class="invalid-feedback">{{'Please enter merchant name'  | translate}}.</div>
-                </div>
-                <div class="mb-3">
-                  <label for="phone" class="form-label">{{'Phone'| translate}}</label>
-                  <input class="form-control" formControlName="phone" type="tel" value="1-(555)-555-5555" id="phone" placeholder="{{'Enter the Phone'|translate}}">
-                  <div class="invalid-feedback">{{'Please enter the phone number'|translate}}.</div>
-                </div>
-                <div class="mb-3">
-                  <label for="companyRegister" class="form-label">{{'Company Registration'| translate}}</label>
-                  <input class="form-control" formControlName="company_registration" type="text"  id="companyRegister" placeholder="{{'Enter the Company Registration Code'| translate}}">
-                  <div class="invalid-feedback">{{'Please enter the company registration code'| translate}}.</div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-4">
-                      <div class="mb-3">
-                          <label for="city">{{'City'| translate}}</label>
-                          <input type="text" class="form-control" formControlName="city" id="city" placeholder="{{'Enter Your Living City'|translate}}">
-                      </div>
-                  </div>
-                  <div class="col-lg-4">
-                      <div class="mb-3">
-                          <label for="country">{{'Country'| translate}}</label>
-                          <input type="text" class="form-control" formControlName="country" id="country" placeholder="{{'Enter Your Country'|translate}}">
-                          <!-- <select id="country" class="form-control" formControlName="country">
-                              <option selected>{{'Choose...'|translate}}</option>
-                              <option>{{'SAR'| translate}}</option>
-                          </select> -->
-                      </div>
-                  </div>
 
-                  <div class="col-lg-4">
-                      <div class="mb-3">
-                          <label for="building">{{'Building'| translate}}</label>
-                          <input type="text" class="form-control" formControlName="building" id="building" placeholder="{{'Enter Building Name'| translate}}">
-                      </div>
-                  </div>
-              </div>
-
-              </div>
   
-              <div class="col-lg-12">
-                <div class="text-end">
-                  <button type="button" id="cancel-btn" class="btn btn-outline-secondary me-1" (click)="newContactModal.hide()">{{'Cancel'|translate}}</button>
-                  <button type="submit" id="addContact-btn" class="btn btn-success">{{'Add'| translate}}</button>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-        <!-- end modal body -->
-      </div>
-      <!-- end modal-content -->
-    </div>
-    <!-- end modal-dialog -->
-  </div>
   <!-- end newContactModal -->
   <div id="elmLoader" class="text-center">
     <div class="spinner-border text-primary avatar-sm" role="status">

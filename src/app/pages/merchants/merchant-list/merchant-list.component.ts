@@ -75,22 +75,7 @@ export class MerchantListComponent implements OnInit {
         });
      
 
-    this.createContactForm = this.formBuilder.group({
-      _id: [''],
-      username: ['', [Validators.required]],
-      merchantName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-      phone: ['', [Validators.required]],
-      company_registration:['', [Validators.required]],
-      city:['', [Validators.required]],
-      country:['', [Validators.required]],
-      building:['', [Validators.required]],
-      user_type:['merchant'],
-      status:['active']
-      
-    });
-    this.resetModal();
+   
   }
 
   // File Upload
@@ -109,62 +94,7 @@ export class MerchantListComponent implements OnInit {
     reader.readAsDataURL(file)
   }
 
-  // Save User
-  saveUser() {
-    if( this.viewType === "add"|| this.viewType === "edit"){
-    if (this.createContactForm.get('_id')?.value){
-      console.log('removing password field');
-      
-      this.createContactForm.get('password')?.clearValidators();
-      this.createContactForm.get('password')?.updateValueAndValidity();
-    } 
-    else 
-    {
-        console.log('Adding new user, ensuring password is required');
-        // Ensure password is required when adding a new user
-        this.createContactForm.get('password')?.setValidators([Validators.required]);
-        this.createContactForm.get('password')?.updateValueAndValidity();
-    }
-    console.log(this.createContactForm.value);
-    console.log('Form status:', this.createContactForm.status);
-    console.log('Form errors:', this.createContactForm.errors);
-    
 
-    if (this.createContactForm.valid) {
-      
-      if (this.createContactForm.get('_id')?.value) {
-        const updatedData = this.createContactForm.value;
-        this.store.dispatch(updateMerchantlist({ updatedData }));
-      } 
-      else {
-        
-        this.createContactForm.patchValue({
-          user_type: 'merchant',
-          status: 'active',
-          });
-        const newData = this.createContactForm.value;
-        delete newData._id;
-        this.store.dispatch(addMerchantlist({ newData }));
-        
-        
-      }
-         }
-      } 
-
-    this.newContactModal?.hide()
-    document.querySelectorAll('#member-img').forEach((element: any) => {
-      element.src = 'assets/images/users/user-dummy-img.jpg';
-    });
-
-    setTimeout(() => {
-      this.createContactForm.reset();
-      this.resetPasswordValidation();
-    }, 1000);
-  }
-  resetPasswordValidation() {
-    this.createContactForm.get('password')?.setValidators([Validators.required]);
-    this.createContactForm.get('password')?.updateValueAndValidity();
-}
   // fiter job
   searchJob() {
     if (this.term) {
@@ -269,37 +199,8 @@ viewUser(id: any) {
     }
 });
 }
-  // Edit User
-  editUser(id: any) {
-    this.viewType = "edit";
-    this.submitted = false;
-    this.newContactModal?.show()
-    this.createContactForm.enable();
-
-    var modelTitle = document.querySelector('.modal-title') as HTMLAreaElement;
-    modelTitle.innerHTML = 'Edit Profile';
-    
-    var updateBtn = document.getElementById('addContact-btn') as HTMLAreaElement;
-    updateBtn.innerHTML = "Update";
-
-    var passwordInput = document.getElementById('pwdField') as HTMLAreaElement;
-    passwordInput.hidden = true;
-    
-    this.merchantList$.pipe(take(1)).subscribe(merchantList => {
-    const user = merchantList.find(merchant => merchant._id === id);
-
-      if (user) {
-          console.log("The user to be updated", user);
-          this.createContactForm.patchValue(user);
-          this.createContactForm.patchValue({
-            _id: user._id
-          });
-
-      } else {
-          console.error('User not found');
-      }
-  });
-  }
+ 
+ 
   resetModal() {
     this.createContactForm.reset();
     var modelTitle = document.querySelector('.modal-title') as HTMLAreaElement;
@@ -333,7 +234,7 @@ viewUser(id: any) {
   onChangeEvent(data: any, event: any) {
     const newStatus = event.checked ? 'active' : 'inactive'; 
     console.log('Merchant ID:', data.id, 'New Status:', newStatus);
-    data.status = newStatus;
+    data.user.status = newStatus;
     this.store.dispatch(updateMerchantlist({ updatedData: data }));
 
    

@@ -6,7 +6,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { StatComponent } from './stat/stat.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { PhoneNumberComponent } from './phone-number/phone-number.component';
-import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [StatComponent, TransactionComponent, PhoneNumberComponent],
