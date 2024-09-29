@@ -155,6 +155,10 @@
       "TEXT": "Coupons"
      
     },
+    "COUPONAPPROVAL": {
+      "TEXT": "Coupons Approval"
+     
+    },
     "GIFTS":{
       "TEXT": "Gifts"
     },

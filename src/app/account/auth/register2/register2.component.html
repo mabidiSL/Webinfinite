@@ -94,7 +94,11 @@
                       <div class="col-md-6 mb-3">
                         <div class="form-group">
                           <label for="phone" >Phone Number <span class="text-danger">*</span></label><br>
-                         <app-phone-number (phoneNumberChanged)="onPhoneNumberChanged($event)" ></app-phone-number>
+                         <app-phone-number
+                         [initialPhoneNumber]="signupForm.get('phone').value"
+                         *ngIf="signupForm"
+                          (phoneNumberChanged)="onPhoneNumberChanged($event)" >
+                        </app-phone-number>
                          <div *ngIf="signupForm.get('phone').touched && signupForm.get('phone').invalid" class="invalid-feedback d-block">
                           <span *ngIf="signupForm.get('phone').errors?.['required']">{{'Phone Number is required'| translate}}.</span>
                         </div>   

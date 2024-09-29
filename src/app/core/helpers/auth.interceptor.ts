@@ -48,14 +48,14 @@ export class AuthInterceptor implements HttpInterceptor {
         if (refreshToken) {
           // Call refresh token API
           return this.authService.refreshToken(refreshToken).pipe(
-            switchMap((newToken: any) => {
+            switchMap((response: any) => {
               // Store the new token
-              localStorage.setItem('token',newToken.accessToken);
+              localStorage.setItem('token',response.result.accessToken);
               
               // Retry the original request with the new token
-              const clonedRequest = this.addTokenHeader(request, newToken.accessToken);
+              const clonedRequest = this.addTokenHeader(request, response.result.accessToken);
               return next.handle(clonedRequest);
-            }),
+             }),
             catchError((error) => {
               // Handle refresh token failure (e.g., logout the user)
               this.authService.logout();

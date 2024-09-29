@@ -57,7 +57,7 @@ export class AuthfakeauthenticationService {
     }
 
     refreshToken(refreshToken: string): Observable<any> {
-        return this.http.post('auth/refresh', { refreshToken });
+        return this.http.post(`${environment.baseURL}/auth/refresh`, { refreshToken: refreshToken });
     }
     logout() {
         // remove user from local storage to log user out

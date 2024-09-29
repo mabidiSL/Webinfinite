@@ -204,6 +204,15 @@ export const MENU: MenuItem[] = [
         claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.ViewAll]}],
        
     },
+   
+    {
+        id: 60,
+        label: 'MENUITEMS.COUPONAPPROVAL.TEXT',
+        icon: 'bx bxs-coupon',
+        link: '/private/coupons/approve',
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Approve]}],
+       
+    },
     {
         id: 28,
         label: 'MENUITEMS.PREPRINTEDMEMBERSHIP.TEXT',

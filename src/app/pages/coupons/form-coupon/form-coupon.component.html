@@ -172,7 +172,7 @@
               
                  <div class="col-md-6 mb-3">
                   <label for="couponLogo">{{'Upload Coupon Logo'|translate}}</label>
-                  <input class="form-control" id="couponLogo" formControlName="couponLogo" type="file" accept="image/png, image/gif, image/jpeg" (change)="uploadCouponLogo($event)"/>
+                  <input class="form-control" id="couponLogo"  type="file" accept="image/png, image/gif, image/jpeg" (change)="uploadCouponLogo($event)"/>
                   <div *ngIf="formCoupon.get('couponLogo').invalid && formCoupon.get('couponLogo').touched">
                     {{'Coupon Logo is required'|translate}}
                   </div>
