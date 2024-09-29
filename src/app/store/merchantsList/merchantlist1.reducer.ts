@@ -1,15 +1,17 @@
 // src/app/merchantlist.reducer.ts
 import { createReducer, on } from '@ngrx/store';
-import {  addMerchantlistSuccess, deleteMerchantlistFailure, deleteMerchantlistSuccess, fetchMerchantlistData, fetchMerchantlistFail, fetchMerchantlistSuccess, updateMerchantlistSuccess, updateMerchantStatusSuccess } from './merchantlist1.action';
+import {  addMerchantlistSuccess, deleteMerchantlistFailure, deleteMerchantlistSuccess, fetchMerchantlistData, fetchMerchantlistFail, fetchMerchantlistSuccess, getMerchantByIdSuccess, updateMerchantlistSuccess, updateMerchantStatusSuccess } from './merchantlist1.action';
 
 export interface MerchantlistState {
   MerchantListdata: any[];
+  selectedMerchant: any,
   loading: boolean;
   error: any;
 }
 
 export const initialState: MerchantlistState = {
   MerchantListdata: [],
+  selectedMerchant: null,
   loading: false,
   error: null,
 };
@@ -37,7 +39,11 @@ export const MerchantListReducer = createReducer(
     MerchantListdata: [...state.MerchantListdata, newData],
     loading: false
   })),
-  
+  // Handle success of getting Employee by ID and store the Employee object in the state
+  on(getMerchantByIdSuccess, (state, { merchant }) => ({
+    ...state,
+    selectedMerchant: merchant
+  })),
   // Handle updating merchant list
   on(updateMerchantStatusSuccess, (state, { updatedData }) => {
     return {

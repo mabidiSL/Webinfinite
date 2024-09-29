@@ -26,6 +26,9 @@ export const updateMerchantStatusFailure = createAction(
 export const addMerchantlist = createAction('[Data] Add Merchantlist',  props<{ newData: MerchantListModel }>());
 export const addMerchantlistSuccess = createAction('[Data] Add Merchantlist Success', props<{ newData: any }>());
 export const addMerchantlistFailure = createAction('[Data] Add Merchantlist Failure', props<{ error: string }>());
+//get Merchant by ID
+export const getMerchantById = createAction('[Data] get Merchant', props<{ merchantId: string }>());
+export const getMerchantByIdSuccess = createAction('[Data] get Merchant success', props<{ merchant: any }>());
 
 // Update Data
 export const updateMerchantlist = createAction(

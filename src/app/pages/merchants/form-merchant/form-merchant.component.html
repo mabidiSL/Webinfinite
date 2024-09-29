@@ -34,14 +34,17 @@
                   <div class="col-md-3 mb-3">
                     <div class="form-group">
                       <label for="phone" >{{'Phone Number' | translate}} <span class="text-danger">*</span></label><br>
-                     <app-phone-number (phoneNumberChanged)="onPhoneNumberChanged($event)" ></app-phone-number>
+                     <app-phone-number *ngIf="merchantForm"
+                     
+                     (phoneNumberChanged)="onPhoneNumberChanged($event)" >
+                    </app-phone-number>
                      <!-- <div *ngIf="merchantForm.get('phone').touched && merchantForm.get('phone').invalid" class="invalid-feedback d-block">
                       <span *ngIf="merchantForm.get('phone').errors?.['required']">{{'Phone Number is required'| translate}}.</span>
                     </div>    -->
                     </div>
                   </div>
             
-                    <div class="col-md-3 mb-3">
+                    <div *ngIf="type == 'create'" class="col-md-3 mb-3">
                         <div class="form-group ">
                         <label for="password" >{{'Password'| translate}} <span class="text-danger">*</span></label>
                         <input type="password" id="password" class="form-control" formControlName="password" placeholder="Write the password" >
@@ -53,7 +56,7 @@
                         </div> -->
                         </div>
                     </div>
-                    <div class="col-md-3 mb-3">
+                    <div *ngIf="type == 'create'" class="col-md-3 mb-3">
                         <div class="form-group ">
                         <label for="confpassword" >{{'Confirm password'| translate}} <span class="text-danger">*</span></label>
                         <input type="password" id="confpassword" class="form-control" formControlName="confpassword" placeholder="Confirm the password" >
@@ -158,15 +161,39 @@
                       </div>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <div class="form-group ">
-                          <label for="merchantLogo" >{{'Merchant Logo' | translate}}</label>
-                          <input type="file" id="merchantLogo" class="form-control" formControlName="merchantLogo" accept="image/png, image/gif, image/jpeg" (change)="uploadStoreLogo($event)">
+                        <div class="form-group">
+                          <label for="merchantLogo">{{ 'Merchant Logo' | translate }}</label>
+                      
+                          <!-- Display the merchant logo if it exists -->
+                          <div *ngIf="merchantForm.get('merchantLogo').value !== null && merchantForm.get('merchantLogo').value !== ''"
+                          class="mb-3">
+                            <img [src]="existantmerchantLogo" alt="Merchant Logo" class="img-fluid" width="200">
+                          </div>
+                      
+                          <!-- File input for selecting or uploading a new image -->
+                          <input
+                            type="file"
+                            id="merchantLogo"
+                            class="form-control"
+*                            accept="image/png, image/gif, image/jpeg"
+                            (change)="uploadStoreLogo($event)"
+                          >
                         </div>
                       </div>
                       <div class="col-md-3 mb-3">
                         <div class="form-group">
                           <label for="merchantPicture">{{'Merchant Picture' | translate}}</label>
-                          <input type="file" id="merchantPicture" class="form-control" formControlName="merchantPicture" accept="image/png, image/gif, image/jpeg" (change)="uploadMerchantPicture($event)">
+                           <!-- Display the merchant pictures if it exists -->
+                           <div *ngIf="merchantForm.get('merchantPicture').value !== null && merchantForm.get('merchantPicture').value !== ''"
+                           class="mb-3">
+                             <img [src]="existantmerchantPicture" alt="Merchant Pictutre" class="img-fluid" width="200">
+                           </div>
+                        <input 
+                          type="file" 
+                          id="merchantPicture" 
+                          class="form-control"  
+                          accept="image/png, image/gif, image/jpeg" 
+                          (change)="uploadMerchantPicture($event)">
                         </div>
                       </div>
                     <div class="col-md-3 mb-3">

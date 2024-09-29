@@ -5,9 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../../../core/services/auth.service';
 
 import { UserProfileService } from '../../../core/services/user.service';
-import { Store } from '@ngrx/store';
-import { Register } from 'src/app/store/Authentication/authentication.actions';
-import { addMerchantlist } from 'src/app/store/merchantsList/merchantlist1.action';
+import { select, Store } from '@ngrx/store';
+import { addMerchantlist, getMerchantById } from 'src/app/store/merchantsList/merchantlist1.action';
+import { Subject, takeUntil } from 'rxjs';
+import { selectMerchantById } from 'src/app/store/merchantsList/merchantlist1-selector';
 
 
 @Component({
@@ -19,60 +20,89 @@ export class FormMerchantComponent implements OnInit {
   
   @Input() type: string;
   merchantForm: UntypedFormGroup;
+  private destroy$ = new Subject<void>();
+
   submitted: any = false;
   error: any = '';
   successmsg: any = false;
   fieldTextType!: boolean;
   imageURL: string | undefined;
+  existantmerchantLogo: string = null;
+  existantmerchantPicture: string = null
   merchantPictureBase64: string = null;
   storeLogoBase64: string = null;
-  categories: string[] = ['discount','coupon', 'card'];
+  isEditing: boolean = false;
+  categories: string[] = ['discount','merchant', 'card'];
   sections: string[] = ['Restaurant', 'Fashion and style','Daily services', 'Entertainment', 'Tourism and travel','Cafes and sweets', 'Health and beauty', 'Gifts and occasions', 'Online stores', 'Electronics'];
   constructor(private formBuilder: UntypedFormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService,
-    private userService: UserProfileService, public store: Store) { }
+    private userService: UserProfileService, public store: Store) {
+      this.merchantForm = this.formBuilder.group({
+      
+        username: [''],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['' ],
+        confpassword: [''],
+        cin: [''],
+       // storeName:['',Validators.required],
+        merchantLogo: [''],
+        phone:[''], //Validators.pattern(/^\d{3}-\d{3}-\d{4}$/)*/],
+        country:[''],
+        city:[''],
+        area:[''], 
+        startDateContract: [''],
+        endDateContract:[''],
+        serviceType: [''],
+        supervisorName: [''],
+        supervisorPhone: [''],  
+        representative: [''],
+        bankAccountNumber: [''],
+        registerCode:[''],
+        mapLocation:[''],
+        longitude:[''],
+        latitude:[''],
+        merchantName: [''],
+        merchantPicture: [''],
+        website: [''],
+        whatsup:[''],
+        facebook: [''],
+        twitter: [''],
+        instagram: [''],
+        merchantSection:[''],
+        merchantCategory: [''],
+        status: ['active']
+  
+      }/*, {validators: [this.passwordMatchValidator]}*/);
+     }
   // set the currenr year
   year: number = new Date().getFullYear();
 
   ngOnInit() {
 
-    document.body.classList.add("auth-body-bg");
-
-    this.merchantForm = this.formBuilder.group({
+    const merchantId = this.route.snapshot.params['id'];
+    console.log('merchant ID from snapshot:', merchantId);
+    if (merchantId) {
+      // Dispatch action to retrieve the merchant by ID
+      this.store.dispatch(getMerchantById({ merchantId }));
       
-      username: [''],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['' ],
-      confpassword: [''],
-      cin: [''],
-     // storeName:['',Validators.required],
-      merchantLogo: [''],
-      phone:[''], //Validators.pattern(/^\d{3}-\d{3}-\d{4}$/)*/],
-      country:[''],
-      city:[''],
-      area:[''], 
-      startDateContract: [''],
-      endDateContract:[''],
-      serviceType: [''],
-      supervisorName: [''],
-      supervisorPhone: [''],  
-      representative: [''],
-      bankAccountNumber: [''],
-      registerCode:[''],
-      mapLocation:[''],
-      longitude:[''],
-      latitude:[''],
-      merchantName: [''],
-      merchantPicture: [''],
-      website: [''],
-      whatsup:[''],
-      facebook: [''],
-      twitter: [''],
-      instagram: [''],
-      merchantSection:[''],
-      merchantCategory: [''],
-      status: ['active']
+      // Subscribe to the selected merchant from the store
+      this.store
+        .pipe(select(selectMerchantById(merchantId)), takeUntil(this.destroy$))
+        .subscribe(merchant => {
+          if (merchant) {
+            console.log('Retrieved merchant:', merchant);
+            //merchant.startDateContract = this.formatDate(merchant.startDateContract);
+            //merchant.endDateContract = this.formatDate(merchant.endDateContract);
+            this.existantmerchantLogo = merchant.merchantLogo;
+            this.existantmerchantPicture = merchant.merchantPicture;
+            this.merchantForm.patchValue(merchant);
+            this.merchantForm.patchValue(merchant.user);
+          
+            this.isEditing = true;
 
-    }/*, {validators: [this.passwordMatchValidator]}*/);
+          }
+        });
+    }
+   
   }
   get passwordMatchError() {
     return (
@@ -107,8 +137,12 @@ export class FormMerchantComponent implements OnInit {
     return null;
   }
 
-
+  private formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0]; // Converts to YYYY-MM-DD format
+  }
   onPhoneNumberChanged(phoneNumber: string) {
+    console.log('PHONE NUMBER', phoneNumber);
     this.merchantForm.get('phone').setValue(phoneNumber);
   }
 
@@ -157,12 +191,7 @@ export class FormMerchantComponent implements OnInit {
       this.merchantForm.markAllAsTouched();
     }
   }
-  onCancel(){
-    console.log('Form status:', this.merchantForm.status);
-    console.log('Form errors:', this.merchantForm.errors);
-    this.merchantForm.reset();
-    this.router.navigateByUrl('/private/merchants/list');
-  }
+  
     /**
  * Password Hide/Show
  */
@@ -216,4 +245,15 @@ export class FormMerchantComponent implements OnInit {
     }
     
   }
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+  onCancel(){
+    console.log('Form status:', this.merchantForm.status);
+    console.log('Form errors:', this.merchantForm.errors);
+    this.merchantForm.reset();
+    this.router.navigateByUrl('/private/merchants/list');
+  }
+
 }

@@ -108,11 +108,11 @@
                         <td>
                           <ul class="list-unstyled hstack gap-1 mb-0">
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'View'|translate}}">
-                              <a [routerLink]="['/private/employees/edit/', data.id]" class="btn btn-sm btn-soft-primary" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.View]}]" ><i class="mdi mdi-eye-outline"></i></a>
+                              <a [routerLink]="['/private/merchants/edit/', data.id]" class="btn btn-sm btn-soft-primary" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.View]}]" ><i class="mdi mdi-eye-outline"></i></a>
                             </li>
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Edit'|translate}}">
                               <!-- <a href="javascript:void(0);" class="btn btn-sm btn-soft-info" (click)="editDataGet(data.id,content)"><i class="mdi mdi-pencil-outline"></i></a> -->
-                              <a [routerLink]="['/private/employees/edit/', data.id]" class="btn btn-sm btn-soft-info" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Update]}]" (click)="editUser(data.id)"><i class="mdi mdi-pencil-outline"></i></a>
+                              <a [routerLink]="['/private/merchants/edit/', data.id]" class="btn btn-sm btn-soft-info" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Update]}]" ><i class="mdi mdi-pencil-outline"></i></a>
 
                             </li>
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Disable'| translate}}">

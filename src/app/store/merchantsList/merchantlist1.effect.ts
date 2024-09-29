@@ -18,10 +18,14 @@ import {
     deleteMerchantlist,
     updateMerchantStatus,
     updateMerchantStatusSuccess,
-    updateMerchantStatusFailure
+    updateMerchantStatusFailure,
+    getMerchantById,
+    getMerchantByIdSuccess
 } from './merchantlist1.action';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { selectMerchantById } from './merchantlist1-selector';
 
 @Injectable()
 export class MerchantslistEffects1 {
@@ -57,6 +61,29 @@ export class MerchantslistEffects1 {
             )
         )
     );
+    getMerchantById$ = createEffect(() =>
+        this.actions$.pipe(
+          ofType(getMerchantById),
+          tap(action => console.log('get Merchant action received:', action)),
+          mergeMap(({ merchantId }) => {
+            // Use the selector to get the Merchant from the store
+            return this.store.select(selectMerchantById(merchantId)).pipe(
+              map(Merchant => {
+                if (Merchant) {
+                  console.log('Merchant',Merchant);
+                  // Dispatch success action with the Merchant data
+                  return getMerchantByIdSuccess({ merchant: Merchant });
+                } else {
+                  console.log('Merchant NULL');
+                  // Handle the case where the Merchant is not found, if needed
+                  // For example, you might want to dispatch a failure action or return an empty Merchant
+                  return getMerchantByIdSuccess({ merchant: null }); // or handle it differently
+                }
+              })
+            );
+          })
+        )
+      );
     updateStatus$ = createEffect(() =>
         this.actions$.pipe(
             ofType(updateMerchantStatus),
@@ -110,7 +137,8 @@ export class MerchantslistEffects1 {
         private actions$: Actions,
         private CrudService: CrudService,
         public toastr:ToastrService,
-        private router: Router
+        private router: Router,
+        private store: Store
     ) { }
 
 }
