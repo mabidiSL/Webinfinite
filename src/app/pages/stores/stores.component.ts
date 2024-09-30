@@ -43,7 +43,9 @@ export class StoresComponent implements OnInit {
   @ViewChild('removeItemModal', { static: false }) removeItemModal?: ModalDirective;
   deleteId: any;
   returnedArray: Observable<any[]>;
-  
+   // File Upload
+   imageURL: string | undefined;
+
   public Modules = Modules;
   public Permission = Permission;
 
@@ -75,23 +77,6 @@ export class StoresComponent implements OnInit {
 
    
   }
-
-  // File Upload
-  imageURL: string | undefined;
-  fileChange(event: any) {
-    let fileList: any = (event.target as HTMLInputElement);
-    let file: File = fileList.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imageURL = reader.result as string;
-      document.querySelectorAll('#member-img').forEach((element: any) => {
-        element.src = this.imageURL;
-      });
-      this.createContactForm.controls['profile'].setValue(this.imageURL);
-    }
-    reader.readAsDataURL(file)
-  }
-
 
   // fiter job
   searchJob() {
@@ -157,7 +142,7 @@ groupBy(data: any[], criterion: string) {
   }
 
   // Disable Store
-  disableStore(id: any) {
+  disableCountry(id: any) {
     this.deleteId = id;
     console.log('the id of the store to be deleted'+this.deleteId);
     this.removeItemModal?.show();
