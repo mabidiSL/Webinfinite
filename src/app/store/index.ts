@@ -18,6 +18,7 @@ import { MailReducer, MailState } from "./Email/email.reducer";
 import { MerchantListReducer, MerchantlistState } from "./merchantsList/merchantlist1.reducer";
 import { CouponListReducer, CouponlistState } from "./coupon/coupon.reducer";
 import { EmployeeListReducer, EmployeelistState } from "./employee/employee.reducer";
+import { StoreListReducer, StorelistState } from "./store/store.reducer";
 
 
 export interface RootReducerState {
@@ -40,6 +41,7 @@ export interface RootReducerState {
     MerchantList: MerchantlistState;
     CouponList: CouponlistState;
     EmployeeList: EmployeelistState;
+    StoreList: StorelistState;
 }
 
 export const rootReducer: ActionReducerMap<RootReducerState> = {
@@ -61,6 +63,7 @@ export const rootReducer: ActionReducerMap<RootReducerState> = {
     Maillist: MailReducer,
     MerchantList:MerchantListReducer,
     CouponList: CouponListReducer,
-    EmployeeList: EmployeeListReducer
+    EmployeeList: EmployeeListReducer,
+    StoreList: StoreListReducer
 
 }

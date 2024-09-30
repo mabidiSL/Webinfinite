@@ -1,0 +1,107 @@
+<div class="row">
+    <div class="col-19">
+        <div class="card">
+            <div class="card-body ">
+              <form (ngSubmit)="onSubmit()" [formGroup]="storeForm"  class="m-4">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group ">
+                           <label for="name" >{{'Store_Name' | translate}} <span class="text-danger">*</span></label>
+                            <input type="text" id="name" class="form-control" formControlName="name"  >
+                            <!-- <div *ngIf="storeForm.get('username').touched && storeForm.get('username').invalid" class="invalid-feedback d-block">
+                                <span *ngIf="storeForm.get('username').errors?.['required']">{{'Name is required'| translate}}.</span>
+                              </div> -->
+                          </div> 
+                      </div>
+                  <div class="col-md-3 mb-3">
+                    <div class="form-group ">
+                       <label for="description" >{{'Description' | translate}} <span class="text-danger">*</span></label>
+                       <textarea class="form-control" id="description" formControlName="description" rows="3"></textarea>
+                       <!-- <div *ngIf="storeForm.get('username').touched && storeForm.get('username').invalid" class="invalid-feedback d-block">
+                            <span *ngIf="storeForm.get('username').errors?.['required']">{{'Name is required'| translate}}.</span>
+                          </div> -->
+                      </div> 
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <div class="form-group">
+                      <label for="phone" >{{'Phone Number' | translate}} <span class="text-danger">*</span></label><br>
+                     <app-phone-number
+                     [initialPhoneNumber]="storeForm.get('phone').value"
+                     *ngIf="storeForm"
+                     (phoneNumberChanged)="onPhoneNumberChanged($event)" >
+                    </app-phone-number>
+                     <!-- <div *ngIf="storeForm.get('phone').touched && storeForm.get('phone').invalid" class="invalid-feedback d-block">
+                      <span *ngIf="storeForm.get('phone').errors?.['required']">{{'Phone Number is required'| translate}}.</span>
+                    </div>    -->
+                    </div>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <div class="form-group">
+                      <label for="merchantId" >{{'Merchant_Name' | translate}}</label>
+                      <input type="text" id="merchantId" class="form-control" formControlName="merchantId" >
+                    </div>
+                  </div>
+                    <div class="col-md-3 mb-3">
+                      <div class="form-group">
+                        <label for="country" >{{'Country' | translate}}</label>
+                        <input type="text" id="country" class="form-control" formControlName="country" placeholder="Select the country">
+                      </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <div class="form-group">
+                        <label for="area">{{'Area'| translate}}</label>
+                        <input type="text" id="area" class="form-control" formControlName="area" placeholder="Select the area">
+                      </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <div class="form-group ">
+                        <label for="city" >{{'City' | translate}}</label>
+                        <input type="text" id="city" class="form-control" formControlName="city" placeholder="Select the city">
+                      </div>
+                    </div>
+              
+                 
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group">
+                          <label for="offers" >{{'Number_Of_Offers' | translate}}</label>
+                          <input type="text" id="offers" class="form-control" formControlName="offers" >
+                        </div>
+                      </div>
+                 
+                    <div class="col-md-3 mb-3">
+                        <div class="form-group">
+                          <label for="images">{{ 'Store_Pictures' | translate }}</label>
+                      
+                          <!-- Display the merchant logo if it exists -->
+                          <div *ngIf="storeForm.get('images').value !== null && storeForm.get('images').value !== ''"
+                          class="mb-3">
+                            <img [src]="existantmerchantLogo" alt="Store Pictures" class="img-fluid" width="200">
+                          </div>
+                      
+                          <!-- File input for selecting or uploading a new image -->
+                          <input
+                            type="file"
+                            id="images"
+                            class="form-control"
+*                            accept="image/png, image/gif, image/jpeg"
+                            (change)="uploadStorePictures($event)"
+                          >
+                        </div>
+                      </div>
+                     
+             
+              
+              </div>
+                <div class="col-12  mt-4">
+                    <div class="d-flex justify-content-end">
+                        <button type="button" id="cancel-btn" class="btn btn-outline-secondary me-2" (click)="onCancel()">{{'Cancel'|translate}}</button>
+                        <button type="submit" class="btn btn-success" [disabled]="storeForm.invalid"> {{ (type == 'create' ? 'Add_merchant' : 'update_merchant') | translate }}
+                        </button>
+                    </div>
+                </div>
+              </form>
+            </div>
+        </div>
+    </div> <!-- end col -->
+  </div>
+  

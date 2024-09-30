@@ -5,9 +5,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { ChatComponent } from './chat/chat.component';
 import { DefaultComponent } from './dashboards/default/default.component';
 import { FilemanagerComponent } from './filemanager/filemanager.component';
-import { CouponsComponent } from './coupons/coupons.component';
 import { RoleGuard } from '../core/guards/role.guard';
-import { Modules, Permission } from '../store/Role/role.models';
 
 const routes: Routes = [
    //{ path: '', redirectTo: 'dashboard' },
@@ -27,7 +25,8 @@ const routes: Routes = [
   { path: 'projects', loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule) },
   { path: 'tasks', loadChildren: () => import('./tasks/tasks.module').then(m => m.TasksModule) },
   { path: 'contacts', loadChildren: () => import('./contacts/contacts.module').then(m => m.ContactsModule) },
-  { path: 'merchants', loadChildren: () => import('./merchants/merchants.module').then(m => m.MerchantsModule) },
+  { path: 'merchants', loadChildren: () => import('./merchants/merchants.module').then(m => m.MerchantsModule),canActivate: [RoleGuard]  },
+  { path: 'stores', loadChildren: () => import('./stores/stores.module').then(m => m.StoresModule), canActivate: [RoleGuard] },
   { path: 'coupons',loadChildren: () => import('./coupons/coupons.module').then(m => m.CouponsModule), canActivate: [RoleGuard] },
   { path: 'employees', loadChildren: () => import('./employees/employees.module').then(m => m.EmployeesModule), canActivate: [RoleGuard] },
   { path: 'blog', loadChildren: () => import('./blog/blog.module').then(m => m.BlogModule) },

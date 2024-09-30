@@ -3,6 +3,7 @@ export interface MerchantListModel {
      id?: string;
      merchantLogo ?: string  ;
      merchantPicture? :  string ;
+     categoryId?: string;
      merchantCategory ?:   string;
      merchantName ?:  string ;
      serviceType? :  string ;
@@ -15,7 +16,15 @@ export interface MerchantListModel {
      facebook? :  string ;
      twitter ?: string  ;
      instagram? : string  ;
+     walletId?: string ;
+     qrCode?: string ;
+     startDateContract? : string;
+     endDateContract? : string;
+     fileContract? : string;
+     sectionId?: string;
      merchantSection ?:  string ;
+     stores: any[] ;
+     offers: any[] ;
      userId? : string;
      user?: User;
      updatedAt? :  string;

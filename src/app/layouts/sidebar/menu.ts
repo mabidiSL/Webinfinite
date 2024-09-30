@@ -106,6 +106,15 @@ export const MENU: MenuItem[] = [
 
         
     },
+    {
+        id: 56,
+        label: 'MENUITEMS.STORES.TEXT',
+        link: '/private/stores',
+        icon: 'bx bx-store',
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Stores, claimValue: [Permission.ViewAll]}]
+
+        
+    },
     {  id: 14,
             label: 'MENUITEMS.MERCHANTSCOMMISSION.TEXT',
             icon: 'bx bx-dollar-circle',

@@ -37,7 +37,6 @@ export class FormMerchantComponent implements OnInit {
   constructor(private formBuilder: UntypedFormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService,
     private userService: UserProfileService, public store: Store) {
       this.merchantForm = this.formBuilder.group({
-      
         username: [''],
         email: ['', [Validators.required, Validators.email]],
         password: ['' ],

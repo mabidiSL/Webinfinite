@@ -159,6 +159,9 @@
         "DEALOFTHEDAY": "عرض اليوم"
       }
     },
+    "STORES":{
+      "TEXT": "المتاجر"
+    },
     "GIFTS": {
       "TEXT": "الهدايا"
     },

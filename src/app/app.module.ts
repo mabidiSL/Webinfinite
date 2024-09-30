@@ -56,6 +56,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { AuthInterceptor } from './core/helpers/auth.interceptor';
 import { EmployeesModule } from './pages/employees/employees.module';
 import { EmployeeslistEffects } from './store/employee/employee.effect';
+import { StoresModule } from './pages/stores/stores.module';
 
 
 
@@ -87,6 +88,7 @@ export function createTranslateLoader(http: HttpClient): any {
     MerchantsModule,
     CouponsModule,
     EmployeesModule,
+    StoresModule,
     TranslateModule,
     AppRoutingModule,
     ExtrapagesModule,

@@ -178,12 +178,15 @@
     "SYSTEMLADMINISTRATION":{
       "TEXT": "System Administration"
     },  
-    "TAXSETTINGS":{
-      "TEXT": "Tax Settings"
-    } ,
+    "STORES":{
+      "TEXT": "Stores"
+    },
     "INVOICES":{
       "TEXT":"Invoices"
     },
+    "TAXSETTINGS":{
+      "TEXT": "Tax Settings"
+    } ,
     "CURRENCIES":{
       "TEXT":"Currencies"
     },

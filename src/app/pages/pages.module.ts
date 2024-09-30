@@ -77,6 +77,7 @@ import { UsersModule } from './users/users.module';
     ChartModule,
     WidgetModule,
     MapsModule,
+    
     FullCalendarModule,
     TabsModule.forRoot(),
     TooltipModule.forRoot(),
