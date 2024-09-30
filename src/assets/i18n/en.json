@@ -519,7 +519,13 @@
   "Bank_Account_Number": "Bank Account Number",
   "Role_is_required": "Role is required",
   "Add_merchant": "Add Merchant",
-  "Update_merchant": "Update Merchant"
+  "Update_merchant": "Update Merchant",
+  "Number_Of_Offers":"Number Of Offers",
+  "Store_Pictures": "Store Pictures",
+  "Add_store": "Add Store",
+  "update_store": "Update Store",
+  "Store_Name": "Store Name"
+
 
 
 }

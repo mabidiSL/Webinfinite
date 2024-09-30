@@ -23,6 +23,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { UiSwitchModule } from 'ngx-ui-switch';
+import { DropzoneModule } from 'ngx-dropzone-wrapper';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { UiSwitchModule } from 'ngx-ui-switch';
     PaginationModule.forRoot(),
     BsDropdownModule,
     ModalModule,
+    DropzoneModule,
     StoresRoutingModule
   ]
 })

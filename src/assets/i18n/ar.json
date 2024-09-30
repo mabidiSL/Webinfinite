@@ -583,7 +583,17 @@
     "Bank_Account_Number": "رقم الحساب البنكي",
     "Role_is_required": "الوظيفة مطلوبة",
     "Add_merchant": "إضافة تاجر",
-    "Update_merchant": "تعديل تاجر"
+    "Update_merchant": "تعديل تاجر",
+    "Number_Of_Offers":"عدد العروض",
+    "Store_Pictures": "صور المتجر",
+    "Add_store": "إضافة متجر",
+    "update_store": "تعديل المتجر",
+    "Store_Name": "اسم المتجر"
+
+
+
+
+
     
 
 

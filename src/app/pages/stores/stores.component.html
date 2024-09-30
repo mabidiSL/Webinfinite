@@ -48,8 +48,9 @@
             
               <!-- Add Store Button -->
               <div class="col-sm-4 text-end">
-                <div *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Stores, claimValue: [Permission.Create]}]" data-bs-toggle="modal" >
-                <button [routerLink]="['/private/stores/create']"type="button"  class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal">
+                <!-- <div *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Stores, claimValue: [Permission.Create]}]" data-bs-toggle="modal" > -->
+                    <div  data-bs-toggle="modal" >
+                   <button [routerLink]="['/private/stores/create']"type="button"  class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal">
                   <i class="mdi mdi-plus me-1"></i> {{'New_Store'|translate}}
                 </button>
               </div>
@@ -172,7 +173,7 @@
               <i class="mdi mdi-trash-can-outline"></i>
             </div>
           </div>
-          <p class="text-muted font-size-16 mb-4">{{'Are you Sure You want to disable this User ?'|translate}}</p>
+          <p class="text-muted font-size-16 mb-4">{{'Are you Sure You want to delete this Store ?'|translate}}</p>
   
           <div class="hstack gap-2 justify-content-center mb-0">
             <button type="button" class="btn btn-danger me-1" id="remove-item" (click)="confirmDelete()">{{'Disable Now'|translate}}</button>

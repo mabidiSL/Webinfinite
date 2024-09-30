@@ -8,6 +8,7 @@ import { select, Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
 import { selectStoreById } from 'src/app/store/store/store-selector';
 import { addStorelist, getStoreById } from 'src/app/store/store/store.action';
+import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 
 
 @Component({
@@ -50,13 +51,21 @@ export class FormStoreComponent implements OnInit {
         country:[''],
         area:[''], 
         images: [''],  
-        offers:[''],
+        offers:['0'],
 
           
       });
      }
   // set the currenr year
   year: number = new Date().getFullYear();
+     // file upload
+ public dropzoneConfig: DropzoneConfigInterface = {
+  clickable: true,
+  addRemoveLinks: true,
+  previewsContainer: false
+};
+
+uploadedFiles: any[] = [];
 
   ngOnInit() {
 
@@ -184,6 +193,19 @@ export class FormStoreComponent implements OnInit {
     }
     
   }
+ 
+onUploadSuccess(event: any) {
+  setTimeout(() => {
+    this.uploadedFiles.push(event[0]);
+  }, 100);
+}
+
+// File Remove
+removeFile(event: any) {
+  this.uploadedFiles.splice(this.uploadedFiles.indexOf(event), 1);
+}
+
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
