@@ -72,28 +72,15 @@
                     <div class="col-md-6 mb-3">
                         <div class="form-group">
                           <label for="images">{{ 'Store_Pictures' | translate }}</label>
-                      
-                          <!-- Display the merchant logo if it exists -->
-                          <div *ngIf="storeForm.get('images').value !== null && storeForm.get('images').value !== ''"
-                          class="mb-3">
-                            <img [src]="existantmerchantLogo" alt="Store Pictures" class="img-fluid" width="200">
-                          </div>
-                      
-                          <!-- File input for selecting or uploading a new image -->
-                          <input
-                            type="file"
-                            id="images"
-                            class="form-control"
-*                            accept="image/png, image/gif, image/jpeg"
-                            (change)="uploadStorePictures($event)"
-                          >
-                        </div>
-                      </div>
-                                    
                           <dropzone class="dropzone" [config]="dropzoneConfig" [message]="'Drop Images here or click to upload.'" (success)="onUploadSuccess($event)">
                           </dropzone>
+                        </div>
+                     </div>
+                     <div class="col-md-6 mb-3">
+                      <div class="form-group">
+                        <label for="images"></label>
                           @if(uploadedFiles){
-                          <ul class="list-unstyled mb-0" id="dropzone-preview">
+                          <ul class="list-unstyled mb-0" id="dropzone-preview" style="max-height: 245px; overflow-y: auto;">
                             @for (file of uploadedFiles; track $index) {
                             <li class="mt-2" id="dropzone-preview-list">
                               <!-- This is used as the file preview template -->
@@ -127,6 +114,24 @@
                             </li>
                             }
                           </ul>}
+                          <!-- Display the merchant logo if it exists -->
+                          <!-- <div *ngIf="storeForm.get('images').value !== null && storeForm.get('images').value !== ''"
+                          class="mb-3">
+                            <img [src]="existantmerchantLogo" alt="Store Pictures" class="img-fluid" width="200">
+                          </div>
+                      
+                          File input for selecting or uploading a new image -->
+                          <!-- <input
+                            type="file"
+                            id="images"
+                            class="form-control"
+*                            accept="image/png, image/gif, image/jpeg"
+                            (change)="uploadStorePictures($event)"
+                          > --> 
+                        </div>
+                      </div>
+                                    
+                          
                           <!-- end dropzon-preview -->
                         
              

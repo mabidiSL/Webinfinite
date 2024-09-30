@@ -32,7 +32,13 @@ export class FormStoreComponent implements OnInit {
   StorePictureBase64: string = null;
   storeLogoBase64: string = null;
   isEditing: boolean = false;
-
+  uploadedFiles: any[] = [];
+  // file upload
+  public dropzoneConfig: DropzoneConfigInterface = {
+    clickable: true,
+    addRemoveLinks: true,
+    previewsContainer: false
+  };
   
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -58,14 +64,8 @@ export class FormStoreComponent implements OnInit {
      }
   // set the currenr year
   year: number = new Date().getFullYear();
-     // file upload
- public dropzoneConfig: DropzoneConfigInterface = {
-  clickable: true,
-  addRemoveLinks: true,
-  previewsContainer: false
-};
+   
 
-uploadedFiles: any[] = [];
 
   ngOnInit() {
 
@@ -127,14 +127,10 @@ uploadedFiles: any[] = [];
       
       
       const newData = this.storeForm.value;
-      if(this.storeLogoBase64){
-        newData.StoreLogo = this.storeLogoBase64;
+      if(this.uploadedFiles){
+        newData.images = this.uploadedFiles;
       }
-      if(this.StorePictureBase64){
-        newData.StorePicture = this.StorePictureBase64;
-      }
-      delete newData.confpassword;
-  
+      
       console.log(newData);
       //Dispatch Action
       this.store.dispatch(addStorelist({ newData }));
