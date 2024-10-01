@@ -24,6 +24,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { UiSwitchModule } from 'ngx-ui-switch';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { UiSwitchModule } from 'ngx-ui-switch';
     PaginationModule.forRoot(),
     BsDropdownModule,
     ModalModule,
-    CountryRoutingModule
+    CountryRoutingModule,
+    SharedModule
   ]
 })
 export class CountryModule { }

@@ -57,6 +57,8 @@ import { AuthInterceptor } from './core/helpers/auth.interceptor';
 import { EmployeesModule } from './pages/employees/employees.module';
 import { EmployeeslistEffects } from './store/employee/employee.effect';
 import { StoresModule } from './pages/stores/stores.module';
+import { StoreslistEffects } from './store/store/store.effect';
+import { countrieslistEffects } from './store/country/country.effect';
 
 
 
@@ -115,6 +117,8 @@ export function createTranslateLoader(http: HttpClient): any {
       EmployeeslistEffects,
       CouponslistEffects,
       MerchantslistEffects1,
+      StoreslistEffects,
+      countrieslistEffects,
       JoblistEffects,
       CandidateEffects,
       InvoiceDataEffects,

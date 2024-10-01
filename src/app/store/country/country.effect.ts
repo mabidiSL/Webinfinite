@@ -28,15 +28,15 @@ import { Store } from '@ngrx/store';
 import { selectCountryById } from './country-selector';
 
 @Injectable()
-export class countrieslistEffects1 {
+export class countrieslistEffects {
     fetchData$ = createEffect(() =>
         this.actions$.pipe(
             ofType(fetchCountrylistData),
             tap(() => console.log('Request to fetch Country list has been launched')), // Add console log here
             mergeMap(() =>
                 this.CrudService.fetchData('/countries',{ limit: '10', page: '1'}).pipe(
-                    tap((response : any) => console.log('Fetched data:', response.result.data)), 
-                    map((response) => fetchCountrylistSuccess({ CountryListdata: response.result.data })),
+                    tap((response : any) => console.log('Fetched data:', response.result.rows)), 
+                    map((response) => fetchCountrylistSuccess({ CountryListdata: response.result.rows })),
                     catchError((error) =>
                         of(fetchCountrylistFail({ error }))
                     )
@@ -50,11 +50,11 @@ export class countrieslistEffects1 {
             ofType(addCountrylist),
             mergeMap(({ newData }) =>
                 this.CrudService.addData('/countries', newData).pipe(
-                    map((newData) => {
+                    map((response) => {
                         this.toastr.success('The new Country has been added successfully.');
                         this.router.navigate(['/private/countries']);
                         // Dispatch the action to fetch the updated Country list after adding a new Country
-                        return addCountrylistSuccess({newData});
+                        return addCountrylistSuccess({newData: response});
                       }),
                     catchError((error) => of(addCountrylistFailure({ error })))
                 )
@@ -106,7 +106,7 @@ export class countrieslistEffects1 {
                 this.toastr.success('The Country has been updated successfully.');
                 this.router.navigate(['/private/countries']);
                 return this.CrudService.updateData(`/countries/${updatedData.id}`, updatedData).pipe(
-                    map(() => updateCountrylistSuccess({ updatedData })),
+                    map((response : any) => updateCountrylistSuccess({ updatedData : response.result})),
                     catchError((error) => of(updateCountrylistFailure({ error })))
                 );
             })

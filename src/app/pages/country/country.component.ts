@@ -2,15 +2,14 @@
   import { Component, OnInit, ViewChild } from '@angular/core';
   import { Observable, take } from 'rxjs';
   import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
-  import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+  import {  UntypedFormGroup, Validators } from '@angular/forms';
   
-  import { select, Store } from '@ngrx/store';
+  import {  Store } from '@ngrx/store';
   import { PageChangedEvent } from 'ngx-bootstrap/pagination';
   import { ToastrService } from 'ngx-toastr';
   import { Modules, Permission } from 'src/app/store/Role/role.models';
-  import { deleteStorelist, fetchStorelistData, updateStorelist } from 'src/app/store/store/store.action';
-  import { selectData } from 'src/app/store/store/store-selector';
 import { deleteCountrylist, fetchCountrylistData, updateCountrylist } from 'src/app/store/country/country.action';
+import { selectData } from 'src/app/store/country/country-selector';
   
  
 @Component({
@@ -51,8 +50,7 @@ export class CountryComponent implements OnInit {
       private modalService: BsModalService,
       public toastr:ToastrService,
       public store: Store) {
-        
-        this.countryList$ = this.store.pipe(select(selectData)); // Observing the Store list from store
+        this.countryList$ = this.store.select(selectData);
   
     }
   
@@ -60,10 +58,9 @@ export class CountryComponent implements OnInit {
         
         
           this.store.dispatch(fetchCountrylistData());
-          this.countryList$.subscribe(data => {
+         this.countryList$.subscribe(data => {
           this.originalArray = data; // Store the full country list
           this.filteredArray = [...this.originalArray];
-          
           document.getElementById('elmLoader')?.classList.add('d-none');
           console.log('Finish get country list');
           console.log(this.filteredArray);

@@ -49,7 +49,7 @@ export class HasClaimDirective {
   private hasPermission(claim: Claim[]): boolean {
    
     if (claim && this.permissions) {
-      return this.claim.some(requiredClaim => {
+      return claim.some(requiredClaim => {
         return this.permissions.some(permission => {
           return permission.claimType === requiredClaim.claimType && requiredClaim.claimValue.every(value => permission.permissions.includes(value));
         });

@@ -4,8 +4,8 @@ export interface CountryListModel {
      name?: string;
      nameTrans?: string;
      phoneCode?: string;
-     countryFlag?: string;
-     status? : Status;
+     flag?: string;
+     status? : string;
      updatedAt? :  string;
      createdAt?: string;
 

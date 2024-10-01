@@ -46,10 +46,9 @@
                 </button>
               </div>
             
-              <!-- Add Store Button -->
+              <!-- Add Country Button -->
               <div class="col-sm-4 text-end">
-                <!-- <div *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Stores, claimValue: [Permission.Create]}]" data-bs-toggle="modal" > -->
-                    <div  data-bs-toggle="modal" >
+                    <div  *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.Create]}]" data-bs-toggle="modal" >
                    <button [routerLink]="['/private/countries/create']"type="button"  class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal">
                   <i class="mdi mdi-plus me-1"></i> {{'New_Country'|translate}}
                 </button>
@@ -66,7 +65,6 @@
                     <th scope="col">{{'Flag'| translate}}</th>
                     <th scope="col">{{'Country'| translate}}</th>
                     <th scope="col">{{'Country_Code'| translate}}</th>
-                    <th scope="col">{{'Created_At '| translate}}</th>
                     <th scope="col">{{'Status'| translate}}</th>
                     <th scope="col" style="width: 200px;">{{'Actions'| translate}}</th>
                   </tr>
@@ -82,15 +80,17 @@
                         </div>
                       </td>
                       <td>
-                       
-                        <div *ngIf="data.countryFlag; else elseAvatar">
-                          <img class="rounded-circle avatar-xs" src="{{data.countryFlag}}" alt="">
-                        </div>
-                        <div #elseAvatar class="avatar-xs">
-                          <span class="avatar-title rounded-circle">
-                            {{data.name.charAt(0)}}
-                          </span>
-                        </div>
+                        @if(data.flag){
+                          <div>
+                            <img class="rounded-circle avatar-xs" src="{{data.flag}}" alt="">
+                          </div>
+                          }@else {
+                          <div class="avatar-xs">
+                            <span class="avatar-title rounded-circle">
+                              {{data.name.charAt(0)}}
+                            </span>
+                          </div>}
+                      
                       </td>
 
                     <td>
@@ -98,9 +98,8 @@
                       </h5>
                       
                     </td>
-                    <td>{{data.countryCode}}</td>
+                    <td>{{data.phoneCode}}</td>
 
-                    <td>{{data.CreatedAt}}</td>
                     
                     <td>
                       <ui-switch  color="##343a40"  [checked]="data.status == 'active'"  uncheckedLabel="inactive" checkedLabel="active" size="small" class="me-1" (changeEvent)="onChangeEvent(data,$event)" ></ui-switch>
@@ -119,11 +118,11 @@
                         <td>
                           <ul class="list-unstyled hstack gap-1 mb-0">
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'View'|translate}}">
-                              <a [routerLink]="['/private/country/edit/', data.id]" class="btn btn-sm btn-soft-primary" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.View]}]" ><i class="mdi mdi-eye-outline"></i></a>
+                              <a [routerLink]="['/private/countries/edit/', data.id]" class="btn btn-sm btn-soft-primary" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.View]}]" ><i class="mdi mdi-eye-outline"></i></a>
                             </li>
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Edit'|translate}}">
                               <!-- <a href="javascript:void(0);" class="btn btn-sm btn-soft-info" (click)="editDataGet(data.id,content)"><i class="mdi mdi-pencil-outline"></i></a> -->
-                              <a [routerLink]="['/private/country/edit/', data.id]" class="btn btn-sm btn-soft-info" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.Update]}]" ><i class="mdi mdi-pencil-outline"></i></a>
+                              <a [routerLink]="['/private/countries/edit/', data.id]" class="btn btn-sm btn-soft-info" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.Update]}]" ><i class="mdi mdi-pencil-outline"></i></a>
 
                             </li>
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Delete'| translate}}">
@@ -186,7 +185,7 @@
           <p class="text-muted font-size-16 mb-4">{{'Are you Sure You want to delete this country ?'|translate}}</p>
   
           <div class="hstack gap-2 justify-content-center mb-0">
-            <button type="button" class="btn btn-danger me-1" id="remove-item" (click)="confirmDelete()">{{'Disable Now'|translate}}</button>
+            <button type="button" class="btn btn-danger me-1" id="remove-item" (click)="confirmDelete()">{{'Delete_Now'|translate}}</button>
             <button type="button" class="btn btn-secondary" (click)="removeItemModal.hide()">{{'Close'| translate}}</button>
           </div>
         </div>

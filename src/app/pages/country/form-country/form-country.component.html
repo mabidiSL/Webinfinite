@@ -8,12 +8,14 @@
                         <div class="form-group ">
                            <label for="name" >{{'Country_Name' | translate}} <span class="text-danger">*</span></label>
                             <input type="text" id="name" class="form-control" formControlName="name"  >
-                            <span *ngIf="countryForm.get('name').errors?.['required']">{{'Name is required'| translate}}.</span>
+                            <div *ngIf="countryForm.get('name').touched && countryForm.get('name').invalid" class="invalid-feedback d-block">
+                                <span *ngIf="countryForm.get('name').errors?.['required']">{{'Name is required'| translate}}.</span>
+                            </div>
                           </div> 
                       </div>
                       <div class="col-md-6 mb-3">
                         <div class="form-group ">
-                           <label for="nameTrans" >{{'Country_Name_Trans' | translate}} ></label>
+                           <label for="nameTrans" >{{'Country_Name_Trans' | translate}} </label>
                             <input type="text" id="nameTrans" class="form-control" formControlName="nameTrans"  >
                                
                           </div> 
@@ -22,12 +24,14 @@
                         <div class="form-group">
                           <label for="phoneCode" >{{'Phone_Code' | translate}}<span class="text-danger">*</span></label>
                           <input type="text" id="phoneCode" class="form-control" formControlName="phoneCode" >
-                          <span *ngIf="countryForm.get('phoneCode').errors?.['required']">{{'Name is required'| translate}}.</span>
-                        </div>
+                          <div *ngIf="countryForm.get('phoneCode').touched && countryForm.get('phoneCode').invalid" class="invalid-feedback d-block">
+                            <span *ngIf="countryForm.get('phoneCode').errors?.['required']">{{'Name is required'| translate}}.</span>
+                        </div>                        
+                    </div>
                 </div>
                   <div class="col-md-6 mb-3">
                     <div class="form-group ">
-                       <label for="countryFlag" >{{'Country_flag' | translate}} </label>
+                       <label for="flag" >{{'Country_flag' | translate}} </label>
                        <div class="text-center">
                         <div class="position-relative d-inline-block">
                             <div class="position-absolute bottom-0 end-0">
@@ -38,7 +42,7 @@
                                         </div>
                                     </div>
                                 </label>
-                                <input class="form-control d-none" value="" id="project-image-input" type="file" accept="image/png, image/gif, image/jpeg" (change)="fileChange($event)">
+                                <input class="form-control d-none" value="" id="project-image-input" type="file" accept="image/png, image/gif, image/jpeg" (change)="uploadCountryFlag($event)">
                             </div>
                             <div class="avatar-lg">
                                 <div class="avatar-title bg-light rounded-circle">

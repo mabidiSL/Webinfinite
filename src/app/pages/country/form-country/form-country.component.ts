@@ -12,7 +12,7 @@
   import { selectStoreById } from 'src/app/store/store/store-selector';
   import { addStorelist, getStoreById } from 'src/app/store/store/store.action';
   import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
-import { addCountrylist, getCountryById } from 'src/app/store/country/country.action';
+import { addCountrylist, getCountryById, updateCountrylist } from 'src/app/store/country/country.action';
 import { selectCountryById } from 'src/app/store/country/country-selector';
   
   
@@ -47,15 +47,12 @@ import { selectCountryById } from 'src/app/store/country/country-selector';
       public store: Store) {
   
         this.countryForm = this.formBuilder.group({
-        
-          id: [''],
+          id:[''],
           name: ['', Validators.required],
           nameTrans: [''],
           phoneCode: ['', Validators.required ],
-          countryFlag:[''],
-         
-  
-            
+          flag:[''],
+                     
         });
        }
     // set the currenr year
@@ -77,8 +74,7 @@ import { selectCountryById } from 'src/app/store/country/country-selector';
               console.log('Retrieved Country:', Country);
               this.countryForm.patchValue(Country);
               this.isEditing = true;
-  
-            }
+              }
           });
       }
      
@@ -121,12 +117,19 @@ import { selectCountryById } from 'src/app/store/country/country-selector';
               
         const newData = this.countryForm.value;
         if(this.CountryFlagBase64){
-          newData.countryFlag = this.CountryFlagBase64;
+          newData.flag = this.CountryFlagBase64;
         }
         
         console.log(newData);
-        //Dispatch Action
-        this.store.dispatch(addCountrylist({ newData }));
+        if(!this.isEditing)
+          {
+            this.store.dispatch(addCountrylist({ newData }));          }
+          else
+          { 
+            console.log('updating Country');
+            this.store.dispatch(updateCountrylist({ updatedData: newData }));
+          }
+        
       } else {
         // Form is invalid, display error messages
         console.log('Form is invalid');
@@ -134,29 +137,32 @@ import { selectCountryById } from 'src/app/store/country/country-selector';
       }
     }
     
-    
-    // filechange
-  imageURLs: any;
-  fileChange(event: any) {
+  
+  async fileChange(event: any): Promise<string> {
     let fileList: any = (event.target as HTMLInputElement);
     let file: File = fileList.files[0];
-    const reader = new FileReader();
-
-    reader.readAsDataURL(file)
-    reader.onload = () => {
-      this.imageURLs = reader.result as string;
-      document.querySelectorAll('#projectlogo-img').forEach((element: any) => {
-        element.src = this.imageURLs;
-      });
-    }
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        resolve(reader.result as string);
+      };
+      reader.onerror = () => {
+        reject(reader.error);
+      };
+      reader.readAsDataURL(file);
+    });
   }
     /**
      * Upload Country Logo
      */
     async uploadCountryFlag(event: any){
+      console.log('i am in Country Flag Upload');
       try {
-        const imageURL = await this.fileChange(event);
-        console.log(imageURL);
+        this.imageURL = await this.fileChange(event);
+        document.querySelectorAll('#projectlogo-img').forEach((element: any) => {
+          element.src = this.imageURL;
+        });
+        console.log(this.imageURL);
         //this.CountryForm.controls['CountryLogo'].setValue(imageURL);
          this.CountryFlagBase64 = this.imageURL;
       } catch (error: any) {

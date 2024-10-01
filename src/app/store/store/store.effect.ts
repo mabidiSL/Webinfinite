@@ -28,7 +28,7 @@ import { Store } from '@ngrx/store';
 import { selectStoreById } from './store-selector';
 
 @Injectable()
-export class StoreslistEffects1 {
+export class StoreslistEffects {
     fetchData$ = createEffect(() =>
         this.actions$.pipe(
             ofType(fetchStorelistData),

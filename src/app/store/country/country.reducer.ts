@@ -44,7 +44,7 @@ export const CountryListReducer = createReducer(
     ...state,
     selectedCountry: Country
   })),
-  // Handle updating Country list
+  // Handle updating status  Country list
   on(updateCountryStatusSuccess, (state, { updatedData }) => {
     return {
       ...state,
@@ -53,7 +53,7 @@ export const CountryListReducer = createReducer(
       )
     };
   }),
-// Handle updating Country status
+// Handle updating Country 
   on(updateCountrylistSuccess, (state, { updatedData }) => {
    const CountryListUpdated = state.CountryListdata.map(item => item.id === updatedData.id ? updatedData : item );
    console.log('CountryListdata after update:', CountryListUpdated);
