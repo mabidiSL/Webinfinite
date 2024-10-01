@@ -1,6 +1,6 @@
 // src/app/Countrylist.selector.ts
-import { createFeatureSelector, createSelector } from '@ngrx/Country';
-import {  CountrylistState } from './Country.reducer';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { CountrylistState } from './country.reducer';
 
 export const selectDataState = createFeatureSelector<CountrylistState>('CountryList');
 

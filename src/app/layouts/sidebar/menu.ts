@@ -297,7 +297,7 @@ export const MENU: MenuItem[] = [
         label: 'MENUITEMS.COUNTRIES.TEXT',
         icon: 'bx bx-globe',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.ViewAll]}],
-        link: '/blog/list'
+        link: '/private/countries',
                
     },
     {

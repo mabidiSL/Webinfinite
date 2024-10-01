@@ -524,7 +524,19 @@
   "Store_Pictures": "Store Pictures",
   "Add_store": "Add Store",
   "update_store": "Update Store",
-  "Store_Name": "Store Name"
+  "Store_Name": "Store Name",
+  "Countries_List":"Countries List",
+  "New_Country": "New Country",
+  "Created_At": "Created At",
+  "Country_Code": "Country Code",
+  "Country_Name": "Name",
+  "Country_Name_Trans": "Translated Name",
+  "Phone_Code": "Phone Code",
+  "Country_flag": "Flag",
+  "Add_country": "Add Country",
+  "update_country": "Update Country"
+
+
 
 
 

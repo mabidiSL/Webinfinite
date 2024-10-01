@@ -1,6 +1,6 @@
 <div class="container-fluid">
 
-    <app-page-title title="{{'Stores_List'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <app-page-title title="{{'Countries_List'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
     
     <div class="row">
       <div class="col-lg-12">
@@ -50,8 +50,8 @@
               <div class="col-sm-4 text-end">
                 <!-- <div *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Stores, claimValue: [Permission.Create]}]" data-bs-toggle="modal" > -->
                     <div  data-bs-toggle="modal" >
-                   <button [routerLink]="['/private/stores/create']"type="button"  class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal">
-                  <i class="mdi mdi-plus me-1"></i> {{'New_Store'|translate}}
+                   <button [routerLink]="['/private/countries/create']"type="button"  class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal">
+                  <i class="mdi mdi-plus me-1"></i> {{'New_Country'|translate}}
                 </button>
               </div>
               </div>
@@ -63,8 +63,10 @@
                 <thead class="table-light">
                   <tr>
                     <th scope="col" style="width: 40px;">#</th>
+                    <th scope="col">{{'Flag'| translate}}</th>
                     <th scope="col">{{'Country'| translate}}</th>
-                    <th scope="col">{{'Created At '| translate}}</th>
+                    <th scope="col">{{'Country_Code'| translate}}</th>
+                    <th scope="col">{{'Created_At '| translate}}</th>
                     <th scope="col">{{'Status'| translate}}</th>
                     <th scope="col" style="width: 200px;">{{'Actions'| translate}}</th>
                   </tr>
@@ -79,12 +81,25 @@
                           <label class="form-check-label" for="transactionCheck{{data.index}}"></label>
                         </div>
                       </td>
+                      <td>
+                       
+                        <div *ngIf="data.countryFlag; else elseAvatar">
+                          <img class="rounded-circle avatar-xs" src="{{data.countryFlag}}" alt="">
+                        </div>
+                        <div #elseAvatar class="avatar-xs">
+                          <span class="avatar-title rounded-circle">
+                            {{data.name.charAt(0)}}
+                          </span>
+                        </div>
+                      </td>
+
                     <td>
                       <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{data.name}}</a>
                       </h5>
                       
                     </td>
-                   
+                    <td>{{data.countryCode}}</td>
+
                     <td>{{data.CreatedAt}}</td>
                     
                     <td>
@@ -128,7 +143,7 @@
                     <ng-template #noItems>
                       <tr>
                         <td colspan="5" class="text-center">
-                          <p>{{'No items available' | translate}}</p>
+                          <p>{{'No_items_available' | translate}}</p>
                         </td>
                       </tr>
                     </ng-template>

@@ -1,15 +1,10 @@
 export interface CountryListModel {
     
      id?: string;
-     name ?: string  ;
-     description?:  string ;
-     phone?: string;
-     merchantId?: string;
-     merchant ?:   string;
-     cityId?: string;
-     city? :  string ;
-     images ?:  any[];  
-     offers ?:  any[];  
+     name?: string;
+     nameTrans?: string;
+     phoneCode?: string;
+     countryFlag?: string;
      status? : Status;
      updatedAt? :  string;
      createdAt?: string;

@@ -588,7 +588,22 @@
     "Store_Pictures": "صور المتجر",
     "Add_store": "إضافة متجر",
     "update_store": "تعديل المتجر",
-    "Store_Name": "اسم المتجر"
+    "Store_Name": "اسم المتجر",
+    "Countries_List": "قائمة الدول",
+    "New_Country": "بلد جديد",
+    "Flag": "العلم",
+    "Country_Code": "رمزالبلد",
+    "Are you Sure You want to delete this country": "هل أنت متأكدأنك تريد حذف هذاالبلد",
+    "Country_Name": "الإسم",
+    "Country_Name_Trans": "الاسم المترجم",
+    "Phone_Code": "رمز الهاتف",
+    "Country_flag": "العلم",
+    "Add_country": "أضف البلد",
+    "update_country": "تعديل البلد"
+
+
+
+
 
 
 

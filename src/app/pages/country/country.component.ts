@@ -10,6 +10,7 @@
   import { Modules, Permission } from 'src/app/store/Role/role.models';
   import { deleteStorelist, fetchStorelistData, updateStorelist } from 'src/app/store/store/store.action';
   import { selectData } from 'src/app/store/store/store-selector';
+import { deleteCountrylist, fetchCountrylistData, updateCountrylist } from 'src/app/store/country/country.action';
   
  
 @Component({
@@ -58,13 +59,13 @@ export class CountryComponent implements OnInit {
     ngOnInit() {
         
         
-          this.store.dispatch(fetchStorelistData());
+          this.store.dispatch(fetchCountrylistData());
           this.countryList$.subscribe(data => {
-          this.originalArray = data; // Store the full Store list
+          this.originalArray = data; // Store the full country list
           this.filteredArray = [...this.originalArray];
           
           document.getElementById('elmLoader')?.classList.add('d-none');
-          console.log('Finish get Store list');
+          console.log('Finish get country list');
           console.log(this.filteredArray);
       
           });
@@ -146,27 +147,28 @@ export class CountryComponent implements OnInit {
     pageChanged(event: PageChangedEvent): void {
       const startItem = (event.page - 1) * event.itemsPerPage;
       this.endItem = event.page * event.itemsPerPage;
+      this.filteredArray = this.filteredArray.slice(startItem, this.endItem);
       //this.StoreList$ = this.returnedArray.slice(startItem, this.endItem);
      // this.StoreList$ = this.returnedArray.sort((a: any, b: any) => new Date(b.registrationDate).getTime() - new Date(a.registrationDate).getTime()).slice(0,10);
   
     }
   
     // Disable Store
-    disableStore(id: any) {
+    disableCountry(id: any) {
       this.deleteId = id;
-      console.log('the id of the store to be deleted'+this.deleteId);
+      console.log('the id of the country to be deleted'+this.deleteId);
       this.removeItemModal?.show();
     }
   
     confirmDelete() {
-      this.store.dispatch(deleteStorelist({ storeId: this.deleteId }));
+      this.store.dispatch(deleteCountrylist({ CountryId: this.deleteId }));
       this.removeItemModal?.hide();
     }
     onChangeEvent(data: any, event: any) {
       const newStatus = event.checked ? 'active' : 'inactive'; 
-      console.log('Store ID:', data.id, 'New Status:', newStatus);
+      console.log('Country ID:', data.id, 'New Status:', newStatus);
       data.status = newStatus;
-      this.store.dispatch(updateStorelist({ updatedData: data }));
+      this.store.dispatch(updateCountrylist({ updatedData: data }));
   
      
     }

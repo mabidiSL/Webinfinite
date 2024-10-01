@@ -26,14 +26,13 @@ import { selectCountryById } from 'src/app/store/country/country-selector';
     @Input() type: string;
     countryForm: UntypedFormGroup;
     private destroy$ = new Subject<void>();
-  
+    CountryFlagBase64 : string;
     submitted: any = false;
     error: any = '';
     successmsg: any = false;
     fieldTextType!: boolean;
     imageURL: string | undefined;
     isEditing: boolean = false;
-    uploadedFiles: any[] = [];
     // file upload
     public dropzoneConfig: DropzoneConfigInterface = {
       clickable: true,
@@ -61,9 +60,7 @@ import { selectCountryById } from 'src/app/store/country/country-selector';
        }
     // set the currenr year
     year: number = new Date().getFullYear();
-     
-  
-  
+      
     ngOnInit() {
   
       const CountryId = this.route.snapshot.params['id'];
@@ -121,11 +118,10 @@ import { selectCountryById } from 'src/app/store/country/country-selector';
         console.log(this.countryForm.value);
         console.log('Form status:', this.countryForm.status);
         console.log('Form errors:', this.countryForm.errors);
-        
-        
+              
         const newData = this.countryForm.value;
-        if(this.uploadedFiles){
-          newData.images = this.uploadedFiles;
+        if(this.CountryFlagBase64){
+          newData.countryFlag = this.CountryFlagBase64;
         }
         
         console.log(newData);
@@ -139,65 +135,36 @@ import { selectCountryById } from 'src/app/store/country/country-selector';
     }
     
     
-    /**
-     * File Upload Image
-     */
-   
-    
-    async fileChange(event: any): Promise<string> {
-      let fileList: any = (event.target as HTMLInputElement);
-      let file: File = fileList.files[0];
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          resolve(reader.result as string);
-        };
-        reader.onerror = () => {
-          reject(reader.error);
-        };
-        reader.readAsDataURL(file);
+    // filechange
+  imageURLs: any;
+  fileChange(event: any) {
+    let fileList: any = (event.target as HTMLInputElement);
+    let file: File = fileList.files[0];
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      this.imageURLs = reader.result as string;
+      document.querySelectorAll('#projectlogo-img').forEach((element: any) => {
+        element.src = this.imageURLs;
       });
     }
-    
+  }
     /**
      * Upload Country Logo
      */
-    async uploadCountryLogo(event: any){
+    async uploadCountryFlag(event: any){
       try {
         const imageURL = await this.fileChange(event);
         console.log(imageURL);
         //this.CountryForm.controls['CountryLogo'].setValue(imageURL);
-       // this.CountryLogoBase64 = imageURL;
+         this.CountryFlagBase64 = this.imageURL;
       } catch (error: any) {
         console.error('Error reading file:', error);
       }
-    }
-    /**
-     * Upload Country Picture
-     */
-    async uploadCountryPicture(event: any){
-      try {
-        const imageURL = await this.fileChange(event);
-        console.log(imageURL);
-        //this.CountryForm.controls['CountryPicture'].setValue(imageURL);
-       // this.CountryPictureBase64 = imageURL;
-      } catch (error: any) {
-        console.error('Error reading file:', error);
-      }
-      
     }
    
-  onUploadSuccess(event: any) {
-    setTimeout(() => {
-      this.uploadedFiles.push(event[0]);
-    }, 100);
-  }
-  
-  // File Remove
-  removeFile(event: any) {
-    this.uploadedFiles.splice(this.uploadedFiles.indexOf(event), 1);
-  }
-  
+ 
   
     ngOnDestroy() {
       this.destroy$.next();
