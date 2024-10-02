@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-19">
+        <div class="card">
+            <div class="card-body ">
+              <form (ngSubmit)="onSubmit()" [formGroup]="areaForm"  class="m-4">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group ">
+                           <label for="name" >{{'Area_Name' | translate}} <span class="text-danger">*</span></label>
+                            <input type="text" id="name" class="form-control" formControlName="name" placeholder= "{{'Enter_the_Name_Of_the_area'| translate}}" >
+                            <div *ngIf="areaForm.get('name').touched && areaForm.get('name').invalid" class="invalid-feedback d-block">
+                                <span *ngIf="areaForm.get('name').errors?.['required']">{{'Name is required'| translate}}.</span>
+                            </div>
+                          </div> 
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <div class="form-group ">
+                           <label for="nameTrans" >{{'Area_Name_Trans' | translate}} </label>
+                            <input type="text" id="nameTrans" class="form-control" formControlName="nameTrans" placeholder= "{{'Enter_the_Name_Of_the_area'| translate}}" >
+                               
+                          </div> 
+                      </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group ">
+                          <label for="country_id" >{{'Country' | translate}}<span class="text-danger">*</span></label>
+                          <select  id="country_id"class="form-control"  formControlName="country_id" >
+                                <option value="" disabled selected>{{'Select_the_Country' | translate}}</option>
+                                <option *ngFor="let country of countries" [value]="country.id">
+                                 {{ country.name }}
+                               </option>
+                          </select>
+                          <div *ngIf="areaForm.get('country_id').touched && areaForm.get('country_id').invalid" class="invalid-feedback d-block">
+                            <span *ngIf="areaForm.get('country_id').errors?.['required']">{{'Country_is_required'| translate}}.</span>
+                        </div> 
+                    </div>                       
+                  </div>
+              
+                <div class="col-12  mt-4">
+                    <div class="d-flex justify-content-end">
+                        <button type="button" id="cancel-btn" class="btn btn-outline-secondary me-2" (click)="onCancel()">{{'Cancel'|translate}}</button>
+                        <button type="submit" class="btn btn-success" [disabled]="areaForm.invalid"> {{ (type == 'create' ? 'Add_area' : 'update_area') | translate }}
+                        </button>
+                    </div>
+                </div>
+                </div>
+              </form>
+            </div>
+        </div>
+    </div> <!-- end col -->
+  </div>
+  

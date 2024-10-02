@@ -59,6 +59,7 @@ import { EmployeeslistEffects } from './store/employee/employee.effect';
 import { StoresModule } from './pages/stores/stores.module';
 import { StoreslistEffects } from './store/store/store.effect';
 import { countrieslistEffects } from './store/country/country.effect';
+import { AreaEffects } from './store/area/area.effect';
 
 
 
@@ -126,7 +127,8 @@ export function createTranslateLoader(http: HttpClient): any {
       tasklistEffects,
       OrdersEffects,
       CustomerEffects,
-      MailEffects
+      MailEffects,
+      AreaEffects
     ]),
   ],
   bootstrap: [AppComponent],

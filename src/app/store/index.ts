@@ -20,6 +20,7 @@ import { CouponListReducer, CouponlistState } from "./coupon/coupon.reducer";
 import { EmployeeListReducer, EmployeelistState } from "./employee/employee.reducer";
 import { StoreListReducer, StorelistState } from "./store/store.reducer";
 import { CountryListReducer, CountrylistState } from "./country/country.reducer";
+import { AreaListReducer, ArealistState } from "./area/area.reducer";
 
 
 export interface RootReducerState {
@@ -44,6 +45,7 @@ export interface RootReducerState {
     EmployeeList: EmployeelistState;
     StoreList: StorelistState;
     CountryList: CountrylistState;
+    AreaList: ArealistState;
     
 }
 
@@ -68,6 +70,7 @@ export const rootReducer: ActionReducerMap<RootReducerState> = {
     CouponList: CouponListReducer,
     EmployeeList: EmployeeListReducer,
     StoreList: StoreListReducer,
-    CountryList: CountryListReducer
+    CountryList: CountryListReducer,
+    AreaList: AreaListReducer
 
 }

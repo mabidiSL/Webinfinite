@@ -599,7 +599,22 @@
     "Phone_Code": "رمز الهاتف",
     "Country_flag": "العلم",
     "Add_country": "أضف البلد",
-    "update_country": "تعديل البلد"
+    "update_country": "تعديل البلد",
+    "Areas_List":"Areas List",
+    "New_Area": "منطقة جديدة",
+    "Area_Name": "الإسم",
+    "Area_Name_Trans": " اسم المنطقة المترجم",
+    "Add_area": "إضافة منطقة",
+    "update_area": "تعديل منطقة",
+    "Are you Sure You want to delete this Area": "هل أنت متأكد أنك تريد حذف هذه المنطقة",
+    "Enter_the_Name_Of_the_area": "أدخل اسم المنطقة",
+    "Enter_the_trans_Name_Of_the_area": "أدخل اسم المنطقة المترجم",
+    "Select_the_Country": "اختر البلد",
+    "Country_is_required": "البلد مطلوب"
+
+
+
+
 
 
 

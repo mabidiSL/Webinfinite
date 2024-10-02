@@ -302,6 +302,14 @@ export const MENU: MenuItem[] = [
     },
     {
         id: 40,
+        label: 'MENUITEMS.AREAS.TEXT',
+        icon: 'dripicons-map',
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.ViewAll]}],
+        link: '/private/areas'
+               
+    },
+    {
+        id: 40,
         label: 'MENUITEMS.CITIES.TEXT',
         icon: 'bx bxs-city',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.ViewAll]}],

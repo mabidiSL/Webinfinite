@@ -193,6 +193,9 @@
     "COUNTRIES":{
       "TEXT":"Countries"
     },
+    "AREAS":{
+      "TEXT":"Areas"
+    },
     "CITIES":{
       "TEXT":"Cities"
     },
@@ -534,8 +537,17 @@
   "Phone_Code": "Phone Code",
   "Country_flag": "Flag",
   "Add_country": "Add Country",
-  "update_country": "Update Country"
-
+  "update_country": "Update Country",
+  "Areas_List":"Areas List",
+  "New_Area": "New Area",
+  "Area_Name": "Name",
+  "Area_Name_Trans": " Area Translated Name",
+  "Add_area": "Add Area",
+  "update_area": "Update Area",
+  "Enter_the_Name_Of_the_area": "Enter the name of the area",
+  "Enter_the_trans_Name_Of_the_area": "Enter the trans Name Of the area",
+  "Select_the_Country": "Select the Country",
+  "Country_is_required": "Country is required"
 
 
 
