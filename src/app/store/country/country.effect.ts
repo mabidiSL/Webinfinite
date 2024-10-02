@@ -102,11 +102,13 @@ export class countrieslistEffects {
         this.actions$.pipe(
             ofType(updateCountrylist),
             mergeMap(({ updatedData }) => {
-                console.log('Updated Data:', updatedData);
-                this.toastr.success('The Country has been updated successfully.');
-                this.router.navigate(['/private/countries']);
+                
                 return this.CrudService.updateData(`/countries/${updatedData.id}`, updatedData).pipe(
-                    map((response : any) => updateCountrylistSuccess({ updatedData : response.result})),
+                    map((response : any) => {
+                        console.log('Updated Data:', updatedData);
+                        this.toastr.success('The Country has been updated successfully.');
+                        this.router.navigate(['/private/countries']);
+                        return updateCountrylistSuccess({ updatedData : response.result})}),
                     catchError((error) => of(updateCountrylistFailure({ error })))
                 );
             })

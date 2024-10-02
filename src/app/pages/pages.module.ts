@@ -45,9 +45,13 @@ import { FilemanagerComponent } from './filemanager/filemanager.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../core/services/language.service';
 import { UsersModule } from './users/users.module';
+import { CreateCityComponent } from './city/create-city/create-city.component';
+import { EditCityComponent } from './city/edit-city/edit-city.component';
+import { FormCityComponent } from './city/form-city/form-city.component';
+import { CityModule } from './city/city.module';
 
 @NgModule({
-  declarations: [CalendarComponent, ChatComponent, FilemanagerComponent],
+  declarations: [CalendarComponent, ChatComponent, FilemanagerComponent, CreateCityComponent, EditCityComponent, FormCityComponent],
   imports: [
     CommonModule,
     TranslateModule,
@@ -77,7 +81,7 @@ import { UsersModule } from './users/users.module';
     ChartModule,
     WidgetModule,
     MapsModule,
-    
+    CityModule,
     FullCalendarModule,
     TabsModule.forRoot(),
     TooltipModule.forRoot(),

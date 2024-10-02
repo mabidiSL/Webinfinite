@@ -60,6 +60,7 @@ import { StoresModule } from './pages/stores/stores.module';
 import { StoreslistEffects } from './store/store/store.effect';
 import { countrieslistEffects } from './store/country/country.effect';
 import { AreaEffects } from './store/area/area.effect';
+import { CityEffects } from './store/City/city.effect';
 
 
 
@@ -128,7 +129,8 @@ export function createTranslateLoader(http: HttpClient): any {
       OrdersEffects,
       CustomerEffects,
       MailEffects,
-      AreaEffects
+      AreaEffects,
+      CityEffects
     ]),
   ],
   bootstrap: [AppComponent],

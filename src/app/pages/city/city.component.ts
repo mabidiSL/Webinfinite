@@ -7,23 +7,20 @@ import {  Store } from '@ngrx/store';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ToastrService } from 'ngx-toastr';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
-import { deleteArealist,  fetchArealistData,  updateArealist} from 'src/app/store/area/area.action';
-import { selectDataArea } from 'src/app/store/area/area-selector';
-
+import { deleteCitylist, fetchCitylistData, updateCitylist } from 'src/app/store/City/city.action';
+import { selectData } from 'src/app/store/City/city-selector';
 
 @Component({
-  selector: 'app-areas',
-  templateUrl: './areas.component.html',
-  styleUrl: './areas.component.css'
+  selector: 'app-city',
+  templateUrl: './city.component.html',
+  styleUrl: './city.component.css'
 })
-export class AreasComponent  implements OnInit {
-
-
+export class CityComponent  implements OnInit {
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
   term: any
-  areaList$: Observable<any[]>;
+  cityList$: Observable<any[]>;
   // Table data
   total: Observable<number>;
   createContactForm!: UntypedFormGroup;
@@ -50,40 +47,25 @@ export class AreasComponent  implements OnInit {
     public toastr:ToastrService,
     public store: Store) {
       
-      this.areaList$ = this.store.select(selectDataArea);
+      this.cityList$ = this.store.select(selectData);
 
   }
 
   ngOnInit() {
       
       
-        this.store.dispatch(fetchArealistData());
-       this.areaList$.subscribe(data => {
-        this.originalArray = data; // Store the full area list
+        this.store.dispatch(fetchCitylistData());
+       this.cityList$.subscribe(data => {
+        this.originalArray = data; // Store the full city list
         this.filteredArray = [...this.originalArray];
         document.getElementById('elmLoader')?.classList.add('d-none');
-        console.log('Finish get area list');
+        console.log('Finish get city list');
         console.log(this.filteredArray);
     
         });
           
   }
 
-  // File Upload
-  imageURL: string | undefined;
-  fileChange(event: any) {
-    let fileList: any = (event.target as HTMLInputElement);
-    let file: File = fileList.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imageURL = reader.result as string;
-      document.querySelectorAll('#member-img').forEach((element: any) => {
-        element.src = this.imageURL;
-      });
-      this.createContactForm.controls['profile'].setValue(this.imageURL);
-    }
-    reader.readAsDataURL(file)
-  }
 
 
   // fiter job
@@ -151,21 +133,21 @@ groupBy(data: any[], criterion: string) {
   }
 
   // Disable Store
-  disableArea(id: any) {
+  disableCity(id: any) {
     this.deleteId = id;
-    console.log('the id of the area to be deleted'+this.deleteId);
+    console.log('the id of the city to be deleted'+this.deleteId);
     this.removeItemModal?.show();
   }
 
   confirmDelete() {
-    this.store.dispatch(deleteArealist({ AreaId: this.deleteId }));
+    this.store.dispatch(deleteCitylist({ CityId: this.deleteId }));
     this.removeItemModal?.hide();
   }
   onChangeEvent(data: any, event: any) {
     const newStatus = event.checked ? 'active' : 'inactive'; 
-    console.log('area ID:', data.id, 'New Status:', newStatus);
+    console.log('city ID:', data.id, 'New Status:', newStatus);
     data.status = newStatus;
-    this.store.dispatch(updateArealist({ updatedData: data }));
+    this.store.dispatch(updateCitylist({ updatedData: data }));
 
    
   }

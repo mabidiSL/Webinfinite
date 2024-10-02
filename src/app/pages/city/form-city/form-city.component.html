@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-19">
+        <div class="card">
+            <div class="card-body ">
+              <form (ngSubmit)="onSubmit()" [formGroup]="cityForm"  class="m-4">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group ">
+                           <label for="name" >{{'city_Name' | translate}} <span class="text-danger">*</span></label>
+                            <input type="text" id="name" class="form-control" formControlName="name" placeholder= "{{'Enter_the_Name_Of_the_city'| translate}}" >
+                            <div *ngIf="cityForm.get('name').touched && cityForm.get('name').invalid" class="invalid-feedback d-block">
+                                <span *ngIf="cityForm.get('name').errors?.['required']">{{'Name is required'| translate}}.</span>
+                            </div>
+                          </div> 
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <div class="form-group ">
+                           <label for="nameTrans" >{{'city_Name_Trans' | translate}} </label>
+                            <input type="text" id="nameTrans" class="form-control" formControlName="nameTrans" placeholder= "{{'Enter_the_Name_Of_the_city'| translate}}" >
+                               
+                          </div> 
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <div class="form-group ">
+                              <label for="country_id" >{{'Country' | translate}}<span class="text-danger">*</span></label>
+                              <select  id="country_id"class="form-control"  formControlName="country_id" (change)="onChangeCountrySelection($event)">
+                                    <option value="" disabled selected>{{'Select_the_Country' | translate}}</option>
+                                    <option *ngFor="let country of countries" [value]="country.id">
+                                     {{ country.name }}
+                                   </option>
+                              </select>
+                              <div *ngIf="cityForm.get('country_id').touched && cityForm.get('country_id').invalid" class="invalid-feedback d-block">
+                                <span *ngIf="cityForm.get('country_id').errors?.['required']">{{'Country_is_required'| translate}}.</span>
+                            </div> 
+                        </div>                       
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <div class="form-group ">
+                              <label for="area_id" >{{'Area' | translate}}<span class="text-danger">*</span></label>
+                              <select  id="area_id"class="form-control"  formControlName="area_id"  >
+                                    <option value="" disabled selected>{{'Select_the_Area' | translate}}</option>
+                                    <option *ngFor="let area of filteredAreas" [value]="area.id">
+                                     {{ area.name }}
+                                   </option>
+                              </select>
+                              <div *ngIf="cityForm.get('area_id').touched && cityForm.get('area_id').invalid" class="invalid-feedback d-block">
+                                <span *ngIf="cityForm.get('area_id').errors?.['required']">{{'Area_is_required'| translate}}.</span>
+                            </div> 
+                        </div>                       
+                      </div>
+                 
+              
+                <div class="col-12  mt-4">
+                    <div class="d-flex justify-content-end">
+                        <button type="button" id="cancel-btn" class="btn btn-outline-secondary me-2" (click)="onCancel()">{{'Cancel'|translate}}</button>
+                        <button type="submit" class="btn btn-success" [disabled]="cityForm.invalid"> {{ (type == 'create' ? 'Add_city' : 'update_city') | translate }}
+                        </button>
+                    </div>
+                </div>
+                </div>
+              </form>
+            </div>
+        </div>
+    </div> <!-- end col -->
+  </div>
+  

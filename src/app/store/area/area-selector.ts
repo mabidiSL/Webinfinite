@@ -4,7 +4,7 @@ import { ArealistState } from './area.reducer';
 
 export const selectDataState = createFeatureSelector<ArealistState>('AreaList');
 
-export const selectData = createSelector(
+export const selectDataArea = createSelector(
   selectDataState,
   (state: ArealistState) => state?.AreaListdata || []
 );

@@ -313,7 +313,7 @@ export const MENU: MenuItem[] = [
         label: 'MENUITEMS.CITIES.TEXT',
         icon: 'bx bxs-city',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.ViewAll]}],
-        link: '/blog/list'
+        link: '/private/cities'
                
     },
     {
