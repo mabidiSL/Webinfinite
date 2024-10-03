@@ -547,7 +547,8 @@
   "Enter_the_Name_Of_the_area": "Enter the name of the area",
   "Enter_the_trans_Name_Of_the_area": "Enter the trans Name Of the area",
   "Select_the_Country": "Select the Country",
-  "Country_is_required": "Country is required"
+  "Country_is_required": "Country is required",
+  "merchant_is_required": "Merchant is required"
 
 
 

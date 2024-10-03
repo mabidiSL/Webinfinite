@@ -5,7 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
   import { select, Store } from '@ngrx/store';
   import {  Subject, takeUntil } from 'rxjs';
   import { fetchCountrylistData } from 'src/app/store/country/country.action';
-  import { selectData } from 'src/app/store/country/country-selector';
+  import { selectDataCountry } from 'src/app/store/country/country-selector';
   import { selectDataArea } from 'src/app/store/area/area-selector';
 
 import { fetchArealistData } from 'src/app/store/area/area.action';
@@ -40,7 +40,7 @@ export class FormCityComponent  implements OnInit {
       public store: Store) {
         
         this.store.dispatch(fetchCountrylistData());
-        this.store.select(selectData).subscribe(
+        this.store.select(selectDataCountry).subscribe(
           countries => {
             this.countries = countries
           });

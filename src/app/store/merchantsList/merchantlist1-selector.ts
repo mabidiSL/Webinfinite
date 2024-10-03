@@ -4,7 +4,7 @@ import {  MerchantlistState } from './merchantlist1.reducer';
 
 export const selectDataState = createFeatureSelector<MerchantlistState>('MerchantList');
 
-export const selectData = createSelector(
+export const selectDataMerchant = createSelector(
   selectDataState,
   (state: MerchantlistState) => state?.MerchantListdata || []
 );

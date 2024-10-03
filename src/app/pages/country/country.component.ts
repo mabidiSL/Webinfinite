@@ -9,7 +9,7 @@
   import { ToastrService } from 'ngx-toastr';
   import { Modules, Permission } from 'src/app/store/Role/role.models';
 import { deleteCountrylist, fetchCountrylistData, updateCountrylist } from 'src/app/store/country/country.action';
-import { selectData } from 'src/app/store/country/country-selector';
+import { selectDataCountry } from 'src/app/store/country/country-selector';
   
  
 @Component({
@@ -50,7 +50,7 @@ export class CountryComponent implements OnInit {
       private modalService: BsModalService,
       public toastr:ToastrService,
       public store: Store) {
-        this.countryList$ = this.store.select(selectData);
+        this.countryList$ = this.store.select(selectDataCountry);
   
     }
   

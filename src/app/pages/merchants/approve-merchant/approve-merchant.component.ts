@@ -12,7 +12,7 @@ import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
 import { fetchMerchantlistData, updateMerchantlist } from 'src/app/store/merchantsList/merchantlist1.action';
-import { selectData } from 'src/app/store/merchantsList/merchantlist1-selector';
+import { selectDataMerchant } from 'src/app/store/merchantsList/merchantlist1-selector';
 
 @Component({
   selector: 'app-approve-merchant',
@@ -50,7 +50,7 @@ export class ApproveMerchantComponent implements OnInit {
     //this.breadCrumbItems = [{ label: 'Merchants' }, { label: 'Merchants Approval List', active: true }];
     setTimeout(() => {
       this.store.dispatch(fetchMerchantlistData());
-      this.store.select(selectData).subscribe(data => {
+      this.store.select(selectDataMerchant).subscribe(data => {
         this.merchantApprovalList = data
         console.log(this.merchantApprovalList);
         this.returnedArray = data

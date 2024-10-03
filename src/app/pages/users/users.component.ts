@@ -7,7 +7,7 @@
   import { adduserlist, deleteuserlist, fetchuserlistData, updateuserlist } from 'src/app/store/UserList/userlist.action';
   import { PageChangedEvent } from 'ngx-bootstrap/pagination';
   import { addMerchantlist, deleteMerchantlist, fetchMerchantlistData } from 'src/app/store/merchantsList/merchantlist1.action';
-  import { selectData } from 'src/app/store/merchantsList/merchantlist1-selector';
+  import { selectDataMerchant } from 'src/app/store/merchantsList/merchantlist1-selector';
   import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -45,7 +45,7 @@ export class UsersComponent implements OnInit{
         console.log('begin get merchant list');
         this.store.dispatch(fetchMerchantlistData());
         console.log('finish get merchant list');
-        this.store.select(selectData).subscribe(data => {
+        this.store.select(selectDataMerchant).subscribe(data => {
           this.merchantList = data
           console.log(this.merchantList);
           this.returnedArray = data;

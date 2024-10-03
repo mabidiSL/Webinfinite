@@ -22,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CouponApprovalComponent } from './coupon-approval/coupon-approval.component';
 import { UiSwitchModule } from 'ngx-ui-switch';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { UiSwitchModule } from 'ngx-ui-switch';
     UIModule,
     NgSelectModule,
     NgApexchartsModule,
+    NgMultiSelectDropDownModule,
     FormsModule, 
     ReactiveFormsModule ,
     TranslateModule,

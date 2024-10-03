@@ -5,10 +5,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../../../core/services/auth.service';
 
 import { select, Store } from '@ngrx/store';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { selectStoreById } from 'src/app/store/store/store-selector';
 import { addStorelist, getStoreById } from 'src/app/store/store/store.action';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+import { fetchMerchantlistData } from 'src/app/store/merchantsList/merchantlist1.action';
+import { fetchCountrylistData } from 'src/app/store/country/country.action';
+import { fetchArealistData } from 'src/app/store/area/area.action';
+import { fetchCitylistData } from 'src/app/store/City/city.action';
+import { selectDataMerchant } from 'src/app/store/merchantsList/merchantlist1-selector';
+import { selectDataCountry } from 'src/app/store/country/country-selector';
+import { selectDataArea } from 'src/app/store/area/area-selector';
+import { selectDataCity } from 'src/app/store/City/city-selector';
 
 
 @Component({
@@ -21,6 +29,13 @@ export class FormStoreComponent implements OnInit {
   @Input() type: string;
   storeForm: UntypedFormGroup;
   private destroy$ = new Subject<void>();
+  merchantlist$: Observable<any[]>;
+  countrylist$: Observable<any[]>;
+  arealist$: Observable<any[]>;
+  citylist$: Observable<any[]>;
+  filteredCountries : any[];
+  filteredAreas : any[];
+  filteredCities: any[];
 
   submitted: any = false;
   error: any = '';
@@ -45,17 +60,22 @@ export class FormStoreComponent implements OnInit {
     private route: ActivatedRoute, 
     private router: Router,
     public store: Store) {
-
+      
+      this.store.dispatch(fetchMerchantlistData());
+      this.store.dispatch(fetchCountrylistData());
+      this.store.dispatch(fetchArealistData());
+      this.store.dispatch(fetchCitylistData());
+      
       this.storeForm = this.formBuilder.group({
       
         id: [''],
         name: ['', Validators.required],
-        description: ['', Validators.required],
+        description: [''],
         phone: ['', Validators.required ],
-        merchantId: [''],
-        city:['', Validators.required],
-        country:[''],
-        area:[''], 
+        merchant_id: ['12'],
+        city_id:['', Validators.required],
+        country_id:[''],
+        area_id:[''], 
         images: [''],  
         offers:['0'],
 
@@ -68,6 +88,12 @@ export class FormStoreComponent implements OnInit {
 
 
   ngOnInit() {
+    
+    this.merchantlist$ = this.store.select(selectDataMerchant);
+    this.countrylist$ = this.store.select(selectDataCountry);
+    this.arealist$ = this.store.select(selectDataArea);
+    this.citylist$ = this.store.select(selectDataCity);
+
 
     const StoreId = this.route.snapshot.params['id'];
     console.log('Store ID from snapshot:', StoreId);
@@ -81,6 +107,7 @@ export class FormStoreComponent implements OnInit {
         .subscribe(Store => {
           if (Store) {
             console.log('Retrieved Store:', Store);
+            this.uploadedFiles = Store.images;
             this.storeForm.patchValue(Store);
             this.isEditing = true;
 
@@ -101,6 +128,35 @@ export class FormStoreComponent implements OnInit {
 
   onSupervisorPhoneChanged(phoneNumber: string) {
     this.storeForm.get('supervisorPhone').setValue(phoneNumber);
+  }
+  onChangeMerchantSelection(event: any){
+    const merchant = event.target.value;
+    console.log(merchant);
+    if(merchant){
+      this.storeForm.get('country_id').setValue(merchant.country);
+      this.arealist$.subscribe(
+        areas=> 
+          this.filteredAreas = areas.filter(a =>a.country_id == merchant.country )
+      );
+    }
+    else{
+      this.filteredAreas = [];
+    }
+    
+  }
+  onChangeAreaSelection(event: any){
+    const area = event.target.value;
+    console.log(area);
+    if(area){
+      this.citylist$.subscribe(
+        cities => 
+          this.filteredCities = cities.filter(c =>c.area_id == area )
+      );
+    }
+    else{
+      this.filteredCities = [];
+    }
+    
   }
   // convenience getter for easy access to form fields
   get f() { return this.storeForm.controls; }
@@ -130,7 +186,10 @@ export class FormStoreComponent implements OnInit {
       if(this.uploadedFiles){
         newData.images = this.uploadedFiles;
       }
-      
+      delete newData.id;
+      delete newData.country_id;
+      delete newData.area_id;
+      delete newData.offers;
       console.log(newData);
       //Dispatch Action
       this.store.dispatch(addStorelist({ newData }));
@@ -162,33 +221,33 @@ export class FormStoreComponent implements OnInit {
     });
   }
   
-  /**
-   * Upload Store Logo
-   */
-  async uploadStoreLogo(event: any){
-    try {
-      const imageURL = await this.fileChange(event);
-      console.log(imageURL);
-      //this.storeForm.controls['storeLogo'].setValue(imageURL);
-      this.storeLogoBase64 = imageURL;
-    } catch (error: any) {
-      console.error('Error reading file:', error);
-    }
-  }
-  /**
-   * Upload Store Picture
-   */
-  async uploadStorePicture(event: any){
-    try {
-      const imageURL = await this.fileChange(event);
-      console.log(imageURL);
-      //this.storeForm.controls['StorePicture'].setValue(imageURL);
-      this.StorePictureBase64 = imageURL;
-    } catch (error: any) {
-      console.error('Error reading file:', error);
-    }
+  // /**
+  //  * Upload Store Logo
+  //  */
+  // async uploadStoreLogo(event: any){
+  //   try {
+  //     const imageURL = await this.fileChange(event);
+  //     console.log(imageURL);
+  //     //this.storeForm.controls['storeLogo'].setValue(imageURL);
+  //     this.storeLogoBase64 = imageURL;
+  //   } catch (error: any) {
+  //     console.error('Error reading file:', error);
+  //   }
+  // }
+  // /**
+  //  * Upload Store Picture
+  //  */
+  // async uploadStorePicture(event: any){
+  //   try {
+  //     const imageURL = await this.fileChange(event);
+  //     console.log(imageURL);
+  //     //this.storeForm.controls['StorePicture'].setValue(imageURL);
+  //     this.StorePictureBase64 = imageURL;
+  //   } catch (error: any) {
+  //     console.error('Error reading file:', error);
+  //   }
     
-  }
+  // }
  
 onUploadSuccess(event: any) {
   setTimeout(() => {

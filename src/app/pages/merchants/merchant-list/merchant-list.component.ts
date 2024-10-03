@@ -8,7 +8,7 @@ import { select, Store } from '@ngrx/store';
 // import { adduserlist, deleteuserlist, fetchuserlistData, updateuserlist } from 'src/app/store/UserList/userlist.action';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { addMerchantlist, deleteMerchantlist, fetchMerchantlistData, updateMerchantlist } from 'src/app/store/merchantsList/merchantlist1.action';
-import { selectData } from 'src/app/store/merchantsList/merchantlist1-selector';
+import { selectDataMerchant } from 'src/app/store/merchantsList/merchantlist1-selector';
 import { ToastrService } from 'ngx-toastr';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
 
@@ -56,7 +56,7 @@ export class MerchantListComponent implements OnInit {
     private formBuilder: UntypedFormBuilder, 
     public store: Store) {
       
-      this.merchantList$ = this.store.pipe(select(selectData)); // Observing the merchant list from store
+      this.merchantList$ = this.store.pipe(select(selectDataMerchant)); // Observing the merchant list from store
 
   }
 

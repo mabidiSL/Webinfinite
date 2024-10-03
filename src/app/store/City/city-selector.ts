@@ -4,7 +4,7 @@ import { CitylistState } from './city.reducer';
 
 export const selectDataState = createFeatureSelector<CitylistState>('CityList');
 
-export const selectData = createSelector(
+export const selectDataCity = createSelector(
   selectDataState,
   (state: CitylistState) => state?.CityListdata || []
 );

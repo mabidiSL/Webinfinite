@@ -61,6 +61,7 @@ import { StoreslistEffects } from './store/store/store.effect';
 import { countrieslistEffects } from './store/country/country.effect';
 import { AreaEffects } from './store/area/area.effect';
 import { CityEffects } from './store/City/city.effect';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 
@@ -81,6 +82,7 @@ export function createTranslateLoader(http: HttpClient): any {
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+    NgMultiSelectDropDownModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

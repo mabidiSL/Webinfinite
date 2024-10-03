@@ -8,7 +8,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ToastrService } from 'ngx-toastr';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
 import { deleteCitylist, fetchCitylistData, updateCitylist } from 'src/app/store/City/city.action';
-import { selectData } from 'src/app/store/City/city-selector';
+import { selectDataCity } from 'src/app/store/City/city-selector';
 
 @Component({
   selector: 'app-city',
@@ -47,7 +47,7 @@ export class CityComponent  implements OnInit {
     public toastr:ToastrService,
     public store: Store) {
       
-      this.cityList$ = this.store.select(selectData);
+      this.cityList$ = this.store.select(selectDataCity);
 
   }
 

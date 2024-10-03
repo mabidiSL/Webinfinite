@@ -3,9 +3,16 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { forkJoin, mergeMap, Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
+import { selectDataArea } from 'src/app/store/area/area-selector';
+import { fetchArealistData } from 'src/app/store/area/area.action';
+import { selectDataCity } from 'src/app/store/City/city-selector';
+import { fetchCitylistData } from 'src/app/store/City/city.action';
+import { selectDataCountry } from 'src/app/store/country/country-selector';
+import { fetchCountrylistData } from 'src/app/store/country/country.action';
 import { selectCouponById } from 'src/app/store/coupon/coupon-selector';
 import { addCouponlist, getCouponById, getCouponByIdSuccess, updateCouponlist } from 'src/app/store/coupon/coupon.action';
-import { selectData } from 'src/app/store/merchantsList/merchantlist1-selector';
+import { selectDataMerchant } from 'src/app/store/merchantsList/merchantlist1-selector';
+import { fetchMerchantlistData } from 'src/app/store/merchantsList/merchantlist1.action';
 
 @Component({
   selector: 'app-form-coupon',
@@ -16,6 +23,12 @@ export class FormCouponComponent implements OnInit{
 
   @Input() type: string;
   merchantList$: Observable<any[]>;
+  storeList: any[];
+  selectedStores: any[];
+
+
+
+  dropdownSettings : any;
   formCoupon: UntypedFormGroup;
   private destroy$ = new Subject<void>();
   couponLogoBase64: string = null;
@@ -28,16 +41,9 @@ export class FormCouponComponent implements OnInit{
     private formBuilder: UntypedFormBuilder, 
     private router: Router,
     private route: ActivatedRoute){
-    // Get merchant list
-    this.merchantList$ = this.store.pipe(select(selectData)); // Observing the merchant list from store
-    
-    // Get Countries, areas and cities
-    //this.countries =  this.store.pipe(select(selectData));
-    //this.cities =  this.store.pipe(select(selectData));
-    //this.areas =  this.store.pipe(select(selectData));
+   
+    this.store.dispatch(fetchMerchantlistData());   
 
-    //Get ContractResponsable list
-    //this.contractRespon = this.store.pipe(select(selectData));
     this.formCoupon = this.formBuilder.group({
       id: [''],
       name: ['', Validators.required],
@@ -48,15 +54,11 @@ export class FormCouponComponent implements OnInit{
       transDescription: [''],
       codeCoupon: ['COUP123'],
       urlStore: [''],
-      country: [''],
-      area: [''],
-      city: [''],
       quantity: [''],
       nbr_of_use:[''],
-      merchantId: [''],
-      merchantName: ['', Validators.required],
+      merchant_Id: [''],
       //storeId: [''],
-      storeName: ['', Validators.required],
+      stores: ['', Validators.required],
       managerName: [''],
       managerPhone: [''],
       startDateCoupon: [''],
@@ -79,13 +81,25 @@ export class FormCouponComponent implements OnInit{
   }
   
   ngOnInit() {
+   
+    this.dropdownSettings = {
+        singleSelection: false,
+        idField: 'item_id',
+        textField: 'item_text',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        itemsShowLimit: 3,
+        allowSearchFilter: true
+      };
     
+    this.merchantList$ = this.store.pipe(select(selectDataMerchant)); // Observing the merchant list from store
+     //Get ContractResponsable list
+     //this.contractRespon = this.store.pipe(select(selectData));
     const couponId = this.route.snapshot.params['id'];
     console.log('Coupon ID from snapshot:', couponId);
     if (couponId) {
       // Dispatch action to retrieve the coupon by ID
       this.store.dispatch(getCouponById({ couponId }));
-      
       // Subscribe to the selected coupon from the store
       this.store
         .pipe(select(selectCouponById(couponId)), takeUntil(this.destroy$))
@@ -115,7 +129,17 @@ getFileNameFromUrl(url: string): string {
   return parts[parts.length - 1]; // Returns the last part, which is the filename
 }
 
-
+onChangeMerchantSelection(event: any){
+  const merchant = event.target.value;
+  console.log(merchant);
+  if(merchant){
+    this.stores = merchant.stores;
+  }
+  else{
+    this.stores = [];
+  }
+  
+}
   onSubmit(){
 
     console.log('Submitting form...');

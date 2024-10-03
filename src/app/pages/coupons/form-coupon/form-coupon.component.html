@@ -54,54 +54,39 @@
                           <label for="codeCoupon">{{'Coupon Code'|translate}}</label>
                           <input class="form-control" id="codeCoupon" formControlName="codeCoupon" type="text" readonly />
                       </div>
-
+                    
                       <div class="col-md-6 mb-3">
-                          <label for="urlStore">{{'URL Store'|translate}}</label>
-                          <input class="form-control" id="urlStore" formControlName="urlStore" type="text" />
-                          <div *ngIf="formCoupon.get('urlStore').invalid && formCoupon.get('urlStore').touched" class="text-danger">
-                              {{'URL Store is required'|translate}}
-                          </div>
+                        <label for="merchant_id">{{'Merchant Name'|translate}}</label>
+                        <select  id="merchant_id" class="form-control"  formControlName="merchant_id" (change)="onChangeMerchantSelection($event)">
+                          <option value="" disabled selected>{{'Select_the_merchant' | translate}}</option>
+                          <option *ngFor="let merchant of (merchantList$ |async)" [value]="merchant.id">
+                           {{ merchant.merchantName }}
+                         </option>
+                        </select>
+                        <!-- <div *ngIf="formCoupon.get('merchant_id').invalid && formCoupon.get('merchant_id').touched">
+                          {{'Merchant Name is required'|translate}}
+                        </div> -->
                       </div>
-
+                    
                       <div class="col-md-6 mb-3">
-                          <label for="country">{{'Country'|translate}}</label>
-                          <!-- <select class="form-control" id="country" formControlName="country">
-                              <option *ngFor="let country of countries" [value]="country.code">
-                                {{ country.name }}
-                              </option>
-                            </select> -->
-                          <input class="form-control" id="country" formControlName="country" type="text" />
-                          <div *ngIf="formCoupon.get('country').invalid && formCoupon.get('country').touched" class="text-danger">
-                              {{'Country is required'|translate}}
-                          </div>
+                        <label for="stores">{{'Stores'|translate}}</label>
+                        <ng-multiselect-dropdown
+                          [placeholder]="'Select Stores'"
+                          [data]="stores"
+                          [(ngModel)]="selectedStores"
+                          [settings]="dropdownSettings">
+                        </ng-multiselect-dropdown>
+                        <div *ngIf="formCoupon.get('stores').invalid && formCoupon.get('stores').touched">
+                          {{'Store is required'|translate}}
+                        </div>
                       </div>
-
                       <div class="col-md-6 mb-3">
-                          <label for="area">{{'Area'|translate}}</label>
-                          <!-- <select class="form-control" id="area" formControlName="area">
-                              <option *ngFor="let area of areas" [value]="area.id">
-                                {{ area.name }}
-                              </option>
-                            </select> -->
-                          <input class="form-control" id="area" formControlName="area" type="text" />
-                          <div *ngIf="formCoupon.get('area').invalid && formCoupon.get('area').touched" class="text-danger">
-                              {{'Area is required'|translate}}
-                          </div>
-                      </div>
-                                     
-                <div class="col-md-6 mb-3">
-                  <label for="city">{{'City'|translate}}</label>
-                  <!-- <select class="form-control" id="city" formControlName="city">
-                              <option *ngFor="let city of cities" [value]="city.id">
-                                {{ city.name }}
-                              </option>
-                  </select> -->
-                  <input class="form-control" id="city" formControlName="city" type="text" />
-                  <div *ngIf="formCoupon.get('city').invalid && formCoupon.get('city').touched">
-                    {{'City is required'|translate}}
-                  </div>
-                </div>
-              
+                        <label for="urlStore">{{'URL Store'|translate}}</label>
+                        <input class="form-control" id="urlStore" formControlName="urlStore" type="text" />
+                        <div *ngIf="formCoupon.get('urlStore').invalid && formCoupon.get('urlStore').touched" class="text-danger">
+                            {{'URL Store is required'|translate}}
+                        </div>
+                    </div>
                 <div class="col-md-6 mb-3">
                   <label for="quantity">{{'Quantity'|translate}}</label>
                   <input class="form-control" id="quantity" formControlName="quantity" type="number" />
@@ -116,27 +101,7 @@
                     {{'Number of use is required'|translate}}
                   </div>
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label for="merchantName">{{'Merchant Name'|translate}}</label>
-                  <input class="form-control" id="merchantName" formControlName="merchantName" type="text" />
-                  <div *ngIf="formCoupon.get('merchantName').invalid && formCoupon.get('merchantName').touched">
-                    {{'Merchant Name is required'|translate}}
-                  </div>
-                </div>
-              
-                <div class="col-md-6 mb-3">
-                  <label for="storeName">{{'Store Name'|translate}}</label>
-                   <select class="form-control" id="city" formControlName="storeName">
-                    <option [value]="'all'">{{ 'All Stores' | translate }}</option>
-                       <option *ngFor="let store of stores" [value]="store">
-                         {{ store }}
-                       </option>
-                  </select>
-                  <!-- <input class="form-control" id="storeName" formControlName="storeName" type="text" /> -->
-                  <div *ngIf="formCoupon.get('storeName').invalid && formCoupon.get('storeName').touched">
-                    {{'Store Name is required'|translate}}
-                  </div>
-                </div>
+                
               
                 <div class="col-md-6 mb-3">
                   <label for="managerName">{{'Manager Name'|translate}}</label>

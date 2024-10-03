@@ -8,60 +8,87 @@
                         <div class="form-group ">
                            <label for="name" >{{'Store_Name' | translate}} <span class="text-danger">*</span></label>
                             <input type="text" id="name" class="form-control" formControlName="name"  >
-                            <!-- <div *ngIf="storeForm.get('username').touched && storeForm.get('username').invalid" class="invalid-feedback d-block">
-                                <span *ngIf="storeForm.get('username').errors?.['required']">{{'Name is required'| translate}}.</span>
-                              </div> -->
+                            <div *ngIf="storeForm.get('name').touched && storeForm.get('name').invalid" class="invalid-feedback d-block">
+                                <span *ngIf="storeForm.get('name').errors?.['required']">{{'Name is required'| translate}}.</span>
+                              </div>
                           </div> 
                       </div>
-                 <div class="col-md-6 mb-3">
-                        <div class="form-group">
-                          <label for="merchantId" >{{'Merchant_Name' | translate}}</label>
-                          <input type="text" id="merchantId" class="form-control" formControlName="merchantId" >
-                        </div>
+                 
+                <div class="col-md-6 mb-3">
+                  <div class="form-group ">
+                        <label for="merchant_id" >{{'Merchant_Name' | translate}}<span class="text-danger">*</span></label>
+                        <select  id="merchant_id"class="form-control"  formControlName="merchant_id" (change)="onChangeMerchantSelection($event)">
+                              <option value="" disabled selected>{{'Select_the_merchant' | translate}}</option>
+                              <option *ngFor="let merchant of (merchantlist$ |async)" [value]="merchant.id">
+                               {{ merchant.merchantName }}
+                             </option>
+                        </select>
+                        <div *ngIf="storeForm.get('merchant_id').touched && storeForm.get('merchant_id').invalid" class="invalid-feedback d-block">
+                          <span *ngIf="storeForm.get('merchant_id').errors?.['required']">{{'merchant_is_required'| translate}}.</span>
+                      </div> 
+                  </div>                       
                 </div>
                   <div class="col-md-6 mb-3">
                     <div class="form-group ">
                        <label for="description" >{{'Description' | translate}} <span class="text-danger">*</span></label>
                        <textarea class="form-control" id="description" formControlName="description" rows="3"></textarea>
-                       <!-- <div *ngIf="storeForm.get('username').touched && storeForm.get('username').invalid" class="invalid-feedback d-block">
-                            <span *ngIf="storeForm.get('username').errors?.['required']">{{'Name is required'| translate}}.</span>
+                       <!-- <div *ngIf="storeForm.get('name').touched && storeForm.get('name').invalid" class="invalid-feedback d-block">
+                            <span *ngIf="storeForm.get('name').errors?.['required']">{{'Name is required'| translate}}.</span>
                           </div> -->
                       </div> 
                   </div>
-                  <div class="col-md-6 mb-3">
+                  <div *ngIf="storeForm" class="col-md-6 mb-3">
                     <div class="form-group">
                       <label for="phone" >{{'Phone Number' | translate}} <span class="text-danger">*</span></label><br>
                      <app-phone-number
                      [initialPhoneNumber]="storeForm.get('phone').value"
-                     *ngIf="storeForm"
                      (phoneNumberChanged)="onPhoneNumberChanged($event)" >
                     </app-phone-number>
-                     <!-- <div *ngIf="storeForm.get('phone').touched && storeForm.get('phone').invalid" class="invalid-feedback d-block">
+                    <div *ngIf="storeForm.get('phone').touched && storeForm.get('phone').invalid" class="invalid-feedback d-block">
                       <span *ngIf="storeForm.get('phone').errors?.['required']">{{'Phone Number is required'| translate}}.</span>
-                    </div>    -->
+                    </div>   
                     </div>
                   </div>
                   
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group ">
+                          <label for="country_id" >{{'Country' | translate}}<span class="text-danger">*</span></label>
+                          <input type="text" id="country_id" class="form-control" formControlName="country_id" >
+
+                          <!-- <div *ngIf="storeForm.get('country_id').touched && storeForm.get('country_id').invalid" class="invalid-feedback d-block">
+                            <span *ngIf="storeForm.get('country_id').errors?.['required']">{{'Country_is_required'| translate}}.</span>
+                        </div>  -->
+                    </div>                       
+                  </div>
                     <div class="col-md-6 mb-3">
                       <div class="form-group">
-                        <label for="country" >{{'Country' | translate}}</label>
-                        <input type="text" id="country" class="form-control" formControlName="country" placeholder="Select the country">
-                      </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <div class="form-group">
-                        <label for="area">{{'Area'| translate}}</label>
-                        <input type="text" id="area" class="form-control" formControlName="area" placeholder="Select the area">
-                      </div>
+                        <label for="area_id">{{'Area'| translate}}</label>
+                        <select  id="area_id"class="form-control"  formControlName="area_id" (change)="onChangeAreaSelection($event)" >
+                          <option value="" disabled selected>{{'Select_the_Area' | translate}}</option>
+                          <option *ngFor="let area of filteredAreas" [value]="area.id">
+                           {{ area.name }}
+                         </option>
+                        </select>  
+                         <div *ngIf="storeForm.get('area_id').touched && storeForm.get('area_id').invalid" class="invalid-feedback d-block">
+                            <span *ngIf="storeForm.get('area_id').errors?.['required']">{{'area_is_required'| translate}}.</span>
+                        </div>   
+                       </div>
                     </div>
                     <div class="col-md-6 mb-3">
                       <div class="form-group ">
-                        <label for="city" >{{'City' | translate}}</label>
-                        <input type="text" id="city" class="form-control" formControlName="city" placeholder="Select the city">
-                      </div>
+                        <label for="city_id" >{{'City' | translate}}</label>
+                        <select  id="city_id"class="form-control"  formControlName="city_id" (change)="onChangeAreaSelection($event)" >
+                          <option value="" disabled selected>{{'Select_the_City' | translate}}</option>
+                          <option *ngFor="let city of filteredCities" [value]="city.id">
+                           {{ city.name }}
+                         </option>
+                        </select>  
+                         <div *ngIf="storeForm.get('area_id').touched && storeForm.get('area_id').invalid" class="invalid-feedback d-block">
+                            <span *ngIf="storeForm.get('area_id').errors?.['required']">{{'area_is_required'| translate}}.</span>
+                        </div>   
+                       </div>                     
                     </div>
               
-                 
                     <div class="col-md-6 mb-3">
                         <div class="form-group">
                           <label for="offers" >{{'Number_Of_Offers' | translate}}</label>

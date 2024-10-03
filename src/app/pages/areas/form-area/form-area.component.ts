@@ -8,7 +8,7 @@ import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { addArealist, fetchArealistData, getAreaById, updateArealist } from 'src/app/store/area/area.action';
 import { selectAreaById } from 'src/app/store/area/area-selector';
 import { fetchCountrylistData } from 'src/app/store/country/country.action';
-import { selectData } from 'src/app/store/country/country-selector';
+import { selectDataCountry } from 'src/app/store/country/country-selector';
 
 
 
@@ -45,7 +45,7 @@ export class FormAreaComponent implements OnInit {
     public store: Store) {
       
       this.store.dispatch(fetchCountrylistData());
-      this.store.select(selectData).subscribe(
+      this.store.select(selectDataCountry).subscribe(
         countries => {
           this.countries = countries
         })
