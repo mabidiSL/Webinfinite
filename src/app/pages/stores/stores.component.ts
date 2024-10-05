@@ -37,7 +37,8 @@ export class StoresComponent implements OnInit {
   originalArray: any[] = [];
 
   returnedArray: Observable<any[]>;
-  
+  itemPerPage: number = 10;
+  currentPage : number = 1;
 
   public Modules = Modules;
   public Permission = Permission;
@@ -60,28 +61,23 @@ export class StoresComponent implements OnInit {
   ngOnInit() {
       
       
-        this.store.dispatch(fetchStorelistData());
+        this.store.dispatch(fetchStorelistData({ page: this.currentPage, itemsPerPage: this.itemPerPage }));
         this.storeList$.subscribe(data => {
         this.originalArray = data; // Store the full Store list
         this.filteredArray = [...this.originalArray];
-        
         document.getElementById('elmLoader')?.classList.add('d-none');
         console.log('Finish get Store list');
         console.log(this.filteredArray);
     
         });
-     
- 
-  }
+   }
 
  
   // pagechanged
   onPageChanged(event: PageChangedEvent): void {
-    const startItem = (event.page - 1) * event.itemsPerPage;
-    this.endItem = event.page * event.itemsPerPage;
-    //this.StoreList$ = this.returnedArray.slice(startItem, this.endItem);
-   // this.StoreList$ = this.returnedArray.sort((a: any, b: any) => new Date(b.registrationDate).getTime() - new Date(a.registrationDate).getTime()).slice(0,10);
-
+    this.currentPage = event.page;
+    this.store.dispatch(fetchStorelistData({ page: this.currentPage, itemsPerPage: this.itemPerPage }));
+    
   }
 
   // Delete Store
@@ -95,8 +91,6 @@ export class StoresComponent implements OnInit {
     console.log('Store ID:', event.data.id, 'New Status:', newStatus);
     event.data.status = newStatus;
     this.store.dispatch(updateStorelist({ updatedData: event.data }));
-
-   
   }
 
 

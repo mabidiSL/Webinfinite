@@ -4,6 +4,7 @@ import {  addStorelistSuccess, deleteStorelistFailure, deleteStorelistSuccess, f
 
 export interface StorelistState {
   StoreListdata: any[];
+  currentPage: number;
   selectedStore: any,
   loading: boolean;
   error: any;
@@ -11,6 +12,7 @@ export interface StorelistState {
 
 export const initialState: StorelistState = {
   StoreListdata: [],
+  currentPage: 1,
   selectedStore: null,
   loading: false,
   error: null,
@@ -18,8 +20,9 @@ export const initialState: StorelistState = {
 
 export const StoreListReducer = createReducer(
   initialState,
-  on(fetchStorelistData, state => ({
+  on(fetchStorelistData,(state, { page, itemsPerPage }) => ({
     ...state,
+    currentPage: page,
     loading: true,
     error: null
   })),
