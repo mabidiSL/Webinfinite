@@ -24,6 +24,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
+import { CustomTableComponent } from 'src/app/shared/ui/custom-table/custom-table.component';
 
 
 @NgModule({

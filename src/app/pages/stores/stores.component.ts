@@ -1,11 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable, take } from 'rxjs';
-import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-
+import { UntypedFormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { ToastrService } from 'ngx-toastr';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
 import { deleteStorelist, fetchStorelistData, updateStorelist } from 'src/app/store/store/store.action';
 import { selectData } from 'src/app/store/store/store-selector';
@@ -39,22 +36,22 @@ export class StoresComponent implements OnInit {
   filteredArray: any[] = [];
   originalArray: any[] = [];
 
-  @ViewChild('newContactModal', { static: false }) newContactModal?: ModalDirective;
-  @ViewChild('removeItemModal', { static: false }) removeItemModal?: ModalDirective;
-  deleteId: any;
   returnedArray: Observable<any[]>;
-   // File Upload
-   imageURL: string | undefined;
+  
 
   public Modules = Modules;
   public Permission = Permission;
 
+  columns : any[]= [
+    { property: 'name', label: 'Store Name' },
+    { property: 'merchant.name', label: 'Merchant' },
+    { property: 'city.name', label: 'City' },
+    { property: 'offers.total', label: 'Total Offers' },
+    { property: 'status', label: 'Status' },
+  ];
 
   constructor(
-    private modalService: BsModalService,
-    public toastr:ToastrService,
-    private formBuilder: UntypedFormBuilder, 
-    public store: Store) {
+   public store: Store) {
       
       this.storeList$ = this.store.pipe(select(selectData)); // Observing the Store list from store
 
@@ -74,66 +71,12 @@ export class StoresComponent implements OnInit {
     
         });
      
-
-   
-  }
-
-  // fiter job
-  searchJob() {
-    if (this.term) {
-      this.filteredArray = this.originalArray.filter((data: any) =>
-        data.username.toLowerCase().includes(this.term.toLowerCase())
-      );
-    } else {
-      this.filteredArray = [...this.originalArray]; // Reset the filter
-    }
-  }
-  toggleDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen;
-  }
-  applyFilter(filterType: string) {
-    this.isDropdownOpen = false;
-    if (filterType === 'All') {
-      this.filteredArray = [...this.originalArray]; // Show all items
-    } else if (filterType && this.originalArray) {
-      console.log('i am in filter section');
-      this.filteredArray = this.groupBy(this.originalArray, filterType.toLowerCase());
-      console.log(this.filteredArray);
-    }
-  }
-
  
-
-// Group data by the selected criterion
-groupBy(data: any[], criterion: string) {
-  console.log('i am in group by');
-  const grouped = data.reduce((result, item) => {
-    const key = item[criterion];
-    if (key !== undefined) {
-      if (!result[key]) {
-        result[key] = [];
-      }
-      result[key].push(item);
-    }
-    return result;
-  }, {} as { [key: string]: any[] });
-
-  // Convert grouped object into a flattened array with grouping info
-  const flattened = Object.values(grouped).flat();
-
-  return flattened;
-
-}
-
-  printData(){
-
   }
-  downloadData(){
 
-  }
  
   // pagechanged
-  pageChanged(event: PageChangedEvent): void {
+  onPageChanged(event: PageChangedEvent): void {
     const startItem = (event.page - 1) * event.itemsPerPage;
     this.endItem = event.page * event.itemsPerPage;
     //this.StoreList$ = this.returnedArray.slice(startItem, this.endItem);
@@ -141,22 +84,17 @@ groupBy(data: any[], criterion: string) {
 
   }
 
-  // Disable Store
-  disableCountry(id: any) {
-    this.deleteId = id;
-    console.log('the id of the store to be deleted'+this.deleteId);
-    this.removeItemModal?.show();
+  // Delete Store
+  onDelete(id: any) {
+    this.store.dispatch(deleteStorelist({ storeId: id }));
   }
 
-  confirmDelete() {
-    this.store.dispatch(deleteStorelist({ storeId: this.deleteId }));
-    this.removeItemModal?.hide();
-  }
-  onChangeEvent(data: any, event: any) {
+ 
+  onChangeEvent( event: any) {
     const newStatus = event.checked ? 'active' : 'inactive'; 
-    console.log('Store ID:', data.id, 'New Status:', newStatus);
-    data.status = newStatus;
-    this.store.dispatch(updateStorelist({ updatedData: data }));
+    console.log('Store ID:', event.data.id, 'New Status:', newStatus);
+    event.data.status = newStatus;
+    this.store.dispatch(updateStorelist({ updatedData: event.data }));
 
    
   }
