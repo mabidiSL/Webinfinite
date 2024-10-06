@@ -33,8 +33,8 @@ export class CityEffects {
         this.actions$.pipe(
             ofType(fetchCitylistData),
             tap(() => console.log('Request to fetch City list has been launched')), // Add console log here
-            mergeMap(() =>
-                this.CrudService.fetchData('/cities',{ limit: '10', page: '1'}).pipe(
+            mergeMap(({ page, itemsPerPage }) =>
+                this.CrudService.fetchData('/cities',{ limit: itemsPerPage, page: page}).pipe(
                     tap((response : any) => console.log('Fetched data:', response.result.rows)), 
                     map((response) => fetchCitylistSuccess({ CityListdata: response.result.rows })),
                     catchError((error) =>

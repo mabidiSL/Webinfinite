@@ -33,8 +33,8 @@ export class countrieslistEffects {
         this.actions$.pipe(
             ofType(fetchCountrylistData),
             tap(() => console.log('Request to fetch Country list has been launched')), // Add console log here
-            mergeMap(() =>
-                this.CrudService.fetchData('/countries',{ limit: '10', page: '1'}).pipe(
+            mergeMap(({ page, itemsPerPage }) =>
+                this.CrudService.fetchData('/countries',{ limit: itemsPerPage, page: page}).pipe(
                     tap((response : any) => console.log('Fetched data:', response.result.rows)), 
                     map((response) => fetchCountrylistSuccess({ CountryListdata: response.result.rows })),
                     catchError((error) =>

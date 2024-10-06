@@ -44,7 +44,6 @@ import { ChatComponent } from './chat/chat.component';
 import { FilemanagerComponent } from './filemanager/filemanager.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../core/services/language.service';
-import { UsersModule } from './users/users.module';
 import { CreateCityComponent } from './city/create-city/create-city.component';
 import { EditCityComponent } from './city/edit-city/edit-city.component';
 import { FormCityComponent } from './city/form-city/form-city.component';
@@ -59,7 +58,7 @@ import { CityModule } from './city/city.module';
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     PagesRoutingModule,
-    UsersModule,
+    
     NgApexchartsModule,
     ReactiveFormsModule,
     DashboardsModule,

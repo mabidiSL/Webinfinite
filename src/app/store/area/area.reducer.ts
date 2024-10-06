@@ -4,6 +4,7 @@ import {  addArealistSuccess, deleteArealistFailure, deleteArealistSuccess, fetc
 
 export interface ArealistState {
   AreaListdata: any[];
+  currentPage: number;
   selectedArea: any,
   loading: boolean;
   error: any;
@@ -11,6 +12,7 @@ export interface ArealistState {
 
 export const initialState: ArealistState = {
   AreaListdata: [],
+  currentPage: 1,
   selectedArea: null,
   loading: false,
   error: null,

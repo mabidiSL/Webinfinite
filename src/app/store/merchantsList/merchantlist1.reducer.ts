@@ -4,6 +4,7 @@ import {  addMerchantlistSuccess, deleteMerchantlistFailure, deleteMerchantlistS
 
 export interface MerchantlistState {
   MerchantListdata: any[];
+  currentPage: number;
   selectedMerchant: any,
   loading: boolean;
   error: any;
@@ -11,6 +12,7 @@ export interface MerchantlistState {
 
 export const initialState: MerchantlistState = {
   MerchantListdata: [],
+  currentPage: 1,
   selectedMerchant: null,
   loading: false,
   error: null,
@@ -18,8 +20,9 @@ export const initialState: MerchantlistState = {
 
 export const MerchantListReducer = createReducer(
   initialState,
-  on(fetchMerchantlistData, state => ({
+  on(fetchMerchantlistData,(state, { page, itemsPerPage, status }) => ({
     ...state,
+    currentPage: page,
     loading: true,
     error: null
   })),

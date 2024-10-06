@@ -56,30 +56,3 @@ interface User{
     registrationDate?: string;
     updatedAt?: string;
 }
-// Merchant_Object{
-//       username;
-//       email;
-//       password;
-//       merchantName;//Merchant name
-//       merchantLogo; // Merchant
-//       phone;
-//       country;
-//       city;
-//       area; 
-//       serviceType ;
-//       supervisorName;
-//       supervisorPhone;
-//       bankAccountNumber;
-//       registerCode;
-//       merchantPicture;
-//       merchantSection;
-//       merchantCategory;
-//       offers: Offer;//not necessary in the register
-//       stores: Store//not necessary in the register
-//       website;
-//       whatsup;
-//       facebook;
-//       twitter;
-//       instagram;
-     
-// }

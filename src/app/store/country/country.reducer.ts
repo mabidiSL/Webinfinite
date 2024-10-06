@@ -4,6 +4,7 @@ import {  addCountrylistSuccess, deleteCountrylistFailure, deleteCountrylistSucc
 
 export interface CountrylistState {
   CountryListdata: any[];
+  currentPage: number;
   selectedCountry: any,
   loading: boolean;
   error: any;
@@ -11,6 +12,7 @@ export interface CountrylistState {
 
 export const initialState: CountrylistState = {
   CountryListdata: [],
+  currentPage: 1,
   selectedCountry: null,
   loading: false,
   error: null,
@@ -18,8 +20,9 @@ export const initialState: CountrylistState = {
 
 export const CountryListReducer = createReducer(
   initialState,
-  on(fetchCountrylistData, state => ({
+  on(fetchCountrylistData,  (state, { page, itemsPerPage, status }) => ({
     ...state,
+    currentPage: page,
     loading: true,
     error: null
   })),

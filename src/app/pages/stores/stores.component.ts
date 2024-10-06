@@ -18,30 +18,16 @@ import { selectData } from 'src/app/store/store/store-selector';
 })
 export class StoresComponent implements OnInit {
 
-
-
   // bread crumb items
   breadCrumbItems: Array<{}>;
-  term: any
+  
   storeList$: Observable<any[]>;
-  // Table data
-  total: Observable<number>;
-  createContactForm!: UntypedFormGroup;
-  submitted = false;
-  contacts: any;
-  files: File[] = [];
-  endItem: any;
-  viewType: string;
   isDropdownOpen : boolean = false;
   filteredArray: any[] = [];
   originalArray: any[] = [];
 
-  returnedArray: Observable<any[]>;
   itemPerPage: number = 10;
   currentPage : number = 1;
-
-  public Modules = Modules;
-  public Permission = Permission;
 
   columns : any[]= [
     { property: 'name', label: 'Store Name' },
@@ -51,16 +37,13 @@ export class StoresComponent implements OnInit {
     { property: 'status', label: 'Status' },
   ];
 
-  constructor(
-   public store: Store) {
+  constructor(public store: Store) {
       
       this.storeList$ = this.store.pipe(select(selectData)); // Observing the Store list from store
-
   }
 
   ngOnInit() {
-      
-      
+          
         this.store.dispatch(fetchStorelistData({ page: this.currentPage, itemsPerPage: this.itemPerPage }));
         this.storeList$.subscribe(data => {
         this.originalArray = data; // Store the full Store list
@@ -68,7 +51,6 @@ export class StoresComponent implements OnInit {
         document.getElementById('elmLoader')?.classList.add('d-none');
         console.log('Finish get Store list');
         console.log(this.filteredArray);
-    
         });
    }
 

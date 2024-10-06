@@ -39,13 +39,13 @@ export class FormCityComponent  implements OnInit {
       private router: Router,
       public store: Store) {
         
-        this.store.dispatch(fetchCountrylistData());
+        this.store.dispatch(fetchCountrylistData({ page: 1, itemsPerPage: 10, status:'active' }));
         this.store.select(selectDataCountry).subscribe(
           countries => {
             this.countries = countries
           });
 
-        this.store.dispatch(fetchArealistData());
+        this.store.dispatch(fetchArealistData({ page: 1, itemsPerPage: 10, status:'active' }));
         this.store.select(selectDataArea).subscribe(
             areas => {
               this.areas = areas

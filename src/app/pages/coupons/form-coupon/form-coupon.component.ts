@@ -42,7 +42,7 @@ export class FormCouponComponent implements OnInit{
     private router: Router,
     private route: ActivatedRoute){
    
-    this.store.dispatch(fetchMerchantlistData());   
+    this.store.dispatch(fetchMerchantlistData({ page: 1, itemsPerPage: 10 , status: 'active'}));   
 
     this.formCoupon = this.formBuilder.group({
       id: [''],

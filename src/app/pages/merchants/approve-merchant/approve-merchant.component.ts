@@ -47,9 +47,8 @@ export class ApproveMerchantComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.breadCrumbItems = [{ label: 'Merchants' }, { label: 'Merchants Approval List', active: true }];
     setTimeout(() => {
-      this.store.dispatch(fetchMerchantlistData());
+      this.store.dispatch(fetchMerchantlistData({ page: 1, itemsPerPage: 10, status : 'notApproved' }));
       this.store.select(selectDataMerchant).subscribe(data => {
         this.merchantApprovalList = data
         console.log(this.merchantApprovalList);

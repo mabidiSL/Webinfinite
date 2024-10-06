@@ -1,182 +1,31 @@
 <div class="container-fluid">
 
-    <app-page-title title="{{'Areas_List'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
-    
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="card">
-          <div class="card-body">
-            <div class="row mb-2">
-              <!-- Search Box -->
-              <div class="col-sm-2">
-                <div class="search-box me-2 mb-2">
-                  <div class="position-relative">
-                    <input type="text" class="form-control" id="searchTableList" placeholder="{{'HEADER.SEARCH'|translate}}" [(ngModel)]="term" (ngModelChange)="searchJob()">
-                    <i class="bx bx-search-alt search-icon"></i>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Filter Button -->
-              <!-- <div class="col-sm-2 position-relative"> -->
-                <div class="col-auto">
-                <button class="btn btn-gold btn-rounded" id="filter" tooltip="{{'Filter By'| translate}}" (click)="toggleDropdown()">
-                  <i class="bx bx-filter-alt"></i> 
-                </button>
-              
-              <div  class="dropdown-menu position-absolute" [class.show]="isDropdownOpen">
-                <a class="dropdown-item" href="javascript:void(0);" (click)="applyFilter('All')">All</a>
-                <a class="dropdown-item" href="javascript:void(0);" (click)="applyFilter('Name')">Name</a>
-                <a class="dropdown-item" href="javascript:void(0);" (click)="applyFilter('City')">City</a>
-                <a class="dropdown-item" href="javascript:void(0);" (click)="applyFilter('Status')">Status</a>
-                <a class="dropdown-item" href="javascript:void(0);" (click)="applyFilter('Phone')">Phone</a>
-              </div>
-            </div>
-              <!-- Print Button -->
-              <div class="col-auto">
-                <button class="btn btn-gold btn-rounded " tooltip="{{'Print'| translate}}" (click)="printData()">
-                  <i class="bx bx-printer"></i> 
-                </button>
-              </div>
-            
-              <!-- Download Button -->
-              <div class="col-auto">
-                <button class="btn btn-gold btn-rounded waves-effect waves-light" tooltip="{{'Download'| translate}}" (click)="downloadData()">
-                  <i class="bx bx-download"></i> 
-                </button>
-              </div>
-            
-              <!-- Add Area Button -->
-              <div class="col-sm-4 text-end">
-                    <div  *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.Create]}]" data-bs-toggle="modal" >
-                   <button [routerLink]="['/private/areas/create']"type="button"  class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal">
-                  <i class="mdi mdi-plus me-1"></i> {{'New_Area'|translate}}
-                </button>
-              </div>
-              </div>
-              
-          </div>
-            <!-- end row -->
-            <div class="table-responsive">
-              <table class="table align-middle table-nowrap table-hover dt-responsive nowrap w-100" id="userList-table">
-                <thead class="table-light">
-                  <tr>
-                    <th scope="col" style="width: 40px;">#</th>
-                    <th scope="col">{{'Area'| translate}}</th>
-                    <th scope="col">{{'Country'| translate}}</th>
-                    <th scope="col">{{'Status'| translate}}</th>
-                    <th scope="col" style="width: 200px;">{{'Actions'| translate}}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <ng-container *ngIf="filteredArray && filteredArray.length > 0; else noItems">
-                  <ng-container  *ngFor="let data of filteredArray; let i= index "> 
-                  <tr *ngIf="data.status == 'active' ||data.status == 'inactive' ">
-                    <td>
-                        <div class="form-check font-size-16">
-                          <input class="form-check-input" type="checkbox" id="transactionCheck{{data.index}}" value="{{data.id}}" [(ngModel)]="data.state">
-                          <label class="form-check-label" for="transactionCheck{{data.index}}"></label>
-                        </div>
-                      </td>
-                      
+  <app-page-title title="{{'Areas_List'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <app-custom-table
+    [addButtonLink] ="'/private/areas/create'"
+    [addButtonLabel] ="'New_Area'"
+    [addButtonPermission] = "'[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.Create]}]'"
+    [columns]="columns"
+    [viewButtonLink]="'/private/areas/view'"
+    [viewButtonPermission] = "'[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.View]}]'"
+    [editButtonLink]="'/private/areas/edit'"
+    [editButtonPermission] = "'[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.Edit]}]'"
+    [deleteButtonPermission] = "'[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.Delete]}]'"
+    [ArrayData]="originalArray"
+    [term]="'search term'"
+    [checkedStatus] = "{status: 'active', label: 'Active'}"
+    [uncheckedStatus] = "{status: 'inactive', label: 'inactive'}"
+    (pageChanged)="onPageChanged($event)"
+    (onChangeEvent)="onChangeEvent($event)"
+    (onDelete)="onDelete($event)">
+</app-custom-table>
+ 
+</div>
 
-                    <td>
-                      <h5 class="font-size-14 mb-1"><a href="javascript: void(0);" class="text-dark">{{data.name}}</a>
-                      </h5>
-                      
-                    </td>
-                    <td>{{data.country.name}}</td>
 
-                    
-                    <td>
-                      <ui-switch  color="##343a40"  [checked]="data.status == 'active'"  uncheckedLabel="inactive" checkedLabel="active" size="small" class="me-1" (changeEvent)="onChangeEvent(data,$event)" ></ui-switch>
-
-                        <!-- <span class="badge badge-pill badge-soft-success font-size-11" [ngClass]=" { 'badge-soft-success': data.user.status === 'active',
-                                      'badge-soft-danger':data.user.status === 'inactive' }">{{data.user.status}}</span> -->
-                      </td>
-                    <td>
-                      <ul class="list-inline font-size-20 contact-links mb-0">
-                        <!-- <li class="list-inline-item px-2">
-                          <a href="javascript:void(0);" tooltip="Message"><i class="bx bx-message-square-dots"></i></a>
-                        </li>
-                        <li class="list-inline-item px-2">
-                          <a href="javascript:void(0);" tooltip="Profile"><i class="bx bx-user-circle"></i></a>
-                        </li> -->
-                        <td>
-                          <ul class="list-unstyled hstack gap-1 mb-0">
-                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'View'|translate}}">
-                              <a [routerLink]="['/private/areas/edit/', data.id]" class="btn btn-sm btn-soft-primary" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.View]}]" ><i class="mdi mdi-eye-outline"></i></a>
-                            </li>
-                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Edit'|translate}}">
-                              <!-- <a href="javascript:void(0);" class="btn btn-sm btn-soft-info" (click)="editDataGet(data.id,content)"><i class="mdi mdi-pencil-outline"></i></a> -->
-                              <a [routerLink]="['/private/areas/edit/', data.id]" class="btn btn-sm btn-soft-info" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.Update]}]" ><i class="mdi mdi-pencil-outline"></i></a>
-
-                            </li>
-                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Delete'| translate}}">
-                              <!-- <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" (click)="delete($event)"><i class="mdi mdi-delete-outline"></i></a> -->
-                              <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.Delete]}]" (click)="disableArea(data.id)"><i class="mdi mdi-delete-outline"></i></a>
-
-                            </li>
-                          </ul>
-                        </td>
-                        
-                      </ul>
-                    </td>
-                  </tr>
-                  </ng-container>
-                 </ng-container>
-                    <!-- Template for No Items Available -->
-                    <ng-template #noItems>
-                      <tr>
-                        <td colspan="5" class="text-center">
-                          <p>{{'No_items_available' | translate}}</p>
-                        </td>
-                      </tr>
-                    </ng-template>
-                  
-                </tbody>
-              </table>
-            </div>
-            <div class="row">
-              <div class="col-lg-12">
-                <ul class="pagination pagination-rounded justify-content-center mt-4">
-                  <pagination class="pagination-wrap hstack gap-2" [totalItems]="filteredArray?.length" [itemsPerPage]="10" (pageChanged)="pageChanged($event)"></pagination>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<div id="elmLoader" class="text-center">
+  <div class="spinner-border text-primary avatar-sm" role="status">
+    <span class="visually-hidden">Loading...</span>
   </div>
+</div>
 
-  
-  <!-- end newContactModal -->
-  <div id="elmLoader" class="text-center">
-    <div class="spinner-border text-primary avatar-sm" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-  </div>
-  
-  <!-- removeItemModal -->
-  <div bsModal #removeItemModal="bs-modal" class="modal fade" id="removeItemModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
-      <div class="modal-content">
-        <div class="modal-body px-4 py-5 text-center">
-          <button type="button" class="btn-close position-absolute end-0 top-0 m-3" (click)="removeItemModal.hide()"></button>
-          <div class="avatar-sm mb-4 mx-auto">
-            <div class="avatar-title bg-primary text-primary bg-opacity-10 font-size-20 rounded-3">
-              <i class="mdi mdi-trash-can-outline"></i>
-            </div>
-          </div>
-          <p class="text-muted font-size-16 mb-4">{{'Are you Sure You want to delete this Area ?'|translate}}</p>
-  
-          <div class="hstack gap-2 justify-content-center mb-0">
-            <button type="button" class="btn btn-danger me-1" id="remove-item" (click)="confirmDelete()">{{'Delete_Now'|translate}}</button>
-            <button type="button" class="btn btn-secondary" (click)="removeItemModal.hide()">{{'Close'| translate}}</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- end removeItemModal -->

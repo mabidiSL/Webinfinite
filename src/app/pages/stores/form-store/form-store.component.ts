@@ -61,10 +61,10 @@ export class FormStoreComponent implements OnInit {
     private router: Router,
     public store: Store) {
       
-      this.store.dispatch(fetchMerchantlistData());
-      this.store.dispatch(fetchCountrylistData());
-      this.store.dispatch(fetchArealistData());
-      this.store.dispatch(fetchCitylistData());
+      this.store.dispatch(fetchMerchantlistData({ page: 1, itemsPerPage: 10 , status: 'active'}));
+      this.store.dispatch(fetchCountrylistData({ page: 1, itemsPerPage: 10 , status: 'active'}));
+      this.store.dispatch(fetchArealistData({ page: 1, itemsPerPage: 10 , status: 'active'}));
+      this.store.dispatch(fetchCitylistData({ page: 1, itemsPerPage: 10 , status: 'active'}));
       
       this.storeForm = this.formBuilder.group({
       

@@ -44,7 +44,7 @@ export class FormAreaComponent implements OnInit {
     private router: Router,
     public store: Store) {
       
-      this.store.dispatch(fetchCountrylistData());
+      this.store.dispatch(fetchCountrylistData({ page: 1, itemsPerPage: 10, status:'active' }));
       this.store.select(selectDataCountry).subscribe(
         countries => {
           this.countries = countries
