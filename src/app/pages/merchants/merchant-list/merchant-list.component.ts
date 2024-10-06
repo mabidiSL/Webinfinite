@@ -5,6 +5,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { Observable } from 'rxjs';
 import { selectDataMerchant } from 'src/app/store/merchantsList/merchantlist1-selector';
 import { deleteMerchantlist, fetchMerchantlistData, updateMerchantlist } from 'src/app/store/merchantsList/merchantlist1.action';
+import { Modules, Permission } from 'src/app/store/Role/role.models';
 
 /**
  * Merchants list component
@@ -20,6 +21,10 @@ export class MerchantListComponent implements OnInit {
 
   breadCrumbItems: Array<{}>;
   
+  public Modules = Modules;
+  public Permission = Permission;
+
+
   MerchantList$: Observable<any[]>;
   isDropdownOpen : boolean = false;
   filteredArray: any[] = [];
@@ -27,14 +32,15 @@ export class MerchantListComponent implements OnInit {
 
   itemPerPage: number = 10;
   currentPage : number = 1;
-
+  checked : any = {status: 'active', label: 'Active'};
+  unChecked : any = {status: 'inactive', label: 'inActive'};
   columns : any[]= [
     { property: 'merchantName', label: 'Merchant Name' },
     { property: 'user.email', label: 'Email' },
     { property: 'user.city.name', label: 'City' },
-    { property: 'totalOffers', label: 'Total Offers' },
+    { property: 'totalOffres', label: 'Total Offers' },
     { property: 'totalStores', label: 'Total Stores' },
-    { property: 'status', label: 'Status' },
+    { property: 'user.status', label: 'Status' },
   ];
 
   constructor(public store: Store) {

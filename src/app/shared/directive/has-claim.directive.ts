@@ -1,4 +1,4 @@
-import { Directive, Input, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, Input, SimpleChanges, TemplateRef, ViewContainerRef  } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
 import { _User } from 'src/app/store/Authentication/auth.models';
@@ -24,6 +24,8 @@ export class HasClaimDirective {
       
       this.currentUserSubject = new BehaviorSubject<_User>(JSON.parse(localStorage.getItem('currentUser')));
       this.currentUser = this.currentUserSubject.asObservable();
+      const componentInstance = this.viewContainerRef['context']?.$implicit;
+      console.log('HasClaim Directive initialized in component:', componentInstance);
     }
   ngOnChanges(changes: SimpleChanges) {
    
@@ -49,6 +51,8 @@ export class HasClaimDirective {
   private hasPermission(claim: Claim[]): boolean {
    
     if (claim && this.permissions) {
+      console.log(claim);
+      console.log(this.permissions);
       return claim.some(requiredClaim => {
         return this.permissions.some(permission => {
           return permission.claimType === requiredClaim.claimType && requiredClaim.claimValue.every(value => permission.permissions.includes(value));
@@ -60,7 +64,7 @@ export class HasClaimDirective {
 
  
   ngOnInit() {
-    
+    console.log('Its a CALL', this.claim);
     this.currentUser.subscribe(user => {
       if (user) {
       this.permissions = user.role.claims;

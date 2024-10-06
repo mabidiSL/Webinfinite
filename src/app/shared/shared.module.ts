@@ -4,20 +4,20 @@ import { CommonModule } from '@angular/common';
 import { UIModule } from './ui/ui.module';
 
 import { WidgetModule } from './widget/widget.module';
-import { HasClaimDirective } from './directives/has-claim.directive';
+import { HasClaimDirective } from './directive/has-claim.directive';
+import { DirectiveModule } from './directive/directive.module';
 
 @NgModule({
   declarations: [
-    HasClaimDirective
+    
   ],
   imports: [
     CommonModule,
+    DirectiveModule,
     UIModule,
     WidgetModule
-  ],
-  exports: [
-    HasClaimDirective
   ]
+  
 })
 
 export class SharedModule { }

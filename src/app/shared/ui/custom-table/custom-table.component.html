@@ -45,7 +45,7 @@
         
           <!-- Right Side: Add Button -->
           <div class="col-sm-5 text-end">
-            <button [routerLink]="addButtonLink" type="button" class="btn btn-primary btn-rounded">
+            <button *hasClaim="addButtonPermission" [routerLink]="addButtonLink" type="button" class="btn btn-primary btn-rounded">
               <i class="mdi mdi-plus me-1"></i> {{ addButtonLabel | translate }}
             </button>
           </div>
@@ -74,7 +74,7 @@
             </td>
             <ng-container *ngFor="let column of columns">
               <td>
-                <ng-container *ngIf="column.property !== 'status'; else statusSwitch">
+                <ng-container *ngIf="column.property !== 'status'&& column.property !== 'user.status'; else statusSwitch">
                   <!-- Check if column.property is 'flag' -->
                   <ng-container *ngIf="column.property === 'flag'; else showData">
                     <div>
@@ -84,7 +84,7 @@
             
                   <!-- Show Data for non-flag properties -->
                   <ng-template #showData>
-                    <ng-container *ngIf="getProperty(data, column.property)">
+                    <ng-container *ngIf="getProperty(data, column.property) !== null && getProperty(data, column.property) !== undefined">
                       <h5 class="font-size-14 mb-1">
                         <a href="javascript: void(0);" class="text-dark">
                           {{ getProperty(data, column.property) }}
@@ -92,20 +92,20 @@
                       </h5>
                     </ng-container>
                     <!-- Default avatar if property is null or undefined -->
-                    <ng-container *ngIf="!getProperty(data, column.property)">
+                    <!-- <ng-container *ngIf="!getProperty(data, column.property)">
                       <div class="avatar-xs">
                         <span class="avatar-title rounded-circle">
                           {{ data.name.charAt(0) }}
                         </span>
                       </div>
-                    </ng-container>
+                    </ng-container> -->
                   </ng-template>
                 </ng-container>
             
                 <!-- Status Switch -->
                 <ng-template #statusSwitch>
                   <ui-switch
-                    color="#343a40"
+                    color="##343a40"
                     [checked]="getProperty(data, column.property) === checkedStatus.status"
                     [uncheckedLabel]="uncheckedStatus.label"
                     [checkedLabel]="checkedStatus.label"
@@ -119,10 +119,7 @@
             
             
             <td>
-              <ul class="list-inline font-size-20 contact-links mb-0">
-                
-                <td>
-                  <ul class="list-unstyled hstack gap-1 mb-0">
+                 <ul class="list-unstyled hstack gap-1 mb-0">
                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'View'|translate}}">
                       <a href="javascript:void(0);" class="btn btn-sm btn-soft-primary" *hasClaim="viewButtonPermission" (click)="view(data.id)"><i class="mdi mdi-eye-outline"></i></a>
                     </li>
@@ -132,13 +129,9 @@
                     </li>
                     <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Delete'| translate}}">
                       <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" *hasClaim="deleteButtonPermission" (click)="deleteData(data.id)"><i class="mdi mdi-delete-outline"></i></a>
-    
                     </li>
                   </ul>
                 </td>
-               
-              </ul>
-            </td>
           </tr>
         </ng-container>
       </ng-container>

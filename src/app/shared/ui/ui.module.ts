@@ -14,6 +14,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import { DirectiveModule } from '../directive/directive.module';
+
 
 @NgModule({
   declarations: [PagetitleComponent,  LoaderComponent, CustomTableComponent],
@@ -22,6 +25,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     TranslateModule,
     FormsModule,
     RouterModule,
+    UiSwitchModule,
+    DirectiveModule,
     BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
     PaginationModule.forRoot(),

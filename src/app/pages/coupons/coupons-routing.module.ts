@@ -10,7 +10,7 @@ import { CouponApprovalComponent } from './coupon-approval/coupon-approval.compo
 const routes: Routes = [
   
 {
-  path: "",
+  path: '',
   component: CouponsComponent,
   canActivate: [RoleGuard],
   data: {

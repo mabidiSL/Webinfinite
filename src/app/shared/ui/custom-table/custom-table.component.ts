@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 
@@ -53,7 +53,9 @@ export class CustomTableComponent  {
   constructor() { }
 
   getProperty(data: any, propertyPath: string): any {
+    
     return propertyPath.split('.').reduce((acc, key) => acc && acc[key], data);
+    
   }
   
   pageChangedEvent(event: any) {

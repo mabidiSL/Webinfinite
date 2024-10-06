@@ -16,7 +16,7 @@ import { VerticalComponent } from './vertical/vertical.component';
 import { HorizontaltopbarComponent } from './horizontaltopbar/horizontaltopbar.component';
 import { LanguageService } from '../core/services/language.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from '../shared/shared.module';
+import { DirectiveModule } from '../shared/directive/directive.module';
 
 @NgModule({
   // tslint:disable-next-line: max-line-length
@@ -28,7 +28,7 @@ import { SharedModule } from '../shared/shared.module';
     BsDropdownModule.forRoot(),
     UIModule,
     SimplebarAngularModule,
-    SharedModule
+    DirectiveModule
   ],
   providers: [LanguageService]
 })
