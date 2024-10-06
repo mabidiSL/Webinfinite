@@ -7,6 +7,8 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 import { deleteCitylist, fetchCitylistData, updateCitylist } from 'src/app/store/City/city.action';
 import { selectDataCity } from 'src/app/store/City/city-selector';
+import { Modules, Permission } from 'src/app/store/Role/role.models';
+
 
 @Component({
   selector: 'app-city',
@@ -17,7 +19,9 @@ export class CityComponent  implements OnInit {
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
-  
+  public Modules = Modules;
+  public Permission = Permission;
+
   citiesList$: Observable<any[]>;
   isDropdownOpen : boolean = false;
   filteredArray: any[] = [];

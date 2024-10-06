@@ -1,12 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { ModalDirective } from 'ngx-bootstrap/modal';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { selectData } from 'src/app/store/employee/employee-selector';
 import { deleteEmployeelist, fetchEmployeelistData, updateEmployeelist } from 'src/app/store/employee/employee.action';
+import { Modules, Permission } from 'src/app/store/Role/role.models';
 
 @Component({
   selector: 'app-employees',
@@ -17,6 +15,9 @@ export class EmployeesComponent implements OnInit {
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
+  public Modules = Modules;
+  public Permission = Permission;
+
   EmployeeList$: Observable<any[]>;
   isDropdownOpen : boolean = false;
   filteredArray: any[] = [];

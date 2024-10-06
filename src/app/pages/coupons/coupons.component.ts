@@ -15,12 +15,11 @@ import { Modules, Permission } from 'src/app/store/Role/role.models';
   styleUrl: './coupons.component.scss'
 })
 export class CouponsComponent  implements OnInit {
-
-
-
   // bread crumb items
   breadCrumbItems: Array<{}>;
-  
+  public Modules = Modules;
+  public Permission = Permission;
+
   couponList$: Observable<any[]>;
   isDropdownOpen : boolean = false;
   filteredArray: any[] = [];

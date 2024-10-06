@@ -6,6 +6,7 @@
   import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { deleteCountrylist, fetchCountrylistData, updateCountrylist } from 'src/app/store/country/country.action';
 import { selectDataCountry } from 'src/app/store/country/country-selector';
+import { Modules, Permission } from 'src/app/store/Role/role.models';
   
  
 @Component({
@@ -17,6 +18,8 @@ export class CountryComponent implements OnInit {
   
   // bread crumb items
   breadCrumbItems: Array<{}>;
+  public Modules = Modules;
+  public Permission = Permission;
   
   countriesList$: Observable<any[]>;
   isDropdownOpen : boolean = false;

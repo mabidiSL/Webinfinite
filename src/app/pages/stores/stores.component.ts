@@ -20,7 +20,9 @@ export class StoresComponent implements OnInit {
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
-  
+  public Modules = Modules;
+  public Permission = Permission;
+
   storeList$: Observable<any[]>;
   isDropdownOpen : boolean = false;
   filteredArray: any[] = [];

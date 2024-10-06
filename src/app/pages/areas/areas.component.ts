@@ -7,6 +7,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 import { deleteArealist,  fetchArealistData,  updateArealist} from 'src/app/store/area/area.action';
 import { selectDataArea } from 'src/app/store/area/area-selector';
+import { Modules, Permission } from 'src/app/store/Role/role.models';
 
 
 @Component({
@@ -17,7 +18,9 @@ import { selectDataArea } from 'src/app/store/area/area-selector';
 export class AreasComponent  implements OnInit {
  // bread crumb items
  breadCrumbItems: Array<{}>;
-  
+ public Modules = Modules;
+ public Permission = Permission;
+
  areasList$: Observable<any[]>;
  isDropdownOpen : boolean = false;
  filteredArray: any[] = [];
