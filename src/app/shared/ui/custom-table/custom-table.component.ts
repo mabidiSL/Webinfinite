@@ -37,7 +37,7 @@ export class CustomTableComponent  {
   @Output() printData = new EventEmitter();
   @Output() downloadData = new EventEmitter();
   @Output() onChangeEvent = new EventEmitter();
-  @Output() disableMerchant = new EventEmitter();
+  @Output() onDelete = new EventEmitter();
   
   @ViewChild('removeItemModal', { static: false }) removeItemModal?: ModalDirective;
   idToDelete : any;
@@ -95,6 +95,6 @@ export class CustomTableComponent  {
 
   onConfirm() {
     this.removeItemModal?.hide();
-    this.disableMerchant.emit(this.idToDelete);
+    this.onDelete.emit(this.idToDelete);
   }
 }

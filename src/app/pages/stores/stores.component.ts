@@ -33,9 +33,9 @@ export class StoresComponent implements OnInit {
 
   columns : any[]= [
     { property: 'name', label: 'Store Name' },
-    { property: 'merchant.name', label: 'Merchant' },
+    { property: 'merchant.merchantName', label: 'Merchant' },
     { property: 'city.name', label: 'City' },
-    { property: 'offers.total', label: 'Total Offers' },
+    { property: 'totalOffres', label: 'Total Offers' },
     { property: 'status', label: 'Status' },
   ];
 

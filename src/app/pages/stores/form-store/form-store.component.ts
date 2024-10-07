@@ -7,7 +7,7 @@ import { AuthenticationService } from '../../../core/services/auth.service';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { selectStoreById } from 'src/app/store/store/store-selector';
-import { addStorelist, getStoreById } from 'src/app/store/store/store.action';
+import { addStorelist, getStoreById, updateStorelist } from 'src/app/store/store/store.action';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { fetchMerchantlistData } from 'src/app/store/merchantsList/merchantlist1.action';
 import { fetchCountrylistData } from 'src/app/store/country/country.action';
@@ -72,12 +72,10 @@ export class FormStoreComponent implements OnInit {
         name: ['', Validators.required],
         description: [''],
         phone: ['', Validators.required ],
-        merchant_id: ['12'],
+        merchant_id: ['', Validators.required],
         city_id:['', Validators.required],
-        country_id:[''],
-        area_id:[''], 
-        images: [''],  
-        offers:['0'],
+        area_id:['',  Validators.required], 
+        images:[null],
 
           
       });
@@ -108,6 +106,21 @@ export class FormStoreComponent implements OnInit {
           if (Store) {
             console.log('Retrieved Store:', Store);
             this.uploadedFiles = Store.images;
+            const areaId = Store.city.area_id;
+            this.arealist$.subscribe(
+              areas=> 
+                this.filteredAreas = areas.filter(a =>a.country_id == Store.city.area.country.id )
+            );
+            if(this.filteredAreas){
+              this.citylist$.subscribe(
+                cities => 
+                  this.filteredCities = cities.filter(c =>c.area_id == areaId )
+              );
+           }
+            this.storeForm.get('area_id').setValue(areaId); 
+            this.storeForm.get('city_id').setValue(Store.city_id); 
+
+            console.log(this.uploadedFiles);
             this.storeForm.patchValue(Store);
             this.isEditing = true;
 
@@ -130,13 +143,18 @@ export class FormStoreComponent implements OnInit {
     this.storeForm.get('supervisorPhone').setValue(phoneNumber);
   }
   onChangeMerchantSelection(event: any){
-    const merchant = event.target.value;
-    console.log(merchant);
-    if(merchant){
-      this.storeForm.get('country_id').setValue(merchant.country);
+    const selectedMerchantId = event.target.value;
+    let selectMerchant =  null;
+    this.merchantlist$.subscribe(merchant=>
+      selectMerchant = merchant.find(m => m.id = selectedMerchantId)
+    );
+    if(selectMerchant){
+    
+      const merchant_country_id = selectMerchant.user.city.area.country.id;
+      //this.storeForm.get('country_id').setValue(merchant.city);
       this.arealist$.subscribe(
         areas=> 
-          this.filteredAreas = areas.filter(a =>a.country_id == merchant.country )
+          this.filteredAreas = areas.filter(a =>a.country_id == merchant_country_id )
       );
     }
     else{
@@ -180,19 +198,32 @@ export class FormStoreComponent implements OnInit {
       console.log(this.storeForm.value);
       console.log('Form status:', this.storeForm.status);
       console.log('Form errors:', this.storeForm.errors);
-      
-      
+          
       const newData = this.storeForm.value;
-      if(this.uploadedFiles){
-        newData.images = this.uploadedFiles;
-      }
-      delete newData.id;
-      delete newData.country_id;
       delete newData.area_id;
-      delete newData.offers;
-      console.log(newData);
-      //Dispatch Action
-      this.store.dispatch(addStorelist({ newData }));
+
+          if(!this.isEditing)
+            {           
+              if(this.uploadedFiles){
+                let images: any[] = [];
+                console.log(this.uploadedFiles);
+                this.uploadedFiles.forEach(file => {
+                  console.log(file.dataURL);
+                  images.push(file.dataURL); // Push each Base64 string into the images array
+              });
+              newData.images =  images;
+              }
+              delete newData.id;
+              console.log(newData);
+              //Dispatch Action
+              this.store.dispatch(addStorelist({ newData }));
+        }
+        else
+        {
+          console.log('updating store');
+          delete newData.images;
+          this.store.dispatch(updateStorelist({ updatedData: newData }));
+        }
     } else {
       // Form is invalid, display error messages
       console.log('Form is invalid');
@@ -221,37 +252,13 @@ export class FormStoreComponent implements OnInit {
     });
   }
   
-  // /**
-  //  * Upload Store Logo
-  //  */
-  // async uploadStoreLogo(event: any){
-  //   try {
-  //     const imageURL = await this.fileChange(event);
-  //     console.log(imageURL);
-  //     //this.storeForm.controls['storeLogo'].setValue(imageURL);
-  //     this.storeLogoBase64 = imageURL;
-  //   } catch (error: any) {
-  //     console.error('Error reading file:', error);
-  //   }
-  // }
-  // /**
-  //  * Upload Store Picture
-  //  */
-  // async uploadStorePicture(event: any){
-  //   try {
-  //     const imageURL = await this.fileChange(event);
-  //     console.log(imageURL);
-  //     //this.storeForm.controls['StorePicture'].setValue(imageURL);
-  //     this.StorePictureBase64 = imageURL;
-  //   } catch (error: any) {
-  //     console.error('Error reading file:', error);
-  //   }
-    
-  // }
+  
  
 onUploadSuccess(event: any) {
   setTimeout(() => {
+   
     this.uploadedFiles.push(event[0]);
+    
   }, 100);
 }
 

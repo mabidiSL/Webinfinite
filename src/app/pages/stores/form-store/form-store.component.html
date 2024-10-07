@@ -50,16 +50,6 @@
                     </div>
                   </div>
                   
-                  <div class="col-md-6 mb-3">
-                    <div class="form-group ">
-                          <label for="country_id" >{{'Country' | translate}}<span class="text-danger">*</span></label>
-                          <input type="text" id="country_id" class="form-control" formControlName="country_id" >
-
-                          <!-- <div *ngIf="storeForm.get('country_id').touched && storeForm.get('country_id').invalid" class="invalid-feedback d-block">
-                            <span *ngIf="storeForm.get('country_id').errors?.['required']">{{'Country_is_required'| translate}}.</span>
-                        </div>  -->
-                    </div>                       
-                  </div>
                     <div class="col-md-6 mb-3">
                       <div class="form-group">
                         <label for="area_id">{{'Area'| translate}}</label>
@@ -89,12 +79,7 @@
                        </div>                     
                     </div>
               
-                    <div class="col-md-6 mb-3">
-                        <div class="form-group">
-                          <label for="offers" >{{'Number_Of_Offers' | translate}}</label>
-                          <input type="text" id="offers" class="form-control" formControlName="offers" >
-                        </div>
-                      </div>
+                   
                  
                     <div class="col-md-6 mb-3">
                         <div class="form-group">
@@ -118,7 +103,7 @@
                                       @if(file.dataURL){
                                       <img class="img-fluid rounded d-block" [src]="file.dataURL" alt="Dropzone-Image" />
                                       }@else {
-                                      <img class="img-fluid rounded d-block" [src]="file" alt="Dropzone-Image" />
+                                      <img class="img-fluid rounded d-block" [src]="file.url" alt="Dropzone-Image" />
                                       }
                                     </div>
                                   </div>
@@ -157,12 +142,8 @@
                           > --> 
                         </div>
                       </div>
-                                    
-                          
-                          <!-- end dropzon-preview -->
-                        
-             
-              
+                     
+                                 
               </div>
                 <div class="col-12  mt-4">
                     <div class="d-flex justify-content-end">
