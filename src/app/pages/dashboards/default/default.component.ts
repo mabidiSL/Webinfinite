@@ -1,13 +1,12 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { CustomerRatingChart, emailSentBarChart, monthlyEarningChart } from './data';
+import {  emailSentBarChart, monthlyEarningChart } from './data';
 import { ChartType } from './dashboard.model';
 import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
 import { EventService } from '../../../core/services/event.service';
 
 import { ConfigService } from '../../../core/services/config.service';
-import { HttpClient } from '@angular/common/http';
 import { DashboardService } from 'src/app/core/services/dashboard.service';
-import { Observable } from 'rxjs';
+import { CustomerRatingChart, MostPaymentMethodChart } from './chart-config';
 
 @Component({
   selector: 'app-default',
@@ -17,7 +16,8 @@ import { Observable } from 'rxjs';
 export class DefaultComponent implements OnInit {
   modalRef?: BsModalRef;
   isVisible: string;
-  CustomerRatingChart: ChartType;
+  MostPaymentMethodChart : ChartType = MostPaymentMethodChart;
+  CustomerRatingChart: ChartType = CustomerRatingChart;
   emailSentBarChart: ChartType;
   monthlyEarningChart: ChartType;
   transactions: any;
@@ -41,6 +41,8 @@ export class DefaultComponent implements OnInit {
        this.dashboardService.getStatistics('week').subscribe(
         response =>{
           this.rateStatics = response.result
+          this.updateCustomerRatingChart();
+          this.updateStatisticsData();
         }
         );
   }
@@ -75,21 +77,66 @@ export class DefaultComponent implements OnInit {
      this.center?.show()
     }, 2000);
   }
+  updateStatisticsData(){
+    this.statData = [
+      {
+        icon: "bx bx-store", 
+        title: "Merchants",
+        value: this.rateStatics.totalMerchants
+      },
+      {
+        icon: "bxs-user-detail",
+        title: "Customers",
+        value: this.rateStatics.totalCustomers
+      },
+      {
+        icon: "bx bx-store",
+        title: "Stores",
+        value: this.rateStatics.totalStores
+      },
+      {
+        icon: "bx bxs-coupon",
+        title: "Coupons",
+        value: this.rateStatics.totalCoupons
+      },
+      {
+        icon: "bx bxs-gift",
+        title: "Gift Cards",
+        value: this.rateStatics.totalGiftCards
+      },
+    ];
 
+  }
+
+  private updateCustomerRatingChart() {
+    
+    if (!this.rateStatics || !this.rateStatics.rateStats) {
+      return;
+    }
+
+    const { oneStar, twoStars, threeStars, fourStars, fiveStars } = this.rateStatics.rateStats;
+
+    this.CustomerRatingChart.series = [
+      fiveStars.total, 
+      fourStars.total, 
+      threeStars.total, 
+      twoStars.total, 
+      oneStar.total 
+    ];
+  }
   
   /**
    * Fetches the data
    */
   private fetchData() {
-    this.CustomerRatingChart = CustomerRatingChart;
-   
+    this.MostPaymentMethodChart.series = [200,30,10,50];
     this.emailSentBarChart = emailSentBarChart;
     this.monthlyEarningChart = monthlyEarningChart;
 
     this.isActive = 'year';
     this.configService.getConfig().subscribe(data => {
       this.transactions = data.transactions;
-      this.statData = data.statData;
+      
     });
   }
   opencenterModal(template: TemplateRef<any>) {
