@@ -22,6 +22,7 @@ import { SaasComponent } from './saas/saas.component';
 import { CryptoComponent } from './crypto/crypto.component';
 import { BlogComponent } from './blog/blog.component';
 import { JobsComponent } from './jobs/jobs.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [DefaultComponent, SaasComponent, CryptoComponent, BlogComponent, JobsComponent],
@@ -31,6 +32,7 @@ import { JobsComponent } from './jobs/jobs.component';
     ReactiveFormsModule,
     DashboardsRoutingModule,
     UIModule,
+    TranslateModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     TabsModule.forRoot(),

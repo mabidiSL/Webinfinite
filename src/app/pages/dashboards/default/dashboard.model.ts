@@ -6,6 +6,7 @@ export interface ChartType {
     series?: any;
     fill?: any;
     dataLabels?: any;
+    responsive?: any;
     legend?: any;
     xaxis?: any;
     stroke?: any;

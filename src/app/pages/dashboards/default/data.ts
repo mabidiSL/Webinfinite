@@ -160,5 +160,41 @@ const statData = [{
     title: 'Average Price',
     value: '$16.2'
 }];
+const CustomerRatingChart: ChartType = {
+    series: [2,0,0,1,0],
+    chart: {
+        type: 'donut',
+        height: 240,
+    },
+    labels: ['5 Stars', '4 Stars B', '3 Stars', '2 Stars'],
+    colors: ["#DEB660", "#ADA7A1", "#A79065", "#A79065"],
+    legend: {
+        show: false,
+    },
+    dataLabels: {
+        enabled: true,
+      },
+    plotOptions: {
+        pie: {
+            donut: {
+                size: '70%',
+            }
+        }
+    },
+    responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
+};
 
-export { emailSentBarChart, monthlyEarningChart, transactions, statData };
+
+export { emailSentBarChart, monthlyEarningChart, transactions, statData, CustomerRatingChart };

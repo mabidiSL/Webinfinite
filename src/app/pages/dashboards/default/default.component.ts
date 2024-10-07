@@ -1,10 +1,13 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { emailSentBarChart, monthlyEarningChart } from './data';
+import { CustomerRatingChart, emailSentBarChart, monthlyEarningChart } from './data';
 import { ChartType } from './dashboard.model';
 import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
 import { EventService } from '../../../core/services/event.service';
 
 import { ConfigService } from '../../../core/services/config.service';
+import { HttpClient } from '@angular/common/http';
+import { DashboardService } from 'src/app/core/services/dashboard.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-default',
@@ -14,11 +17,13 @@ import { ConfigService } from '../../../core/services/config.service';
 export class DefaultComponent implements OnInit {
   modalRef?: BsModalRef;
   isVisible: string;
-
+  CustomerRatingChart: ChartType;
   emailSentBarChart: ChartType;
   monthlyEarningChart: ChartType;
   transactions: any;
   statData: any;
+  rateStatics : any;
+  rating: any;
   config:any = {
     backdrop: true,
     ignoreBackdropClick: true
@@ -28,7 +33,16 @@ export class DefaultComponent implements OnInit {
 
   @ViewChild('content') content;
   @ViewChild('center', { static: false }) center?: ModalDirective;
-  constructor(private modalService: BsModalService, private configService: ConfigService, private eventService: EventService) {
+  constructor(private modalService: BsModalService, 
+    private configService: ConfigService,
+     private eventService: EventService,
+    private dashboardService: DashboardService) {
+
+       this.dashboardService.getStatistics('week').subscribe(
+        response =>{
+          this.rateStatics = response.result
+        }
+        );
   }
 
   ngOnInit() {
@@ -62,10 +76,13 @@ export class DefaultComponent implements OnInit {
     }, 2000);
   }
 
+  
   /**
    * Fetches the data
    */
   private fetchData() {
+    this.CustomerRatingChart = CustomerRatingChart;
+   
     this.emailSentBarChart = emailSentBarChart;
     this.monthlyEarningChart = monthlyEarningChart;
 
