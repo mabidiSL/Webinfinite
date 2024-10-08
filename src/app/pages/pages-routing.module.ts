@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { CalendarComponent } from './calendar/calendar.component';
 import { ChatComponent } from './chat/chat.component';
 import { DefaultComponent } from './dashboards/default/default.component';
 import { FilemanagerComponent } from './filemanager/filemanager.component';
 import { RoleGuard } from '../core/guards/role.guard';
-import { AreasModule } from './areas/areas.module';
 
 const routes: Routes = [
    //{ path: '', redirectTo: 'dashboard' },
@@ -29,6 +27,7 @@ const routes: Routes = [
   { path: 'merchants', loadChildren: () => import('./merchants/merchants.module').then(m => m.MerchantsModule),canActivate: [RoleGuard]  },
   { path: 'stores', loadChildren: () => import('./stores/stores.module').then(m => m.StoresModule), canActivate: [RoleGuard] },
   { path: 'coupons',loadChildren: () => import('./coupons/coupons.module').then(m => m.CouponsModule), canActivate: [RoleGuard] },
+  { path: 'notifications', loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsModule), canActivate: [RoleGuard] },
   { path: 'employees', loadChildren: () => import('./employees/employees.module').then(m => m.EmployeesModule), canActivate: [RoleGuard] },
   { path: 'countries', loadChildren: () => import('./country/country.module').then(m => m.CountryModule), canActivate: [RoleGuard] },
   { path: 'areas', loadChildren: () => import('./areas/areas.module').then(m => m.AreasModule), canActivate: [RoleGuard] },

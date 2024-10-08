@@ -62,6 +62,8 @@ import { countrieslistEffects } from './store/country/country.effect';
 import { AreaEffects } from './store/area/area.effect';
 import { CityEffects } from './store/City/city.effect';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { NotificationsEffects } from './store/notification/notification.effect';
+import { NotificationsModule } from './pages/notifications/notifications.module';
 
 
 
@@ -95,6 +97,7 @@ export function createTranslateLoader(http: HttpClient): any {
     CouponsModule,
     EmployeesModule,
     StoresModule,
+    NotificationsModule,
     TranslateModule,
     AppRoutingModule,
     ExtrapagesModule,
@@ -132,7 +135,8 @@ export function createTranslateLoader(http: HttpClient): any {
       CustomerEffects,
       MailEffects,
       AreaEffects,
-      CityEffects
+      CityEffects,
+      NotificationsEffects
     ]),
   ],
   bootstrap: [AppComponent],

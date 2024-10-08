@@ -328,7 +328,7 @@ export const MENU: MenuItem[] = [
         label: 'MENUITEMS.APPNOTIFICATION.TEXT',
         icon: 'bx bxs-bell-ring',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.NotifManagement, claimValue: [Permission.ViewAll]}],
-        link: '/blog/list'
+        link: '/private/notifications'
         
           
     },

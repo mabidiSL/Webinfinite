@@ -58,7 +58,6 @@ import { CityModule } from './city/city.module';
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     PagesRoutingModule,
-    
     NgApexchartsModule,
     ReactiveFormsModule,
     DashboardsModule,

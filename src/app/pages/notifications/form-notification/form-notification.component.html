@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-19">
+        <div class="card">
+            <div class="card-body ">
+              <form (ngSubmit)="onSubmit()" [formGroup]="notifForm"  class="m-4">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group ">
+                           <label for="title" >{{'Notif_title' | translate}} <span class="text-danger">*</span></label>
+                            <input type="text" id="title" class="form-control" formControlName="title"  >
+                            <div *ngIf="notifForm.get('title').touched && notifForm.get('title').invalid" class="invalid-feedback d-block">
+                                <span *ngIf="notifForm.get('title').errors?.['required']">{{'title is required'| translate}}.</span>
+                              </div>
+                          </div> 
+                      </div>
+                 
+                      <div class="col-md-6 mb-3">
+                        <div class="form-group ">
+                            <label for="cronExpression" >{{'Scheduled_Date_and_Time' | translate}}</label>
+                            <div class="col-md-10">
+                                <input class="form-control" formControlName="cronExpression" type="datetime-local" value="2024-08-19T13:45:00" id="cronExpression">
+                            </div>
+                        </div>
+                    </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group ">
+                       <label for="description" >{{'Description' | translate}} <span class="text-danger">*</span></label>
+                       <textarea class="form-control" id="description" formControlName="description" rows="3"></textarea>
+                       <!-- <ckeditor [editor]="Editor" id="description" class="form-control"  data="Content of the Notification Message" (change)="onEditorChange($event)"></ckeditor> -->
+                       <!-- <div *ngIf="notificationForm.get('title').touched && notificationForm.get('title').invalid" class="invalid-feedback d-block">
+                            <span *ngIf="notificationForm.get('title').errors?.['required']">{{'title is required'| translate}}.</span>
+                          </div> -->
+                      </div> 
+                  </div>
+                 
+                                 
+              </div>
+                <div class="col-12  mt-4">
+                    <div class="d-flex justify-content-end">
+                        <button type="button" id="cancel-btn" class="btn btn-outline-secondary me-2" (click)="onCancel()">{{'Cancel'|translate}}</button>
+                        <button type="submit" class="btn btn-success" [disabled]="notifForm.invalid"> {{ (type == 'create' ? 'Add_notif' : 'update_notif') | translate }}
+                        </button>
+                    </div>
+                </div>
+              </form>
+            </div>
+        </div>
+    </div> <!-- end col -->
+  </div>
+  
