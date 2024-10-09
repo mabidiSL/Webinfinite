@@ -16,6 +16,8 @@ import { ToastrService } from 'ngx-toastr';
 import { logout } from 'src/app/store/Authentication/authentication.actions';
 import { SocketService } from 'src/app/core/services/webSocket.service';
 import { NotificationListModel } from 'src/app/store/notification/notification.model';
+import { fetchMyNotificationlistData } from 'src/app/store/notification/notification.action';
+import { selectDataNotification } from 'src/app/store/notification/notification-selector';
 
 @Component({
   selector: 'app-topbar',
@@ -39,7 +41,8 @@ export class TopbarComponent implements OnInit {
   private currentUserSubject: BehaviorSubject<_User>;
   public currentUser: Observable<_User>;
   notifications: any[] = [];
-  notif$ : Observable<any>;
+  nbrNotif: number = 0 ;
+  notifications$ : Observable<any>;
   notificationsSubscription: Subscription;
 
 
@@ -52,31 +55,18 @@ export class TopbarComponent implements OnInit {
     public _cookiesService: CookieService, 
     public store: Store<RootReducerState>,
     private socketService: SocketService,
+    
     public toastr:ToastrService) {
       
-
-           this.socketService.messages$.subscribe(notification => {
+      this.notifications$ = this.store.pipe(select(selectDataNotification));     
+      this.notificationsSubscription = this.socketService.messages$.subscribe(notification => {
       console.log('hello');
-      this.notifications = notification;
+      this.nbrNotif = notification.length;
       console.log('Notification received:', notification);
-      console.log('Total notifications:', this.notifications.length);
-      console.log(this.notifications);
+      console.log('Total notifications:', this.nbrNotif);
+      
     });
-    // this.socketService.connectAndRegister(userId)
-    //   .then(() => {
-    //     // Subscribe to notifications after connection and registration
-    //     this.notificationsSubscription = this.socketService.getMessages().subscribe(notification => {
-    //       console.log('hello');
-    //       this.notifications = notification;
-    //       console.log('Notification received:', notification);
-    //       console.log('Total notifications:', this.notifications.length);
-    //       console.log(this.notifications);
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error during WebSocket connection:', error);
-    //   });
-   
+    
       }
      
              
@@ -98,6 +88,10 @@ export class TopbarComponent implements OnInit {
   @Output() mobileMenuButtonClicked = new EventEmitter();
 
   ngOnInit() {
+    this.store.dispatch(fetchMyNotificationlistData());
+    this.notifications$.subscribe( (myNotif) => {
+        this.notifications = myNotif;
+    });
     // this.initialAppState = initialState;
     this.store.select('layout').subscribe((data) => {
       this.theme = data.DATA_LAYOUT;
@@ -119,7 +113,16 @@ export class TopbarComponent implements OnInit {
       
    
   }
-  
+   navigateToNotification(notification: Notification) {
+  //   switch (notification.type) {
+  //     case 'merchantApproval':
+  //       this.router.navigate(['private/merchants/approve']); 
+  //       break;
+  //     // Add other cases for different notification types
+  //     default:
+  //       console.log('Unknown notification type');
+  //   }
+   }
 
   setLanguage(text: string, lang: string, flag: string) {
     this.countryName = text;

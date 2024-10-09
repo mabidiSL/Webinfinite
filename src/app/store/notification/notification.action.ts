@@ -5,7 +5,9 @@ import { NotificationListModel } from './notification.model';
 export const fetchNotificationlistData = createAction('[Data] fetch Notificationlist',props<{ page: number; itemsPerPage: number }>());
 export const fetchNotificationlistSuccess = createAction('[Data] fetch Notificationlist success', props<{ NotificationListdata: NotificationListModel[] }>())
 export const fetchNotificationlistFail = createAction('[Data fetch Notificationlist failed]', props<{ error: string }>())
+export const fetchMyNotificationlistData = createAction('[Data] fetch My Notification List');
 
+fetchMyNotificationlistData
 
 // Update Data
 export const updateNotificationStatus = createAction(

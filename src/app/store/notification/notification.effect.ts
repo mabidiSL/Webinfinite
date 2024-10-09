@@ -20,7 +20,8 @@ import {
     updateNotificationStatusSuccess,
     updateNotificationStatusFailure,
     getNotificationById,
-    getNotificationByIdSuccess
+    getNotificationByIdSuccess,
+    fetchMyNotificationlistData
 } from './notification.action';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -46,7 +47,22 @@ export class NotificationsEffects {
             ),
         ),
     );
-    
+    fetchDataNotif$ = createEffect(() =>
+      this.actions$.pipe(
+          ofType(fetchMyNotificationlistData),
+          tap(() => console.log('Request to fetch My Notification list')), // Add console log here
+          mergeMap(() =>
+              this.CrudService.fetchData('/notifications/my-notifications ').pipe(
+                  tap((response : any) => console.log('Fetched data:', response.result.rows)), 
+                  map((response) => fetchNotificationlistSuccess({ NotificationListdata : response.result.notifications })),
+                  catchError((error) =>
+                      of(fetchNotificationlistFail({ error }))
+                  )
+              )
+          ),
+      ),
+  );
+
     addData$ = createEffect(() =>
         this.actions$.pipe(
             ofType(addNotificationlist),
