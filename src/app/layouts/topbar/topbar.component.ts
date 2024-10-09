@@ -55,25 +55,27 @@ export class TopbarComponent implements OnInit {
     public toastr:ToastrService) {
       
 
-      this.currentUserSubject = new BehaviorSubject<_User>(JSON.parse(localStorage.getItem('currentUser')));
-      this.currentUser = this.currentUserSubject.asObservable();
-      
-    const userId = this.currentUserSubject.value.id;
-    
-    this.socketService.connectAndRegister(userId)
-      .then(() => {
-        // Subscribe to notifications after connection and registration
-        this.notificationsSubscription = this.socketService.getMessages().subscribe(notification => {
-          console.log('hello');
-          this.notifications = notification;
-          console.log('Notification received:', notification);
-          console.log('Total notifications:', this.notifications.length);
-          console.log(this.notifications);
-        });
-      })
-      .catch((error) => {
-        console.error('Error during WebSocket connection:', error);
-      });
+           this.socketService.messages$.subscribe(notification => {
+      console.log('hello');
+      this.notifications = notification;
+      console.log('Notification received:', notification);
+      console.log('Total notifications:', this.notifications.length);
+      console.log(this.notifications);
+    });
+    // this.socketService.connectAndRegister(userId)
+    //   .then(() => {
+    //     // Subscribe to notifications after connection and registration
+    //     this.notificationsSubscription = this.socketService.getMessages().subscribe(notification => {
+    //       console.log('hello');
+    //       this.notifications = notification;
+    //       console.log('Notification received:', notification);
+    //       console.log('Total notifications:', this.notifications.length);
+    //       console.log(this.notifications);
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error during WebSocket connection:', error);
+    //   });
    
       }
      
