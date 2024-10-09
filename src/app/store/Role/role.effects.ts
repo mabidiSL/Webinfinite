@@ -1,197 +1,148 @@
-// import { Injectable, Inject } from '@angular/core';
-// import { Actions, createEffect, ofType } from '@ngrx/effects';
-// import { map, switchMap, catchError, exhaustMap, tap, first } from 'rxjs/operators';
-// import { BehaviorSubject, from, Observable, of } from 'rxjs';
-// import { AuthenticationService } from '../../core/services/auth.service';
-// import { login, loginSuccess, loginFailure,forgetPassword, logout, logoutSuccess, Register, RegisterSuccess, RegisterFailure, updatePassword, updatePasswordFailure, updatePasswordSuccess, updateProfile, updateProfilePassword, updateProfileSuccess, updateProfileFailure, updateProfilePasswordSuccess, updateProfilePasswordFailure } from './role.actions';
-// import { Router } from '@angular/router';
-// import { environment } from 'src/environments/environment';
-// import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
-// import { UserProfileService } from 'src/app/core/services/user.service';
-// import { ToastrService } from 'ngx-toastr';
-// import { _User, User } from './role.models';
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, mergeMap, map, tap, switchMap } from 'rxjs/operators';
 
-// @Injectable()
-// export class AuthenticationEffects {
+import { of } from 'rxjs';
+import { CrudService } from 'src/app/core/services/crud.service';
+import {
+    fetchRolelistData, fetchRolelistSuccess,
+    fetchRolelistFail,
+    addRolelistFailure,
+    addRolelistSuccess,
+    addRolelist,
+    updateRolelistFailure,
+    updateRolelistSuccess,
+    updateRolelist,
+    deleteRolelistFailure,
+    deleteRolelistSuccess,
+    deleteRolelist,
+    updateRoleStatus,
+    updateRoleStatusSuccess,
+    updateRoleStatusFailure,
+    getRoleById,
+    getRoleByIdSuccess
+} from './role.actions';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { selectRoleById } from './role-selector';
+import { Store } from '@ngrx/store';
+
+@Injectable()
+export class RolesEffects {
+
+    fetchData$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(fetchRolelistData),
+            tap(() => console.log('Request to fetch Role list has been launched')), // Add console log here
+            mergeMap(({ page, itemsPerPage }) =>
+                this.CrudService.fetchData('/roles/').pipe(
+                    tap((response : any) => console.log('Fetched data:', response.result)), 
+                    map((response) => fetchRolelistSuccess({ RoleListdata : response.result })),
+                    catchError((error) =>
+                        of(fetchRolelistFail({ error }))
+                    )
+                )
+            ),
+        ),
+    );
   
-//   private currentUserSubject: BehaviorSubject<_User>;
-//   public currentUser: Observable<_User>;
+    addData$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(addRolelist),
+            mergeMap(({ newData }) =>
+                this.CrudService.addData('/roles', newData).pipe(
+                    map((newData) => {
+                        
+                        this.router.navigate(['/private/roles']);
+                        this.toastr.success('The new Role has been added successfully.');
+                        // Dispatch the action to fetch the updated Role list after adding a new Role
+                        return addRolelistSuccess({newData});
+                      }),
+                    catchError((error) => of(addRolelistFailure({ error })))
+                )
+            )
+        )
+    );
+    updateStatus$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(updateRoleStatus),
+            mergeMap(({ RoleId, status }) =>
+                this.CrudService.addData('/api/update-status', { RoleId, status }).pipe(
+                    map((updatedData) => {
+                        this.toastr.success('The Role has been updated successfully.');
+                        return updateRoleStatusSuccess({ updatedData })}),
+                    catchError((error) => of(updateRoleStatusFailure({ error })))
+                )
+            )
+        )
+    );
 
-//   constructor(
-//     @Inject(Actions) private actions$: Actions,
-//     private AuthenticationService: AuthenticationService,
-//     private AuthfakeService: AuthfakeauthenticationService,
-//     private userService: UserProfileService,
-//     private router: Router,
-//     public toastr:ToastrService) {
+    updateData$ = createEffect(() =>
+        this.actions$.pipe(
+          ofType(updateRolelist),
+          mergeMap(({ updatedData }) =>
+            this.CrudService.updateData(`/roles/${updatedData.id}`, updatedData).pipe(
+              map(() => {
+                this.router.navigate(['/private/roles']);
+                this.toastr.success('The Role has been updated successfully.');
+                return updateRolelistSuccess({ updatedData }); // Make sure to return the action
+              }),
+              catchError((error) => of(updateRolelistFailure({ error }))) // Catch errors and return the failure action
+            )
+          )
+        )
+      );
+      
 
-//       this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-//       this.currentUser = this.currentUserSubject.asObservable();
-//      }
-          
-//   public get currentUserValue(): User {
-//       return this.currentUserSubject.value;
-//   }
+   getRoleById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getRoleById),
+      tap(action => console.log('get Role action received:', action)),
+      mergeMap(({ RoleId }) => {
+        // Use the selector to get the Role from the store
+        return this.store.select(selectRoleById(RoleId)).pipe(
+          map(Role => {
+            if (Role) {
+              console.log('Role',Role);
+              // Dispatch success action with the Role data
+              return getRoleByIdSuccess({ Role });
+            } else {
+              console.log('Role NULL');
+              // Handle the case where the Role is not found, if needed
+              // For example, you might want to dispatch a failure action or return an empty Role
+              return getRoleByIdSuccess({ Role: null }); // or handle it differently
+            }
+          })
+        );
+      })
+    )
+  );
+   deleteData$ = createEffect(() =>
+    
+        this.actions$.pipe(
+            ofType(deleteRolelist),
+            tap(action => console.log('Delete action received:', action)),
+            mergeMap(({ RoleId }) =>
+                    this.CrudService.deleteData(`/roles/${RoleId}`).pipe(
+                        map((response: string) => {
+                            // If response contains a success message or status, you might want to check it here
+                            console.log('API response:', response);
+                            this.toastr.success('The Role has been deleted successfully.');
+                            return deleteRolelistSuccess({ RoleId });
+                          }),
+                    catchError((error) => {return  of(deleteRolelistFailure({ error }))})
+                )
+            )
+        )
+    );
+    
+    
+    constructor(
+        private actions$: Actions,
+        private CrudService: CrudService,
+        private router: Router,
+        private store: Store,
+        public toastr:ToastrService
+    ) { }
 
-//   Register$ = createEffect(() =>
-//     this.actions$.pipe(
-//       ofType(Register),
-//       exhaustMap(({ email, username, password }) => {
-//         if (environment.defaultauth === 'fakebackend') {
-//           return this.userService.register({ email, username, password }).pipe(
-//             map((user) => {
-//               this.router.navigate(['/auth/login']);
-//               return RegisterSuccess({ user })
-//             }),
-//             catchError((error) => of(RegisterFailure({ error })))
-//           );
-//         } else {
-//           return this.AuthenticationService.register({ email, username, password }).pipe(
-//             map((user) => {
-//               this.router.navigate(['/auth/login']);
-//               return RegisterSuccess({ user })
-//             })
-//           )
-//         }
-//       })
-//     )
-//   );
-
-
-
-//   login$ = createEffect(() =>
-//     this.actions$.pipe(
-//       ofType(login),
-//       exhaustMap(({ email, password }) => {
-//         console.log('before zero looping');
-
-//           return this.AuthfakeService.login(email, password).pipe(
-//             map((user) => {
-//               if (user) {
-              
-//                 console.log(JSON.stringify(user.user));
-//                 localStorage.setItem('currentUser', JSON.stringify(user.user));
-//                 localStorage.setItem('token', user.token);
-//                 this.currentUserSubject.next(user);
-//                 this.toastr.success('Login successfully!!!');
-//                 this.router.navigate(['/']);
-//                 return loginSuccess({ user: user.user, token: user.token });
-
-//               }
-//               return loginFailure({ error:'Login failed' });
-//             }),
-//             catchError((error) => {
-//               this.toastr.error(`Login failed: ${error.message}`);
-//               return of(loginFailure({ error }))})); // Closing parenthesis added here
-            
-        
-//       })
-//     )
-//   );
- 
-//   forgetPassword$ = createEffect(() =>
-//     this.actions$.pipe(
-//       ofType(forgetPassword),
-//       exhaustMap((action) => {
-//         return this.AuthfakeService.forgotPassword(action.email).pipe(
-//           map((response: any) => {
-//             this.toastr.success('An Email was sent check your inbox');
-//             return { type: '[Auth] Forgot Password Success', payload: response };
-//           }),
-//           catchError((error: any) => {
-//             this.toastr.error(`Forgot Password Failure: ${error.message}`);
-//             return of({ type: '[Auth] Forgot Password Failure', payload: error });
-//           }),
-//           tap(() => {
-//             // Navigate to another route after successful response
-//             this.router.navigate(['auth/login']); // or any other route you want
-//           }),
-//         );
-//       }),
-//     ));
-//   updatePassword$ = createEffect(() =>
-//     this.actions$.pipe(
-//       ofType(updatePassword),
-//       exhaustMap(({ password, token }) => {
-//         return this.AuthfakeService.updatePassword(password, token).pipe(
-//           map((response: any) => {
-//             this.toastr.success('Password has been updated successfully!!!');
-//             return { type: '[Auth] Update Password Success', payload: response };
-//           }),
-//           catchError((error: any) => {
-//             this.toastr.error(`Update Password Failure: ${error.message}`);
-//             return of({ type: '[Auth] Update Password Failure', payload: error });
-//           }),
-//           tap(() => {
-//             // Navigate to another route after successful response
-//             this.router.navigate(['auth/login']); // or any other route you want
-//           }),
-//         );
-//       }),
-//     ));
-//   updateProfile$ = createEffect(()=>
-//     this.actions$.pipe(
-//     ofType(updateProfile),
-//     exhaustMap((user : any ) => {
-//       return this.AuthfakeService.updateProfile(user).pipe(
-//         map((response: any) => {
-//           if (response) {
-//             localStorage.setItem('currentUser', JSON.stringify(response));
-//             this.toastr.success('The profile was updated successfully.');
-//             this.router.navigate(['/dashboard']);
-//             return updateProfileSuccess({user:response});
-//           }
-         
-//         }),
-//         catchError((error: any) => {
-//           this.toastr.error(`Update Profile Failure: ${error.message}`);
-//           return of(updateProfileFailure({ error }));
-//         }),
-       
-//       );
-//     }),
-//   ));
-     
-//   updateProfilePassword$ = createEffect(() =>
-//     this.actions$.pipe(
-//       ofType(updateProfilePassword),
-//       exhaustMap(({ id,currentPassword, newPassword}) => {
-//         return this.AuthfakeService.updateProfilePassword(id, currentPassword, newPassword).pipe(
-//           map((response: any) => {
-//             if (response) {
-             
-//               this.toastr.success('The password was updated successfully.');
-//               this.router.navigate(['/dashboard']);
-//               return updateProfilePasswordSuccess({message:response});
-//             }
-            
-//           }),
-//           catchError((error: any) => {
-            
-//             this.toastr.error(`Update Password Failure: ${error.message}`);
-//             return of(updateProfilePasswordFailure({error:error}));
-//           }),
-         
-//         );
-//       }),
-//     ));
-
-//   logout$ = createEffect(() =>
-//     this.actions$.pipe(
-//       ofType(logout),
-//       tap(() => {
-//         // Perform any necessary cleanup or side effects before logging out
-       
-//         localStorage.removeItem('currentUser');
-//         localStorage.removeItem('token');
-//         this.currentUserSubject.next(null);
-//         this.router.navigate(['/auth/login']);
-//         this.toastr.success('You are logged out !!!');
-//       }),
-//       exhaustMap(() => of(logoutSuccess({user: null, token: null})))
-//     )
-//   );
-
-
-
-// }
+}

@@ -10,7 +10,7 @@ export enum  Status {
   isRejected = 8,
   isPending = 9,
 }
-export class Role{
+export class RoleListModel{
   id?: string ;
   name?: string ;
   claims ?: Claim[];

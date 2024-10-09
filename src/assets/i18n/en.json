@@ -278,8 +278,8 @@
     "EMPLOYEES": {
       "TEXT": "Employees",
       "LIST": {
-        "EMPLOYEESLIST": "Employee List",
-        "ROLESETUP": "Permissions"
+        "EMPLOYEESLIST": "Employee List"
+        
         
       }
     },
@@ -292,6 +292,9 @@
 
       }
     },
+    "ROLESETUP": {
+      "TEXT": "Role Setup"
+    }, 
     "MERCHANTSLIST": {
       "TEXT": "Merchant List"
     },

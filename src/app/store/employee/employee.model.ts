@@ -1,5 +1,5 @@
 import { _User } from "../Authentication/auth.models";
-import { Role } from "../Role/role.models";
+import {  RoleListModel } from "../Role/role.models";
 
 export interface EmployeeListModel {
     
@@ -13,7 +13,7 @@ export interface EmployeeListModel {
         city?: any; // City;
         bankAccountNumber?: string;
         bankName?: string;
-        role?: Role;
+        role?: RoleListModel;
         createdBy?: string;
         approvedBy: string;
         status?: string;//pending,approved,active, inactive, disabled

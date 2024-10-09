@@ -1,35 +1,86 @@
+// src/app/Rolelist.reducer.ts
 import { createReducer, on } from '@ngrx/store';
-import { Register, RegisterFailure, RegisterSuccess, login, loginFailure, loginSuccess, logout, logoutSuccess, updateProfile, updateProfileFailure, updateProfileSuccess } from './role.actions';
-import { _User } from './role.models';
+import {  addRolelistSuccess, deleteRolelistFailure, deleteRolelistSuccess, fetchRolelistData, fetchRolelistFail, fetchRolelistSuccess, getRoleByIdSuccess, updateRolelistSuccess, updateRoleStatusSuccess } from './role.actions';
 
-export interface AuthenticationState {
-    isLoggedIn: boolean;
-    user: _User | null;
-    token: string |null;
-    error: string | null;
+export interface RolelistState {
+  RoleListdata: any[];
+  currentPage: number;
+  selectedRole: any;
+  loading: boolean;
+  error: any;
 }
 
-const initialState: AuthenticationState = {
-    isLoggedIn: false,
-    user: null,
-    token: null,
-    error: null,
+export const initialState: RolelistState = {
+  RoleListdata: [],
+  currentPage: 1,
+  selectedRole: null,
+  loading: false,
+  error: null,
 };
 
-export const authenticationReducer = createReducer(
-    initialState,
-    on(Register, (state) => ({ ...state, error: null })),
-    on(RegisterSuccess, (state, { user }) => ({ ...state, isLoggedIn: true, user, error: null, })),
-    on(RegisterFailure, (state, { error }) => ({ ...state, error })),
-
-    on(login, (state) => ({ ...state, error: null })),
-    on(loginSuccess, (state, { user, token }) => ({ ...state, isLoggedIn: true, user,token, error: null, })),
-    on(loginFailure, (state, { error }) => ({ ...state, error })),
-    on(logout, (state) => ({ ...state, user: null, token: null, error: null })),
-    on(logoutSuccess, (state, { user, token }) => ({ ...state, user, token, isLoggedIn: false, error: null })),
+export const RoleListReducer = createReducer(
+  initialState,
+  on(fetchRolelistData, (state) => ({
+    ...state,
+    loading: true,
+    error: null
+  })),
+  on(fetchRolelistSuccess, (state, { RoleListdata }) => ({
+    ...state,
+    RoleListdata: RoleListdata,
     
-    on(updateProfile, (state) => ({ ...state, error: null })),
-    on(updateProfileSuccess, (state, { user }) => ({ ...state, user, error: null })),
-    on(updateProfileFailure, (state, { error }) => ({ ...state, error }))
+    loading: false
+  })),
+  on(fetchRolelistFail, (state, { error }) => ({
+    ...state,
+    error,
+    loading: false
+  })),
+  //Handle adding Role success
+  on(addRolelistSuccess, (state, { newData }) => ({
+    ...state,
+    RoleListdata: [...state.RoleListdata, newData],
+    loading: false
+  })),
+  // Handle success of getting Role by ID and store the Role object in the state
+   on(getRoleByIdSuccess, (state, { Role }) => ({
+    ...state,
+    selectedRole: Role
+  })),
 
+
+  // Handle updating Role list
+  on(updateRoleStatusSuccess, (state, { updatedData }) => {
+    return {
+      ...state,
+      RoleListdata: state.RoleListdata.map(item =>
+        item.id === updatedData.RoleId ? { ...item, status: updatedData.status } : item
+      )
+    };
+  }),
+// Handle updating Role status
+  on(updateRolelistSuccess, (state, { updatedData }) => {
+   const RoleListUpdated = state.RoleListdata.map(item => item.id === updatedData.id ? updatedData : item );
+   console.log('RoleListdata after update:', RoleListUpdated);
+   return {
+      ...state,
+      RoleListdata: RoleListUpdated
+    };
+  }),
+  // Handle the success of deleting a Role
+  on(deleteRolelistSuccess, (state, { RoleId }) => {
+    console.log('Deleting Role with ID:', RoleId);
+    console.log('RoleListdata before deletion:', state.RoleListdata);
+    const updatedRoleList = state.RoleListdata.filter(Role => Role.id !== RoleId);
+    console.log('RoleListdata after deletion:', updatedRoleList);
+    return { 
+    ...state,
+    RoleListdata: updatedRoleList};
+  }),
+  // Handle failure of deleting a Role
+  on(deleteRolelistFailure, (state, { error }) => ({
+    ...state,
+    error,
+    loading: false
+  }))
 );

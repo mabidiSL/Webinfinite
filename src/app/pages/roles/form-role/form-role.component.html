@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-19">
+        <div class="card">
+            <div class="card-body ">
+              <form (ngSubmit)="onSubmit()" [formGroup]="roleForm"  class="m-4">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group ">
+                           <label for="name" >{{'role_name' | translate}} <span class="text-danger">*</span></label>
+                            <input type="text" id="name" class="form-control" formControlName="name"  >
+                            <div *ngIf="roleForm.get('name').touched && roleForm.get('name').invalid" class="invalid-feedback d-block">
+                                <span *ngIf="roleForm.get('name').errors?.['required']">{{'role name is required'| translate}}.</span>
+                              </div>
+                          </div> 
+                      </div>
+                 
+                      <div class="table-responsive mt-3">
+                        <table class="table align-middle table-nowrap table-hover dt-responsive nowrap w-100" 
+                        id="userList-table" style="border: 1px solid #ddd; border-collapse: collapse; width: 100%;">
+                          <thead class="table-light">
+                          <tr>
+                            <th>{{'Permissions'| translate}}</th>
+                            <!-- Loop over the Permission keys for the table header -->
+                            <th *ngFor="let permission of permissionKeys">{{ permission }}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <!-- Loop over the Modules for the rows -->
+                          <tr *ngFor="let module of moduleKeys">
+                            <td>{{ module }}</td>
+                            <!-- Loop over the Permission keys for each module to create a checkbox -->
+                            <td *ngFor="let permission of permissionKeys">
+                              <input
+                                type="checkbox"
+                                (change)="togglePermission(module, permission, $event)"
+                                
+                              />
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      </div>
+                                 
+              </div>
+                <div class="col-12  mt-4">
+                    <div class="d-flex justify-content-end">
+                        <button type="button" id="cancel-btn" class="btn btn-outline-secondary me-2" (click)="onCancel()">{{'Cancel'|translate}}</button>
+                        <button type="submit" class="btn btn-success" [disabled]="roleForm.invalid"> {{ (type == 'create' ? 'Add_role' : 'update_role') | translate }}
+                        </button>
+                    </div>
+                </div>
+              </form>
+            </div>
+        </div>
+    </div> <!-- end col -->
+  </div>
+  

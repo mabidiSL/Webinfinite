@@ -1,40 +1,60 @@
 import { createAction, props } from '@ngrx/store';
-import { _User, User } from './role.models';
+import { RoleListModel } from './role.models';
 
-// Register action
-export const Register = createAction('[Authentication] Register', props<{ email: string, username: string, password: string }>());
-export const RegisterSuccess = createAction('[Authentication] Register Success', props<{ user: User }>());
-export const RegisterFailure = createAction('[Authentication] Register Failure', props<{ error: string }>());
-
-// login action
-export const login = createAction('[Authentication] Login', props<{ email: string, password: string }>());
-export const loginSuccess = createAction('[Authentication] Login Success', props<{ user: _User, token: string }>());
-export const loginFailure = createAction('[Authentication] Login Failure', props<{ error: any }>());
-
-// forgotPassword action
-export const forgetPassword = createAction('[Authentication] forgetPassword', props<{ email: string }>());
-export const forgetPasswordSuccess = createAction('[Authentication] forgetPassword Success', props<{ user: any }>());
-export const forgetPasswordFailure = createAction('[Authentication] forgetPassword Failure', props<{ error: any }>());
-
-// UpdatePassword action
-export const updatePassword = createAction('[Authentication] updatePassword', props<{ password: string , token: string}>());
-export const updatePasswordSuccess = createAction('[Authentication] updatePassword Success', props<{ message: any }>());
-export const updatePasswordFailure = createAction('[Authentication] updatePassword Failure', props<{ error: any }>());
+// fetch all list
+export const fetchRolelistData = createAction('[Data] fetch Rolelist',props<{ page: number; itemsPerPage: number }>());
+export const fetchRolelistSuccess = createAction('[Data] fetch Rolelist success', props<{ RoleListdata: RoleListModel[] }>())
+export const fetchRolelistFail = createAction('[Data fetch Rolelist failed]', props<{ error: string }>())
 
 
-// Update Profile Password action
-export const updateProfilePassword = createAction('[Profile] updateProfilePassword', props<{ id: string,currentPassword: string , newPassword: string}>());
-export const updateProfilePasswordSuccess = createAction('[Profile] updateProfilePassword Success', props<{ message: any }>());
-export const updateProfilePasswordFailure = createAction('[Profile] updateProfilePassword Failure', props<{ error: any }>());
 
+// Update Data
+export const updateRoleStatus = createAction(
+    '[Data] Update Role status',
+    props<{ RoleId: string, status: string }>()
+    //props<{ updatedData: RoleApprovalListModel }>()
+);
+export const updateRoleStatusSuccess = createAction(
+    '[Data] Update Role Status Success',
+    props<{ updatedData: any }>()
+);
+export const updateRoleStatusFailure = createAction(
+    '[Data] Update Role Status Failure',
+    props<{ error: string }>()
+);
 
-// logout action
-export const logout = createAction('[Authentication] Logout');
+// Add Data
+export const addRolelist = createAction('[Data] Add Rolelist',  props<{ newData: RoleListModel }>());
+export const addRolelistSuccess = createAction('[Data] Add Rolelist Success', props<{ newData: any }>());
+export const addRolelistFailure = createAction('[Data] Add Rolelist Failure', props<{ error: string }>());
+//get Role by ID
+export const getRoleById = createAction('[Data] get Role', props<{ RoleId: string }>());
+export const getRoleByIdSuccess = createAction('[Data] get Role success', props<{ Role: any }>());
 
-export const logoutSuccess = createAction('[Auth] Logout Success',props<{ user: _User, token: string }>());
- 
-// Update Profile action
-export const updateProfile = createAction('[Profile] updateProfile', props<{ user: _User }>());
-export const updateProfileSuccess = createAction('[Profile] updateProfile Success', props<{ user: any }>());
-export const updateProfileFailure = createAction('[Profile] updateProfile Failure', props<{ error: any }>());
+// Update Data
+export const updateRolelist = createAction(
+    '[Data] Update Rolelist',
+    props<{ updatedData: RoleListModel }>()
+);
+export const updateRolelistSuccess = createAction(
+    '[Data] Update Rolelist Success',
+    props<{ updatedData: RoleListModel }>()
+);
+export const updateRolelistFailure = createAction(
+    '[Data] Update Rolelist Failure',
+    props<{ error: string }>()
+);
 
+// Delete Data
+export const deleteRolelist = createAction(
+    '[Data] Delete Rolelist',
+    props<{ RoleId: string }>()
+);
+export const deleteRolelistSuccess = createAction(
+    '[Data] Delete Rolelist Success',
+    props<{ RoleId: string }>()
+);
+export const deleteRolelistFailure = createAction(
+    '[Data] Delete Rolelist Failure',
+    props<{ error: string }>()
+);

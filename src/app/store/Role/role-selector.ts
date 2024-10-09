@@ -1,23 +1,25 @@
+// src/app/Rolelist.selector.ts
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { AuthenticationState } from './role.reducer';
+import {  RolelistState } from './role.reducer';
 
-export const getLayoutState = createFeatureSelector<AuthenticationState>('auth');
+export const selectDataState = createFeatureSelector<RolelistState>('RoleList');
 
-export const getUser = createSelector(
-    getLayoutState,
-    (state: AuthenticationState) => state.user
+export const selectDataRole = createSelector(
+  selectDataState,
+  (state: RolelistState) => state?.RoleListdata || []
 );
 
-export const selectUserToken = createSelector(
-    getLayoutState,
-    (state: AuthenticationState) => state.token
+export const selectRoleById = (RoleId: string) =>createSelector(
+  selectDataState,
+  (state: RolelistState) =>  state?.RoleListdata.find(Role => Role.id === +RoleId)
   );
-export const getisLoggedIn = createSelector(
-    getLayoutState,
-    (state: AuthenticationState) => state.isLoggedIn
+
+export const selectDataLoading = createSelector(
+  selectDataState,
+  (state: RolelistState) => state?.loading || false
 );
 
-export const getError = createSelector(
-    getLayoutState,
-    (state: AuthenticationState) => state.error
+export const selectDataError = createSelector(
+  selectDataState,
+  (state: RolelistState) => state?.error || null
 );
