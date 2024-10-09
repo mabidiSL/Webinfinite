@@ -17,7 +17,7 @@ export class User {
 
 export class _User {
  
-_id?: string;
+id?: string;
 username?: string;
 email?: string;
 password?: string;

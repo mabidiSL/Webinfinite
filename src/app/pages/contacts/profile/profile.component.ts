@@ -45,7 +45,7 @@ export class ProfileComponent  {
     // fill up the form for updating the profile
     this.currentUser.subscribe(user =>{
     this.profileForm = this.formBuilder.group({
-      _id: [user?._id],
+      _id: [user?.id],
       // name: [this.currentUserValue.user.name, [Validators.required]],
       username: [user?.username, [Validators.required]],
       email: [user?.email, [Validators.required, Validators.email]],
@@ -55,7 +55,7 @@ export class ProfileComponent  {
     
 
   this.passwordForm = this.formBuilder.group({
-    _id: [user?._id],
+    _id: [user?.id],
     currentPassword: ['', [Validators.required]],      
     newPassword: ['', [Validators.required]],
     confirmpwd:['', [Validators.required]],

@@ -259,11 +259,11 @@
           <i class="bx bx-fullscreen"></i>
         </button>
       </div>
-
+        <!--Notification's component-->
       <div class="dropdown d-inline-block" dropdown>
         <button type="button" class="btn header-item noti-icon" id="page-header-notifications-dropdown" dropdownToggle>
           <i class="bx bx-bell bx-tada"></i>
-          <span class="badge bg-danger rounded-pill">3</span>
+          <span class="badge bg-danger rounded-pill">{{notifications.length}}</span>
         </button>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown" *dropdownMenu>
           <div class="p-3">
@@ -277,66 +277,24 @@
             </div>
           </div>
           <ngx-simplebar style="position: relative; height: 230px;">
-            <a href="javascript: void(0);" class="text-reset notification-item">
-              <div class="d-flex">
-                <div class="avatar-xs me-3">
-                  <span class="avatar-title bg-primary rounded-circle font-size-16">
-                    <i class="bx bx-cart"></i>
-                  </span>
-                </div>
-                <div class="flex-grow-1">
-                  <h6 class="mb-1">{{ 'HEADER.NOTIFICATIONS.FIRST.TITLE' | translate}}</h6>
-                  <div class="font-size-12 text-muted">
-                    <p class="mb-1">{{ 'HEADER.NOTIFICATIONS.FIRST.TEXT' | translate}}</p>
-                    <p class="mb-0"><i class="mdi mdi-clock-outline"></i>
-                      {{ 'HEADER.NOTIFICATIONS.FIRST.TIME' | translate}}</p>
+            <ng-container *ngFor="let notification of notifications">
+              <a href="javascript: void(0);" class="text-reset notification-item">
+                <div class="d-flex">
+                  <div class="avatar-xs me-3">
+                    <span class="avatar-title bg-primary rounded-circle font-size-16">
+                      <i class="bx bx-cart"></i> <!-- Replace with dynamic icon based on notification type -->
+                    </span>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1">{{ notification.title }}</h6> <!-- Adjust based on your notification structure -->
+                    <div class="font-size-12 text-muted">
+                      <p class="mb-1">{{ notification.description }}</p> <!-- Adjust based on your notification structure -->
+                      <p class="mb-0"><i class="mdi mdi-clock-outline"></i> {{ notification.cronExpression | date: 'short' }}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </a>
-            <a href="javascript: void(0);" class="text-reset notification-item">
-              <div class="d-flex">
-                <img src="assets/images/users/avatar-3.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                <div class="flex-grow-1">
-                  <h6 class="mb-1">{{ 'HEADER.NOTIFICATIONS.SECOND.TITLE' | translate}}</h6>
-                  <div class="font-size-12 text-muted">
-                    <p class="mb-1">{{ 'HEADER.NOTIFICATIONS.SECOND.TEXT' | translate}}</p>
-                    <p class="mb-0"><i class="mdi mdi-clock-outline"></i>{{ 'HEADER.NOTIFICATIONS.SECOND.TIME' |
-                      translate}}</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-            <a href="javascript: void(0);" class="text-reset notification-item">
-              <div class="d-flex">
-                <div class="avatar-xs me-3">
-                  <span class="avatar-title bg-success rounded-circle font-size-16">
-                    <i class="bx bx-badge-check"></i>
-                  </span>
-                </div>
-                <div class="flex-grow-1">
-                  <h6 class="mb-1">{{ 'HEADER.NOTIFICATIONS.THIRD.TITLE' | translate}}</h6>
-                  <div class="font-size-12 text-muted">
-                    <p class="mb-1">{{ 'HEADER.NOTIFICATIONS.THIRD.TEXT' | translate}}</p>
-                    <p class="mb-0"><i class="mdi mdi-clock-outline"></i>{{ 'HEADER.NOTIFICATIONS.THIRD.TIME' |
-                      translate}}</p>
-                  </div>
-                </div>
-              </div>
-            </a>
-            <a href="javascript: void(0);" class="text-reset notification-item">
-              <div class="d-flex">
-                <img src="assets/images/users/avatar-4.jpg" class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                <div class="flex-grow-1">
-                  <h6 class="mb-1">{{ 'HEADER.NOTIFICATIONS.FOUR.TITLE' | translate}}</h6>
-                  <div class="font-size-12 text-muted">
-                    <p class="mb-1">{{ 'HEADER.NOTIFICATIONS.FOUR.TEXT' | translate}}</p>
-                    <p class="mb-0"><i class="mdi mdi-clock-outline"></i>{{ 'HEADER.NOTIFICATIONS.FOUR.TIME' |
-                      translate}}</p>
-                  </div>
-                </div>
-              </div>
-            </a>
+              </a>
+            </ng-container>
           </ngx-simplebar>
           <div class="p-2 border-top d-grid">
             <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">

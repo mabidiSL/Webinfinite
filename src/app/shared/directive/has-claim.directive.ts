@@ -1,6 +1,5 @@
 import { Directive, Input, SimpleChanges, TemplateRef, ViewContainerRef  } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { _User } from 'src/app/store/Authentication/auth.models';
 import { Claim } from 'src/app/store/Role/role.models';
 
@@ -19,13 +18,12 @@ export class HasClaimDirective {
   public permissions: any[] = [];
   private isViewCreated = false;
 
-  constructor( private authFackservice: AuthfakeauthenticationService, private templateRef: TemplateRef<string>,
+  constructor(  private templateRef: TemplateRef<string>,
     private viewContainerRef: ViewContainerRef) {
       
       this.currentUserSubject = new BehaviorSubject<_User>(JSON.parse(localStorage.getItem('currentUser')));
       this.currentUser = this.currentUserSubject.asObservable();
-      const componentInstance = this.viewContainerRef['context']?.$implicit;
-      console.log('HasClaim Directive initialized in component:', componentInstance);
+      
     }
   ngOnChanges(changes: SimpleChanges) {
    
@@ -51,9 +49,7 @@ export class HasClaimDirective {
   private hasPermission(claim: Claim[]): boolean {
    
     if (claim && this.permissions) {
-      console.log(claim);
-      console.log(this.permissions);
-      return claim.some(requiredClaim => {
+       return claim.some(requiredClaim => {
         return this.permissions.some(permission => {
           return permission.claimType === requiredClaim.claimType && requiredClaim.claimValue.every(value => permission.permissions.includes(value));
         });
@@ -64,7 +60,6 @@ export class HasClaimDirective {
 
  
   ngOnInit() {
-    console.log('Its a CALL', this.claim);
     this.currentUser.subscribe(user => {
       if (user) {
       this.permissions = user.role.claims;

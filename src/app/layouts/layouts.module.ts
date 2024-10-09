@@ -17,6 +17,8 @@ import { HorizontaltopbarComponent } from './horizontaltopbar/horizontaltopbar.c
 import { LanguageService } from '../core/services/language.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { DirectiveModule } from '../shared/directive/directive.module';
+import { CoreModule } from '../core/core.module';
+import { SocketService } from '../core/services/webSocket.service';
 
 @NgModule({
   // tslint:disable-next-line: max-line-length
@@ -27,9 +29,10 @@ import { DirectiveModule } from '../shared/directive/directive.module';
     RouterModule,
     BsDropdownModule.forRoot(),
     UIModule,
+    CoreModule,
     SimplebarAngularModule,
     DirectiveModule
   ],
-  providers: [LanguageService]
+  providers: [SocketService,LanguageService]
 })
 export class LayoutsModule { }

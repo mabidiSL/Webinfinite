@@ -3,20 +3,19 @@ import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { AuthenticationService } from '../../core/services/auth.service';
 import { AuthfakeauthenticationService } from '../../core/services/authfake.service';
-import { environment } from '../../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { LanguageService } from '../../core/services/language.service';
 import { TranslateService } from '@ngx-translate/core';
 import { select, Store } from '@ngrx/store';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, map } from 'rxjs';
 import { changesLayout } from 'src/app/store/layouts/layout.actions';
 import { getLayoutMode } from 'src/app/store/layouts/layout.selector';
 import { RootReducerState } from 'src/app/store';
 import { _User, User } from 'src/app/store/Authentication/auth.models';
 import { ToastrService } from 'ngx-toastr';
-import { getUser } from 'src/app/store/Authentication/authentication-selector';
 import { logout } from 'src/app/store/Authentication/authentication.actions';
-import { ThemeService } from 'src/app/core/services/theme.service';
+import { SocketService } from 'src/app/core/services/webSocket.service';
+import { NotificationListModel } from 'src/app/store/notification/notification.model';
 
 @Component({
   selector: 'app-topbar',
@@ -39,6 +38,10 @@ export class TopbarComponent implements OnInit {
   dataLayout$: Observable<string>;
   private currentUserSubject: BehaviorSubject<_User>;
   public currentUser: Observable<_User>;
+  notifications: any[] = [];
+  notif$ : Observable<any>;
+  notificationsSubscription: Subscription;
+
 
   // Define layoutMode as a property
 
@@ -48,14 +51,33 @@ export class TopbarComponent implements OnInit {
     public translate: TranslateService,
     public _cookiesService: CookieService, 
     public store: Store<RootReducerState>,
-    
+    private socketService: SocketService,
     public toastr:ToastrService) {
       
 
       this.currentUserSubject = new BehaviorSubject<_User>(JSON.parse(localStorage.getItem('currentUser')));
       this.currentUser = this.currentUserSubject.asObservable();
-     }
-          
+      
+    const userId = this.currentUserSubject.value.id;
+    
+    this.socketService.connectAndRegister(userId)
+      .then(() => {
+        // Subscribe to notifications after connection and registration
+        this.notificationsSubscription = this.socketService.getMessages().subscribe(notification => {
+          console.log('hello');
+          this.notifications = notification;
+          console.log('Notification received:', notification);
+          console.log('Total notifications:', this.notifications.length);
+          console.log(this.notifications);
+        });
+      })
+      .catch((error) => {
+        console.error('Error during WebSocket connection:', error);
+      });
+   
+      }
+     
+             
   public get currentUserValue(): _User {
       return this.currentUserSubject.value;
   }
@@ -89,7 +111,13 @@ export class TopbarComponent implements OnInit {
     } else {
       this.flagvalue = val.map(element => element.flag);
     }
+
+     
+     
+      
+   
   }
+  
 
   setLanguage(text: string, lang: string, flag: string) {
     this.countryName = text;
@@ -181,4 +209,8 @@ export class TopbarComponent implements OnInit {
       document.documentElement.setAttribute('data-layout', layout)
     })
   }
+  ngOnDestroy(): void {
+    this.notificationsSubscription.unsubscribe(); // Clean up subscription
+  }
+
 }
