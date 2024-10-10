@@ -14,32 +14,41 @@
                           </div> 
                       </div>
                  
+                      
                       <div class="table-responsive mt-3">
-                        <table class="table align-middle table-nowrap table-hover dt-responsive nowrap w-100" 
-                        id="userList-table" style="border: 1px solid #ddd; border-collapse: collapse; width: 100%;">
-                          <thead class="table-light">
-                          <tr>
-                            <th>{{'Permissions'| translate}}</th>
-                            <!-- Loop over the Permission keys for the table header -->
-                            <th *ngFor="let permission of permissionKeys">{{ permission }}</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <!-- Loop over the Modules for the rows -->
-                          <tr *ngFor="let module of moduleKeys">
-                            <td>{{ module }}</td>
-                            <!-- Loop over the Permission keys for each module to create a checkbox -->
-                            <td *ngFor="let permission of permissionKeys">
-                              <input
-                                type="checkbox"
-                                (change)="togglePermission(module, permission, $event)"
-                                
-                              />
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      </div>
+                        <table class="table align-middle table-nowrap table-hover dt-responsive nowrap w-100" style="border: 1px solid #ddd; border-collapse: collapse;">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>{{ 'Permissions' | translate }}</th>
+                                    <th *ngFor="let permission of permissionKeys">
+                                        {{ permission }}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let module of moduleKeys">
+                                    <td *ngIf="module == 'All'; else otherModules" >
+                                        <input class="me-2" type="checkbox" [checked] ="ALLModulesChecked" (change)="toggleGlobalAll($event.target.checked)"  />
+                                        <strong>{{ module }}</strong>
+                                    </td>
+                                    <ng-template #otherModules>
+                                      <td >
+                                          <strong>{{ module }}</strong>
+                                      </td>
+                                  </ng-template>
+                                    <td *ngFor="let permission of permissionKeys">
+                                        <input 
+                                            type="checkbox" 
+                                            [checked]="ALLModulesChecked"
+                                            (change)="togglePermission(module, permission, $event)" 
+                                            [disabled]="shouldDisableCheckbox(module, permission)" 
+                                        />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
                                  
               </div>
                 <div class="col-12  mt-4">
