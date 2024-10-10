@@ -32,7 +32,6 @@ export class FormStoreComponent implements OnInit {
   countrylist$: Observable<any[]>;
   arealist$: Observable<any[]>;
   citylist$: Observable<any[]>;
-  filteredCountries : any[];
   filteredAreas : any[];
   filteredCities: any[];
 

@@ -51,7 +51,7 @@ export class HasClaimDirective {
     if (claim && this.permissions) {
        return claim.some(requiredClaim => {
         return this.permissions.some(permission => {
-          return permission.claimType === requiredClaim.claimType && requiredClaim.claimValue.every(value => permission.permissions.includes(value));
+          return permission.claimType === requiredClaim.claimType && requiredClaim.claimValue.every(value => permission.claimValue.includes(value));
         });
       });
     }

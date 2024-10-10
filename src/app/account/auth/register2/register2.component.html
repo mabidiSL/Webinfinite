@@ -40,10 +40,10 @@
                   <div class="row">
                     <div class="col-md-6 mb-3">
                         <div class="form-group ">
-                          <label for="cin" >{{'CIN' | translate}} <span class="text-danger">*</span></label>
-                          <input type="text" id="cin" class="form-control" formControlName="cin" required>
-                          <div *ngIf="signupForm.get('cin').touched && signupForm.get('cin').invalid" class="invalid-feedback d-block">
-                              <span *ngIf="signupForm.get('cin').errors?.['required']">{{'CIN is required'| translate}}.</span>
+                          <label for="id_number" >{{'id_number' | translate}} <span class="text-danger">*</span></label>
+                          <input type="text" id="id_number" class="form-control" formControlName="id_number" required>
+                          <div *ngIf="signupForm.get('id_number').touched && signupForm.get('id_number').invalid" class="invalid-feedback d-block">
+                              <span *ngIf="signupForm.get('id_number').errors?.['required']">{{'id_number is required'| translate}}.</span>
                             </div>
                       </div>
                     </div>
@@ -84,10 +84,10 @@
                     <div class="row">
                       <div class="col-md-6 mb-3">
                           <div class="form-group ">
-                          <label for="storeName" >Merchant Name <span class="text-danger">*</span></label>
-                          <input type="text" id="storeName" class="form-control" formControlName="storeName" required>
-                          <div *ngIf="signupForm.get('storeName').touched && signupForm.get('storeName').invalid" class="invalid-feedback d-block">
-                            <span *ngIf="signupForm.get('storeName').errors?.['required']">{{'Merchant Name is required'| translate}}.</span>
+                          <label for="merchantName" >Merchant Name <span class="text-danger">*</span></label>
+                          <input type="text" id="merchantName" class="form-control" formControlName="merchantName" required>
+                          <div *ngIf="signupForm.get('merchantName').touched && signupForm.get('merchantName').invalid" class="invalid-feedback d-block">
+                            <span *ngIf="signupForm.get('merchantName').errors?.['required']">{{'Merchant Name is required'| translate}}.</span>
                           </div>  
                         </div>
                       </div>
@@ -110,8 +110,8 @@
                   <div class="row">
                     <div class="col-md-6 mb-3">
                       <div class="form-group ">
-                        <label for="storeLogo" >Merchant Logo</label>
-                        <input type="file" id="storeLogo" class="form-control" formControlName="storeLogo" accept="image/png, image/gif, image/jpeg" (change)="uploadStoreLogo($event)">
+                        <label for="merchantLogo" >Merchant Logo</label>
+                        <input type="file" id="merchantLogo" class="form-control" formControlName="merchantLogo" accept="image/png, image/gif, image/jpeg" (change)="uploadStoreLogo($event)">
                       </div>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -126,7 +126,12 @@
                     <div class="col-md-6 mb-3">
                       <div class="form-group">
                         <label for="country" >Country</label>
-                        <input type="text" id="country" class="form-control" formControlName="country">
+                        <select  id="country"class="form-control"  formControlName="country" (change)="onChangeCountrySelection($event)" >
+                          <option value="" disabled selected>{{'Select_the_Country' | translate}}</option>
+                          <option *ngFor="let country of (countrylist$ |async)?.data" [value]="country.id">
+                           {{ country.name }}
+                         </option>
+                        </select>  
                       </div>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -176,8 +181,8 @@
                     </div>
                     <div class="col-md-6 mb-3">
                       <div class="form-group">
-                        <label for="registerCode">Registration Code</label>
-                        <input type="text" id="registerCode" class="form-control" formControlName="registerCode">
+                        <label for="company_registration">Registration Code</label>
+                        <input type="text" id="company_registration" class="form-control" formControlName="company_registration">
                       </div>
                     </div>
                   </div>

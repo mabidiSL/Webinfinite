@@ -23,7 +23,7 @@ export const updatePasswordFailure = createAction('[Authentication] updatePasswo
 
 
 // Update Profile Password action
-export const updateProfilePassword = createAction('[Profile] updateProfilePassword', props<{ id: string,currentPassword: string , newPassword: string}>());
+export const updateProfilePassword = createAction('[Profile] updateProfilePassword', props<{ oldPassword: string , newPassword: string}>());
 export const updateProfilePasswordSuccess = createAction('[Profile] updateProfilePassword Success', props<{ message: any }>());
 export const updateProfilePasswordFailure = createAction('[Profile] updateProfilePassword Failure', props<{ error: any }>());
 
@@ -34,7 +34,7 @@ export const logout = createAction('[Authentication] Logout');
 export const logoutSuccess = createAction('[Auth] Logout Success',props<{ user: _User, token: string }>());
  
 // Update Profile action
-export const updateProfile = createAction('[Profile] updateProfile', props<{ user: _User }>());
+export const updateProfile = createAction('[Profile] updateProfile', props<{ user: any }>());
 export const updateProfileSuccess = createAction('[Profile] updateProfile Success', props<{ user: any }>());
 export const updateProfileFailure = createAction('[Profile] updateProfile Failure', props<{ error: any }>());
 

@@ -35,13 +35,10 @@ export class AuthfakeauthenticationService {
     forgotPassword(email: string){
         return this.http.post('/forgot-password',{email}) ;
     }
-    updateProfilePassword(id: string, currentPassword: string, newPassword: string){
+    updateProfilePassword( oldPassword: string, newPassword: string){
        // const id = this.currentUserSubject.value.userId;
-         return this.http.put(`/${id}/password`,{currentPassword,newPassword})
-        .pipe(map(message => {
-            console.log(message)
-            return message;
-        }));
+         return this.http.post(`${environment.baseURL}/auth/change-password`,{oldPassword,newPassword});
+        
     }
     updatePassword(password: string, token: string){
 
@@ -53,7 +50,7 @@ export class AuthfakeauthenticationService {
    }
     updateProfile(user: any){
         console.log(user);
-        return this.http.put('/user',user.user) ;
+        return this.http.patch(`${environment.baseURL}/users/${user.id}`,user) ;
     }
 
     refreshToken(refreshToken: string): Observable<any> {

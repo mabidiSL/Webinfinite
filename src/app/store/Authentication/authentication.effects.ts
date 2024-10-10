@@ -130,16 +130,15 @@ export class AuthenticationEffects {
     this.actions$.pipe(
     ofType(updateProfile),
     exhaustMap((user : any ) => {
-      return this.AuthfakeService.updateProfile(user).pipe(
-        map((response: any) => {
-          if (response) {
-            localStorage.setItem('currentUser', JSON.stringify(response));
+      return this.AuthfakeService.updateProfile(user.user).pipe(
+        map(() => {
+             localStorage.setItem('currentUser', JSON.stringify(user.user));
             this.toastr.success('The profile was updated successfully.');
-            this.router.navigate(['/dashboard']);
-            return updateProfileSuccess({user:response});
+            this.router.navigate(['/private/dashboard']);
+            return updateProfileSuccess({user:user.user});
           }
          
-        }),
+        ),
         catchError((error: any) => {
           this.toastr.error(`Update Profile Failure: ${error.message}`);
           return of(updateProfileFailure({ error }));
@@ -152,13 +151,13 @@ export class AuthenticationEffects {
   updateProfilePassword$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updateProfilePassword),
-      exhaustMap(({ id,currentPassword, newPassword}) => {
-        return this.AuthfakeService.updateProfilePassword(id, currentPassword, newPassword).pipe(
+      exhaustMap(({ oldPassword, newPassword}) => {
+        return this.AuthfakeService.updateProfilePassword( oldPassword, newPassword).pipe(
           map((response: any) => {
             if (response) {
              
               this.toastr.success('The password was updated successfully.');
-              this.router.navigate(['/dashboard']);
+              this.router.navigate(['/private/dashboard']);
               return updateProfilePasswordSuccess({message:response});
             }
             

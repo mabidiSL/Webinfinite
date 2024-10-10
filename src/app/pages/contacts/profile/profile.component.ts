@@ -45,7 +45,7 @@ export class ProfileComponent  {
     // fill up the form for updating the profile
     this.currentUser.subscribe(user =>{
     this.profileForm = this.formBuilder.group({
-      _id: [user?.id],
+      id: [user?.id],
       // name: [this.currentUserValue.user.name, [Validators.required]],
       username: [user?.username, [Validators.required]],
       email: [user?.email, [Validators.required, Validators.email]],
@@ -55,7 +55,7 @@ export class ProfileComponent  {
     
 
   this.passwordForm = this.formBuilder.group({
-    _id: [user?.id],
+    id: [user?.id],
     currentPassword: ['', [Validators.required]],      
     newPassword: ['', [Validators.required]],
     confirmpwd:['', [Validators.required]],
@@ -86,23 +86,16 @@ export class ProfileComponent  {
     if(this.profileForm.valid){
       console.log("Submitting update profile form");
       const updatedUser =  this.profileForm.value;
+      console.log(updatedUser);
       this.store.dispatch(updateProfile({ user: updatedUser }));
 
     }
-   
-
-    // UpdateProfile Api
+   // UpdateProfile Api
    // this.store.dispatch(updateProfile({ email: email, password: password }));
   }
 
 
-  /**
-   * Fetches the data
-   */
-  private _fetchData() {
-    this.revenueBarChart = revenueBarChart;
-    this.statData = statData;
-  }
+  
     // convenience getter for easy access to form fields
     get f() { return this.passwordForm.controls; }
 
@@ -116,11 +109,11 @@ export class ProfileComponent  {
     if(this.passwordForm.valid) {
       console.log('Valid Submitting  Password Form ...');
      // this.passwordForm.removeControl('confirmpwd');
-      const id = this.f['_id'].value;
+      const id = this.f['id'].value;
       const currentPassword = this.f['currentPassword'].value;
       const newPassword = this.f['newPassword'].value;
 
-      this.store.dispatch(updateProfilePassword({id: id, currentPassword:currentPassword ,newPassword:newPassword}))  
+      this.store.dispatch(updateProfilePassword({ oldPassword:currentPassword ,newPassword:newPassword}))  
 
     }
     else {

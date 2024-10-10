@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
-import { AuthenticationService } from '../../../core/services/auth.service';
-import { environment } from '../../../../environments/environment';
-import { first } from 'rxjs/operators';
-import { UserProfileService } from '../../../core/services/user.service';
 import { Store } from '@ngrx/store';
 import { Register } from 'src/app/store/Authentication/authentication.actions';
+import { fetchCountrylistData } from 'src/app/store/country/country.action';
+import { fetchArealistData } from 'src/app/store/area/area.action';
+import { fetchCitylistData } from 'src/app/store/City/city.action';
+import { Observable } from 'rxjs';
+import { selectDataCountry } from 'src/app/store/country/country-selector';
+import { selectDataArea } from 'src/app/store/area/area-selector';
+import { selectDataCity } from 'src/app/store/City/city-selector';
 
 @Component({
   selector: 'app-register2',
@@ -24,16 +27,33 @@ export class Register2Component implements OnInit {
   imageURL: string | undefined;
   merchantPictureBase64: string = null;
   storeLogoBase64: string = null;
+  
+  countrylist$: Observable<any[]>;
+  arealist$: Observable<any[]>;
+  citylist$: Observable<any[]>;
+  filteredAreas : any[];
+  filteredCities: any[];
 
   categories: string[] = ['discount','coupon', 'card'];
   sections: string[] = ['Restaurant', 'Fashion and style','Daily services', 'Entertainment', 'Tourism and travel','Cafes and sweets', 'Health and beauty', 'Gifts and occasions', 'Online stores', 'Electronics'];
-  constructor(private formBuilder: UntypedFormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService,
-    private userService: UserProfileService, public store: Store) { }
+  constructor  (
+    private formBuilder: UntypedFormBuilder, 
+    private router: Router, 
+    public store: Store) { 
+      this.store.dispatch(fetchCountrylistData({page: 1, itemsPerPage: 10, status: 'active' }));
+      this.store.dispatch(fetchArealistData({page: 1, itemsPerPage: 10, status: 'active' }));
+      this.store.dispatch(fetchCitylistData({page: 1, itemsPerPage: 10, status: 'active' }));
+
+  }
   // set the currenr year
   year: number = new Date().getFullYear();
 
   ngOnInit() {
     document.body.classList.add("auth-body-bg");
+
+    this.countrylist$ = this.store.select(selectDataCountry);
+    this.arealist$ = this.store.select(selectDataArea);
+    this.citylist$ = this.store.select(selectDataCity);
 
     this.signupForm = this.formBuilder.group({
       
@@ -41,9 +61,7 @@ export class Register2Component implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       confpassword: ['', Validators.required],
-      cin: ['', Validators.required],
-      storeName:['',Validators.required],
-      storeLogo: [''],
+      id_number: ['', Validators.required],
       phone:['',Validators.required], //Validators.pattern(/^\d{3}-\d{3}-\d{4}$/)*/],
       country:[''],
       city:[''],
@@ -52,7 +70,8 @@ export class Register2Component implements OnInit {
       supervisorName: [''],
       supervisorPhone: [''],
       bankAccountNumber: [''],
-      registerCode:[''],
+      company_registration:[''],
+      merchantName:['', Validators.required],
       merchantPicture: [''],
       website: [''],
       whatsup:[''],
@@ -92,11 +111,37 @@ export class Register2Component implements OnInit {
       formGroup.get('confpassword').markAsPristine(); // Mark as pristine to clear validation
 
     }
-  
-   
+    
     return null;
   }
-
+  onChangeCountrySelection(event: any){
+    const country = event.target.value;
+    console.log(country);
+    if(country){
+      this.arealist$.subscribe(
+        areas => 
+          this.filteredAreas = areas.filter(c =>c.country_id == country.id )
+      );
+    }
+    else{
+      this.filteredAreas = [];
+    }
+    
+  }
+  onChangeAreaSelection(event: any){
+    const area = event.target.value;
+    console.log(area);
+    if(area){
+      this.citylist$.subscribe(
+        cities => 
+          this.filteredCities = cities.filter(c =>c.area_id == area.id )
+      );
+    }
+    else{
+      this.filteredCities = [];
+    }
+    
+  }
 
   onPhoneNumberChanged(phoneNumber: string) {
     this.signupForm.get('phone').setValue(phoneNumber);

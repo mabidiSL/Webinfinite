@@ -58,6 +58,9 @@ export class TopbarComponent implements OnInit {
     
     public toastr:ToastrService) {
       
+      this.currentUserSubject = new BehaviorSubject<_User>(JSON.parse(localStorage.getItem('currentUser')));
+      this.currentUser = this.currentUserSubject.asObservable();
+      
       this.notifications$ = this.store.pipe(select(selectDataNotification));     
       this.notificationsSubscription = this.socketService.messages$.subscribe(notification => {
       console.log('hello');
