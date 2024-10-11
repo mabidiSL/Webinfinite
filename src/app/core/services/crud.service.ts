@@ -25,6 +25,7 @@ export class CrudService {
     }
 
     updateData(url: any, updatedData: any): Observable<any[]> {
+        delete updatedData.id;
         return this.http.patch<any[]>(`${environment.baseURL}${url}`, updatedData);
     }
 

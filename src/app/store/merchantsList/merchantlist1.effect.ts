@@ -102,11 +102,14 @@ export class MerchantslistEffects1 {
         this.actions$.pipe(
             ofType(updateMerchantlist),
             mergeMap(({ updatedData }) => {
-                console.log('Updated Data:', updatedData);
-                this.toastr.success('The merchant has been updated successfully.');
-                this.router.navigate(['/private/merchants/list']);
+                
                 return this.CrudService.updateData(`/merchants/${updatedData.id}`, updatedData).pipe(
-                    map(() => updateMerchantlistSuccess({ updatedData })),
+                map(() => 
+                {
+                    console.log('Updated Data:', updatedData);
+                    this.toastr.success('The merchant has been updated successfully.');
+                    this.router.navigate(['/private/merchants/list']);
+                    return  updateMerchantlistSuccess({ updatedData })}),
                     catchError((error) => of(updateMerchantlistFailure({ error })))
                 );
             })

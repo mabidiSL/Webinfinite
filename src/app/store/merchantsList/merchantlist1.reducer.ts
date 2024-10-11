@@ -39,7 +39,7 @@ export const MerchantListReducer = createReducer(
   //Handle adding merchant success
   on(addMerchantlistSuccess, (state, { newData }) => ({
     ...state,
-    MerchantListdata: [...state.MerchantListdata, newData],
+    MerchantListdata: [newData, ...state.MerchantListdata],
     loading: false
   })),
   // Handle success of getting Employee by ID and store the Employee object in the state

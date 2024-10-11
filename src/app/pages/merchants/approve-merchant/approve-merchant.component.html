@@ -40,7 +40,7 @@
                   <tbody>
                     <ng-container *ngIf="merchantApprovalList && merchantApprovalList.length > 0; else noItems">
                       <ng-container *ngFor="let data of merchantApprovalList">
-                        <tr *ngIf="data.user.status == 'notApproved'">
+                        <tr *ngIf="data.user.status == 'pending'">
                           <td>
                             <div class="form-check font-size-16">
                               <input class="form-check-input" type="checkbox" id="transactionCheck{{data.index}}" value="{{data._id}}" [(ngModel)]="data.state">
@@ -53,16 +53,16 @@
                           <td>{{data.user.email}}</td>
                           <td>{{data.user.registrationDate | date: 'short'}}</td>
                           <td>
-                            <button *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Approve]}]"
+                            <button 
                                     type="button"
                                     class="btn btn-success me-2"
                                     (click)="UpdateItem(data, 'approve')">
                               {{'Approve' | translate}}
                             </button>
-                            <button *hasClaim="[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.Decline]}]"
+                            <button 
                                     type="button"
                                     class="btn btn-danger"
-                                    (click)="UpdateItem(data, 'decline')">
+                                    (click)="UpdateItem(data, 'refused')">
                               {{'Decline' | translate}}
                             </button>
                           </td>

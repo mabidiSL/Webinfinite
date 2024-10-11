@@ -43,12 +43,12 @@ export class ApproveMerchantComponent implements OnInit {
   deleteId: any;
   returnedArray: any
 
-  constructor(private modalService: BsModalService,public toastr:ToastrService, private formBuilder: UntypedFormBuilder, public store: Store) {
+  constructor( private formBuilder: UntypedFormBuilder, public store: Store) {
   }
 
   ngOnInit() {
     setTimeout(() => {
-      this.store.dispatch(fetchMerchantlistData({ page: 1, itemsPerPage: 10, status : 'notApproved' }));
+      this.store.dispatch(fetchMerchantlistData({ page: 1, itemsPerPage: 10, status : 'pending' }));
       this.store.select(selectDataMerchant).subscribe(data => {
         this.merchantApprovalList = data
         console.log(this.merchantApprovalList);
@@ -92,8 +92,9 @@ export class ApproveMerchantComponent implements OnInit {
     }).then(result => {
       if (result.isConfirmed) {
         // Dispatch the action to update merchant status
-        item.user.status = action == 'approve' ?  'active':  'disabled';
+        item.user.status = action == 'approve' ?  'active':  'refused';
         console.log(item);
+        
         this.store.dispatch(updateMerchantlist({updatedData: item}));
         
         

@@ -40,7 +40,7 @@ const routes: Routes = [
     path: 'approve',
     canActivate: [RoleGuard],
     data: {
-      claim: [{claimType: Modules.All, claimValue: [Permission.All]}, {claimType: Modules.Merchants, claimValue: [Permission.Approve]}]
+      claim: [{claimType: Modules.All, claimValue: [Permission.All]}, {claimType: Modules.Merchants, claimValue: [Permission.Approve, Permission.Decline]}]
 
     },
     component: ApproveMerchantComponent
