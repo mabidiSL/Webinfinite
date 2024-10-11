@@ -94,8 +94,8 @@ export class ApproveMerchantComponent implements OnInit {
         // Dispatch the action to update merchant status
         item.user.status = action == 'approve' ?  'active':  'refused';
         console.log(item);
-        
-        this.store.dispatch(updateMerchantlist({updatedData: item}));
+        const newData = {id: item.id, status: item.user.status}
+        this.store.dispatch(updateMerchantlist({updatedData: newData}));
         
         
       }

@@ -33,7 +33,9 @@ export const getMerchantByIdSuccess = createAction('[Data] get Merchant success'
 // Update Data
 export const updateMerchantlist = createAction(
     '[Data] Update Merchantlist',
-    props<{ updatedData: MerchantListModel }>()
+   // props<{ updatedData: MerchantListModel }>()
+   props<{ updatedData: any }>()
+
 );
 export const updateMerchantlistSuccess = createAction(
     '[Data] Update Merchantlist Success',

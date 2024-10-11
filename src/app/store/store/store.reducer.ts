@@ -39,7 +39,7 @@ export const StoreListReducer = createReducer(
   //Handle adding Store success
   on(addStorelistSuccess, (state, { newData }) => ({
     ...state,
-    StoreListdata: [...state.StoreListdata, newData],
+    StoreListdata: [newData,...state.StoreListdata ],
     loading: false
   })),
   // Handle success of getting Employee by ID and store the Employee object in the state
