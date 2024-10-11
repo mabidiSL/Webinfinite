@@ -120,7 +120,7 @@ export class FormMerchantComponent implements OnInit {
   year: number = new Date().getFullYear();
   fileName1: string = ''; 
   fileName2: string = ''; 
-
+  globalId : string = '';
 
   ngOnInit() {
 
@@ -161,6 +161,7 @@ export class FormMerchantComponent implements OnInit {
             this.merchantForm.controls['area_id'].setValue(merchant.user.city.area_id);
             this.merchantForm.controls['city_id'].setValue(merchant.user.city_id);
             this.merchantForm.patchValue(merchant);
+            this.globalId = merchant.id;
             this.merchantForm.patchValue(merchant.user);
             
             this.isEditing = true;
@@ -247,6 +248,8 @@ export class FormMerchantComponent implements OnInit {
         { 
           console.log('updating merchant');
           delete newData.password;
+          newData.id = this.globalId;
+          console.log(newData);
           this.store.dispatch(updateMerchantlist({ updatedData: newData }));
         }
       
