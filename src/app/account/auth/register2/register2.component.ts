@@ -63,9 +63,9 @@ export class Register2Component implements OnInit {
       confpassword: ['', Validators.required],
       id_number: ['', Validators.required],
       phone:['',Validators.required], //Validators.pattern(/^\d{3}-\d{3}-\d{4}$/)*/],
-      country:[''],
-      city:[''],
-      area:[''], 
+      country_id:[''],
+      city_id:[''],
+      area_id:[''], 
       serviceType: [''],
       supervisorName: [''],
       supervisorPhone: [''],
@@ -73,13 +73,13 @@ export class Register2Component implements OnInit {
       company_registration:[''],
       merchantName:['', Validators.required],
       merchantPicture: [''],
+      merchantLogo: [''],
+      section_id:[''],
       website: [''],
       whatsup:[''],
       facebook: [''],
       twitter: [''],
       instagram: [''],
-      merchantSection:[''],
-      merchantCategory: ['']
 
     }/*, {validators: [this.passwordMatchValidator]}*/);
   }
@@ -173,10 +173,7 @@ export class Register2Component implements OnInit {
       console.log('Form status:', this.signupForm.status);
       console.log('Form errors:', this.signupForm.errors);
       
-      this.signupForm.patchValue({
-        user_type: 'merchant',
-        status: 'notApproved',
-        });
+      
       const newData = this.signupForm.value;
       if(this.storeLogoBase64){
         newData.storeLogo = this.storeLogoBase64;

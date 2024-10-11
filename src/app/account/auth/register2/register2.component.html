@@ -16,7 +16,7 @@
               </div>
                  
               <form (ngSubmit)="onSubmit()" [formGroup]="signupForm"  class="m-4">
-                  <div class="row ">
+                 <div class="row"> 
                     <div class="col-md-6 mb-3">
                       <div class="form-group ">
                          
@@ -36,8 +36,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
+                 
                     <div class="col-md-6 mb-3">
                         <div class="form-group ">
                           <label for="id_number" >{{'id_number' | translate}} <span class="text-danger">*</span></label>
@@ -47,8 +46,7 @@
                             </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
+                
                       <div class="col-md-6 mb-3">
                           <div class="form-group ">
                           <label for="password" >Password <span class="text-danger">*</span></label>
@@ -80,8 +78,7 @@
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="row">
+                    
                       <div class="col-md-6 mb-3">
                           <div class="form-group ">
                           <label for="merchantName" >Merchant Name <span class="text-danger">*</span></label>
@@ -104,10 +101,7 @@
                         </div>   
                         </div>
                       </div>
-                   </div>
-               
-                
-                  <div class="row">
+                 
                     <div class="col-md-6 mb-3">
                       <div class="form-group ">
                         <label for="merchantLogo" >Merchant Logo</label>
@@ -120,44 +114,51 @@
                         <input type="file" id="merchantPicture" class="form-control" formControlName="merchantPicture" accept="image/png, image/gif, image/jpeg" (change)="uploadMerchantPicture($event)">
                       </div>
                     </div>
-                  </div>
-                
-                  <div class="row">
+                  
                     <div class="col-md-6 mb-3">
                       <div class="form-group">
-                        <label for="country" >Country</label>
-                        <select  id="country"class="form-control"  formControlName="country" (change)="onChangeCountrySelection($event)" >
+                        <label for="country_id" >Country</label>
+                        <select  id="country_id"class="form-control"  formControlName="country_id" (change)="onChangeCountrySelection($event)" >
                           <option value="" disabled selected>{{'Select_the_Country' | translate}}</option>
-                          <option *ngFor="let country of (countrylist$ |async)?.data" [value]="country.id">
+                          <option *ngFor="let country of (countrylist$ |async)?.rows" [value]="country.id">
                            {{ country.name }}
                          </option>
                         </select>  
                       </div>
-                    </div>
+                      </div>
+                    
+                      <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                          <label for="area_id">Area</label>
+                          <select  id="area_id"class="form-control"  formControlName="area_id" (change)="onChangeAreaSelection($event)" >
+                            <option value="" disabled selected>{{'Select_the_Area' | translate}}</option>
+                            <option *ngFor="let area of filteredAreas" [value]="area.id">
+                             {{ area.name }}
+                           </option>
+                          </select>                         
+                        </div>
+                      </div>
                     <div class="col-md-6 mb-3">
                       <div class="form-group ">
-                        <label for="city" >City</label>
-                        <input type="text" id="city" class="form-control" formControlName="city">
+                        <label for="city_id" >City</label>
+                        <select  id="city_id"class="form-control"  formControlName="city_id"  >
+                          <option value="" disabled selected>{{'Select_the_City' | translate}}</option>
+                          <option *ngFor="let city of filteredCities" [value]="city.id">
+                           {{ city.name }}
+                         </option>
+                        </select>                      
                       </div>
                     </div>
-                  </div>
                 
-                  <div class="row">
-                    <div class="col-md-6 mb-3">
-                      <div class="form-group">
-                        <label for="area">Area</label>
-                        <input type="text" id="area" class="form-control" formControlName="area">
-                      </div>
-                    </div>
+                
+                 
                     <div class="col-md-6 mb-3">
                       <div class="form-group">
                         <label for="serviceType">Service Type</label>
                         <input type="text" id="serviceType" class="form-control" formControlName="serviceType">
                       </div>
                     </div>
-                  </div>
-                
-                  <div class="row">
+                 
                     <div class="col-md-6 mb-3">
                       <div class="form-group">
                         <label for="supervisorName">Supervisor Name</label>
@@ -170,9 +171,7 @@
                         <input type="text" id="supervisorPhone" class="form-control" formControlName="supervisorPhone">
                       </div>
                     </div>
-                  </div>
-                
-                  <div class="row">
+                  
                     <div class="col-md-6 mb-3">
                       <div class="form-group">
                         <label for="bankAccountNumber">Bank Account Number</label>
@@ -185,28 +184,17 @@
                         <input type="text" id="company_registration" class="form-control" formControlName="company_registration">
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
+                  
                       <div class="col-md-6 mb-3">
                         <div class="form-group">
-                          <label for="merchantSection">Merchant Section</label>
-                          <select id="merchantSection" class="form-control" formControlName="merchantSection">
+                          <label for="section_id">Merchant Section</label>
+                          <select id="section_id" class="form-control" formControlName="section_id">
                             <option value="">{{'Select a section' | translate}}</option>
                             <option *ngFor="let section of sections" [value]="section">{{ section }}</option>
                           </select>
                         </div>
                       </div>
-                      <div class="col-md-6 mb-3">
-                        <div class="form-group">
-                          <label for="merchantCategory">Merchant Category</label>
-                          <select id="merchantCategory" class="form-control" formControlName="merchantCategory" >
-                            <option value="">{{'Select a category' | translate}}</option>
-                            <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
+                                    
                       
                       <div class="col-md-6 mb-3">
                         <div class="form-group">
@@ -223,8 +211,8 @@
                         <input type="text" id="whatsup" class="form-control" formControlName="whatsup">
                       </div>
                     </div>
-                    </div>
-                    <div class="row">
+                   
+                
                     <div class="col-md-6 mb-3">
                       <div class="form-group">
                         <label for="facebook">Facebook</label>
@@ -238,22 +226,20 @@
                         <input type="text" id="twitter" class="form-control" formControlName="twitter">
                       </div>
                     </div>
-                    </div>
-                    <div class="row">
+                    
                     <div class="col-md-6 mb-3">
                       <div class="form-group">
                         <label for="instagram">Instagram</label>
                         <input type="text" id="instagram" class="form-control" formControlName="instagram">
                       </div>
                     </div>
-                  </div>
-                
-                 
+                         
+                 </div>
                   <div class="col-12  mt-4">
-                  <div class="d-flex justify-content-end ">
-                  <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Cancel</button>
-                  <button type="submit" class="btn btn-primary" >Register</button>
-                  </div>
+                    <div class="d-flex justify-content-end ">
+                      <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Cancel</button>
+                      <button type="submit" class="btn btn-primary" >Register</button>
+                    </div>
                   </div>
                 </form>
                 
