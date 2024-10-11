@@ -32,9 +32,9 @@
                     <div class="form-group ">
                        <label for="description" >{{'Description' | translate}} <span class="text-danger">*</span></label>
                        <textarea class="form-control" id="description" formControlName="description" rows="3"></textarea>
-                       <!-- <div *ngIf="storeForm.get('name').touched && storeForm.get('name').invalid" class="invalid-feedback d-block">
+                       <div *ngIf="storeForm.get('name').touched && storeForm.get('name').invalid" class="invalid-feedback d-block">
                             <span *ngIf="storeForm.get('name').errors?.['required']">{{'Name is required'| translate}}.</span>
-                          </div> -->
+                          </div>
                       </div> 
                   </div>
                   <div *ngIf="storeForm" class="col-md-6 mb-3">
@@ -73,8 +73,8 @@
                            {{ city.name }}
                          </option>
                         </select>  
-                         <div *ngIf="storeForm.get('area_id').touched && storeForm.get('area_id').invalid" class="invalid-feedback d-block">
-                            <span *ngIf="storeForm.get('area_id').errors?.['required']">{{'area_is_required'| translate}}.</span>
+                         <div *ngIf="storeForm.get('city_id').touched && storeForm.get('city_id').invalid" class="invalid-feedback d-block">
+                            <span *ngIf="storeForm.get('city_id').errors?.['required']">{{'area_is_required'| translate}}.</span>
                         </div>   
                        </div>                     
                     </div>
@@ -126,20 +126,7 @@
                             </li>
                             }
                           </ul>}
-                          <!-- Display the merchant logo if it exists -->
-                          <!-- <div *ngIf="storeForm.get('images').value !== null && storeForm.get('images').value !== ''"
-                          class="mb-3">
-                            <img [src]="existantmerchantLogo" alt="Store Pictures" class="img-fluid" width="200">
-                          </div>
-                      
-                          File input for selecting or uploading a new image -->
-                          <!-- <input
-                            type="file"
-                            id="images"
-                            class="form-control"
-*                            accept="image/png, image/gif, image/jpeg"
-                            (change)="uploadStorePictures($event)"
-                          > --> 
+                        
                         </div>
                       </div>
                      

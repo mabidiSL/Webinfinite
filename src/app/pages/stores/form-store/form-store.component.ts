@@ -177,13 +177,7 @@ export class FormStoreComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.storeForm.controls; }
 
-  // swiper config
-  slideConfig = {
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    dots: true
-  };
+
 
   /**
    * On submit form
@@ -220,6 +214,7 @@ export class FormStoreComponent implements OnInit {
         {
           console.log('updating store');
           delete newData.images;
+          delete newData.area_id;
           this.store.dispatch(updateStorelist({ updatedData: newData }));
         }
     } else {
