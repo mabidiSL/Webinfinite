@@ -65,6 +65,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NotificationsEffects } from './store/notification/notification.effect';
 import { NotificationsModule } from './pages/notifications/notifications.module';
 import { RolesEffects } from './store/Role/role.effects';
+import { SectionEffects } from './store/section/section.effect';
 
 
 
@@ -138,7 +139,9 @@ export function createTranslateLoader(http: HttpClient): any {
       AreaEffects,
       CityEffects,
       NotificationsEffects,
-      RolesEffects
+      RolesEffects,
+      SectionEffects
+      
     ]),
   ],
   bootstrap: [AppComponent],

@@ -40,8 +40,11 @@ export class AuthenticationEffects {
         
           return this.AuthfakeService.register(newData ).pipe(
             map((user) => {
+              if(user){
+              this.toastr.success('Registration completed, Check you Inbox soon!!!');
               this.router.navigate(['/auth/login']);
               return RegisterSuccess({ user })
+              }
             }),
             catchError((error) => of(RegisterFailure({ error })))
           );

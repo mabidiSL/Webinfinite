@@ -39,7 +39,7 @@
                  
                     <div class="col-md-6 mb-3">
                         <div class="form-group ">
-                          <label for="id_number" >{{'id_number' | translate}} <span class="text-danger">*</span></label>
+                          <label for="id_number" >{{'ID Number' | translate}} <span class="text-danger">*</span></label>
                           <input type="text" id="id_number" class="form-control" formControlName="id_number" required>
                           <div *ngIf="signupForm.get('id_number').touched && signupForm.get('id_number').invalid" class="invalid-feedback d-block">
                               <span *ngIf="signupForm.get('id_number').errors?.['required']">{{'id_number is required'| translate}}.</span>
@@ -67,14 +67,8 @@
                             <i class="mdi mdi-eye-outline" [ngClass]="{'mdi-eye-off-outline': !fieldTextType, 'mdi-eye-outline': fieldTextType}" (click)="toggleFieldTextType()"></i>
                           </button> -->
                           <div *ngIf="signupForm.get('confpassword').touched && signupForm.get('confpassword').invalid" class="invalid-feedback d-block">
-                            <span *ngIf="signupForm.get('confpassword').errors?.['required']" else error>{{'Confirm password is required'| translate}}.
-                              </span>
-                              <ng-template #error>
-                                <div class="invalid-feedback" *ngIf="passwordMatchError">
-                                    {{ 'confirm_password_does_not_matched' | translate }}
-                                </div>
-                            </ng-template>
-                            
+                            <span *ngIf="signupForm.get('confpassword').errors?.['required']">{{'Confirm password is required' | translate}}.</span>
+                            <div *ngIf="passwordMatchError">{{ 'confirm_password_does_not_matched' | translate }}</div>
                           </div>
                         </div>
                       </div>
@@ -120,7 +114,7 @@
                         <label for="country_id" >Country</label>
                         <select  id="country_id"class="form-control"  formControlName="country_id" (change)="onChangeCountrySelection($event)" >
                           <option value="" disabled selected>{{'Select_the_Country' | translate}}</option>
-                          <option *ngFor="let country of (countrylist$ |async)?.rows" [value]="country.id">
+                          <option *ngFor="let country of countrylist" [value]="country.id">
                            {{ country.name }}
                          </option>
                         </select>  
@@ -180,8 +174,8 @@
                     </div>
                     <div class="col-md-6 mb-3">
                       <div class="form-group">
-                        <label for="company_registration">Registration Code</label>
-                        <input type="text" id="company_registration" class="form-control" formControlName="company_registration">
+                        <label for="registerCode">Registration Code</label>
+                        <input type="text" id="registerCode" class="form-control" formControlName="registerCode">
                       </div>
                     </div>
                   
@@ -190,7 +184,9 @@
                           <label for="section_id">Merchant Section</label>
                           <select id="section_id" class="form-control" formControlName="section_id">
                             <option value="">{{'Select a section' | translate}}</option>
-                            <option *ngFor="let section of sections" [value]="section">{{ section }}</option>
+                            <option *ngFor="let section of sectionlist" [value]="section.id">
+                              {{ section.name }}
+                            </option>
                           </select>
                         </div>
                       </div>
@@ -250,7 +246,6 @@
           </div> 
   
         </div>
-      <!-- </div> -->
     </div>
   </div>
   

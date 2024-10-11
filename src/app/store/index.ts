@@ -24,6 +24,7 @@ import { AreaListReducer, ArealistState } from "./area/area.reducer";
 import { CityListReducer, CitylistState } from "./City/city.reducer";
 import { NotificationListReducer, NotificationlistState } from "./notification/notification.reducer";
 import { RoleListReducer, RolelistState } from "./Role/role.reducer";
+import { SectionListReducer, SectionlistState } from "./section/section.reducer";
 
 
 export interface RootReducerState {
@@ -52,6 +53,7 @@ export interface RootReducerState {
     CityList: CitylistState;
     NotificationList: NotificationlistState;
     RoleList: RolelistState;
+    SectionList: SectionlistState;
     
 }
 
@@ -80,6 +82,7 @@ export const rootReducer: ActionReducerMap<RootReducerState> = {
     AreaList: AreaListReducer,
     CityList: CityListReducer,
     NotificationList: NotificationListReducer,
-    RoleList: RoleListReducer
+    RoleList: RoleListReducer,
+    SectionList: SectionListReducer
 
 }

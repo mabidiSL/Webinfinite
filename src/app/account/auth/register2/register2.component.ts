@@ -11,6 +11,8 @@ import { Observable } from 'rxjs';
 import { selectDataCountry } from 'src/app/store/country/country-selector';
 import { selectDataArea } from 'src/app/store/area/area-selector';
 import { selectDataCity } from 'src/app/store/City/city-selector';
+import { fetchSectionlistData } from 'src/app/store/section/section.action';
+import { selectDataSection } from 'src/app/store/section/section-selector';
 
 @Component({
   selector: 'app-register2',
@@ -28,11 +30,13 @@ export class Register2Component implements OnInit {
   merchantPictureBase64: string = null;
   storeLogoBase64: string = null;
   
-  countrylist$: Observable<any[]>;
-  arealist$: Observable<any[]>;
-  citylist$: Observable<any[]>;
-  filteredAreas : any[];
-  filteredCities: any[];
+  countrylist: any[] = [];
+  arealist$:  Observable<any[]>  ;
+  citylist$:  Observable<any[]> ;
+  sectionlist:  any[] = [];
+
+  filteredAreas :  any[] = [];
+  filteredCities:  any[] = [];
 
   categories: string[] = ['discount','coupon', 'card'];
   sections: string[] = ['Restaurant', 'Fashion and style','Daily services', 'Entertainment', 'Tourism and travel','Cafes and sweets', 'Health and beauty', 'Gifts and occasions', 'Online stores', 'Electronics'];
@@ -43,6 +47,8 @@ export class Register2Component implements OnInit {
       this.store.dispatch(fetchCountrylistData({page: 1, itemsPerPage: 10, status: 'active' }));
       this.store.dispatch(fetchArealistData({page: 1, itemsPerPage: 10, status: 'active' }));
       this.store.dispatch(fetchCitylistData({page: 1, itemsPerPage: 10, status: 'active' }));
+      this.store.dispatch(fetchSectionlistData({page: 1, itemsPerPage: 10, status: 'active' }));
+
 
   }
   // set the currenr year
@@ -51,9 +57,16 @@ export class Register2Component implements OnInit {
   ngOnInit() {
     document.body.classList.add("auth-body-bg");
 
-    this.countrylist$ = this.store.select(selectDataCountry);
+    this.store.select(selectDataCountry).subscribe((data) =>{
+        this.countrylist = data;
+    });
     this.arealist$ = this.store.select(selectDataArea);
     this.citylist$ = this.store.select(selectDataCity);
+   
+    this.store.select(selectDataSection).subscribe((data) =>{
+      this.sectionlist = data;
+    });
+
 
     this.signupForm = this.formBuilder.group({
       
@@ -70,7 +83,7 @@ export class Register2Component implements OnInit {
       supervisorName: [''],
       supervisorPhone: [''],
       bankAccountNumber: [''],
-      company_registration:[''],
+      registerCode:[''],
       merchantName:['', Validators.required],
       merchantPicture: [''],
       merchantLogo: [''],
@@ -81,7 +94,7 @@ export class Register2Component implements OnInit {
       twitter: [''],
       instagram: [''],
 
-    }/*, {validators: [this.passwordMatchValidator]}*/);
+    }, {validators: [this.passwordMatchValidator]});
   }
   get passwordMatchError() {
     return (
@@ -91,36 +104,28 @@ export class Register2Component implements OnInit {
   }
 
   passwordMatchValidator(formGroup: FormGroup) {
-
-    const newPassword = formGroup.get('password').value;
-    const confirmPassword = formGroup.get('confpassword').value;
-    
-    
-    if (confirmPassword && newPassword !== confirmPassword) {
-        console.log("password mismatch");
-        formGroup.get('confpassword').setErrors({ passwordMismatch: true });
-        formGroup.get('confpassword').markAsDirty(); // Mark as dirty to trigger validation
-        formGroup.get('confpassword').updateValueAndValidity(); // Update validity to trigger error message
-    return { passwordMismatch: true };
-        
+    const newPassword = formGroup.get('password')?.value;
+    const confirmPassword = formGroup.get('confpassword')?.value;
+  
+    if (newPassword && confirmPassword) {
+      if (newPassword !== confirmPassword) {
+        formGroup.get('confpassword')?.setErrors({ passwordMismatch: true });
+        return { passwordMismatch: true }; // Return an error object
+      } else {
+        formGroup.get('confpassword')?.setErrors(null); // Clear errors if they match
       }
-    
-      // Only clear errors if the field is not empty
-    if (confirmPassword) {
-      formGroup.get('confpassword').setErrors(null);
-      formGroup.get('confpassword').markAsPristine(); // Mark as pristine to clear validation
-
     }
-    
-    return null;
+  
+    return null; // Return null if valid
   }
+  
   onChangeCountrySelection(event: any){
     const country = event.target.value;
     console.log(country);
     if(country){
       this.arealist$.subscribe(
         areas => 
-          this.filteredAreas = areas.filter(c =>c.country_id == country.id )
+          this.filteredAreas = areas.filter(c =>c.country_id == country )
       );
     }
     else{
@@ -134,7 +139,7 @@ export class Register2Component implements OnInit {
     if(area){
       this.citylist$.subscribe(
         cities => 
-          this.filteredCities = cities.filter(c =>c.area_id == area.id )
+          this.filteredCities = cities.filter(c =>c.area_id == area )
       );
     }
     else{
@@ -176,7 +181,7 @@ export class Register2Component implements OnInit {
       
       const newData = this.signupForm.value;
       if(this.storeLogoBase64){
-        newData.storeLogo = this.storeLogoBase64;
+        newData.merchantLogo = this.storeLogoBase64;
       }
       if(this.merchantPictureBase64){
         newData.merchantPicture = this.merchantPictureBase64;
