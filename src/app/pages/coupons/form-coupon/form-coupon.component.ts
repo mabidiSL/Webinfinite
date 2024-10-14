@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import {  Observable, of, Subject, takeUntil } from 'rxjs';
@@ -67,10 +67,27 @@ export class FormCouponComponent implements OnInit{
       couponValueAfterDiscount:[''],
       paymentDiscountRate: ['']
 
-    });
+    }, { validators: this.dateValidator });
 
    
   }
+  dateValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const startDate = new Date(control.get('startDateCoupon')?.value);
+    const endDate = new Date(control.get('endDateCoupon')?.value);
+    const currentDate = new Date();
+  
+    if (startDate && endDate) {
+      // Check if both dates are valid
+      if (startDate < currentDate || endDate < currentDate) {
+        return { invalidDate: true }; // Both dates must be >= current date
+      }
+      if (startDate >= endDate) {
+        return { dateMismatch: true }; // Start date must be before end date
+      }
+    }
+    return null; // Valid
+  }
+  
   
   ngOnInit() {
    

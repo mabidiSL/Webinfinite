@@ -90,6 +90,12 @@
                         <div *ngIf="formCoupon.get('endDateCoupon').invalid && formCoupon.get('endDateCoupon').touched">
                           {{'End Date is required'|translate}}
                         </div>
+                        <div *ngIf="formCoupon.errors?.invalidDate">
+                          {{'Both dates must be greater than or equal to the current date.'|translate}}
+                        </div>
+                        <div *ngIf="formCoupon.errors?.dateMismatch">
+                          {{'Start Date must be before End Date.'|translate}}
+                        </div>
                       </div>
                 <div class="col-md-6 mb-3">
                   <label for="quantity">{{'Quantity'|translate}}</label>
