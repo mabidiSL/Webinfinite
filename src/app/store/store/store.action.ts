@@ -33,7 +33,7 @@ export const getStoreByIdSuccess = createAction('[Data] get Store success', prop
 // Update Data
 export const updateStorelist = createAction(
     '[Data] Update Storelist',
-    props<{ updatedData: StoreListModel }>()
+    props<{ updatedData: any }>()
 );
 export const updateStorelistSuccess = createAction(
     '[Data] Update Storelist Success',

@@ -104,6 +104,7 @@ export class FormStoreComponent implements OnInit {
           if (Store) {
             console.log('Retrieved Store:', Store);
             this.uploadedFiles = Store.images;
+            console.log(this.uploadedFiles);
             const areaId = Store.city.area_id;
             this.arealist$.subscribe(
               areas=> 
@@ -177,7 +178,20 @@ export class FormStoreComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.storeForm.controls; }
 
+ parseImages(images: any[]){
+    let returnedImages: any[] = [];
 
+      images.forEach((image) =>{
+        if(image.dataURL){
+          returnedImages.push(image.dataURL);
+        }
+        else if (image.id){
+          returnedImages.push(image.id);
+
+        }
+      });
+      return returnedImages;
+  }
 
   /**
    * On submit form
@@ -213,7 +227,10 @@ export class FormStoreComponent implements OnInit {
         else
         {
           console.log('updating store');
-          delete newData.images;
+          console.log(this.uploadedFiles);
+          newData.images = this.parseImages(this.uploadedFiles);
+          console.log(newData.images);
+         // delete newData.images;
           delete newData.area_id;
           this.store.dispatch(updateStorelist({ updatedData: newData }));
         }

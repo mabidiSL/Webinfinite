@@ -50,11 +50,11 @@ export class StoreslistEffects {
             ofType(addStorelist),
             mergeMap(({ newData }) =>
                 this.CrudService.addData('/stores', newData).pipe(
-                    map((newData) => {
+                    map((response: any) => {
                         this.toastr.success('The new Store has been added successfully.');
                         this.router.navigate(['/private/stores']);
                         // Dispatch the action to fetch the updated Store list after adding a new Store
-                        return addStorelistSuccess({newData});
+                        return addStorelistSuccess({newData: response.result});
                       }),
                     catchError((error) => of(addStorelistFailure({ error })))
                 )
@@ -102,12 +102,13 @@ export class StoreslistEffects {
         this.actions$.pipe(
             ofType(updateStorelist),
             mergeMap(({ updatedData }) => {
+                return this.CrudService.updateData(`/stores/${updatedData.id}`, updatedData).pipe(
+                map((response: any) =>{
                 console.log('Updated Data:', updatedData);
                 this.toastr.success('The Store has been updated successfully.');
                 this.router.navigate(['/private/stores']);
-                return this.CrudService.updateData(`/stores/${updatedData.id}`, updatedData).pipe(
-                    map(() => updateStorelistSuccess({ updatedData })),
-                    catchError((error) => of(updateStorelistFailure({ error })))
+                return  updateStorelistSuccess({ updatedData: response.result })}),
+                catchError((error) => of(updateStorelistFailure({ error })))
                 );
             })
         )
@@ -124,6 +125,7 @@ export class StoreslistEffects {
                         map((response: string) => {
                             // If response contains a success message or status, you might want to check it here
                             console.log('API response:', response);
+                            this.toastr.success('The Store has been deleted successfully.');
                             return deleteStorelistSuccess({ storeId });
                           }),
                     catchError((error) => {return  of(deleteStorelistFailure({ error }))})

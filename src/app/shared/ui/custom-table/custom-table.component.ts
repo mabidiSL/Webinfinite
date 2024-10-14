@@ -83,7 +83,9 @@ export class CustomTableComponent  {
   }
 
   onChangeEventEmit(data: any, event: any) {
-    this.onChangeEvent.emit({ data, event });
+    console.log(data);
+    console.log(event);
+    this.onChangeEvent.emit({ data, event } );
   }
 
 
