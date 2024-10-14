@@ -2,17 +2,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { forkJoin, mergeMap, Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
-import { selectDataArea } from 'src/app/store/area/area-selector';
-import { fetchArealistData } from 'src/app/store/area/area.action';
-import { selectDataCity } from 'src/app/store/City/city-selector';
-import { fetchCitylistData } from 'src/app/store/City/city.action';
-import { selectDataCountry } from 'src/app/store/country/country-selector';
-import { fetchCountrylistData } from 'src/app/store/country/country.action';
+import {  Observable, of, Subject, takeUntil } from 'rxjs';
+
 import { selectCouponById } from 'src/app/store/coupon/coupon-selector';
 import { addCouponlist, getCouponById, getCouponByIdSuccess, updateCouponlist } from 'src/app/store/coupon/coupon.action';
 import { selectDataMerchant } from 'src/app/store/merchantsList/merchantlist1-selector';
 import { fetchMerchantlistData } from 'src/app/store/merchantsList/merchantlist1.action';
+import { selectData, selectDataState } from 'src/app/store/store/store-selector';
+import { fetchStorelistData } from 'src/app/store/store/store.action';
 
 @Component({
   selector: 'app-form-coupon',
@@ -23,7 +20,7 @@ export class FormCouponComponent implements OnInit{
 
   @Input() type: string;
   merchantList$: Observable<any[]>;
-  storeList: any[];
+  storeList$: Observable<any[]> | undefined ;
   selectedStores: any[];
 
 
@@ -34,6 +31,7 @@ export class FormCouponComponent implements OnInit{
   couponLogoBase64: string = null;
   stores : string[] = ['Store Riadh', 'Store Al Madina'];
   isEditing = false;
+  isLoading = false;
 
 
   constructor(
@@ -42,38 +40,32 @@ export class FormCouponComponent implements OnInit{
     private router: Router,
     private route: ActivatedRoute){
    
-    this.store.dispatch(fetchMerchantlistData({ page: 1, itemsPerPage: 10 , status: 'active'}));   
+    this.store.dispatch(fetchMerchantlistData({ page: 1, itemsPerPage: 10 , status: 'active'})); 
+    
 
     this.formCoupon = this.formBuilder.group({
-      id: [''],
       name: ['', Validators.required],
+      description: ['', Validators.required],
       transName: [''],
       termsAndConditions: [''],
       transTermsAndConditions: [''],
-      description: [''],
-      transDescription: [''],
       codeCoupon: ['COUP123'],
-      urlStore: [''],
-      quantity: [''],
-      nbr_of_use:[''],
-      merchant_Id: [''],
-      //storeId: [''],
-      stores: ['', Validators.required],
+      quantity: ['', Validators.required],
+      nbr_of_use:['', Validators.required],
+      merchantId: ['', Validators.required],
+      stores: [null, Validators.required],
       managerName: [''],
       managerPhone: [''],
-      startDateCoupon: [''],
-      endDateCoupon: [''],
-      //contractRepNameId:[''],
+      startDateCoupon: ['', Validators.required],
+      endDateCoupon: ['', Validators.required],
       contractRepName: [''],
-      sectionOrderAppearnance: [''],
-      categoryOrderAppearnce: [''],
-      //merchantLogo: [''],
-      couponLogo: [''],
-      couponType: ['free'],// free,discountPercent,discountAmount,servicePrice checkboxes
+      sectionOrderAppearance: [''],
+      categoryOrderAppearance: [''],
+      couponLogo: ['', Validators.required],
+      couponType: ['free', Validators.required],// free,discountPercent,discountAmount,servicePrice checkboxes
       couponValueBeforeDiscount:[''],
       couponValueAfterDiscount:[''],
-      paymentDiscountRate: [''],
-      status: ['active'],//pending,approved,active, expired, closed
+      paymentDiscountRate: ['']
 
     });
 
@@ -84,8 +76,8 @@ export class FormCouponComponent implements OnInit{
    
     this.dropdownSettings = {
         singleSelection: false,
-        idField: 'item_id',
-        textField: 'item_text',
+        idField: 'id',
+        textField: 'name',
         selectAllText: 'Select All',
         unSelectAllText: 'UnSelect All',
         itemsShowLimit: 3,
@@ -133,12 +125,11 @@ onChangeMerchantSelection(event: any){
   const merchant = event.target.value;
   console.log(merchant);
   if(merchant){
-    this.stores = merchant.stores;
+    this.isLoading = true;
+    this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 , merchant_id: merchant.id}));
+    this.storeList$ = this.store.pipe(select(selectData));
   }
-  else{
-    this.stores = [];
-  }
-  
+   
 }
   onSubmit(){
 

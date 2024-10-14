@@ -5,7 +5,6 @@
 export const environment = {
   production: false,
   defaultauth: 'httpClient',
-  //baseURL:'https://rad-slrad.koyeb.app',
   baseURL:'https://legislative-eveleen-infiniteee-d57d0fbe.koyeb.app/api',
   firebaseConfig: {
     apiKey: "",

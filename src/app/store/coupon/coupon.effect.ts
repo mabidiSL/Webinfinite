@@ -54,8 +54,9 @@ export class CouponslistEffects {
                 this.CrudService.addData('/coupons', newData).pipe(
                     map((newData) => {
                         
-                        this.router.navigate(['/private/coupons']);
+                        
                         this.toastr.success('The new Coupon has been added successfully.');
+                        this.router.navigate(['/private/coupons']);
                         // Dispatch the action to fetch the updated Coupon list after adding a new Coupon
                         return addCouponlistSuccess({newData});
                       }),
@@ -84,8 +85,9 @@ export class CouponslistEffects {
           mergeMap(({ updatedData }) =>
             this.CrudService.updateData(`/coupons/${updatedData.id}`, updatedData).pipe(
               map(() => {
-                this.router.navigate(['/private/coupons']);
+                
                 this.toastr.success('The Coupon has been updated successfully.');
+                this.router.navigate(['/private/coupons']);
                 return updateCouponlistSuccess({ updatedData }); // Make sure to return the action
               }),
               catchError((error) => of(updateCouponlistFailure({ error }))) // Catch errors and return the failure action
