@@ -71,7 +71,7 @@ export class NotificationsEffects {
                     map((newData) => {
                         
                         this.router.navigate(['/private/notifications']);
-                        this.toastr.success('The new Notification has been added successfully.');
+                        this.toastr.success('The new Notification has been added .');
                         // Dispatch the action to fetch the updated Notification list after adding a new Notification
                         return addNotificationlistSuccess({newData});
                       }),
