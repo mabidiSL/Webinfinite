@@ -179,7 +179,7 @@
       "TEXT": "System Administration"
     },  
     "STORES":{
-      "TEXT": "Stores"
+      "TEXT": "Merchant Branches"
     },
     "INVOICES":{
       "TEXT":"Invoices"
@@ -293,13 +293,13 @@
       }
     },
     "ROLESETUP": {
-      "TEXT": "Role Setup"
+      "TEXT": "Role Management"
     }, 
     "MERCHANTSLIST": {
-      "TEXT": "Merchant List"
+      "TEXT": "Approved Merchants"
     },
     "MERCHANTSAPPROVAL": {
-      "TEXT": "Merchant Approval List"
+      "TEXT": "Pending Merchants"
     },
     
     "CUSTOMERSCOMMISSION": {

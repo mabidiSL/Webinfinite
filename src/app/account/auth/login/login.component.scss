@@ -24,10 +24,20 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* add a subtle box shadow to give it some depth */
   }
   .account-pages {
+    position: absolute; /* Allows it to cover the full viewport */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Full width of the viewport */
+    height: 100vh; /* Full height of the viewport */
     background-image: url('/assets/images/home2.jpg');
-    background-size: cover;
-    background-position: center center; 
-    background-color: #454545; 
-    color: #FFFFFF;
-  }
+    background-size: cover; /* Cover the entire area */
+    background-position: center center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-color: #454545; /* Fallback color */
+   // color: #FFFFFF; /* Text color */
+    display: flex; /* Center content vertically and horizontally */
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+}
+
  

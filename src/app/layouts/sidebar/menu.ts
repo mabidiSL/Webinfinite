@@ -2,13 +2,7 @@ import { Modules, Permission } from 'src/app/store/Role/role.models';
 import { MenuItem } from './menu.model';
 
 export const MENU: MenuItem[] = [
-    {
-        id: 1,
-        label: 'MENUITEMS.MENU.TEXT',
-        isTitle: true,
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Dashboard, claimValue: [Permission.ViewAll]}]
-
-    },
+    
     {
         id: 2,
         label: 'MENUITEMS.DASHBOARD.TEXT',
@@ -34,23 +28,7 @@ export const MENU: MenuItem[] = [
         icon: 'bxs-user-pin',
         link: '/private/employees',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Employees, claimValue: [Permission.ViewAll]}]
-       // icon: 'bxs-user-detail',
-        // subItems: [
-        //     {
-        //         id: 6,
-        //         label: 'MENUITEMS.EMPLOYEES.LIST.EMPLOYEESLIST',
-        //         link: '/private/employees/list',
-        //         parentId: 5
-        //     },
-           
-        //     {
-        //         id: 7,
-        //         label: 'MENUITEMS.EMPLOYEES.LIST.ROLESETUP',
-        //         link: '/employees/list',
-        //         parentId: 5
-        //     }
-        //         ],
-        //         claims: [{claimType: Modules.All, claimValue: [Permission.All]}]
+       
 
     },
     {
@@ -64,27 +42,7 @@ export const MENU: MenuItem[] = [
         id: 8,
         label: 'MENUITEMS.CUSTOMERS.TEXT',
         icon: 'bxs-user-detail',
-        subItems: [
-            {
-                id: 9,
-                label: 'MENUITEMS.CUSTOMERS.LIST.CUSTOMERSLIST',
-                link: '/employees/list',
-                parentId: 8
-            },
-            {
-                id: 10,
-                label: 'MENUITEMS.CUSTOMERS.LIST.ABANDONEDTASKS',
-                link: '/employees/list',
-                parentId: 8
-            },
-            {
-                id: 11,
-                label: 'MENUITEMS.CUSTOMERS.LIST.CUSTOMERSREVIEWS',
-                link: '/contacts/profile',
-                parentId: 8,
-                
-            }
-        ],
+       
         claims: [{claimType: Modules.All, claimValue: [Permission.All]}]
 
     },

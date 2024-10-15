@@ -2,9 +2,17 @@ import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
+import { selectDataArea } from 'src/app/store/area/area-selector';
+import { fetchArealistData } from 'src/app/store/area/area.action';
+import { selectDataCity } from 'src/app/store/City/city-selector';
+import { fetchCitylistData } from 'src/app/store/City/city.action';
+import { selectDataCountry } from 'src/app/store/country/country-selector';
+import { fetchCountrylistData } from 'src/app/store/country/country.action';
 import { selectEmployeeById } from 'src/app/store/employee/employee-selector';
 import { addEmployeelist, getEmployeeById, updateEmployeelist } from 'src/app/store/employee/employee.action';
+import { selectDataRole } from 'src/app/store/Role/role-selector';
+import { fetchRolelistData } from 'src/app/store/Role/role.actions';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
 
 @Component({
@@ -22,9 +30,20 @@ export class FormEmployeeComponent implements OnInit{
   public firstColleaps:boolean = false;
   public secondColleaps:boolean = false;
   public bothColleaps:boolean = false;
+
   isFirstOpen:boolean = true;
   banks : any[] = [{id: '1', name:'BIAT'},{id: '2', name:'BT'}];
-  roles: any[] = [{id:'1', name: 'ADMIN'}, {id:'2', name: 'MERCHANT'}, {id:'3', name: 'EMPLOYEE'}]
+  
+  
+  countrylist: any[] = [];
+  arealist$:  Observable<any[]>  ;
+  citylist$:  Observable<any[]> ;
+  rolelist$:  Observable<any[]> ;
+  selectedRole : any = null;
+
+  filteredAreas :  any[] = [];
+  filteredCities:  any[] = [];
+
   public Permission: Permission;
   public Module: Modules;
 
@@ -33,61 +52,61 @@ moduleKeys = Object.keys(Modules).filter(key => isNaN(Number(key))); // Get the 
 permissionKeys = Object.keys(Permission).filter(key => isNaN(Number(key))); // Get the permission names
 
 // The employee's role and its claims that will be displayed
-role = {
-  claims: [
+// role = {
+//   claims: [
    
-    {
-      claimType: Modules.Employees,
-      claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete],
-    }
-    ,
-    {
-      claimType: Modules.Merchants,
-      claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete],
-    },
-    {
-      claimType: Modules.Customers,
-      claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete],
-    }
-    ,
-    {
-      claimType: Modules.Coupons,
-      claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
-    }
-    ,
-    {
-      claimType: Modules.GiftCards,
-      claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
-    }
-    ,
-    {
-      claimType: Modules.Contracts,
-      claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
-    }
-    ,
+//     {
+//       claimType: Modules.Employees,
+//       claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete],
+//     }
+//     ,
+//     {
+//       claimType: Modules.Merchants,
+//       claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete],
+//     },
+//     {
+//       claimType: Modules.Customers,
+//       claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete],
+//     }
+//     ,
+//     {
+//       claimType: Modules.Coupons,
+//       claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
+//     }
+//     ,
+//     {
+//       claimType: Modules.GiftCards,
+//       claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
+//     }
+//     ,
+//     {
+//       claimType: Modules.Contracts,
+//       claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
+//     }
+//     ,
     
-    {
-      claimType: Modules.CustomerWallet,
-      claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
-    }
-    ,
-    {
-      claimType: Modules.CustomerInvoice,
-      claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
-    }
-    ,
-    {
-      claimType: Modules.CustomerReviews,
-      claimValue: [Permission.ViewAll],
-    },
-    {
-      claimType: Modules.SystemAdministration,
-      claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete],
-    },
+//     {
+//       claimType: Modules.CustomerWallet,
+//       claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
+//     }
+//     ,
+//     {
+//       claimType: Modules.CustomerInvoice,
+//       claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete,Permission.Download,Permission.Filter,Permission.Print],
+//     }
+//     ,
+//     {
+//       claimType: Modules.CustomerReviews,
+//       claimValue: [Permission.ViewAll],
+//     },
+//     {
+//       claimType: Modules.SystemAdministration,
+//       claimValue: [Permission.ViewAll,Permission.Create,Permission.Update,Permission.Delete],
+//     },
 
-    // Add more claims for other modules
-  ],
-};
+//     // Add more claims for other modules
+//   ],
+// };
 
 
   constructor(
@@ -95,6 +114,12 @@ role = {
     private route: ActivatedRoute,
     private router: Router,
     private store: Store){
+
+      this.store.dispatch(fetchCountrylistData({page: 1, itemsPerPage: 10, status: 'active' }));
+      this.store.dispatch(fetchArealistData({page: 1, itemsPerPage: 10, status: 'active' }));
+      this.store.dispatch(fetchCitylistData({page: 1, itemsPerPage: 10, status: 'active' }));
+      this.store.dispatch(fetchRolelistData({page: 1, itemsPerPage: 10, status: 'active' }));
+
       
       this.employeeForm = this.formBuilder.group({
         id: [''],
@@ -102,18 +127,27 @@ role = {
         email: ['', [Validators.required, Validators.email]],
         password: ['', Validators.required],
         phone:['',Validators.required], //Validators.pattern(/^\d{3}-\d{3}-\d{4}$/)*/],
-        country:[''],
-        city:[''],
-        area:[''], 
+        country_id:[''],
+        city_id:[''],
+        area_id:[''], 
         bankAccountNumber: [''],
         bankName:[''],
-        role:['']
+        role_id:['']
   
       });
     }
   
   
   ngOnInit() {
+   
+    this.store.select(selectDataCountry).subscribe(
+      (data)  => {
+        this.countrylist = data;
+    });
+    this.arealist$ = this.store.select(selectDataArea);
+    this.citylist$ = this.store.select(selectDataCity);
+    this.rolelist$ = this.store.select(selectDataRole);
+
     
     const employeeId = this.route.snapshot.params['id'];
     console.log('employee ID from snapshot:', employeeId);
@@ -139,6 +173,48 @@ role = {
    
     
   }
+  onChangeCountrySelection(event: any){
+    const country = event.target.value;
+    console.log(country);
+    if(country){
+      this.arealist$.subscribe(
+        areas => 
+          this.filteredAreas = areas.filter(c =>c.country_id == country )
+      );
+    }
+    else{
+      this.filteredAreas = [];
+    }
+    
+  }
+  onChangeAreaSelection(event: any){
+    const area = event.target.value;
+    console.log(area);
+    if(area){
+      this.citylist$.subscribe(
+        cities => 
+          this.filteredCities = cities.filter(c =>c.area_id == area )
+      );
+    }
+    else{
+      this.filteredCities = [];
+    }
+    
+  }
+  onChangeRoleSelection(event: any){
+    const role = event.target.value;
+    console.log(role);
+    if(role){
+      this.rolelist$.subscribe(
+        (data)=>{
+          this.selectedRole = data.find(r => r.id == role);
+        });
+
+    }
+  }
+
+
+
   onSubmit() {
     console.log('Form status:', this.employeeForm.status);
     console.log('Form errors:', this.employeeForm.errors);
@@ -154,7 +230,6 @@ role = {
       if(!this.isEditing)
         {
             delete newData.id;
-            
             delete newData.role;
             this.store.dispatch(addEmployeelist({ newData }));
         }
@@ -165,7 +240,9 @@ role = {
         }
       //Dispatch Action
       
-    } else {
+    } 
+    else 
+    {
       // Form is invalid, display error messages
       console.log('Form is invalid');
       this.employeeForm.markAllAsTouched();
@@ -181,16 +258,18 @@ role = {
 hasPermission(module: string, permission: string): boolean {
   const moduleEnum = Modules[module as keyof typeof Modules];
   const permissionEnum = Permission[permission as keyof typeof Permission];
-
-  const claim = this.role.claims.find((claim) => claim.claimType === moduleEnum);
-  return claim ? claim.claimValue.includes(permissionEnum) : false;
+  if(this.selectedRole){
+    const claim = this.selectedRole.claims.find((claim) => claim.claimType === moduleEnum);
+    return claim ? claim.claimValue.includes(permissionEnum) : false;
+  }
+  return false;
 }
 
 togglePermission(module: string, permission: string, event: any): void {
   const moduleEnum = this.Module[module as keyof typeof Modules];
   const permissionEnum = this.Permission[permission as keyof typeof Permission];
 
-  const claim = this.role.claims.find((claim) => claim.claimType === moduleEnum);
+  const claim = this.selectedRole.claims.find((claim) => claim.claimType === moduleEnum);
   if (claim) {
     if (event.target.checked) {
       // Add the permission
@@ -201,7 +280,7 @@ togglePermission(module: string, permission: string, event: any): void {
     }
   } else {
     // If there's no claim for this module, create one and add the permission
-    this.role.claims.push({
+    this.selectedRole.claims.push({
       claimType: moduleEnum,
       claimValue: [permissionEnum],
     });

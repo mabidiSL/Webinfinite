@@ -143,7 +143,7 @@ onChangeMerchantSelection(event: any){
   console.log(merchant);
   if(merchant){
     this.isLoading = true;
-    this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 , merchant_id: merchant.id}));
+    this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 , merchant_id: merchant}));
     this.storeList$ = this.store.pipe(select(selectData));
   }
    

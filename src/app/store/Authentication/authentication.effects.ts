@@ -74,15 +74,15 @@ export class AuthenticationEffects {
 
                 this.currentUserSubject.next(response.result.user);
                 this.router.navigate(['/private']);
-                this.toastr.success('Login successfully!!!');
+                //this.toastr.success('Login successfully!!!');
                 return loginSuccess({ user: response.result.user, token: response.result.accessToken });
 
               }
               return loginFailure({ error:'Login failed' });
             }),
             catchError((error) => {
-              this.toastr.error(`Login failed: ${error.message}`);
-              return of(loginFailure({ error }))})); // Closing parenthesis added here
+              this.toastr.error(`Login failed: Check your credentials`);
+              return of(loginFailure({ error }))})); 
             
         
       })

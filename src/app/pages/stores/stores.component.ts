@@ -45,7 +45,7 @@ export class StoresComponent implements OnInit {
 
   ngOnInit() {
           
-        this.store.dispatch(fetchStorelistData({ page: this.currentPage, itemsPerPage: this.itemPerPage }));
+        this.store.dispatch(fetchStorelistData({ page: this.currentPage, itemsPerPage: this.itemPerPage, merchant_id: '' }));
         this.storeList$.subscribe(data => {
         this.originalArray = data; // Store the full Store list
         this.filteredArray = [...this.originalArray];
@@ -59,7 +59,7 @@ export class StoresComponent implements OnInit {
   // pagechanged
   onPageChanged(event: PageChangedEvent): void {
     this.currentPage = event.page;
-    this.store.dispatch(fetchStorelistData({ page: this.currentPage, itemsPerPage: this.itemPerPage }));
+    this.store.dispatch(fetchStorelistData({ page: this.currentPage, itemsPerPage: this.itemPerPage,merchant_id: '' }));
     
   }
 

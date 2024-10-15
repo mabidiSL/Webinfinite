@@ -27,9 +27,8 @@ export class EmployeesComponent implements OnInit {
   currentPage : number = 1;
 
   columns : any[]= [
-    { property: 'name', label: 'Employee Name' },
+    { property: 'username', label: 'Employee Name' },
     { property: 'email', label: 'Email' },
-    { property: 'city.name', label: 'City' },
     { property: 'role.name', label: 'Role' },
     { property: 'status', label: 'Status' },
   ];

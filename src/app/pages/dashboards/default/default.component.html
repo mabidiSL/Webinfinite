@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
                                 <div class="mt-4">
-                                    <a href="" class="btn btn-primary btn-sm">View Profile <i class="mdi mdi-arrow-right ms-1"></i></a>
+                                    <a routerLink="/private/contacts/profile"   class="btn btn-primary btn-sm">View Profile <i class="mdi mdi-arrow-right ms-1"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -389,11 +389,22 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-4">Latest Merchant Transactions</h4>
+                <app-transaction [transactions]="transactions"></app-transaction>
+                <!-- end table -->
+            </div>
+        </div>
+    </div>
+</div>
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">Latest Transaction</h4>
+                    <h4 class="card-title mb-4">Latest Customer Transactions</h4>
                     <app-transaction [transactions]="transactions"></app-transaction>
                     <!-- end table -->
                 </div>
@@ -402,7 +413,7 @@
     </div>
 </div> <!-- container-fluid -->
 
-<div bsModal #center="bs-modal" class="modal fade" tabindex="-1">
+<div *ngIf="currentRole !== 'Admin'" bsModal #center="bs-modal" class="modal fade" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header border-bottom-0">
@@ -418,7 +429,7 @@
                     <div class="row justify-content-center">
                         <div class="col-xl-10">
                             <h4 class="text-primary">Subscribe !</h4>
-                            <p class="text-muted font-size-14 mb-4">Subscribe our newletter and get notification to stay
+                            <p class="text-muted font-size-14 mb-4">Subscribe to our newsletter and get notification to stay
                                 update.
                             </p>
 

@@ -7,6 +7,8 @@ import { EventService } from '../../../core/services/event.service';
 import { ConfigService } from '../../../core/services/config.service';
 import { DashboardService } from 'src/app/core/services/dashboard.service';
 import { CustomerRatingChart, MostPaymentMethodChart } from './chart-config';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { _User } from 'src/app/store/Authentication/auth.models';
 
 @Component({
   selector: 'app-default',
@@ -24,10 +26,13 @@ export class DefaultComponent implements OnInit {
   statData: any;
   rateStatics : any;
   rating: any;
+  currentRole: any
   config:any = {
     backdrop: true,
     ignoreBackdropClick: true
   };
+  private currentUserSubject: BehaviorSubject<_User>;
+  public currentUser: Observable<_User>;
 
   isActive: string;
 
@@ -38,7 +43,14 @@ export class DefaultComponent implements OnInit {
      private eventService: EventService,
     private dashboardService: DashboardService) {
 
-       this.dashboardService.getStatistics('week').subscribe(
+      this.currentUserSubject = new BehaviorSubject<_User>(JSON.parse(localStorage.getItem('currentUser')));
+      this.currentUser = this.currentUserSubject.asObservable();
+      this.currentUser.subscribe(user => {
+        if (user) {
+        this.currentRole = user.role.name;
+      }});
+       
+      this.dashboardService.getStatistics('week').subscribe(
         response =>{
           this.rateStatics = response.result
           this.updateCustomerRatingChart();
@@ -85,13 +97,8 @@ export class DefaultComponent implements OnInit {
         value: this.rateStatics.totalMerchants
       },
       {
-        icon: "bxs-user-detail",
-        title: "Customers",
-        value: this.rateStatics.totalCustomers
-      },
-      {
         icon: "bx bx-store",
-        title: "Stores",
+        title: "Merchant Branches",
         value: this.rateStatics.totalStores
       },
       {
@@ -104,6 +111,12 @@ export class DefaultComponent implements OnInit {
         title: "Gift Cards",
         value: this.rateStatics.totalGiftCards
       },
+      {
+        icon: "bxs-user-detail",
+        title: "Customers",
+        value: this.rateStatics.totalCustomers
+      }
+     
     ];
 
   }

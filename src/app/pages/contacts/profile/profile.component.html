@@ -1,6 +1,6 @@
 <div class="container-fluid">
 
-  <app-page-title title="Update Profile Details" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <app-page-title title="Profile Details" [breadcrumbItems]="breadCrumbItems"></app-page-title>
 
   <div class="row">
     <div class="col-lg-12">
@@ -10,7 +10,7 @@
             <tab>
               <ng-template tabHeading class="mb-2 h2">
                 <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                <span class="d-none d-sm-block">{{'Basic Informations'| translate}}</span>
+                <span class="d-none d-sm-block">{{'Basic Information'| translate}}</span>
               </ng-template>
               <div class="tab-page-content  mt-3">
                 <div class="col-lg-4">
@@ -24,7 +24,7 @@
                       </div>
                   </div> -->
                   <div class="row mb-4">
-                    <label for="username" class="col-sm-3 col-form-label">{{'UserName'| translate}}</label>
+                    <label for="username" class="col-sm-3 col-form-label">{{'User Name'| translate}}</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control"formControlName="username" id="username" placeholder="Enter Your UserName">
                         <div class="invalid-feedback">{{'Please enter your username'  | translate}}.</div>
