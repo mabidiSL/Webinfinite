@@ -1,10 +1,10 @@
  
   <div class="container-fluid">
 
-    <app-page-title title="{{'Employees_List'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <app-page-title title="{{'Employee_List'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
     <app-custom-table
       [addButtonLink] ="'/private/employees/create'"
-      [addButtonLabel] ="'New_Employee'"
+      [addButtonLabel] ="'New_Employee'| translate"
       [addButtonPermission] = "[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Employees, claimValue: [Permission.Create]}]"
       [columns]="columns"
       [viewButtonLink]="'/private/employees/view'"

@@ -152,11 +152,11 @@
       }
     },
     "COUPONMANAGEMENT": {
-      "TEXT": "Coupons"
+      "TEXT": "Approved coupons"
      
     },
     "COUPONAPPROVAL": {
-      "TEXT": "Coupons Approval"
+      "TEXT": "Pending coupons"
      
     },
     "GIFTS":{
@@ -551,9 +551,48 @@
   "Enter_the_trans_Name_Of_the_area": "Enter the trans Name Of the area",
   "Select_the_Country": "Select the Country",
   "Country_is_required": "Country is required",
-  "merchant_is_required": "Merchant is required"
+  "merchant_is_required": "Merchant is required",
+  "Employee_List": "Employee List",
+  "New_Employee": "New Employee",
+  "Select_the_Area":"Select the Area",
+  "Select_the_City":"Select the City",
+  "Select_the_Role":"Select the Role",
+  "Coupons_List": "Coupons List",
+  "New_Coupon": "New Coupon",
+  "Translated Name": "Translated Name",
+  "Terms and Conditions": "Terms and Conditions",
+  "Translated Terms and Conditions": "Translated Terms and Conditions",
+  "Description": "Description",
+  "Select_the_merchant": "Select the merchant",
+  "Merchant Name is required":"Merchant Name is required",
+  "Store is required": "Store is required",
+  "Start Date is required": "Start Date is required",
+  "End Date is required": "End Date is required",
+  "Both dates must be greater than or equal to the current date": "Both dates must be greater than or equal to the current date",
+  "Start Date must be before End Date":"Start Date must be before End Date",
+  "Quantity is required": "Quantity is required",
+  "Number of use is required":"Number of use is required",
+  "Contract Representative Name": "Contract Representative Name",
+  "Manager Name": "Manager Name",
+  "Manager Phone": "Manager Phone",
+  "Upload Coupon Logo": "Upload Coupon Logo",
+  "Coupon Logo is required": "Coupon Logo is required",
+  "Coupon Type": "Coupon Type",
+  "Free":"Free",
+  "Discount Percent": "Discount Percent",
+  "Discount Amount": "Discount Amount",
+  "Service Price": "Service Price",
+  "Coupon Type is required": "Coupon Type is required",
+  "Section_Order_Appearance": "Section Order Appearance",
+  "Category_Order_Appearance": "Category Order Appearance",
+  "Value Before Discount": "Value Before Discount",
+  "Value After Discount": "Value After Discount",
+  "Payment Discount Rate": "Payment Discount Rate",
+  "First": "First",
+  "Middle": "Middle",
+  "End": "End"
+ 
 
-
-
+  
 
 }

@@ -5,7 +5,7 @@
     <app-page-title title="{{'Coupons_List'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
     <app-custom-table
       [addButtonLink] ="'/private/coupons/create'"
-      [addButtonLabel] ="'New_Coupon'"
+      [addButtonLabel] ="'New_Coupon' | translate"
       [addButtonPermission] = "[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Create]}]"
       [columns]="columns"
       [viewButtonLink]="'/private/coupons/view'"
