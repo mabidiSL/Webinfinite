@@ -41,7 +41,7 @@ export const CouponListReducer = createReducer(
   //Handle adding Coupon success
   on(addCouponlistSuccess, (state, { newData }) => ({
     ...state,
-    CouponListdata: [...state.CouponListdata, newData],
+    CouponListdata: [newData,...state.CouponListdata ],
     loading: false
   })),
   // Handle success of getting coupon by ID and store the coupon object in the state

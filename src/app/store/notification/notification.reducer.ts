@@ -41,7 +41,7 @@ export const NotificationListReducer = createReducer(
   //Handle adding Notification success
   on(addNotificationlistSuccess, (state, { newData }) => ({
     ...state,
-    NotificationListdata: [...state.NotificationListdata, newData],
+    NotificationListdata: [ newData,...state.NotificationListdata],
     loading: false
   })),
   // Handle success of getting Notification by ID and store the Notification object in the state

@@ -39,9 +39,10 @@
                                     <td *ngFor="let permission of permissionKeys">
                                         <input 
                                             type="checkbox" 
-                                            [checked]="ALLModulesChecked"
+                                            [checked]="isEditing ? hasPermission(module, permission) : ALLModulesChecked"
                                             (change)="togglePermission(module, permission, $event)" 
                                             [disabled]="shouldDisableCheckbox(module, permission)" 
+                                            title="{{ permission }}"
                                         />
                                     </td>
                                 </tr>

@@ -39,7 +39,7 @@ export class FormRoleComponent implements OnInit {
     public store: Store) {
       
       this.roleForm = this.formBuilder.group({
-        id: [''],
+        id:[''],
         name: ['', Validators.required],
         claims: [[]],
         status: [1]
@@ -69,8 +69,11 @@ export class FormRoleComponent implements OnInit {
           if (role) {
             console.log('Retrieved role:', role);
             this.role = role;
+            console.log(this.role);
             this.roleForm.patchValue(role);
             this.isEditing = true;
+            this.patchClaimsToCheckboxes(role.claims);
+
 
           }
         });
@@ -109,10 +112,11 @@ export class FormRoleComponent implements OnInit {
           
       const newData = this.roleForm.value;
       
-          if(!this.isEditing)
-            {                   
+       if(!this.isEditing)
+        {                   
               //Dispatch Action
-              this.store.dispatch(addRolelist({ newData}));
+              delete newData.id;
+          this.store.dispatch(addRolelist({ newData}));
         }
         else
         {

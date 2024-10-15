@@ -39,7 +39,7 @@ export const RoleListReducer = createReducer(
   //Handle adding Role success
   on(addRolelistSuccess, (state, { newData }) => ({
     ...state,
-    RoleListdata: [...state.RoleListdata, newData],
+    RoleListdata: [newData,...state.RoleListdata],
     loading: false
   })),
   // Handle success of getting Role by ID and store the Role object in the state

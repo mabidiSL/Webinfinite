@@ -87,7 +87,7 @@ export class FormCouponComponent implements OnInit{
     }
     return null; // Valid
   }
-  
+
   
   ngOnInit() {
    
@@ -97,7 +97,7 @@ export class FormCouponComponent implements OnInit{
         textField: 'name',
         selectAllText: 'Select All',
         unSelectAllText: 'UnSelect All',
-        itemsShowLimit: 3,
+        itemsShowLimit: 10,
         allowSearchFilter: true
       };
     
@@ -170,9 +170,11 @@ onChangeMerchantSelection(event: any){
       console.log(newData);
       if(!this.isEditing)
       {
-        // delete newData.codeCoupon;
-          delete newData.id;
+         delete newData.codeCoupon;
+         
           //Dispatch Action
+          console.log(newData);
+        //  console.log(this.formCoupon.get('stores').value);
           this.store.dispatch(addCouponlist({ newData }));
       }
       else{
@@ -182,14 +184,7 @@ onChangeMerchantSelection(event: any){
       
    
     }
-    
-
-    // if(this.type == 'edit' && this.id) {
-    //   this.form.removeControl('password');
-    //   action = new UpdateVendor(this.prepareToSend(this.form))
-    // }
-
-    
+      
   }
  /**
    * File Upload Image

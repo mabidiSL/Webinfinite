@@ -33,7 +33,7 @@ export const MENU: MenuItem[] = [
         label: 'MENUITEMS.EMPLOYEES.TEXT',
         icon: 'bxs-user-pin',
         link: '/private/employees',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchants, claimValue: [Permission.ViewAll]}]
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Employees, claimValue: [Permission.ViewAll]}]
        // icon: 'bxs-user-detail',
         // subItems: [
         //     {

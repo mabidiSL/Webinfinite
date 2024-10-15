@@ -53,6 +53,7 @@ export class RolesComponent  implements OnInit{
   // pagechanged
   onPageChanged(event: PageChangedEvent): void {
     this.currentPage = event.page;
+    console.log(event.page);
     this.store.dispatch(fetchRolelistData({ page: this.currentPage, itemsPerPage: this.itemPerPage }));
     
   }

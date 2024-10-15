@@ -74,7 +74,7 @@
             </td>
             <ng-container *ngFor="let column of columns">
               <td>
-                <ng-container *ngIf="column.property !== 'status'&& column.property !== 'user.status'; else statusSwitch">
+                <ng-container *ngIf="column.property !== 'status'&& column.property !== 'user.status'; else status">
                   <!-- Check if column.property is 'flag' -->
                   <ng-container *ngIf="column.property === 'flag'; else showData">
                     <div>
@@ -103,16 +103,22 @@
                 </ng-container>
             
                 <!-- Status Switch -->
-                <ng-template #statusSwitch>
-                  <ui-switch
-                    color="##343a40"
-                    [checked]="getProperty(data, column.property) === checkedStatus.status"
-                    [uncheckedLabel]="uncheckedStatus.label"
-                    [checkedLabel]="checkedStatus.label"
-                    size="small"
-                    class="me-1"
-                    (changeEvent)="onChangeEventEmit(data, $event)">
-                  </ui-switch>
+                <ng-template #status>
+                  <!-- <div *ngIf="(getProperty(data, column.property) === 'delivered'|| getProperty(data, column.property) === 'undelivered'); else statusSwitch">
+                    <span class="badge" [ngClass]="{ 'bg-success': getProperty(data, column.property) === 'delivered',
+                    'bg-warning': getProperty(data, column.property) === 'undelivered'}">{{getProperty(data, column.property)}}</span> 
+                    <ng-template #statusSwitch>-->
+                      <ui-switch
+                        color="##343a40"
+                        [checked]="getProperty(data, column.property) === checkedStatus.status"
+                        [uncheckedLabel]="uncheckedStatus.label"
+                        [checkedLabel]="checkedStatus.label"
+                        size="small"
+                        class="me-1"
+                        (changeEvent)="onChangeEventEmit(data, $event)">
+                      </ui-switch>
+                    <!--  </ng-template>
+                 </div> -->
                 </ng-template>
               </td>
             </ng-container>
@@ -154,7 +160,7 @@
 <div class="row">
   <div class="col-lg-12">
     <ul class="pagination pagination-rounded justify-content-center mt-4">
-      <pagination class="pagination-wrap hstack gap-2" [totalItems]="ArrayData?.length" [itemsPerPage]="10" (pageChanged)="pageChangedEvent($event)"></pagination>
+      <pagination class="pagination-wrap hstack gap-2" [totalItems]="20" [itemsPerPage]="10" (pageChanged)="pageChangedEvent($event)"></pagination>
     </ul>
   </div>
 </div>

@@ -44,10 +44,10 @@
                         </div>
                     </div>
                    
-                      <div *ngIf="type == 'edit'" class="col-md-6 mb-3">
+                      <!-- <div *ngIf="type == 'edit'" class="col-md-6 mb-3">
                           <label for="codeCoupon">{{'Coupon Code'|translate}}</label>
                           <input class="form-control" id="codeCoupon" formControlName="codeCoupon" type="text" readonly />
-                      </div>
+                      </div> -->
                     
                       <div class="col-md-6 mb-3">
                         <label for="merchantId">{{'Merchant Name'|translate}}</label>
@@ -68,6 +68,7 @@
                           [placeholder]="'Select Stores'"
                           [data]="(storeList$ |async)"
                           formControlName="stores"
+                          
                           [settings]="dropdownSettings"
                           >
                         </ng-multiselect-dropdown>
@@ -139,7 +140,7 @@
               
                  <div class="col-md-6 mb-3">
                   <label for="couponLogo">{{'Upload Coupon Logo'|translate}}</label>
-                  <input class="form-control" id="couponLogo"  type="file" accept="image/png, image/gif, image/jpeg" (change)="uploadCouponLogo($event)"/>
+                  <input class="form-control" id="couponLogo"  type="file" formControlName="couponLogo" accept="image/png, image/gif, image/jpeg" (change)="uploadCouponLogo($event)"/>
                   <div *ngIf="formCoupon.get('couponLogo').invalid && formCoupon.get('couponLogo').touched">
                     {{'Coupon Logo is required'|translate}}
                   </div>
@@ -228,6 +229,7 @@
                     {{'Payment Discount Rate is required'|translate}}
                   </div> -->
                 </div>
+               
                 <div class="col-12  mt-4">
                   <div class="d-flex justify-content-end">
                       <button type="button" id="cancel-btn" class="btn btn-outline-secondary me-2" (click)="onCancel()">{{'Cancel'|translate}}</button>
