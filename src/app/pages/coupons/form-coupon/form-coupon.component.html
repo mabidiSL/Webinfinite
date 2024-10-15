@@ -50,14 +50,14 @@
                       </div> -->
                     
                       <div class="col-md-6 mb-3">
-                        <label for="merchantId">{{'Merchant Name'|translate}}</label>
-                        <select  id="merchantId" class="form-control"  formControlName="merchantId" (change)="onChangeMerchantSelection($event)">
+                        <label for="merchant_id">{{'Merchant Name'|translate}}</label>
+                        <select  id="merchant_id" class="form-control"  formControlName="merchant_id" (change)="onChangeMerchantSelection($event)">
                           <option value="" disabled selected>{{'Select_the_merchant' | translate}}</option>
                           <option *ngFor="let merchant of (merchantList$ |async)" [value]="merchant.id">
                            {{ merchant.merchantName }}
                          </option>
                         </select>
-                        <div *ngIf="formCoupon.get('merchantId').invalid && formCoupon.get('merchantId').touched">
+                        <div *ngIf="formCoupon.get('merchant_id').invalid && formCoupon.get('merchant_id').touched">
                           {{'Merchant Name is required'|translate}}
                         </div>
                       </div>
@@ -68,7 +68,6 @@
                           [placeholder]="'Select Stores'"
                           [data]="(storeList$ |async)"
                           formControlName="stores"
-                          
                           [settings]="dropdownSettings"
                           >
                         </ng-multiselect-dropdown>
@@ -140,13 +139,27 @@
               
                  <div class="col-md-6 mb-3">
                   <label for="couponLogo">{{'Upload Coupon Logo'|translate}}</label>
-                  <input class="form-control" id="couponLogo"  type="file" formControlName="couponLogo" accept="image/png, image/gif, image/jpeg" (change)="uploadCouponLogo($event)"/>
-                  <div *ngIf="formCoupon.get('couponLogo').invalid && formCoupon.get('couponLogo').touched">
+                  <div *ngIf="formCoupon.get('couponLogo').value !== null && formCoupon.get('couponLogo').value !== ''"
+                  class="mb-3">
+                    <img [src]="existantcouponLogo" alt="Coupon Logo" class="img-fluid" width="200">
+                  </div>
+                  <input
+                  type="text"
+                  class="form-control-plaintext"
+                  [value]="fileName" 
+                  readonly
+                >
+                  <input 
+                  class="form-control" 
+                  id="couponLogo"  
+                  type="file" 
+                  accept="image/png, image/gif, image/jpeg" 
+                  (change)="uploadCouponLogo($event)"/>
+
+                  <!-- <div *ngIf="formCoupon.get('couponLogo').invalid && formCoupon.get('couponLogo').touched">
                     {{'Coupon Logo is required'|translate}}
-                  </div>
-                  <div *ngIf="isEditing && formCoupon.get('couponLogo').value">
-                    Current Logo: {{ getFileNameFromUrl(formCoupon.get('couponLogo').value) }}
-                  </div>
+                  </div> -->
+                  
                 
                 </div> 
                 

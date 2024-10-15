@@ -42,7 +42,7 @@ export const MENU: MenuItem[] = [
         id: 8,
         label: 'MENUITEMS.CUSTOMERS.TEXT',
         icon: 'bxs-user-detail',
-       
+        link:'/pages/coming-soon',
         claims: [{claimType: Modules.All, claimValue: [Permission.All]}]
 
     },

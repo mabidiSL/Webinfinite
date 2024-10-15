@@ -10,6 +10,7 @@ export class StatComponent implements OnInit {
   @Input() title: string;
   @Input() value: string;
   @Input() icon: string;
+  @Input() link: string
 
   constructor() { }
 

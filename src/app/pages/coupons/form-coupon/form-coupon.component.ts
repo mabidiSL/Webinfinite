@@ -22,6 +22,8 @@ export class FormCouponComponent implements OnInit{
   merchantList$: Observable<any[]>;
   storeList$: Observable<any[]> | undefined ;
   selectedStores: any[];
+  existantcouponLogo: string = null;
+  fileName: string = ''; 
 
 
 
@@ -52,7 +54,7 @@ export class FormCouponComponent implements OnInit{
       codeCoupon: ['COUP123'],
       quantity: ['', Validators.required],
       nbr_of_use:['', Validators.required],
-      merchantId: ['', Validators.required],
+      merchant_id: ['', Validators.required],
       stores: [null, Validators.required],
       managerName: [''],
       managerPhone: [''],
@@ -61,7 +63,7 @@ export class FormCouponComponent implements OnInit{
       contractRepName: [''],
       sectionOrderAppearance: [''],
       categoryOrderAppearance: [''],
-      couponLogo: ['', Validators.required],
+      couponLogo: [''],
       couponType: ['free', Validators.required],// free,discountPercent,discountAmount,servicePrice checkboxes
       couponValueBeforeDiscount:[''],
       couponValueAfterDiscount:[''],
@@ -102,8 +104,8 @@ export class FormCouponComponent implements OnInit{
       };
     
     this.merchantList$ = this.store.pipe(select(selectDataMerchant)); // Observing the merchant list from store
-     //Get ContractResponsable list
-     //this.contractRespon = this.store.pipe(select(selectData));
+
+     
     const couponId = this.route.snapshot.params['id'];
     console.log('Coupon ID from snapshot:', couponId);
     if (couponId) {
@@ -114,8 +116,13 @@ export class FormCouponComponent implements OnInit{
         .pipe(select(selectCouponById(couponId)), takeUntil(this.destroy$))
         .subscribe(coupon => {
           if (coupon) {
+            this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10 , merchant_id: coupon.merchant_id}));
+            this.storeList$ = this.store.pipe(select(selectData));
             console.log('Retrieved coupon:', coupon);
             // Patch the form with coupon data
+            this.existantcouponLogo = coupon.couponLogo;
+            this.fileName = coupon.couponLogo.split('/').pop();
+
             coupon.startDateCoupon = this.formatDate(coupon.startDateCoupon);
             coupon.endDateCoupon = this.formatDate(coupon.endDateCoupon);
             this.formCoupon.patchValue(coupon);

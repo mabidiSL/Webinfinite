@@ -30,7 +30,7 @@ export class CouponsComponent  implements OnInit {
   
   columns : any[]= [
     { property: 'name', label: 'Title' },
-    { property: 'merchant.name', label: 'Merchant_Name' },
+    { property: 'merchant.merchantName', label: 'Merchant_Name' },
     { property: 'startDateCoupon', label: 'Start_Date' },
     { property: 'endDateCoupon', label: 'End_Date' },
     { property: 'status', label: 'Status' },
