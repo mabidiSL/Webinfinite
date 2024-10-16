@@ -15,7 +15,6 @@ import { _User, User } from 'src/app/store/Authentication/auth.models';
 import { ToastrService } from 'ngx-toastr';
 import { logout } from 'src/app/store/Authentication/authentication.actions';
 import { SocketService } from 'src/app/core/services/webSocket.service';
-import { NotificationListModel } from 'src/app/store/notification/notification.model';
 import { fetchMyNotificationlistData } from 'src/app/store/notification/notification.action';
 import { selectDataNotification } from 'src/app/store/notification/notification-selector';
 
@@ -116,15 +115,31 @@ export class TopbarComponent implements OnInit {
       
    
   }
-   navigateToNotification(notification: Notification) {
-  //   switch (notification.type) {
-  //     case 'merchantApproval':
-  //       this.router.navigate(['private/merchants/approve']); 
-  //       break;
-  //     // Add other cases for different notification types
-  //     default:
-  //       console.log('Unknown notification type');
-  //   }
+   navigateToNotification(notification: any) {
+    switch (notification.type) {
+
+      case 'merchant-registration':
+        this.router.navigate(['private/merchants/approve']); 
+        break;
+      case 'coupon-approval-request':
+       this.router.navigate(['private/coupons/approve']); 
+       break;
+      case 'coupon-approved':
+        this.router.navigate(['private/coupons']); 
+        break;
+      case 'gift-card-approval-request':
+        this.router.navigate(['private/giftcards/approve']); 
+        break;
+      case 'store-approval-request':
+        this.router.navigate(['private/store/approve']); 
+        break;
+      case 'store-approved':
+        this.router.navigate(['private/stores']); 
+        break;
+      // Add other cases for different notification types
+      default:
+        console.log('Unknown notification type');
+    }
    }
 
   setLanguage(text: string, lang: string, flag: string) {

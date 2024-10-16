@@ -96,7 +96,7 @@
             <div class="row">
                 @for (stat of statData; track $index) {
                 <div class="col-md-4">
-                    <app-stat [title]="stat.title" [value]="stat.value" [icon]="stat.icon"></app-stat>
+                    <app-stat [link]="stat.link" [title]="stat.title" [value]="stat.value" [icon]="stat.icon"></app-stat>
                 </div>}
             </div>
             <!-- end row -->

@@ -3,7 +3,7 @@
     <app-page-title title="{{'Notification_List'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
     <app-custom-table
       [addButtonLink] ="'/private/notifications/create'"
-      [addButtonLabel] ="'New_Notification'"
+      [addButtonLabel] ="'New_Notification'| translate"
       [addButtonPermission] = "[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.NotifManagement, claimValue: [Permission.Create]}]"
       [columns]="columns"
       [viewButtonLink]="'/private/notifications/view'"

@@ -94,21 +94,25 @@ export class DefaultComponent implements OnInit {
       {
         icon: "bx bx-store", 
         title: "Merchants",
+        link: "/private/merchants/list",
         value: this.rateStatics.totalMerchants
       },
       {
         icon: "bx bx-store",
         title: "Merchant Branches",
+        link: "/private/stores",
         value: this.rateStatics.totalStores
       },
       {
         icon: "bx bxs-coupon",
         title: "Coupons",
+        link: "/private/coupons",
         value: this.rateStatics.totalCoupons
       },
       {
         icon: "bx bxs-gift",
         title: "Gift Cards",
+        link: "/private/coupons",
         value: this.rateStatics.totalGiftCards
       },
       {

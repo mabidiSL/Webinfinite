@@ -10,6 +10,6 @@ export class EditCityComponent {
 
   ngOnInit() {
     console.log('i am in edit city');
-    this.breadCrumbItems = [{ label: 'Cities' }, { label: 'Add city', active: true }];
+    this.breadCrumbItems = [{ label: 'Cities' }, { label: 'Edit City', active: true }];
   }
 }

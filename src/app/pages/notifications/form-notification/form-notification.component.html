@@ -9,7 +9,7 @@
                            <label for="title" >{{'Notif_title' | translate}} <span class="text-danger">*</span></label>
                             <input type="text" id="title" class="form-control" formControlName="title"  >
                             <div *ngIf="notifForm.get('title').touched && notifForm.get('title').invalid" class="invalid-feedback d-block">
-                                <span *ngIf="notifForm.get('title').errors?.['required']">{{'title is required'| translate}}.</span>
+                                <span *ngIf="notifForm.get('title').errors?.['required']">{{'notification title is required'| translate}}.</span>
                               </div>
                           </div> 
                       </div>

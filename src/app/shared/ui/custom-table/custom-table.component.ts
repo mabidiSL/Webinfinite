@@ -24,7 +24,7 @@ export class CustomTableComponent  {
   @Input() editButtonPermission: string;
   @Input() deleteButtonPermission: string;
 
-  @Input() ArrayData: any[];
+  @Input() ArrayData: any[] = [];
   @Input() term: string;
 
   @Input() checkedStatus: any;

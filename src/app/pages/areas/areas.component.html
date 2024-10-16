@@ -3,7 +3,7 @@
   <app-page-title title="{{'Areas_List'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
   <app-custom-table
     [addButtonLink] ="'/private/areas/create'"
-    [addButtonLabel] ="'New_Area'"
+    [addButtonLabel] ="'New_Area'| translate"
     [addButtonPermission] = "[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.Create]}]"
     [columns]="columns"
     [viewButtonLink]="'/private/areas/view'"

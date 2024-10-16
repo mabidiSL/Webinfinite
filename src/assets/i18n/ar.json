@@ -610,7 +610,51 @@
     "Enter_the_Name_Of_the_area": "أدخل اسم المنطقة",
     "Enter_the_trans_Name_Of_the_area": "أدخل اسم المنطقة المترجم",
     "Select_the_Country": "اختر البلد",
-    "Country_is_required": "البلد مطلوب"
+    "Country_is_required": "البلد مطلوب",
+    "merchant_is_required": "التاجر ضروري",
+    "Employee_List": "قائمة الموظفين",
+    "New_Employee": "موظف جديد",
+    "Select_the_Area": "اختر المنطقة",
+    "Select_the_City": "اختر المدينة",
+    "Select_the_Role": "اختر الوظيفة",
+    "Coupons_List": "قائمة القسائم",
+    "New_Coupon": "قسيمة جديدة",
+    "Description": "الوصف",
+    "Select_the_merchant": "اختر التاجر",
+    "Store is required": "المتجر ضروري",
+     "Both dates must be greater than or equal to the current date": "يجب أن يكون التاريخان أكبر من أو يساويان التاريخ الحالي",
+    "Start Date must be before End Date": "يجب أن يكون تاريخ البدء قبل تاريخ الانتهاء",
+    "Number of use is required": "عدد الاستخدامات ضروري",
+    "Contract Representative Name": "اسم ممثل العقد",
+    "First": "الأول",
+    "Middle": "الوسط",
+    "End": "النهاية",
+    "Stores_List": "قائمة المتاجر",
+    "New_Store": "متجر جديد",
+    "Edit_store": "تحرير المتجر",
+    "New_Role": "وظيفة جديدة",
+    "Role_List": "قائمة الوظائف",
+    "role_name": "اسم الوظيفة",
+    "role name is required": "اسم الوظيفة ضروري",
+    "Edit_role": "تحرير الوظيفة",
+    "Add_role": "إضافة وظيفة",
+    "Cities_List": "قائمة المدن",
+    "New_City": "مدينة جديدة",
+    "city_Name": "اسم المدينة",
+    "city_Name_Trans": "الاسم المترجم",
+    "Area_is_required": "المنطقة ضرورية",
+    "Enter_the_Name_Of_the_city": "أدخل اسم المدينة",
+    "Add_City": "إضافة مدينة",
+    "update_city": "تحديث المدينة",
+    "Edit_City": "تحرير المدينة",
+    "New_Notification": "إشعار جديد",
+    "Notification_List": "قائمة الإشعارات",
+    "Notif_title": "عنوان الإشعار",
+    "notification title is required": "عنوان الإشعار ضروري",
+    "Scheduled_Date_and_Time": "التاريخ والوقت المحدد",
+    "Add_notif": "إضافة إشعار",
+    "update_notif": "تحديث الإشعار",
+    "Edit_notification": "تحرير الإشعار"
 
 
 
@@ -624,10 +668,11 @@
 
 
 
-    
+
+      
 
 
-    
+      
    
  
 

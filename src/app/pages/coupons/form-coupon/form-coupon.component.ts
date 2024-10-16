@@ -121,8 +121,9 @@ export class FormCouponComponent implements OnInit{
             console.log('Retrieved coupon:', coupon);
             // Patch the form with coupon data
             this.existantcouponLogo = coupon.couponLogo;
-            this.fileName = coupon.couponLogo.split('/').pop();
-
+            if(coupon.couponLogo){
+              this.fileName = coupon.couponLogo.split('/').pop();
+            }
             coupon.startDateCoupon = this.formatDate(coupon.startDateCoupon);
             coupon.endDateCoupon = this.formatDate(coupon.endDateCoupon);
             this.formCoupon.patchValue(coupon);
@@ -181,7 +182,7 @@ onChangeMerchantSelection(event: any){
          
           //Dispatch Action
           console.log(newData);
-        //  console.log(this.formCoupon.get('stores').value);
+          newData.stores = this.formCoupon.get('stores').value.map(store => ({ id : store.id}));
           this.store.dispatch(addCouponlist({ newData }));
       }
       else{

@@ -10,6 +10,6 @@ export class EditNotificationComponent {
 
   ngOnInit() {
     console.log('i am in edit notification');
-    this.breadCrumbItems = [{ label: 'Notifications' }, { label: 'Edit notification', active: true }];
+    this.breadCrumbItems = [{ label: 'Notifications' }, { label: 'Edit Notification', active: true }];
   }
 }

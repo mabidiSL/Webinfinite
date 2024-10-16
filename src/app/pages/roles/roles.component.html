@@ -3,7 +3,7 @@
     <app-page-title title="{{'Role_List'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
     <app-custom-table
       [addButtonLink] ="'/private/roles/create'"
-      [addButtonLabel] ="'New_Role'"
+      [addButtonLabel] ="'New_Role'| translate"
       [addButtonPermission] = "[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Role, claimValue: [Permission.Create]}]"
       [columns]="columns"
       [viewButtonLink]="'/private/roles/view'"

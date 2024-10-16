@@ -591,7 +591,33 @@
   "First": "First",
   "Middle": "Middle",
   "End": "End",
-  "Stores_List":"Stores_List"
+  "Stores_List":"Stores List",
+  "New_Store":"New Store",
+  "Edit_store": "Edit store",
+  "New_Role": "New Role",
+  "Role_List": "Role List",
+  "role_name": "Role Name",
+  "role name is required": "Role name is required",
+  "Edit_role": "Edit Role",
+  "Add_role": "Add Role",
+  "Cities_List": "Cities List",
+  "New_City": "New City",
+  "city_Name": "City Name",
+  "city_Name_Trans": "Translated Name",
+  "Area_is_required": "Area is required",
+  "Enter_the_Name_Of_the_city": "Enter the name of the city",
+  "Add_City": "Add City",
+  "update_city": "Update City",
+  "Edit_City": "Edit City",
+  "New_Notification": "New Notification",
+  "Notification_List": "Notification List",
+  "Notif_title": "Notification title",
+  "notification title is required": "Notification title is required",
+  "Scheduled_Date_and_Time": "Scheduled Date and Time",
+  "Add_notif": "Add Notification",
+  "update_notif": "Update Notification",
+  "Edit_notification": "Edit Notification"
+
  
 
   

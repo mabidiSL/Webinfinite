@@ -10,6 +10,6 @@ export class CreateRoleComponent {
 
   ngOnInit() {
     console.log('i am in create role');
-    this.breadCrumbItems = [{ label: 'Roles' }, { label: 'Add role', active: true }];
+    this.breadCrumbItems = [{ label: 'Roles' }, { label: 'Add Role', active: true }];
   }
 }

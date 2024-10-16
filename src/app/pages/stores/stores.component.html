@@ -3,7 +3,7 @@
     <app-page-title title="{{'Stores_List'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
     <app-custom-table
       [addButtonLink] ="'/private/stores/create'"
-      [addButtonLabel] ="'New_Store'"
+      [addButtonLabel] ="'New_Store'| translate"
       [addButtonPermission] = "[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Stores, claimValue: [Permission.Create]}]"
       [columns]="columns"
       [viewButtonLink]="'/private/stores/view'"
