@@ -25,7 +25,7 @@ export class CustomTableComponent  {
   @Input() deleteButtonPermission: string;
 
   @Input() ArrayData: any[] = [];
-  @Input() term: string;
+  searchTerm : string = '';
 
   @Input() checkedStatus: any;
   @Input() uncheckedStatus: any;
@@ -79,10 +79,10 @@ export class CustomTableComponent  {
   }
 
   searchEvent() {
-    if (this.term) {
+    if (this.searchTerm) {
       this.filteredArray = this.ArrayData.filter(item => 
         this.columns.some(column => 
-          this.getProperty(item, column.property)?.toString().toLowerCase().includes(this.term.toLowerCase())
+          this.getProperty(item, column.property)?.toString().toLowerCase().includes(this.searchTerm.toLowerCase())
         )
       );
     } else {
