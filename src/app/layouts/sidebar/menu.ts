@@ -84,7 +84,7 @@ export const MENU: MenuItem[] = [
             label: 'MENUITEMS.MERCHANTSCOMMISSION.TEXT',
             icon: 'bx bx-dollar-circle',
             link:'/pages/coming-soon',
-            claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.MerchantCommissions, claimValue: [Permission.ViewAll]}],
+            claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchant_Commissions, claimValue: [Permission.ViewAll]}],
           
      },
      {  id: 12,
@@ -119,14 +119,14 @@ export const MENU: MenuItem[] = [
         id: 16,
         label: 'MENUITEMS.MERCHANTWALLET.TEXT',
         icon: 'bx bx-wallet-alt',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.MerchantWallet, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchant_Wallet, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
     }, 
     {
         id: 17,
         label: 'MENUITEMS.CUSTOMERWALLET.TEXT',
         icon: 'bx bx-wallet',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.CustomerWallet, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Customer_Wallet, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
     }, 
     {
@@ -146,7 +146,7 @@ export const MENU: MenuItem[] = [
         id: 20,
         label: 'MENUITEMS.COMPANYSUBSCRIPTION.TEXT',
         icon: 'bx bxs-report',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.CompanySubscriptions, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Company_Subscriptions, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
     },
     {
@@ -170,14 +170,14 @@ export const MENU: MenuItem[] = [
         id: 23,
         label: 'MENUITEMS.PREPRINTEDMEMBERSHIP.TEXT',
         icon: 'bx bxs-user-badge',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.PrePrintedMembership, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.PrePrinted_Membership, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
     },
     {
         id: 24,
         label: 'MENUITEMS.GIFTS.TEXT',
         icon: 'bx bxs-gift',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.GiftCards, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Gift_Cards, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
     },
     {
@@ -191,7 +191,7 @@ export const MENU: MenuItem[] = [
         id: 26,
         label: 'MENUITEMS.MARKETINGCOMPAIGNS.TEXT',
         icon: 'bx bxs-megaphone',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.MarketingCompaigns, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Marketing_Compaigns, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
         
         
@@ -200,7 +200,7 @@ export const MENU: MenuItem[] = [
         id: 27,
         label: 'MENUITEMS.MARKETINGOFFERS.TEXT',
         icon: 'bx bxs-discount',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.MarketingOffers, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Marketing_Offers, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
         
         
@@ -209,14 +209,14 @@ export const MENU: MenuItem[] = [
         id: 28,
         label: 'MENUITEMS.SPECIALCOUPONS.TEXT',
         icon: 'bx bxs-discount',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SpecialCoupons, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Special_Coupons, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
                
     },
     {
         id: 29,
         label: 'MENUITEMS.SYSTEMLADMINISTRATION.TEXT',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.System_Administration, claimValue: [Permission.ViewAll]}],
         isTitle:true
                
     },
@@ -224,7 +224,7 @@ export const MENU: MenuItem[] = [
         id: 30,
         label: 'MENUITEMS.BANKS.TEXT',
         icon: 'bx bxs-bank',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Banks, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.System_Administration, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
                
     },
@@ -232,7 +232,7 @@ export const MENU: MenuItem[] = [
         id: 31,
         label: 'MENUITEMS.CURRENCIES.TEXT',
         icon: 'bx bx-money',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.System_Administration, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
                
     },
@@ -240,7 +240,7 @@ export const MENU: MenuItem[] = [
         id: 32,
         label: 'MENUITEMS.COUNTRIES.TEXT',
         icon: 'bx bx-globe',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.System_Administration, claimValue: [Permission.ViewAll]}],
         link: '/private/countries',
                
     },
@@ -248,7 +248,7 @@ export const MENU: MenuItem[] = [
         id: 34,
         label: 'MENUITEMS.AREAS.TEXT',
         icon: 'dripicons-map',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.System_Administration, claimValue: [Permission.ViewAll]}],
         link: '/private/areas'
                
     },
@@ -256,14 +256,14 @@ export const MENU: MenuItem[] = [
         id: 35,
         label: 'MENUITEMS.CITIES.TEXT',
         icon: 'bx bxs-city',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SystemAdministration, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.System_Administration, claimValue: [Permission.ViewAll]}],
         link: '/private/cities'
                
     },
     {
         id: 36,
         label: 'MENUITEMS.NOTIFICATIONMANAGEMENT.TEXT',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.NotifManagement, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Notification_Management, claimValue: [Permission.ViewAll]}],
         isTitle: true
           
     },
@@ -271,7 +271,7 @@ export const MENU: MenuItem[] = [
         id: 37,
         label: 'MENUITEMS.APPNOTIFICATION.TEXT',
         icon: 'bx bxs-bell-ring',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.NotifManagement, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Notification_Management, claimValue: [Permission.ViewAll]}],
         link: '/private/notifications'
         
           
@@ -281,7 +281,7 @@ export const MENU: MenuItem[] = [
         id: 38,
         label: 'MENUITEMS.SOCIALMEDIASET.TEXT',
         icon:  'bx bxl-facebook-circle',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.SocialMedia, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Social_Media, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
                 
     },
@@ -297,14 +297,14 @@ export const MENU: MenuItem[] = [
         id: 40,
         label: 'MENUITEMS.TAX.TEXT',
         icon: 'bx bxs-dollar-circle',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Tax, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.System_Administration, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
                 
     },
     {
         id: 41,
         label: 'MENUITEMS.CUSTOMERINVOICES.TEXT',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.CustomerInvoice, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Customer_Invoice, claimValue: [Permission.ViewAll]}],
         icon:  'bx bxs-report',
         link:'/pages/coming-soon',
                 
@@ -312,7 +312,7 @@ export const MENU: MenuItem[] = [
     {
         id: 42,
         label: 'MENUITEMS.MERCHANTINVOICES.TEXT',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.MerchantInvoices, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Merchant_Invoices, claimValue: [Permission.ViewAll]}],
         icon:  'bx bxs-report',
         link:'/pages/coming-soon',
                 
@@ -351,7 +351,7 @@ export const MENU: MenuItem[] = [
     {
         id: 47,
         label: 'MENUITEMS.DELEGATESTATISTICS.TEXT',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.DelegateStatistics, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Delegate_Statistics, claimValue: [Permission.ViewAll]}],
         icon: 'bx bx-stats',
         link:'/pages/coming-soon',
                 
@@ -359,7 +359,7 @@ export const MENU: MenuItem[] = [
     {
         id: 48,
         label: 'MENUITEMS.COMPLAINTS.TEXT',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.complaints, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Complaints, claimValue: [Permission.ViewAll]}],
         icon:  'bx bx-error',
         link:'/pages/coming-soon',
                 
