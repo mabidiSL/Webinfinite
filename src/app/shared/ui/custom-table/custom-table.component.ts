@@ -42,6 +42,9 @@ export class CustomTableComponent  {
   @ViewChild('removeItemModal', { static: false }) removeItemModal?: ModalDirective;
   idToDelete : any;
   isDropdownOpen: boolean = false;
+  filteredArray : any[] = [];
+  originalArray : any[] = [];
+
 
   filters = [
     { value: 'All', label: 'All' },
@@ -50,7 +53,20 @@ export class CustomTableComponent  {
     { value: 'Status', label: 'Status' },
     { value: 'Phone', label: 'Phone' }
   ];
-  constructor() { }
+  constructor() {
+   }
+
+  ngOnInit(){
+    //this.originalArray = this.ArrayData;
+    this.filteredArray = this.ArrayData;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.ArrayData) {
+      this.filteredArray = changes.ArrayData.currentValue; // Reset filtered data when ArrayData changes
+     // this.searchEvent(); // Reapply search filter if there's a term
+    }
+  }
 
   getProperty(data: any, propertyPath: string): any {
     
@@ -63,8 +79,18 @@ export class CustomTableComponent  {
   }
 
   searchEvent() {
-    this.searchJob.emit();
+    if (this.term) {
+      this.filteredArray = this.ArrayData.filter(item => 
+        this.columns.some(column => 
+          this.getProperty(item, column.property)?.toString().toLowerCase().includes(this.term.toLowerCase())
+        )
+      );
+    } else {
+      this.filteredArray = this.ArrayData; 
+    }
   }
+    
+  
 
   toggleDropdownEvent() {
     this.isDropdownOpen = !this.isDropdownOpen ;

@@ -63,8 +63,8 @@
       </tr>
     </thead>
     <tbody>
-      <ng-container *ngIf="ArrayData && ArrayData.length > 0; else noItems">
-        <ng-container  *ngFor="let data of ArrayData; let i= index "> 
+      <ng-container *ngIf="filteredArray && filteredArray.length > 0; else noItems">
+        <ng-container  *ngFor="let data of filteredArray; let i= index "> 
           <tr>
             <td>
               <div class="form-check font-size-16">
@@ -156,7 +156,7 @@
 </div>
 </div>
 
-<div *ngIf="ArrayData.length > 0" class="row">
+<div *ngIf="filteredArray.length > 0" class="row">
   <div class="col-lg-12">
     <ul class="pagination pagination-rounded justify-content-center mt-4">
       <pagination class="pagination-wrap hstack gap-2" [totalItems]="20" [itemsPerPage]="10" (pageChanged)="pageChangedEvent($event)"></pagination>
