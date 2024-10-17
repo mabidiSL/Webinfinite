@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
-
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 export class CustomTableComponent  {
 
 
-
+  @Input() pageTitle: string;
   @Input() addButtonLink: string;
   @Input() addButtonLabel: string;
   @Input() addButtonPermission: string;
@@ -26,12 +27,13 @@ export class CustomTableComponent  {
 
   @Input() ArrayData: any[] = [];
   searchTerm : string = '';
+  pageSize : number = 10;
 
   @Input() checkedStatus: any;
   @Input() uncheckedStatus: any;
 
   @Output() pageChanged = new EventEmitter();
-  @Output() searchJob = new EventEmitter();
+  @Output() onsearch = new EventEmitter();
   @Output() toggleDropdown = new EventEmitter();
   @Output() applyFilter = new EventEmitter();
   @Output() printData = new EventEmitter();
@@ -90,7 +92,9 @@ export class CustomTableComponent  {
     }
   }
     
-  
+  // searchEvent(){
+  //   this.onsearch.emit(this.searchTerm)
+  // }
 
   toggleDropdownEvent() {
     this.isDropdownOpen = !this.isDropdownOpen ;
@@ -104,9 +108,9 @@ export class CustomTableComponent  {
     this.printData.emit();
   }
 
-  downloadDataEvent() {
-    this.downloadData.emit();
-  }
+  // downloadDataEvent() {
+  //   this.downloadData.emit();
+  // }
 
   onChangeEventEmit(data: any, event: any) {
     console.log(data);
@@ -125,4 +129,29 @@ export class CustomTableComponent  {
     this.removeItemModal?.hide();
     this.onDelete.emit(this.idToDelete);
   }
+
+  downloadDataEvent() {
+    const pdf = new jsPDF();
+
+    pdf.setFontSize(18); // Set font size for title
+    pdf.text('Hello World', 14, 22);
+
+    // Capture the HTML content of the table
+    const tableElement = document.getElementById('userList-table'); // Use the ID of your table
+    if (tableElement) {
+      html2canvas(tableElement).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const imgWidth = 190; // Adjust width as needed
+        const pageHeight = pdf.internal.pageSize.height;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        const heightLeft = imgHeight;
+        
+        let position = 0;
+        // Add the image to the PDF
+        pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+        pdf.save('download.pdf'); // Save the PDF
+      });
+    }
+  }
+
 }

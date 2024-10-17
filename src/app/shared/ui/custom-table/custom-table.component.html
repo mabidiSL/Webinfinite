@@ -29,9 +29,11 @@
         
               <!-- Print Button -->
               <div class="me-2">
-                <button class="btn btn-gold btn-rounded" (click)="printDataEvent()">
+                <a href="javascript:window.print()" class="btn btn-gold btn-rounded"><i class="bx bx-printer"></i></a>
+
+                <!-- <button class="btn btn-gold btn-rounded" (click)="printDataEvent()">
                   <i class="bx bx-printer"></i> 
-                </button>
+                </button> -->
               </div>
         
               <!-- Download Button -->
@@ -150,6 +152,14 @@
       </ng-template>
     </tbody>
   </table>
+  <div class="dataTables_length" id="tickets-table_length"><label class="d-inline-flex align-items-center">Show
+    <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize" [(ngModel)]="pageSize" class="form-control form-control-sm mx-2">
+      <option [ngValue]="10">10</option>
+      <option [ngValue]="20">20</option>
+      <option [ngValue]="30">30</option>
+      <option [ngValue]="50">50</option>
+    </select> entries</label>
+  </div>
 </div>
 </div>
 </div>
@@ -159,7 +169,7 @@
 <div *ngIf="filteredArray.length > 0" class="row">
   <div class="col-lg-12">
     <ul class="pagination pagination-rounded justify-content-center mt-4">
-      <pagination class="pagination-wrap hstack gap-2" [totalItems]="20" [itemsPerPage]="10" (pageChanged)="pageChangedEvent($event)"></pagination>
+      <pagination class="pagination-wrap hstack gap-2" [totalItems]="10" [itemsPerPage]="10" (pageChanged)="pageChangedEvent($event)"></pagination>
     </ul>
   </div>
 </div>

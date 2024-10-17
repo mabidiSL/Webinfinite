@@ -177,7 +177,7 @@ export const MENU: MenuItem[] = [
         id: 24,
         label: 'MENUITEMS.GIFTS.TEXT',
         icon: 'bx bxs-gift',
-        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Gifts, claimValue: [Permission.ViewAll]}],
+        claims: [{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.GiftCards, claimValue: [Permission.ViewAll]}],
         link:'/pages/coming-soon',
     },
     {

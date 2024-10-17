@@ -160,7 +160,7 @@
      
     },
     "GIFTS":{
-      "TEXT": "Gifts"
+      "TEXT": "Gifts Cards"
     },
    "MARKETINGMANAGEMENT":{
       "TEXT": "Marketing Management"
@@ -340,7 +340,7 @@
       "TEXT":"Company Subscriptions"
     },
     "PREPRINTEDMEMBERSHIP":{
-      "TEXT": "Pre-Printed MemberShips"
+      "TEXT": "Pre-Printed Memberships"
     },
     "SALESANDREPORTS": {
       "TEXT": "Sales & Reports",
@@ -542,7 +542,9 @@
   "Country_flag": "Flag",
   "Add_country": "Add Country",
   "update_country": "Update Country",
-  "Areas_List":"Areas List",
+  "Edit_country_details": "Edit Country Details",
+  "area": "Country Areas",
+  "Areas_List":"Country Area List",
   "New_Area": "New Area",
   "Area_Name": "Name",
   "Area_Name_Trans": " Area Translated Name",
