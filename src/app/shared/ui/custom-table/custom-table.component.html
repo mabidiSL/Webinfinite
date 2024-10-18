@@ -76,7 +76,7 @@
             </td>
             <ng-container *ngFor="let column of columns">
               <td>
-                <ng-container *ngIf="column.property !== 'status' && column.property !== 'user.status'; else status">
+                <ng-container *ngIf="column.property !== 'status' && column.property !== 'user.status'; else  status">
                   <!-- Check if column.property is 'flag' -->
                   <ng-container *ngIf="column.property === 'flag'; else showData">
                     <div>
@@ -97,7 +97,7 @@
                 </ng-container>
               
                 <!-- Status Display -->
-                <ng-template #status>
+                <ng-template #status >
                   <ng-container *ngIf="getProperty(data, column.property) === 'delivered' || getProperty(data, column.property) === 'undelivered'; else statusSwitch">
                     <span class="badge"
                           [ngClass]="{
@@ -108,7 +108,8 @@
                     </span>
                   </ng-container>
               
-                  <ng-template #statusSwitch>
+                  <ng-template #statusSwitch  >
+                   
                     <ui-switch
                       color="##343a40"
                       [checked]="getProperty(data, column.property) === checkedStatus.status"
@@ -118,27 +119,48 @@
                       class="me-1"
                       (changeEvent)="onChangeEventEmit(data, $event)">
                     </ui-switch>
+                    
                   </ng-template>
                 </ng-template>
               </td>
               
             </ng-container>
-            
-            
+            <ng-container *ngIf="!approveAction; else pendingActions" >       
             <td>
-                 <ul class="list-unstyled hstack gap-1 mb-0">
-                    <!-- <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'View'|translate}}">
-                      <a href="javascript:void(0);" class="btn btn-sm btn-soft-primary" *hasClaim="viewButtonPermission" (click)="view(data.id)"><i class="mdi mdi-eye-outline"></i></a>
-                    </li> -->
-                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Edit'|translate}}">
-                      <a [routerLink]="[editButtonLink, data.id]" class="btn btn-sm btn-soft-info" *hasClaim="editButtonPermission" ><i class="mdi mdi-pencil-outline"></i></a>
+              <ul class="list-unstyled hstack gap-1 mb-0">
+                 <!-- <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'View'|translate}}">
+                   <a href="javascript:void(0);" class="btn btn-sm btn-soft-primary" *hasClaim="viewButtonPermission" (click)="view(data.id)"><i class="mdi mdi-eye-outline"></i></a>
+                 </li> -->
+                 <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Edit'|translate}}">
+                   <a [routerLink]="[editButtonLink, data.id]" class="btn btn-sm btn-soft-info" *hasClaim="editButtonPermission" ><i class="mdi mdi-pencil-outline"></i></a>
+ 
+                 </li>
+                 <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Delete'| translate}}">
+                   <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" *hasClaim="deleteButtonPermission" (click)="deleteData(data.id)"><i class="mdi mdi-delete-outline"></i></a>
+                 </li>
+               </ul>
+           </td>
+           </ng-container>
+            <ng-template #pendingActions>
+            <td>
+              <button 
+                  type="button"
+                  class="btn btn-success me-2"
+                  *hasClaim="approveButtonPermission"
+                  (click)="UpdateItem(data, 'approve')">
+                  {{'Approve' | translate}}
+              </button>
+              <button 
+                  type="button"
+                  class="btn btn-danger"
+                  *hasClaim="declineButtonPermission"
+                  (click)="UpdateItem(data, 'decline')">
+                  {{'Decline' | translate}}
+              </button>
+            </td>
+            </ng-template>
     
-                    </li>
-                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'Delete'| translate}}">
-                      <a href="javascript:void(0);" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" *hasClaim="deleteButtonPermission" (click)="deleteData(data.id)"><i class="mdi mdi-delete-outline"></i></a>
-                    </li>
-                  </ul>
-                </td>
+            
           </tr>
         </ng-container>
       </ng-container>

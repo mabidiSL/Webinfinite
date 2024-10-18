@@ -1,32 +1,26 @@
-
-
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-
-
 import { Store } from '@ngrx/store';
-
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-
-
 import { ToastrService } from 'ngx-toastr';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
-import { selectApprovalData, selectData } from 'src/app/store/coupon/coupon-selector';
-import { fetchCouponlistData, updateCouponlist } from 'src/app/store/coupon/coupon.action';
+import { selectData } from 'src/app/store/store/store-selector';
+import { fetchStorelistData, updateStorelist } from 'src/app/store/store/store.action';
+
 
 
 @Component({
-  selector: 'app-coupon-approval',
-  templateUrl: './coupon-approval.component.html',
-  styleUrl: './coupon-approval.component.css'
+  selector: 'app-approve-store',
+  templateUrl: './approve-store.component.html',
+  styleUrl: './approve-store.component.css'
 })
-export class CouponApprovalComponent implements OnInit {
+export class ApproveStoreComponent {
 // bread crumb items
 breadCrumbItems: Array<{}>;
 public Modules = Modules;
 public Permission = Permission;
 
-couponApprovalList$: Observable<any[]>;
+storeApprovalList$: Observable<any[]>;
 isDropdownOpen : boolean = false;
 filteredArray: any[] = [];
 originalArray: any[] = [];
@@ -39,20 +33,17 @@ columns : any[]= [
   { property: 'merchant.merchantName', label: 'Merchant_Name' },
   { property: 'createdAt', label: 'Request_Date' },
   { property: 'status', label: 'Status' },
-
-
 ];
   constructor(public toastr:ToastrService,  public store: Store) {
    
-    this.couponApprovalList$ = this.store.select(selectApprovalData);
+    this.storeApprovalList$ = this.store.select(selectData);
   }
 
   ngOnInit() {
   
      
       setTimeout(() => {
-        this.store.dispatch(fetchCouponlistData({ page: 1, itemsPerPage: 10, status:'pending' }));
-        
+        this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10, status: 'pending' }));
         document.getElementById('elmLoader')?.classList.add('d-none')
       }, 1200);
     }
@@ -61,19 +52,13 @@ columns : any[]= [
    // pagechanged
    onPageChanged(event: PageChangedEvent): void {
     this.currentPage = event.page;
-    this.store.dispatch(fetchCouponlistData({ page: this.currentPage, itemsPerPage: this.itemPerPage, status:'pending' }));
+    this.store.dispatch(fetchStorelistData({ page: this.currentPage, itemsPerPage: this.itemPerPage, status:'pending' }));
     
   }
 
   onApproveEvent( event: any) {
-    console.log('Coupon ID:', event.id, 'New Status:', event.status);
-    this.store.dispatch(updateCouponlist({ updatedData: event }));
+    console.log('Store ID:', event.id, 'New Status:', event.status);
+    this.store.dispatch(updateStorelist({ updatedData: event }));
   }
 
-
- 
-
 }
- 
-
- 
