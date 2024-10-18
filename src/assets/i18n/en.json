@@ -179,7 +179,10 @@
       "TEXT": "System Administration"
     },  
     "STORES":{
-      "TEXT": "Merchant Branches"
+      "TEXT": "Approved Stores"
+    },
+    "PENDINGSTORES":{
+      "TEXT": "Pending Stores"
     },
     "INVOICES":{
       "TEXT":"Invoices"
