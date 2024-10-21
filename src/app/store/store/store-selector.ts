@@ -8,6 +8,10 @@ export const selectData = createSelector(
   selectDataState,
   (state: StorelistState) => state?.StoreListdata || []
 );
+export const selectDataTotalPages = createSelector(
+  selectDataState,
+  (state: StorelistState) => state?.totalPages || 0
+);
 export const selectStoreById = (StoreId: string) =>createSelector(
   selectDataState,
   (state: StorelistState) =>  state?.StoreListdata.find(Store => Store.id === +StoreId)

@@ -31,6 +31,8 @@ export class CustomTableComponent  {
   @Input() declineButtonPermission?: any[];
 
   @Input() ArrayData: any[] = [];
+  @Input() totalPages: number ;
+
   searchTerm : string = '';
   pageSize : number = 10;
   approveAction : boolean = false;
