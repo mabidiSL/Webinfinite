@@ -44,7 +44,7 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit() {
           
-        this.store.dispatch(fetchEmployeelistData({ page: this.currentPage, itemsPerPage: this.itemPerPage}));
+        this.store.dispatch(fetchEmployeelistData({ page: this.currentPage, itemsPerPage: this.itemPerPage, role:4}));
         this.EmployeeList$.subscribe(data => {
         this.originalArray = data; // Employee the full Employee list
         this.filteredArray = [...this.originalArray];

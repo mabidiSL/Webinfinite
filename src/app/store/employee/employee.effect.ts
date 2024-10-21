@@ -18,8 +18,8 @@ export class EmployeeslistEffects {
         this.actions$.pipe(
             ofType(fetchEmployeelistData),
             tap(() => console.log('Request to fetch Employee list has been launched')), // Add console log here
-            mergeMap(() =>
-                this.CrudService.fetchData('/users', { limit: '10', page: '1'}).pipe(
+            mergeMap(({ page, itemsPerPage, role }) =>
+                this.CrudService.fetchData('/users', { limit: page, page:itemsPerPage, role: role}).pipe(
                     tap((response : any) => console.log('Fetched data:', response.result)), 
                     map((response) => fetchEmployeelistSuccess({ EmployeeListdata : response.result })),
                     catchError((error) =>
