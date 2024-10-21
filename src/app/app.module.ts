@@ -62,6 +62,7 @@ import { NotificationsEffects } from './store/notification/notification.effect';
 import { NotificationsModule } from './pages/notifications/notifications.module';
 import { RolesEffects } from './store/Role/role.effects';
 import { SectionEffects } from './store/section/section.effect';
+import { GiftCardsEffects } from './store/giftCard/giftCard.effect';
 
 
 
@@ -132,7 +133,8 @@ export function createTranslateLoader(http: HttpClient): any {
       CityEffects,
       NotificationsEffects,
       RolesEffects,
-      SectionEffects
+      SectionEffects,
+      GiftCardsEffects
       
     ]),
   ],

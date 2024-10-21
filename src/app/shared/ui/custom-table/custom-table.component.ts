@@ -17,18 +17,18 @@ export class CustomTableComponent  {
   @Input() pageTitle?: string;
   @Input() addButtonLink?: string;
   @Input() addButtonLabel?: string;
-  @Input() addButtonPermission?: string;
+  @Input() addButtonPermission?: any[];
   @Input() columns: any[];
 
   @Input() viewButtonLink?: string;
-  @Input() viewButtonPermission?: string;
+  @Input() viewButtonPermission?: any[];
 
   @Input() editButtonLink?: string;
-  @Input() editButtonPermission?: string;
-  @Input() deleteButtonPermission?: string;
+  @Input() editButtonPermission?: any[];
+  @Input() deleteButtonPermission?: any[];
 
-  @Input() approveButtonPermission?: string;
-  @Input() declineButtonPermission?: string;
+  @Input() approveButtonPermission?: any[];
+  @Input() declineButtonPermission?: any[];
 
   @Input() ArrayData: any[] = [];
   searchTerm : string = '';

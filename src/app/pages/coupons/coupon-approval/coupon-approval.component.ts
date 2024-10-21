@@ -45,6 +45,8 @@ columns : any[]= [
   constructor(public toastr:ToastrService,  public store: Store) {
    
     this.couponApprovalList$ = this.store.select(selectApprovalData);
+    this.couponApprovalList$.subscribe(
+      data => this.originalArray = data );
   }
 
   ngOnInit() {
@@ -52,7 +54,6 @@ columns : any[]= [
      
       setTimeout(() => {
         this.store.dispatch(fetchCouponlistData({ page: 1, itemsPerPage: 10, status:'pending' }));
-        
         document.getElementById('elmLoader')?.classList.add('d-none')
       }, 1200);
     }

@@ -160,7 +160,10 @@
      
     },
     "GIFTS":{
-      "TEXT": "Gifts Cards"
+      "TEXT": "Approved Gifts Cards"
+    },
+    "PENDINGGIFTS":{
+      "TEXT": "Pending Gifts Cards"
     },
    "MARKETINGMANAGEMENT":{
       "TEXT": "Marketing Management"

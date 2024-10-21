@@ -3,8 +3,14 @@
     <app-page-title title="{{'Pending_coupons'| translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
     <app-custom-table
       [columns]="columns"
-      [approveButtonPermission] = "[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Approve]}]"
-      [declineButtonPermission] = "[{claimType: Modules.All, claimValue: [Permission.All]},{claimType: Modules.Coupons, claimValue: [Permission.Decline]}]"
+      [approveButtonPermission]="[
+        { claimType: Modules.All, claimValue: [Permission.All] },
+        { claimType: Modules.Coupons, claimValue: [Permission.Create] }
+        ]"
+      [declineButtonPermission]="[
+        { claimType: Modules.All, claimValue: [Permission.All] },
+        { claimType: Modules.Coupons, claimValue: [Permission.Update] }
+        ]"
       [ArrayData]="originalArray"
       (pageChanged)="onPageChanged($event)"
       (onApprove)="onApproveEvent($event)"

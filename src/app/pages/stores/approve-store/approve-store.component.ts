@@ -43,7 +43,7 @@ columns : any[]= [
   
      
       setTimeout(() => {
-        this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10, status: 'pending' }));
+        this.store.dispatch(fetchStorelistData({ page: 1, itemsPerPage: 10, status: 'pending', merchant_id:'' }));
         document.getElementById('elmLoader')?.classList.add('d-none')
       }, 1200);
     }
@@ -52,7 +52,7 @@ columns : any[]= [
    // pagechanged
    onPageChanged(event: PageChangedEvent): void {
     this.currentPage = event.page;
-    this.store.dispatch(fetchStorelistData({ page: this.currentPage, itemsPerPage: this.itemPerPage, status:'pending' }));
+    this.store.dispatch(fetchStorelistData({ page: this.currentPage, itemsPerPage: this.itemPerPage, status:'pending', merchant_id:'' }));
     
   }
 

@@ -75,7 +75,7 @@
               </div>
             </td>
             <ng-container *ngFor="let column of columns">
-              <td>
+                <td>
                 <ng-container *ngIf="column.property !== 'status' && column.property !== 'user.status'; else  status">
                   <!-- Check if column.property is 'flag' -->
                   <ng-container *ngIf="column.property === 'flag'; else showData">
@@ -98,18 +98,19 @@
               
                 <!-- Status Display -->
                 <ng-template #status >
-                  <ng-container *ngIf="getProperty(data, column.property) === 'delivered' || getProperty(data, column.property) === 'undelivered'; else statusSwitch">
+               
+                  <ng-container *ngIf="getProperty(data, 'status') === 'pending' || getProperty(data, column.property) === 'delivered' || getProperty(data, column.property) === 'undelivered'; else statusSwitch">
                     <span class="badge"
                           [ngClass]="{
                             'bg-success': getProperty(data, column.property) === 'delivered',
-                            'bg-warning': getProperty(data, column.property) === 'undelivered'
+                            'bg-warning': getProperty(data, column.property) === 'pending',
+                            'bg-danger': getProperty(data, column.property) === 'undelivered'
                           }">
                       {{ getProperty(data, column.property) }}
                     </span>
                   </ng-container>
               
                   <ng-template #statusSwitch  >
-                   
                     <ui-switch
                       color="##343a40"
                       [checked]="getProperty(data, column.property) === checkedStatus.status"
@@ -121,11 +122,11 @@
                     </ui-switch>
                     
                   </ng-template>
+                 
                 </ng-template>
               </td>
-              
             </ng-container>
-            <ng-container *ngIf="!approveAction; else pendingActions" >       
+            <ng-container *ngIf="!approveAction; else pendingActions" >        
             <td>
               <ul class="list-unstyled hstack gap-1 mb-0">
                  <!-- <li data-bs-toggle="tooltip" data-bs-placement="top" title="{{'View'|translate}}">
@@ -144,16 +145,16 @@
             <ng-template #pendingActions>
             <td>
               <button 
+                  *hasClaim="approveButtonPermission"
                   type="button"
                   class="btn btn-success me-2"
-                  *hasClaim="approveButtonPermission"
                   (click)="UpdateItem(data, 'approve')">
                   {{'Approve' | translate}}
               </button>
               <button 
+                  *hasClaim="declineButtonPermission"
                   type="button"
                   class="btn btn-danger"
-                  *hasClaim="declineButtonPermission"
                   (click)="UpdateItem(data, 'decline')">
                   {{'Decline' | translate}}
               </button>
