@@ -36,8 +36,8 @@ export class GiftCardsEffects {
             tap(() => console.log('Request to fetch GiftCard list has been launched')), // Add console log here
             mergeMap(({ page, itemsPerPage, status }) =>
                 this.CrudService.fetchData('/gift-cards',{ limit: itemsPerPage, page: page, status: status}).pipe(
-                    tap((response : any) => console.log('Fetched data:', response.result.data)), 
-                    map((response) => fetchGiftCardlistSuccess({ GiftCardListdata : response.result.data })),
+                    tap((response : any) => console.log('Fetched data:', response.result)), 
+                    map((response) => fetchGiftCardlistSuccess({ GiftCardListdata : response.result })),
                     catchError((error) =>
                         of(fetchGiftCardlistFail({ error }))
                     )

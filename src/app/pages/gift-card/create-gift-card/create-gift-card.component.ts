@@ -11,6 +11,6 @@ export class CreateGiftCardComponent {
 
  ngOnInit() {
    console.log('i am in create gift cards');
-   this.breadCrumbItems = [{ label: 'Gift-cards' }, { label: 'Add Gift-Card', active: true }];
+   this.breadCrumbItems = [{ label: 'Gift Cards' }, { label: 'Add Gift-Card', active: true }];
 }
 }

@@ -8,9 +8,9 @@ export const selectData = createSelector(
   selectDataState,
   (state: StorelistState) => state?.StoreListdata || []
 );
-export const selectDataTotalPages = createSelector(
+export const selectDataTotalItems = createSelector(
   selectDataState,
-  (state: StorelistState) => state?.totalPages || 0
+  (state: StorelistState) => state?.totalItems || 0
 );
 export const selectStoreById = (StoreId: string) =>createSelector(
   selectDataState,

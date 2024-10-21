@@ -5,7 +5,7 @@ import {  addStorelistSuccess, deleteStorelistFailure, deleteStorelistSuccess, f
 export interface StorelistState {
   StoreListdata: any[];
   currentPage: number;
-  totalPages: number;
+  totalItems: number;
   selectedStore: any,
   loading: boolean;
   error: any;
@@ -14,7 +14,7 @@ export interface StorelistState {
 export const initialState: StorelistState = {
   StoreListdata: [],
   currentPage: 1,
-  totalPages: 0,
+  totalItems: 0,
   selectedStore: null,
   loading: false,
   error: null,
@@ -31,7 +31,7 @@ export const StoreListReducer = createReducer(
   on(fetchStorelistSuccess, (state, { StoreListdata }) => ({
     ...state,
     StoreListdata: StoreListdata.data,
-    totalPages: StoreListdata.totalPages,
+    totalItems: StoreListdata.totalItems,
     loading: false
   })),
   on(fetchStorelistFail, (state, { error }) => ({

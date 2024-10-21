@@ -8,7 +8,10 @@ export const selectDataGiftCard = createSelector(
   selectDataState,
   (state: GiftCardlistState) => state?.GiftCardListdata || []
 );
-
+export const selectDataTotalItems = createSelector(
+  selectDataState,
+  (state: GiftCardlistState) => state?.totalItems || 0
+);
 export const selectGiftCardById = (GiftCardId: string) =>createSelector(
   selectDataState,
   (state: GiftCardlistState) =>  state?.GiftCardListdata.find(GiftCard => GiftCard.id === +GiftCardId)

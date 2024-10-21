@@ -31,7 +31,7 @@ export class CustomTableComponent  {
   @Input() declineButtonPermission?: any[];
 
   @Input() ArrayData: any[] = [];
-  @Input() totalPages: number ;
+  @Input() totalItems: number ;
 
   searchTerm : string = '';
   pageSize : number = 10;
@@ -47,6 +47,8 @@ export class CustomTableComponent  {
   @Output() printData = new EventEmitter();
   @Output() downloadData = new EventEmitter();
   @Output() onChangeEvent = new EventEmitter();
+  @Output() onPageSizeChanged = new EventEmitter();
+
   @Output() onDelete? = new EventEmitter();
   @Output() onApprove? = new EventEmitter();
 
@@ -97,7 +99,9 @@ export class CustomTableComponent  {
   return value;
     
   }
-  
+  onPageSizeChange(event: any){
+    this.onPageSizeChanged.emit(event);
+  }
   pageChangedEvent(event: any) {
     this.pageChanged.emit(event);
   }

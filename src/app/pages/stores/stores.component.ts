@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
 import { deleteStorelist, fetchStorelistData, updateStorelist } from 'src/app/store/store/store.action';
-import { selectData, selectDataTotalPages } from 'src/app/store/store/store-selector';
+import { selectData, selectDataTotalItems } from 'src/app/store/store/store-selector';
 
 /**
  * Stores component
@@ -23,7 +23,7 @@ export class StoresComponent implements OnInit {
   public Permission = Permission;
 
   storeList$: Observable<any[]>;
-  totalPage$: Observable<number>;
+  totalItems$: Observable<number>;
   isDropdownOpen : boolean = false;
   filteredArray: any[] = [];
   originalArray: any[] = [];
@@ -43,7 +43,7 @@ export class StoresComponent implements OnInit {
       
       this.storeList$ = this.store.pipe(select(selectData)); // Observing the Store list from store
       //Observing total Pages
-      this.totalPage$ = this.store.pipe(select(selectDataTotalPages));
+      this.totalItems$ = this.store.pipe(select(selectDataTotalItems));
   }
 
   ngOnInit() {
@@ -62,7 +62,10 @@ export class StoresComponent implements OnInit {
     //this.store.dispatch(fetchStorelistData({ page: this.currentPage, itemsPerPage: this.itemPerPage,query: event.target.value }));
 
    }
- 
+   onPageSizeChanged(event: any): void {
+    const totalItems =  event.target.value;
+    this.store.dispatch(fetchStorelistData({ page: this.currentPage, itemsPerPage: totalItems, status:'' , merchant_id: '' }));
+   }
   // pagechanged
   onPageChanged(event: PageChangedEvent): void {
     this.currentPage = event.page;

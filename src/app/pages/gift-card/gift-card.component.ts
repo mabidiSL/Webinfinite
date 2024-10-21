@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { selectDataGiftCard } from 'src/app/store/giftCard/giftCard-selector';
+import { selectDataGiftCard, selectDataTotalItems } from 'src/app/store/giftCard/giftCard-selector';
 import { deleteGiftCardlist, fetchGiftCardlistData, updateGiftCardlist } from 'src/app/store/giftCard/giftCard.action';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
 
@@ -21,6 +21,8 @@ export class GiftCardComponent implements OnInit {
   public Permission = Permission;
 
   giftCardList$: Observable<any[]>;
+  totalItems$: Observable<number>;
+
   isDropdownOpen : boolean = false;
   filteredArray: any[] = [];
   originalArray: any[] = [];
@@ -41,6 +43,8 @@ export class GiftCardComponent implements OnInit {
     public store: Store) {
       
       this.giftCardList$ = this.store.pipe(select(selectDataGiftCard)); 
+      this.totalItems$ = this.store.pipe(select(selectDataTotalItems));
+
 
   }
 
@@ -57,6 +61,10 @@ export class GiftCardComponent implements OnInit {
     });
        
   }
+  onPageSizeChanged(event: any): void {
+    const totalItems =  event.target.value;
+    this.store.dispatch(fetchGiftCardlistData({ page: this.currentPage, itemsPerPage: totalItems, status:'' }));
+   }
    // pagechanged
    onPageChanged(event: PageChangedEvent): void {
     this.currentPage = event.page;

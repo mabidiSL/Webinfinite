@@ -6,6 +6,7 @@ import { GiftCardListModel } from './giftCard.model';
 export interface GiftCardlistState {
   GiftCardListdata: any[];
   currentPage: number;
+  totalItems: number;
   selectedGiftCard: any;
   loading: boolean;
   error: any;
@@ -14,6 +15,7 @@ export interface GiftCardlistState {
 export const initialState: GiftCardlistState = {
   GiftCardListdata: [],
   currentPage: 1,
+  totalItems: 0,
   selectedGiftCard: null,
   loading: false,
   error: null,
@@ -29,8 +31,8 @@ export const GiftCardListReducer = createReducer(
   })),
   on(fetchGiftCardlistSuccess, (state, { GiftCardListdata }) => ({
     ...state,
-    GiftCardListdata: GiftCardListdata,
-    
+    GiftCardListdata: GiftCardListdata.data,
+    totalItems: GiftCardListdata.totalItems,
     loading: false
   })),
   on(fetchGiftCardlistFail, (state, { error }) => ({

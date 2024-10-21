@@ -3,7 +3,7 @@ import { GiftCardListModel } from './giftCard.model';
 
 // fetch all list
 export const fetchGiftCardlistData = createAction('[Data] fetch GiftCardlist',props<{ page: number; itemsPerPage: number, status?: string }>());
-export const fetchGiftCardlistSuccess = createAction('[Data] fetch GiftCardlist success', props<{ GiftCardListdata: GiftCardListModel[] }>())
+export const fetchGiftCardlistSuccess = createAction('[Data] fetch GiftCardlist success', props<{ GiftCardListdata: any }>())
 export const fetchGiftCardlistFail = createAction('[Data fetch GiftCardlist failed]', props<{ error: string }>())
 
 
