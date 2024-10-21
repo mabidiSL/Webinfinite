@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { Observable } from 'rxjs';
-import { selectData } from 'src/app/store/employee/employee-selector';
+import { selectData, selectDataTotalItems } from 'src/app/store/employee/employee-selector';
 import { deleteEmployeelist, fetchEmployeelistData, updateEmployeelist } from 'src/app/store/employee/employee.action';
 import { Modules, Permission } from 'src/app/store/Role/role.models';
 
@@ -19,6 +19,8 @@ export class EmployeesComponent implements OnInit {
   public Permission = Permission;
 
   EmployeeList$: Observable<any[]>;
+  totalItems$: Observable<number>;
+
   isDropdownOpen : boolean = false;
   filteredArray: any[] = [];
   originalArray: any[] = [];
@@ -36,6 +38,7 @@ export class EmployeesComponent implements OnInit {
   constructor(public store: Store) {
       
       this.EmployeeList$ = this.store.pipe(select(selectData)); // Observing the Employee list from Employee
+      this.totalItems$ = this.store.pipe(select(selectDataTotalItems));
 
   }
 
@@ -52,7 +55,10 @@ export class EmployeesComponent implements OnInit {
         });
    }
 
- 
+   onPageSizeChanged(event: any): void {
+    const totalItems =  event.target.value;
+    this.store.dispatch(fetchEmployeelistData({ page: this.currentPage, itemsPerPage: totalItems }));
+   }
   // pagechanged
   onPageChanged(event: PageChangedEvent): void {
     this.currentPage = event.page;
