@@ -136,7 +136,7 @@ export class FormStoreComponent implements OnInit {
             }
         })
     ).subscribe();
-     
+  }
 
     const StoreId = this.route.snapshot.params['id'];
     console.log('Store ID from snapshot:', StoreId);
@@ -174,7 +174,7 @@ export class FormStoreComponent implements OnInit {
         });
     }
    
-  }
+  
 }
   
   private formatDate(dateString: string): string {
