@@ -108,6 +108,21 @@ export class FormStoreComponent implements OnInit {
     // Append the value of the Merchant to merchant_id
     if(this.currentRole !== 'Admin'){
       this.storeForm.get('merchant_id').setValue(this.merchantId);
+      let selectMerchant =  null;
+      this.merchantlist$.subscribe(merchant=>
+        selectMerchant = merchant.find(m => m.id = this.merchantId)
+      );
+      if(selectMerchant){
+        const merchant_country_id = selectMerchant.user.city.area.country.id;
+        //this.storeForm.get('country_id').setValue(merchant.city);
+        this.arealist$.subscribe(
+          areas=> 
+            this.filteredAreas = areas.filter(a =>a.country_id == merchant_country_id )
+        );
+      }
+      else{
+        this.filteredAreas = [];
+      }
     }
 
     const StoreId = this.route.snapshot.params['id'];

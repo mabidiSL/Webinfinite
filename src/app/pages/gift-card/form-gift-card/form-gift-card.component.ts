@@ -147,6 +147,7 @@ getFileNameFromUrl(url: string): string {
       {
          
           //Dispatch Action
+          delete newData.id;
           //console.log(newData.stores);
           this.store.dispatch(addGiftCardlist({ newData }));
       }

@@ -64,7 +64,7 @@ export class FormCouponComponent implements OnInit{
         }
       }});
 
-    this.store.dispatch(fetchMerchantlistData({ page: 1, itemsPerPage: 10 , status: 'active'})); 
+      this.store.dispatch(fetchMerchantlistData({ page: 1, itemsPerPage: 10 , status: 'active'})); 
     this.formCoupon = this.formBuilder.group({
       id: [''],
       name: ['', Validators.required],
