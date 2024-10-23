@@ -96,9 +96,11 @@ export class TopbarComponent implements OnInit {
   @Output() mobileMenuButtonClicked = new EventEmitter();
 
   ngOnInit() {
+    
     this.store.dispatch(fetchMyNotificationlistData());
     this.notifications$.subscribe( (myNotif) => {
         this.notifications = myNotif;
+        console.log('my notifications');
         console.log(this.notifications);
     });
     // this.initialAppState = initialState;
@@ -231,8 +233,9 @@ export class TopbarComponent implements OnInit {
       document.documentElement.setAttribute('data-layout', layout)
     })
   }
-  // ngOnDestroy(): void {
-  //   this.notificationsSubscription.unsubscribe(); // Clean up subscription
-  // }
+  ngOnDestroy(): void {
+    if (this.notificationsSubscription) {
+      this.notificationsSubscription.unsubscribe(); // Clean up subscription
+    }  }
 
 }
