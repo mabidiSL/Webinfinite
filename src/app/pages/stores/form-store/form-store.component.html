@@ -26,8 +26,7 @@
                 <div *ngIf="currentRole === 'Admin'" class="col-md-6 mb-3">
                   <div class="form-group ">
                         <label for="merchant_id" >{{'Merchant_Name' | translate}}<span class="text-danger">*</span></label>
-                        <!-- Readonly input field to display the selected city name -->
-                          <input *ngIf="type === 'view'"
+                       <input *ngIf="type === 'view'"
                           type="text" 
                           class="form-control" 
                           [value]="getMerchantName(storeForm.get('merchant_id').value)" 

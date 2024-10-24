@@ -180,7 +180,8 @@ export class FormStoreComponent implements OnInit {
   
 }
   getMerchantName(MerchantId: any){
-    return this.merchantList.find(merchant => merchant.id === MerchantId)?.merchantName ;
+    const value = this.merchantList.find(merchant => merchant.id === MerchantId)?.merchantName ;
+    return value;
   }
   getAreaName(id: any){
     return this.filteredAreas.find(area => area.id === id)?.name ;
