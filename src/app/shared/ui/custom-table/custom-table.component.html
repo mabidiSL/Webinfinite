@@ -145,6 +145,12 @@
             <ng-template #pendingActions>
             <td *ngIf="!(approveAction && isMerchant)">
               <button 
+                  type="button"
+                  class="btn btn-info me-2"
+                  [routerLink]="[viewButtonLink, data.id]">
+                  {{'View' | translate}}
+              </button>
+              <button 
                   *hasClaim="approveButtonPermission"
                   type="button"
                   class="btn btn-success me-2"

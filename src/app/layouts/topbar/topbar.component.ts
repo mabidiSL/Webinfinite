@@ -85,13 +85,7 @@ export class TopbarComponent implements OnInit {
      
   private listenForMessages() {
      this.socketService.messages$.subscribe(message => {
-    // // Update the notifications
-    //     const currentNotifications = this.notificationsSubject.value;
-    //     console.log(currentNotifications);
-    //     this.notificationsSubject.next([...currentNotifications, message]);
-    //     // Update the notification count
-    //     this.nbrNotif = this.notificationsSubject.value.length;
-    //     console.log('Total notifications:', this.nbrNotif);
+   
         if(message){
           this.fetchNotification();
         }
@@ -115,7 +109,7 @@ export class TopbarComponent implements OnInit {
   @Output() mobileMenuButtonClicked = new EventEmitter();
 
   ngOnInit() {
-    //this.fetchNotification();
+    
     
     // this.initialAppState = initialState;
     this.store.select('layout').subscribe((data) => {
