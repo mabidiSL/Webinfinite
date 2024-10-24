@@ -109,7 +109,10 @@ export class CustomTableComponent  {
      // this.searchEvent(); // Reapply search filter if there's a term
     }
   }
-
+  rowClick(id: any){
+    
+    this.router.navigate([`${this.viewButtonLink},${id}`]);
+  }
   getProperty(data: any, propertyPath: string): any {
 
     const value = propertyPath.split('.').reduce((acc, key) => acc && acc[key], data);
@@ -230,6 +233,6 @@ export class CustomTableComponent  {
   }
   navigateToView(id: number) {
     console.log(this.viewButtonLink);
-    //this.router.navigate([`${this.viewButtonLink},${id}`]);
+    //
   }
 }
